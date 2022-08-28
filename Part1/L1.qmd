@@ -425,8 +425,8 @@ Please try yourself first, or take a small peek - and try some more - before ful
 All except solution to 7.9 available.
 
 * Quadratic loss: Page 8 of <https://getd.libs.uga.edu/pdfs/ma_james_c_201412_ms.pdf> 
-* [2.3](https://github.com/mettelang/MA8701V2021/blob/main/ELSe23.pdf)
-* [2.9](https://github.com/mettelang/MA8701V2021/blob/main/ELSe29.pdf) 
+* [2.3](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe23.pdf)
+* [2.9](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe29.pdf) 
 
 # References 
 
