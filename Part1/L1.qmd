@@ -63,7 +63,7 @@ include_graphics("ELSbookcover.jpeg")
 ```
 ---
 
-## Part 1: Core concepts [2 weeks]
+## Part 1: Core concepts [3 weeks]
 
 Sort out assumed background knowledge, and learn something new
 
@@ -75,7 +75,7 @@ Sort out assumed background knowledge, and learn something new
 
 ---
 
-## Part 2: Shrinkage and regularization [4 weeks]
+## Part 2: Shrinkage and regularization [3 weeks]
 
 or "Regularized linear and generalized linear models", with focus on the ridge and lasso regression (in detail).
 
@@ -130,7 +130,7 @@ Articles on
 
 * Mainly a frequentist course, but some of the concepts and methods have a Bayesian version that might give insight into why and how the methods work. Then Bayesian methods will be used.
 * Focus is on regression and classification, and unsupervised learning is not planned to be part of the course.
-* The required previous knowlege is listed because this is a phd-course designed for statistics studnents. The background make the students go past an overview level of understanding of the course parts (move from algorithmic to deep understanding).
+* The required previous knowledge is listed because this is a phd-course designed for statistics studenets. The background make the students go past an overview level of understanding of the course parts (move from algorithmic to deep understanding).
 
 ---
 
@@ -235,10 +235,13 @@ Read to remind yourself of previous knowledge
 
 * Classification (ELS ch 4.1-4.5, except 4.4.4)
 
-### L2-L4: Then, cover new aspects for 
+### L3-4: Then, cover new aspects for 
 
 * Model selection and assessment (ELS Ch 7.1-7.6, 7.10-7.12), including statistical learning and the bias-variance trade-off (ELS ch 2)
-* How to handle missing data in data analyses (ELS 9.6)
+
+### L5-6
+
+* How to handle missing data in data analyses (ELS 9.6), and chapters from the Van Buuren (2018): Flexible Imputation of Missing Data.
 
 ---
 
@@ -279,6 +282,19 @@ $$\text{E}[L(Y,f(X))]=\text{E}_{X,Y}[L(Y,f(X))]=\text{E}_{X}\text{E}_{Y \mid X}[
 where $L$ is a loss function (to be defined next) and $f(X)$ some function to predict $Y$ (or $G$).
 
 ---
+
+### Random vectors
+
+**Resources**
+
+* From TMA4268: [Module 2 - Random vectors](https://www.math.ntnu.no/emner/TMA4268/2019v/3LinReg/3LinReg.html)
+* From TMA4268: [Module 2 - Random vectors](https://www.math.ntnu.no/emner/TMA4268/2019v/3LinReg/3LinReg.html)
+
+* From TMA4315: [Overview](https://www.math.ntnu.no/emner/TMA4315/2018h/TMA4315overviewH2018.html) and in particular [Module 2: MLR](https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html)
+
+For $k$NN see also Problem 1 of the [TMA4268 2018 exam](https://www.math.ntnu.no/emner/TMA4268/Exam/V2018e.pdf) with [solutions](https://www.math.ntnu.no/emner/TMA4268/Exam/e2018sol.pdf)
+
+
 
 ## Training set
 (ELS 2.1)

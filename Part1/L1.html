@@ -124,7 +124,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#core-concepts" id="toc-core-concepts" class="nav-link" data-scroll-target="#core-concepts">Core concepts</a>
   <ul class="collapse">
-  <li><a href="#plan" id="toc-plan" class="nav-link" data-scroll-target="#plan">Plan</a></li>
   <li><a href="#notation" id="toc-notation" class="nav-link" data-scroll-target="#notation">Notation</a></li>
   <li><a href="#training-set" id="toc-training-set" class="nav-link" data-scroll-target="#training-set">Training set</a></li>
   <li><a href="#group-discussion" id="toc-group-discussion" class="nav-link" data-scroll-target="#group-discussion">Group discussion</a></li>
@@ -179,21 +178,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 <hr>
+<!--- ![ELS](ELSbookcover.jpeg){fig-align="left"}--->
 <section id="course-topics" class="level1">
 <h1>Course topics</h1>
-<div class="cell" data-layout-align="left">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><img src="ELSbookcover.jpeg" class="img-fluid figure-img" style="width:20.0%"></p>
-</figure>
-</div>
-</div>
-</div>
 <p>The starting point is that we cover important parts of</p>
 <p>The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman.</p>
 <p>but, since the book is from 2009 (2nd edition, 12th corrected printing from 2017) this means that for many topic we need (to be up to date) additional selected material in the form of book chapters and research articles.</p>
 <p>Download book at <a href="https://hastie.su.domains/ElemStatLearn/download.html" class="uri">https://hastie.su.domains/ElemStatLearn/download.html</a> (this is 12th corrected printing) or signed in at NTNU vpn at <a href="https://link.springer.com/book/10.1007/978-0-387-84858-7">Springer</a> (but I am not sure if this is an earlier print without the version 12 corrections).</p>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="ELSbookcover.jpeg" class="img-fluid"></p>
+</div>
+</div>
 <hr>
 <section id="part-1-core-concepts-2-weeks" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-core-concepts-2-weeks">Part 1: Core concepts [2 weeks]</h2>
@@ -341,8 +338,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="core-concepts" class="level1">
 <h1>Core concepts</h1>
 <p>(finally - we start on the fun stuff!)</p>
-<section id="plan" class="level2">
-<h2 class="anchored" data-anchor-id="plan">Plan</h2>
 <section id="l1" class="level3">
 <h3 class="anchored" data-anchor-id="l1">L1:</h3>
 <ul>
@@ -369,7 +364,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <hr>
 </section>
-</section>
 <section id="notation" class="level2">
 <h2 class="anchored" data-anchor-id="notation">Notation</h2>
 <p>(mainly from ELS)</p>
@@ -389,8 +383,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We aim to construct a rule, function, learner: <span class="math inline">\(f(X)\)</span>, to predict <span class="math inline">\(Y\)</span> (or <span class="math inline">\(G\)</span>).</p>
 <hr>
 <p>Random variables and (column) vectors are written as uppercase letters <span class="math inline">\(X\)</span>, and <span class="math inline">\(Y\)</span>, while observed values are written with lowercase <span class="math inline">\((x,y)\)</span>. (Dimensions specified if needed.)</p>
-<p>Matrices are presented with bold face: <span class="math inline">\({\bf X}\)</span>, often <span class="math inline">\(N \times (p+1)\)</span>.</p>
-<p>ELS uses boldface also for <span class="math inline">\({\bf x}_j\)</span> being a vector of all <span class="math inline">\(N\)</span> observations of variable <span class="math inline">\(j\)</span>, but the vector of observed variables for observation <span class="math inline">\(i\)</span> is just <span class="math inline">\(x_i\)</span>.</p>
+<p>Matrices are presented with bold face: <span class="math inline">\(\boldsymbol{X}\)</span>, often <span class="math inline">\(N \times (p+1)\)</span>.</p>
+<p>ELS uses boldface also for <span class="math inline">\(\boldmath {x_j}\)</span> being a vector of all <span class="math inline">\(N\)</span> observations of variable <span class="math inline">\(j\)</span>, but the vector of observed variables for observation <span class="math inline">\(i\)</span> is just <span class="math inline">\(x_i\)</span>.</p>
 <hr>
 <p>Both the response <em>and covariates</em> will be considered to be random, and drawn from some joint distribution <span class="math inline">\(P(X_1,X_2,\ldots, X_p,Y)=P(X,Y)\)</span> or <span class="math inline">\(P(X,G)\)</span>.</p>
 <p>Conditional distribution: <span class="math inline">\(P(X,Y)=P(Y \mid X)P(X)\)</span> or <span class="math inline">\(P(Y\mid X=x)P(X=x)\)</span></p>
@@ -514,8 +508,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>All except solution to 7.9 available.</p>
 <ul>
 <li>Quadratic loss: Page 8 of <a href="https://getd.libs.uga.edu/pdfs/ma_james_c_201412_ms.pdf" class="uri">https://getd.libs.uga.edu/pdfs/ma_james_c_201412_ms.pdf</a></li>
-<li><a href="https://github.com/mettelang/MA8701V2021/blob/main/ELSe23.pdf">2.3</a></li>
-<li><a href="https://github.com/mettelang/MA8701V2021/blob/main/ELSe29.pdf">2.9</a></li>
+<li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe23.pdf">2.3</a></li>
+<li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe29.pdf">2.9</a></li>
 </ul>
 </section>
 <section id="references" class="level1">
