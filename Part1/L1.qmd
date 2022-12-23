@@ -50,7 +50,7 @@ The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Se
 
 but, since the book is from 2009 (2nd edition, 12th corrected printing from 2017) this means that for many topic we need (to be up to date) additional selected material in the form of book chapters and research articles.
 
-Download book at <https://hastie.su.domains/ElemStatLearn/download.html> (this is 12th corrected printing) or signed in at NTNU vpn at [Springer](https://link.springer.com/book/10.1007/978-0-387-84858-7) (but I am not sure if this is an earlier print without the version 12 corrections).
+Download book at <https://hastie.su.domains/ElemStatLearn/download.html> (this is 12th corrected printing) or sign in at NTNU vpn at [Springer](https://link.springer.com/book/10.1007/978-0-387-84858-7) (but I am not sure if this is an earlier print without the version 12 corrections).
 
 ---
 
@@ -71,7 +71,7 @@ Sort out assumed background knowledge, and learn something new
 * Repetition of core concepts (regression and classification)
 * Statistical decision theoretic framework (partly new) ELS 2.4
 * Model selection and model assessment - including bias-variance trade-off (mostly new) ELS 7
-* Missing data ELS 9.6
+* Missing data ELS 9.6, Handbook of Missing data (parts of Chapters 11-12, partly 13) and Flexible Imputation of Missing Data (parts of Chapters 2-4)
 
 ---
 
@@ -80,7 +80,7 @@ Sort out assumed background knowledge, and learn something new
 or "Regularized linear and generalized linear models", with focus on the ridge and lasso regression (in detail).
 
 * ELS 3.2.3,3.4, 3.8, 4.4.4.
-* Hastie, Tibshirani, Wainwright (HTW): "Statistical Learning with Sparsity: The Lasso and Generalizations". Selected sections from chapters 1,2,3,4,6.
+* Hastie, Tibshirani, Wainwright (HTW): "Statistical Learning with Sparsity: The Lasso and Generalizations". Selected sections from Chapters 1,2,3,4,6.
 * Selective inference (articles)
 
 ---
@@ -92,7 +92,7 @@ or "Regularized linear and generalized linear models", with focus on the ridge a
 * general ensembles (including super learner)
 * hyper-parameter tuning
 
-Selected chapters in ELS (8.7, 8.8, 9.2, parts of 10, 15, 16) and several articles.
+Selected Chapters in ELS (8.7, 8.8, 9.2, parts of 10, 15, 16) and several articles.
 
 ---
 
@@ -108,12 +108,12 @@ Articles on
 * relative weights and 
 * counterfactuals.
 
-## Part 5: Closing [2 weekw]
+## Part 5: Closing [2 weeks]
 
 ---
 
 
-## Required previous knowledge
+## "Required" previous knowledge
 
 * TMA4267 Linear statistical methods
 * TMA4268 Statistical learning
@@ -121,8 +121,8 @@ Articles on
 * TMA4300 Computer intensive statistical methods
 * TMA4315 Generalized linear models
 * Good understanding and experience with R, or with Python, for statistical data analysis.
-* Knowledge of markdown for writing reports and presentations (Rmarkdown/Quarto, Jupyther)
-* Skills in group work - possibly using git
+* Knowledge of markdown for writing reports and presentations (Rmarkdown/Quarto, Jupyther).
+* Skills in group work - possibly using git or other collaborative tools.
 
 ---
 
@@ -182,6 +182,8 @@ Course wiki at <https://wiki.math.ntnu.no/ma8701/2023v/start>
 * Compulsory work
 * Final individual oral exam in May 
 
+The learning material is also available at <https://github.com/mettelang/MA8701V2023>.
+
 ---
 
 **Questions?**
@@ -218,36 +220,37 @@ snake: writing compound words where the elements are separated with one undersco
 
 ---
 
-# Core concepts
+# Tentative plan for part 1
+(progress may be faster or slower than indicated)
 
-(finally - we start on the fun stuff!)
+## L1: notation, regression and statistical theoretic framework
 
-### L1:
+* Notation (ELS Ch 2.2)
+* Regression - should not be new (ELS Ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)
+* Statistical decision theoretic framework for regression (ELS 2.4)
 
-* Notation
-* Remind about assumed background knowledge (already known), 
-    + Regression (ELS ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)
-* Statistical decision theoretic framework (partly new: ELS 2.4)
+## L2: continue with the same framework but for classification
 
-### L2: continue with the same framework but for classification
-
-Read to remind yourself of previous knowledge
-
-* Classification (ELS ch 4.1-4.5, except 4.4.4)
-
-### L3-4: Then, cover new aspects for 
-
-* Model selection and assessment (ELS Ch 7.1-7.6, 7.10-7.12), including statistical learning and the bias-variance trade-off (ELS ch 2)
-
-### L5-6
-
-* How to handle missing data in data analyses (ELS 9.6), and chapters from the Van Buuren (2018): Flexible Imputation of Missing Data.
+* Classification - should not be new (ELS Ch 4.1-4.5, except 4.4.4)
+* Statistical decision theoretic framework for classification (ELS 2.4)
 
 ---
 
+## W2: L3-4: Then, cover new aspects for 
+
+* Model selection and assessment (ELS Ch 7.1-7.6, 7.10-7.12), including statistical learning and the bias-variance trade-off (ELS Ch 2).
+
+## W3: L5-6
+
+* How to handle missing data in data analyses (ELS 9.6), Handbook of Missing Data (Chapters 11-12-partly 13) and part of Chapters 2-4 from the Van Buuren (2018): Flexible Imputation of Missing Data.
+
+---
+
+# Core concepts
+
 ## Notation
 
-(mainly from ELS)
+(mainly from ELS 2.2)
 
 We will only consider supervised methods.
 
@@ -264,46 +267,43 @@ We aim to construct a rule, function, learner: $f(X)$, to predict $Y$ (or $G$).
 
 Random variables and (column) vectors are written as uppercase letters $X$, and $Y$, while observed values are written with lowercase $(x,y)$. (Dimensions specified if needed.)
 
-Matrices are presented with bold face: $\boldsymbol{X}$, often $N \times (p+1)$. 
+Matrices are presented with uppercase boldface: $\boldsymbol{X}$, often $N \times (p+1)$. 
 
-ELS uses boldface also for $\boldmath {x_j}$ being a vector of all $N$ observations of variable $j$, but the vector of observed variables for observation $i$ is just $x_i$.
+ELS uses boldface also for $\boldsymbol{x}_j$ being a vector of all $N$ observations of variable $j$, but in general vectors are not boldface and the vector of observed variables for observation $i$ is just $x_i$.
 
 ---
 
+## Random variables and random vectors
 
 Both the response _and covariates_ will be considered to be random, and drawn from some joint distribution
 $P(X_1,X_2,\ldots, X_p,Y)=P(X,Y)$ or $P(X,G)$.
 
-Conditional distribution: $P(X,Y)=P(Y \mid X)P(X)$ or $P(Y\mid X=x)P(X=x)$
+Joint to conditional and marginal distribution: 
+$P(X,Y)=P(Y \mid X)P(X)$ or $P(Y\mid X=x)P(X=x)$ or 
 
-and double expectation is often used
+$$P(Y=y ,X=x)=P(Y=y\mid X=x)P(X=x)$$
 
-$$\text{E}[L(Y,f(X))]=\text{E}_{X,Y}[L(Y,f(X))]=\text{E}_{X}\text{E}_{Y \mid X}[L(Y,f(X))]$$
-where $L$ is a loss function (to be defined next) and $f(X)$ some function to predict $Y$ (or $G$).
+<!-- To look ahead: we may then calculate the expected value in a sequential (iterated) manner: -->
+<!-- $$\text{E}[L(Y,f(X))]=\text{E}_{X,Y}[L(Y,f(X))]=\text{E}_{X}\text{E}_{Y \mid X}[L(Y,f(X))]$$ -->
+<!-- where $L$ is a loss function (to be defined next) and $f(X)$ some function to predict $Y$ (or $G$). (No, $f(X)$ is not the density pdf.) -->
 
----
-
-### Random vectors
+Maybe brush up on this?
 
 **Resources**
 
-* From TMA4268: [Module 2 - Random vectors](https://www.math.ntnu.no/emner/TMA4268/2019v/3LinReg/3LinReg.html)
-* From TMA4268: [Module 2 - Random vectors](https://www.math.ntnu.no/emner/TMA4268/2019v/3LinReg/3LinReg.html)
+* From TMA4268: [Module 2 - Random vectors](https://www.math.ntnu.no/emner/TMA4268/2019v/2StatLearn/2StatLearn.html#random_vector)
+* From TMA4267: [Part 1: Multivariate random variables and the multivariate normal distribution](https://www.math.ntnu.no/emner/TMA4267/2017v/TMA4267V2017Part1.pdf)
 
-* From TMA4315: [Overview](https://www.math.ntnu.no/emner/TMA4315/2018h/TMA4315overviewH2018.html) and in particular [Module 2: MLR](https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html)
-
-For $k$NN see also Problem 1 of the [TMA4268 2018 exam](https://www.math.ntnu.no/emner/TMA4268/Exam/V2018e.pdf) with [solutions](https://www.math.ntnu.no/emner/TMA4268/Exam/e2018sol.pdf)
-
-
+---
 
 ## Training set
 (ELS 2.1)
 
-A set of size $N$ of independent pairs $(x_i,y_i)$ is called the _training set_ and often denoted ${\cal T}$.
+A set of size $N$ of independent pairs ov observations $(x_i,y_i)$ is called the _training set_ and often denoted $\mathcal{T}$. Here $x_i$ may be a vector.
 
 The training data is used to estimate the unknown function $f$.
 
-### Test data
+## Test data
 
 Test data is in general thought of as future data, and plays an important role in both 
 
@@ -311,6 +311,8 @@ Test data is in general thought of as future data, and plays an important role i
 * model assessment (assess the performance of the fitted model on future data).
 
 We will consider theoretical results for future test data, and also look at different ways to split or resample available data.
+
+More about training, test, validation, cross-validation and bootstrapping in ELS Chapter 7.
 
 ---
 
@@ -324,15 +326,16 @@ For the two methods
 * Set up the formal definition for $f$, and model assumptions made
 * What top results do you remember? Write them down.
 * What are challenges?
-* If time: What changes need to be done to each of the two methods for classification?
 
 ---
 
-### Regression and MLR
+## Regression and MLR
+
+See also the exercises!
 
 **Resources**
 
-(mostly what we learned in TMA4267, or ELS ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)
+(mostly what we learned in TMA4267, or ELS Ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)
 
 * From TMA4268: [Overview](https://www.math.ntnu.no/emner/TMA4268/2019v/TMA4268overview.html) and in particular [Module 3: Linear regression](https://www.math.ntnu.no/emner/TMA4268/2019v/3LinReg/3LinReg.html)
 * From TMA4315: [Overview](https://www.math.ntnu.no/emner/TMA4315/2018h/TMA4315overviewH2018.html) and in particular [Module 2: MLR](https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html)
@@ -342,7 +345,7 @@ For $k$NN see also Problem 1 of the [TMA4268 2018 exam](https://www.math.ntnu.no
 ---
 
 # Statistical decision theoretic framework
-(ELS ch 2.4)
+(ELS Ch 2.4, regression part)
 
 is a mathematical framework for developing models $f$ - and assessing optimality.
 
@@ -363,6 +366,11 @@ Criterion for choosing $f$: Expected prediction error (EPE)
 $$ \text{EPE}(f)=\text{E}_{X,Y}[L(Y,f(X))]=\int_{x,y}L(y,f(x))p(x,y)dxdy$$
 Choose $f$ to minimize the $\text{EPE}(f)$. 
 
+Q: Why do we not involve the distribution of the random variable $f(X)$, but instead the distribution of $X$?
+
+Law of the unconscious statistican (from our introductory course in statistics):
+<https://en.wikipedia.org/wiki/Law_of_the_unconscious_statistician> and [Thematics pages TMA4240/45](https://tma4245.math.ntnu.no/forventing-og-varians/forventingsverdi/forventningsverdi-funksjoner-av-stokastiske-variabler-egx/).
+
 What is the most popular loss function for regression?
 
 ---
@@ -380,18 +388,23 @@ This gives as result the conditional expectation - the best prediction at any po
 $$ f(x)=\text{E}[Y \mid X=x]$$
 Proof: by differentiating and setting equal 0. 
 
-In practice: need to estimate $f$.
+But, do we know this conditional distribution? In practice: need to estimate $f$.
 
 ---
 
-### Linear regression
+### What is the joint distribution is multivariate normal?
 
 Conditionally (known from before): if we assume that $(X,Y) \sim N_{p+1}(\mu,\Sigma)$ then we have seen (TMA4267) that $\text{E}(Y\mid X)$ is linear in $X$ and $\text{Cov}(Y \mid X)$ is independent of $X$. 
 
-Then we know we get 
-$\hat{\beta}=(X^TX)^{-1}X^T Y$ (with matrices) using OLS or MLE.
+
+[Properties of the mvN](https://www.math.ntnu.no/emner/TMA4268/2019v/2StatLearn/2StatLearn.html#six_useful_properties_of_the_mvn)
+
+<!-- Then we know we get  -->
+<!-- $\hat{\beta}=(X^TX)^{-1}X^T Y$ (with matrices) using OLS or MLE. -->
 
 ---
+
+### Approximate linear model
 
 But, also if we assume an approximate linear model: $f(x)\approx x^T \beta$
 
@@ -403,6 +416,14 @@ This is not conditional on $X$, but we have assumed a linear relationship.
 
 ---
 
+### kNN and conditional expectation
+
+Local conditional mean for observations in $\cal T$ close to $\bf{x}_0$:
+$$\hat{f}({\bf x}_0)=\frac{1}{k}\sum_{i \in \cal N_k({\bf x}_0)}Y_i$$
+
+---
+
+
 ## Absolute loss
 
 Regression with absolute (L1) loss: $L(Y,f(X))=\lvert Y-f(X) \rvert$ gives $\hat{f}(x)=\text{median}(Y\mid X=x)$.
@@ -413,11 +434,22 @@ Proof: for example pages 8-11 of <https://getd.libs.uga.edu/pdfs/ma_james_c_2014
 
 # Exercises
 
-## Quadratic loss and decision theoretic framework
+### 1: Law of total expectation and total variance
+This is to get a feeling of the joint and conditional distributions, so that we understand expected value notation with joint, conditional and marginal distributions.
 
-Prove that $f(x)=\text{E}[Y \mid X=x]$ for the quadratic loss.
+Give a derivation of the law of total expectation:
 
-## Curse of dimensionality
+$$\text{E}[X]=\text{E}[\text{E}(X\mid Y)]$$
+
+and the law of total variance:
+$$\text{Var}[X]=\text{E}\text{Var}[X \mid Y]+\text{Var}\text{E}[X\mid Y]$$
+(There is also a law of total covariance.)
+
+### 2: Quadratic loss and decision theoretic framework
+
+Show that $f(x)=\text{E}[Y \mid X=x]$ for the quadratic loss.
+
+### 3: Curse of dimensionality
 
 Read pages 22-23 and then answer Exercise 2.3 - which is to "Derive equation (2.24)."
 
@@ -426,11 +458,39 @@ Important take home messages:
 * All sample points are close to an edge of the sample.
 * If data are uniformly distributed in an hypercube in $p$ dimensions, we need to cover $r^{1/p}$ of the the range of each input variable to capture a fraction $r$ of the observations.
 
-## Expected training and test MSE for linear regression
+### 4: Key results from MLR
+(These results are known from TMA4267 and TMA4315, but useful to brush up on?)
 
-Do exercise 2.9.
+Assume we have a data set with independent observation pairs $(y_i,{\bf x}_i)$ for  $i=1,\ldots,N$.
 
-Important take home message: We have proven (for MLR) that the expected test MSE is always at least as large as the expected training MSE.
+$${\bf Y=X \boldsymbol{\beta}}+{\bf\varepsilon}$$
+where ${\bf Y}$ is a $N \times 1$ random column vector, ${\bf X}$ a $N \times (p+1)$ design matrix with row for observations (${\bf x}^T_i$) and columns for covariates, and ${\bf{\varepsilon}}$ $N \times 1$ random column vector
+
+The assumptions for the classical linear model is:
+
+1. $\text{E}(\bf{\varepsilon})=\bf{0}$.
+
+2. $\text{Cov}(\varepsilon)=\text{E}(\varepsilon \varepsilon^T)=\sigma^2\bf{I}$.
+
+3. The design matrix has full rank, $\text{rank}({\bf X})=(p+1)$.
+
+The classical _normal_ linear regression model is obtained if additionally
+
+4. $\varepsilon\sim N_n(\bf{0},\sigma^2\bf{I})$ holds. 
+
+For random covariates these assumptions are to be understood conditionally on $\bf{X}$.
+
+#### a) Regression parameter estimator
+Derive the least squares (or the maximum likelihood estimator) for $\hat{\beta}$.
+
+#### b) Properties of regression parameter estimator
+Derive the distribution of $\hat{\beta}$ (when assumption 4 is true).
+
+#### c) Estimator for variance
+Explain how we may find the restricted maximum likelihood estimator for $\sigma^2$. Which distribution is used for inference for $\sigma^2$?
+
+#### d) Hypothesis test
+How would you test the hypothesis $H_0: \beta_j=0$ against $H_1: \beta_j\neq 0$?
 
 ---
 
@@ -438,17 +498,42 @@ Important take home message: We have proven (for MLR) that the expected test MSE
 
 Please try yourself first, or take a small peek - and try some more - before fully reading the solutions. Report errors or improvements to <Mette.Langaas@ntnu.no>. (The solutions given here are very similar to the UiO STK-IN4300 solutions, see link under References.)
 
-All except solution to 7.9 available.
+### 1: Law of total E and Var
 
-* Quadratic loss: Page 8 of <https://getd.libs.uga.edu/pdfs/ma_james_c_201412_ms.pdf> 
-* [2.3](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe23.pdf)
-* [2.9](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe29.pdf) 
+[Try first yourself](https://github.com/mettelang/MA8701V2023/blob/main/Part1/TotalEandTotalVar.pdf)
+
+### 2: Quadratic loss
+
+Page 8 of <https://getd.libs.uga.edu/pdfs/ma_james_c_201412_ms.pdf> 
+
+### 3: Curse of dimensionality
+
+[2.3](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe23.pdf)
+
+### 4: Key results from MLR
+
+#### a) Regression parameter estimator
+
+Both methods are written out in [these class notes from TMA4267/8](https://www.math.ntnu.no/emner/TMA4268/2018v/notes/LeastSquaresMLR.pdf).
+More on likelihood-version here: [TMA4315 GLM Module 2](https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html#likelihood_theory_(from_b4)).
+
+#### b) Properties of regression estimator
+
+[Page 3 of classnotes from TMA4268] (https://www.math.ntnu.no/emner/TMA4268/2019v/notes/M3L2notes.pdf)
+
+#### c) Estimator for variance
+
+[TMA4315 GLM Module 2](https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html#restricted_maximum_likelihood_estimator_for_({bf_sigma}^2))
+
+#### d) Hypothesis test
+
+[Page 4 of classnotes from TMA4268] (https://www.math.ntnu.no/emner/TMA4268/2019v/notes/M3L2notes.pdf)
 
 # References 
 
 * [ELS official errata:](https://hastie.su.domains/ElemStatLearn/) and choose "Errata" in the left menu
 
-* [ELS solutions to exercises](https://waxworksmath.com/Authors/G_M/Hastie/hastie.html)
+* [ELS notes and solutions to exercises](https://waxworksmath.com/Authors/G_M/Hastie/hastie.html)
 * [ELS solutions from UiO](https://www.uio.no/studier/emner/matnat/math/STK-IN4300/h20/exercises.html)
 
 * [Camel_case](https://en.wikipedia.org/wiki/Camel_case)

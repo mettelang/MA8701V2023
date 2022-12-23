@@ -628,6 +628,13 @@ For details on this approach consult ELS page 252-253.
 
 # Exercises
 
+## Expected training and test MSE for linear regression
+
+Do exercise 2.9.
+
+Important take home message: We have proven (for MLR) that the expected test MSE is always at least as large as the expected training MSE.
+
+
 ## Look into the derivation for the bias and variance
 (no solutions posted)
 
@@ -656,6 +663,7 @@ Please try yourself first, or take a small peek - and try some more - before ful
 
 All except solution to 7.9 available.
 
+* [2.9](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe29.pdf) 
 * [7.4](https://github.com/mettelang/MA8701V2021/blob/main/ELSe74.pdf) 
 * [7.5](https://github.com/mettelang/MA8701V2021/blob/main/ELSe75.pdf) 
 * [7.9](https://github.com/mettelang/MA8701V2021/blob/main/ELSe79.html)

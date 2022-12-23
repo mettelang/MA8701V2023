@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.37">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -54,7 +59,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -67,7 +72,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -101,18 +106,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
 <div id="quarto-sidebar-toc-left" class="sidebar toc-left">
-  <nav id="TOC" role="doc-toc">
+  <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
-  <ul>
+  <ul class="collapse">
   <li><a href="#course-topics" id="toc-course-topics" class="nav-link active" data-scroll-target="#course-topics">Course topics</a>
   <ul class="collapse">
-  <li><a href="#part-1-core-concepts-2-weeks" id="toc-part-1-core-concepts-2-weeks" class="nav-link" data-scroll-target="#part-1-core-concepts-2-weeks">Part 1: Core concepts [2 weeks]</a></li>
-  <li><a href="#part-2-shrinkage-and-regularization-4-weeks" id="toc-part-2-shrinkage-and-regularization-4-weeks" class="nav-link" data-scroll-target="#part-2-shrinkage-and-regularization-4-weeks">Part 2: Shrinkage and regularization [4 weeks]</a></li>
+  <li><a href="#part-1-core-concepts-3-weeks" id="toc-part-1-core-concepts-3-weeks" class="nav-link" data-scroll-target="#part-1-core-concepts-3-weeks">Part 1: Core concepts [3 weeks]</a></li>
+  <li><a href="#part-2-shrinkage-and-regularization-3-weeks" id="toc-part-2-shrinkage-and-regularization-3-weeks" class="nav-link" data-scroll-target="#part-2-shrinkage-and-regularization-3-weeks">Part 2: Shrinkage and regularization [3 weeks]</a></li>
   <li><a href="#part-3-ensembles-4-weeks" id="toc-part-3-ensembles-4-weeks" class="nav-link" data-scroll-target="#part-3-ensembles-4-weeks">Part 3: Ensembles [4 weeks]</a></li>
   <li><a href="#part-4-xai-2-weeks" id="toc-part-4-xai-2-weeks" class="nav-link" data-scroll-target="#part-4-xai-2-weeks">Part 4: XAI [2 weeks]</a></li>
-  <li><a href="#part-5-closing-2-weekw" id="toc-part-5-closing-2-weekw" class="nav-link" data-scroll-target="#part-5-closing-2-weekw">Part 5: Closing [2 weekw]</a></li>
-  <li><a href="#required-previous-knowledge" id="toc-required-previous-knowledge" class="nav-link" data-scroll-target="#required-previous-knowledge">Required previous knowledge</a></li>
+  <li><a href="#part-5-closing-2-weeks" id="toc-part-5-closing-2-weeks" class="nav-link" data-scroll-target="#part-5-closing-2-weeks">Part 5: Closing [2 weeks]</a></li>
+  <li><a href="#required-previous-knowledge" id="toc-required-previous-knowledge" class="nav-link" data-scroll-target="#required-previous-knowledge">“Required” previous knowledge</a></li>
   <li><a href="#some-observations-about-the-course" id="toc-some-observations-about-the-course" class="nav-link" data-scroll-target="#some-observations-about-the-course">Some observations about the course</a></li>
   </ul></li>
   <li><a href="#learning" id="toc-learning" class="nav-link" data-scroll-target="#learning">Learning</a>
@@ -122,23 +127,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#course-elements" id="toc-course-elements" class="nav-link" data-scroll-target="#course-elements">Course elements</a></li>
   <li><a href="#class-activity" id="toc-class-activity" class="nav-link" data-scroll-target="#class-activity">Class activity</a></li>
   </ul></li>
+  <li><a href="#tentative-plan-for-part-1" id="toc-tentative-plan-for-part-1" class="nav-link" data-scroll-target="#tentative-plan-for-part-1">Tentative plan for part 1</a>
+  <ul class="collapse">
+  <li><a href="#l1-notation-regression-and-statistical-theoretic-framework" id="toc-l1-notation-regression-and-statistical-theoretic-framework" class="nav-link" data-scroll-target="#l1-notation-regression-and-statistical-theoretic-framework">L1: notation, regression and statistical theoretic framework</a></li>
+  <li><a href="#l2-continue-with-the-same-framework-but-for-classification" id="toc-l2-continue-with-the-same-framework-but-for-classification" class="nav-link" data-scroll-target="#l2-continue-with-the-same-framework-but-for-classification">L2: continue with the same framework but for classification</a></li>
+  <li><a href="#w2-l3-4-then-cover-new-aspects-for" id="toc-w2-l3-4-then-cover-new-aspects-for" class="nav-link" data-scroll-target="#w2-l3-4-then-cover-new-aspects-for">W2: L3-4: Then, cover new aspects for</a></li>
+  <li><a href="#w3-l5-6" id="toc-w3-l5-6" class="nav-link" data-scroll-target="#w3-l5-6">W3: L5-6</a></li>
+  </ul></li>
   <li><a href="#core-concepts" id="toc-core-concepts" class="nav-link" data-scroll-target="#core-concepts">Core concepts</a>
   <ul class="collapse">
   <li><a href="#notation" id="toc-notation" class="nav-link" data-scroll-target="#notation">Notation</a></li>
+  <li><a href="#random-variables-and-random-vectors" id="toc-random-variables-and-random-vectors" class="nav-link" data-scroll-target="#random-variables-and-random-vectors">Random variables and random vectors</a></li>
   <li><a href="#training-set" id="toc-training-set" class="nav-link" data-scroll-target="#training-set">Training set</a></li>
+  <li><a href="#test-data" id="toc-test-data" class="nav-link" data-scroll-target="#test-data">Test data</a></li>
   <li><a href="#group-discussion" id="toc-group-discussion" class="nav-link" data-scroll-target="#group-discussion">Group discussion</a></li>
+  <li><a href="#regression-and-mlr" id="toc-regression-and-mlr" class="nav-link" data-scroll-target="#regression-and-mlr">Regression and MLR</a></li>
   </ul></li>
   <li><a href="#statistical-decision-theoretic-framework" id="toc-statistical-decision-theoretic-framework" class="nav-link" data-scroll-target="#statistical-decision-theoretic-framework">Statistical decision theoretic framework</a>
   <ul class="collapse">
   <li><a href="#squared-error-loss" id="toc-squared-error-loss" class="nav-link" data-scroll-target="#squared-error-loss">Squared error loss</a></li>
   <li><a href="#absolute-loss" id="toc-absolute-loss" class="nav-link" data-scroll-target="#absolute-loss">Absolute loss</a></li>
   </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
-  <ul class="collapse">
-  <li><a href="#quadratic-loss-and-decision-theoretic-framework" id="toc-quadratic-loss-and-decision-theoretic-framework" class="nav-link" data-scroll-target="#quadratic-loss-and-decision-theoretic-framework">Quadratic loss and decision theoretic framework</a></li>
-  <li><a href="#curse-of-dimensionality" id="toc-curse-of-dimensionality" class="nav-link" data-scroll-target="#curse-of-dimensionality">Curse of dimensionality</a></li>
-  <li><a href="#expected-training-and-test-mse-for-linear-regression" id="toc-expected-training-and-test-mse-for-linear-regression" class="nav-link" data-scroll-target="#expected-training-and-test-mse-for-linear-regression">Expected training and test MSE for linear regression</a></li>
-  </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   <li><a href="#solutions-to-exercises" id="toc-solutions-to-exercises" class="nav-link" data-scroll-target="#solutions-to-exercises">Solutions to exercises</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -184,7 +194,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The starting point is that we cover important parts of</p>
 <p>The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman.</p>
 <p>but, since the book is from 2009 (2nd edition, 12th corrected printing from 2017) this means that for many topic we need (to be up to date) additional selected material in the form of book chapters and research articles.</p>
-<p>Download book at <a href="https://hastie.su.domains/ElemStatLearn/download.html" class="uri">https://hastie.su.domains/ElemStatLearn/download.html</a> (this is 12th corrected printing) or signed in at NTNU vpn at <a href="https://link.springer.com/book/10.1007/978-0-387-84858-7">Springer</a> (but I am not sure if this is an earlier print without the version 12 corrections).</p>
+<p>Download book at <a href="https://hastie.su.domains/ElemStatLearn/download.html" class="uri">https://hastie.su.domains/ElemStatLearn/download.html</a> (this is 12th corrected printing) or sign in at NTNU vpn at <a href="https://link.springer.com/book/10.1007/978-0-387-84858-7">Springer</a> (but I am not sure if this is an earlier print without the version 12 corrections).</p>
 <hr>
 <div class="cell">
 <div class="cell-output-display">
@@ -192,24 +202,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <hr>
-<section id="part-1-core-concepts-2-weeks" class="level2">
-<h2 class="anchored" data-anchor-id="part-1-core-concepts-2-weeks">Part 1: Core concepts [2 weeks]</h2>
+<section id="part-1-core-concepts-3-weeks" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-core-concepts-3-weeks">Part 1: Core concepts [3 weeks]</h2>
 <p>Sort out assumed background knowledge, and learn something new</p>
 <ul>
 <li>Notation</li>
 <li>Repetition of core concepts (regression and classification)</li>
 <li>Statistical decision theoretic framework (partly new) ELS 2.4</li>
 <li>Model selection and model assessment - including bias-variance trade-off (mostly new) ELS 7</li>
-<li>Missing data ELS 9.6</li>
+<li>Missing data ELS 9.6, Handbook of Missing data (parts of Chapters 11-12, partly 13) and Flexible Imputation of Missing Data (parts of Chapters 2-4)</li>
 </ul>
 <hr>
 </section>
-<section id="part-2-shrinkage-and-regularization-4-weeks" class="level2">
-<h2 class="anchored" data-anchor-id="part-2-shrinkage-and-regularization-4-weeks">Part 2: Shrinkage and regularization [4 weeks]</h2>
+<section id="part-2-shrinkage-and-regularization-3-weeks" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-shrinkage-and-regularization-3-weeks">Part 2: Shrinkage and regularization [3 weeks]</h2>
 <p>or “Regularized linear and generalized linear models”, with focus on the ridge and lasso regression (in detail).</p>
 <ul>
 <li>ELS 3.2.3,3.4, 3.8, 4.4.4.</li>
-<li>Hastie, Tibshirani, Wainwright (HTW): “Statistical Learning with Sparsity: The Lasso and Generalizations”. Selected sections from chapters 1,2,3,4,6.</li>
+<li>Hastie, Tibshirani, Wainwright (HTW): “Statistical Learning with Sparsity: The Lasso and Generalizations”. Selected sections from Chapters 1,2,3,4,6.</li>
 <li>Selective inference (articles)</li>
 </ul>
 <hr>
@@ -222,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>general ensembles (including super learner)</li>
 <li>hyper-parameter tuning</li>
 </ul>
-<p>Selected chapters in ELS (8.7, 8.8, 9.2, parts of 10, 15, 16) and several articles.</p>
+<p>Selected Chapters in ELS (8.7, 8.8, 9.2, parts of 10, 15, 16) and several articles.</p>
 <hr>
 </section>
 <section id="part-4-xai-2-weeks" class="level2">
@@ -237,12 +247,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>counterfactuals.</li>
 </ul>
 </section>
-<section id="part-5-closing-2-weekw" class="level2">
-<h2 class="anchored" data-anchor-id="part-5-closing-2-weekw">Part 5: Closing [2 weekw]</h2>
+<section id="part-5-closing-2-weeks" class="level2">
+<h2 class="anchored" data-anchor-id="part-5-closing-2-weeks">Part 5: Closing [2 weeks]</h2>
 <hr>
 </section>
 <section id="required-previous-knowledge" class="level2">
-<h2 class="anchored" data-anchor-id="required-previous-knowledge">Required previous knowledge</h2>
+<h2 class="anchored" data-anchor-id="required-previous-knowledge">“Required” previous knowledge</h2>
 <ul>
 <li>TMA4267 Linear statistical methods</li>
 <li>TMA4268 Statistical learning</li>
@@ -250,8 +260,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>TMA4300 Computer intensive statistical methods</li>
 <li>TMA4315 Generalized linear models</li>
 <li>Good understanding and experience with R, or with Python, for statistical data analysis.</li>
-<li>Knowledge of markdown for writing reports and presentations (Rmarkdown/Quarto, Jupyther)</li>
-<li>Skills in group work - possibly using git</li>
+<li>Knowledge of markdown for writing reports and presentations (Rmarkdown/Quarto, Jupyther).</li>
+<li>Skills in group work - possibly using git or other collaborative tools.</li>
 </ul>
 <hr>
 </section>
@@ -260,7 +270,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Mainly a frequentist course, but some of the concepts and methods have a Bayesian version that might give insight into why and how the methods work. Then Bayesian methods will be used.</li>
 <li>Focus is on regression and classification, and unsupervised learning is not planned to be part of the course.</li>
-<li>The required previous knowlege is listed because this is a phd-course designed for statistics studnents. The background make the students go past an overview level of understanding of the course parts (move from algorithmic to deep understanding).</li>
+<li>The required previous knowledge is listed because this is a phd-course designed for statistics studenets. The background make the students go past an overview level of understanding of the course parts (move from algorithmic to deep understanding).</li>
 </ul>
 <hr>
 </section>
@@ -302,6 +312,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Compulsory work</p></li>
 <li><p>Final individual oral exam in May</p></li>
 </ul>
+<p>The learning material is also available at <a href="https://github.com/mettelang/MA8701V2023" class="uri">https://github.com/mettelang/MA8701V2023</a>.</p>
 <hr>
 <p><strong>Questions?</strong></p>
 <hr>
@@ -335,38 +346,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <hr>
 </section>
 </section>
-<section id="core-concepts" class="level1">
-<h1>Core concepts</h1>
-<p>(finally - we start on the fun stuff!)</p>
-<section id="l1" class="level3">
-<h3 class="anchored" data-anchor-id="l1">L1:</h3>
+<section id="tentative-plan-for-part-1" class="level1">
+<h1>Tentative plan for part 1</h1>
+<p>(progress may be faster or slower than indicated)</p>
+<section id="l1-notation-regression-and-statistical-theoretic-framework" class="level2">
+<h2 class="anchored" data-anchor-id="l1-notation-regression-and-statistical-theoretic-framework">L1: notation, regression and statistical theoretic framework</h2>
 <ul>
-<li>Notation</li>
-<li>Remind about assumed background knowledge (already known),
-<ul>
-<li>Regression (ELS ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)</li>
-</ul></li>
-<li>Statistical decision theoretic framework (partly new: ELS 2.4)</li>
+<li>Notation (ELS Ch 2.2)</li>
+<li>Regression - should not be new (ELS Ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)</li>
+<li>Statistical decision theoretic framework for regression (ELS 2.4)</li>
 </ul>
 </section>
-<section id="l2-continue-with-the-same-framework-but-for-classification" class="level3">
-<h3 class="anchored" data-anchor-id="l2-continue-with-the-same-framework-but-for-classification">L2: continue with the same framework but for classification</h3>
-<p>Read to remind yourself of previous knowledge</p>
+<section id="l2-continue-with-the-same-framework-but-for-classification" class="level2">
+<h2 class="anchored" data-anchor-id="l2-continue-with-the-same-framework-but-for-classification">L2: continue with the same framework but for classification</h2>
 <ul>
-<li>Classification (ELS ch 4.1-4.5, except 4.4.4)</li>
-</ul>
-</section>
-<section id="l2-l4-then-cover-new-aspects-for" class="level3">
-<h3 class="anchored" data-anchor-id="l2-l4-then-cover-new-aspects-for">L2-L4: Then, cover new aspects for</h3>
-<ul>
-<li>Model selection and assessment (ELS Ch 7.1-7.6, 7.10-7.12), including statistical learning and the bias-variance trade-off (ELS ch 2)</li>
-<li>How to handle missing data in data analyses (ELS 9.6)</li>
+<li>Classification - should not be new (ELS Ch 4.1-4.5, except 4.4.4)</li>
+<li>Statistical decision theoretic framework for classification (ELS 2.4)</li>
 </ul>
 <hr>
 </section>
+<section id="w2-l3-4-then-cover-new-aspects-for" class="level2">
+<h2 class="anchored" data-anchor-id="w2-l3-4-then-cover-new-aspects-for">W2: L3-4: Then, cover new aspects for</h2>
+<ul>
+<li>Model selection and assessment (ELS Ch 7.1-7.6, 7.10-7.12), including statistical learning and the bias-variance trade-off (ELS Ch 2).</li>
+</ul>
+</section>
+<section id="w3-l5-6" class="level2">
+<h2 class="anchored" data-anchor-id="w3-l5-6">W3: L5-6</h2>
+<ul>
+<li>How to handle missing data in data analyses (ELS 9.6), Handbook of Missing Data (Chapters 11-12-partly 13) and part of Chapters 2-4 from the Van Buuren (2018): Flexible Imputation of Missing Data.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="core-concepts" class="level1">
+<h1>Core concepts</h1>
 <section id="notation" class="level2">
 <h2 class="anchored" data-anchor-id="notation">Notation</h2>
-<p>(mainly from ELS)</p>
+<p>(mainly from ELS 2.2)</p>
 <p>We will only consider supervised methods.</p>
 <ul>
 <li>Response <span class="math inline">\(Y\)</span> (or <span class="math inline">\(G\)</span>): dependent variable, outcome, usually univariate (but may be multivariate)
@@ -383,31 +400,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We aim to construct a rule, function, learner: <span class="math inline">\(f(X)\)</span>, to predict <span class="math inline">\(Y\)</span> (or <span class="math inline">\(G\)</span>).</p>
 <hr>
 <p>Random variables and (column) vectors are written as uppercase letters <span class="math inline">\(X\)</span>, and <span class="math inline">\(Y\)</span>, while observed values are written with lowercase <span class="math inline">\((x,y)\)</span>. (Dimensions specified if needed.)</p>
-<p>Matrices are presented with bold face: <span class="math inline">\(\boldsymbol{X}\)</span>, often <span class="math inline">\(N \times (p+1)\)</span>.</p>
-<p>ELS uses boldface also for <span class="math inline">\(\boldmath {x_j}\)</span> being a vector of all <span class="math inline">\(N\)</span> observations of variable <span class="math inline">\(j\)</span>, but the vector of observed variables for observation <span class="math inline">\(i\)</span> is just <span class="math inline">\(x_i\)</span>.</p>
+<p>Matrices are presented with uppercase boldface: <span class="math inline">\(\boldsymbol{X}\)</span>, often <span class="math inline">\(N \times (p+1)\)</span>.</p>
+<p>ELS uses boldface also for <span class="math inline">\(\boldsymbol{x}_j\)</span> being a vector of all <span class="math inline">\(N\)</span> observations of variable <span class="math inline">\(j\)</span>, but in general vectors are not boldface and the vector of observed variables for observation <span class="math inline">\(i\)</span> is just <span class="math inline">\(x_i\)</span>.</p>
 <hr>
+</section>
+<section id="random-variables-and-random-vectors" class="level2">
+<h2 class="anchored" data-anchor-id="random-variables-and-random-vectors">Random variables and random vectors</h2>
 <p>Both the response <em>and covariates</em> will be considered to be random, and drawn from some joint distribution <span class="math inline">\(P(X_1,X_2,\ldots, X_p,Y)=P(X,Y)\)</span> or <span class="math inline">\(P(X,G)\)</span>.</p>
-<p>Conditional distribution: <span class="math inline">\(P(X,Y)=P(Y \mid X)P(X)\)</span> or <span class="math inline">\(P(Y\mid X=x)P(X=x)\)</span></p>
-<p>and double expectation is often used</p>
-<p><span class="math display">\[\text{E}[L(Y,f(X))]=\text{E}_{X,Y}[L(Y,f(X))]=\text{E}_{X}\text{E}_{Y \mid X}[L(Y,f(X))]\]</span></p>
-<p>where <span class="math inline">\(L\)</span> is a loss function (to be defined next) and <span class="math inline">\(f(X)\)</span> some function to predict <span class="math inline">\(Y\)</span> (or <span class="math inline">\(G\)</span>).</p>
+<p>Joint to conditional and marginal distribution: <span class="math inline">\(P(X,Y)=P(Y \mid X)P(X)\)</span> or <span class="math inline">\(P(Y\mid X=x)P(X=x)\)</span> or</p>
+<p><span class="math display">\[P(Y=y ,X=x)=P(Y=y\mid X=x)P(X=x)\]</span></p>
+<!-- To look ahead: we may then calculate the expected value in a sequential (iterated) manner: -->
+<!-- $$\text{E}[L(Y,f(X))]=\text{E}_{X,Y}[L(Y,f(X))]=\text{E}_{X}\text{E}_{Y \mid X}[L(Y,f(X))]$$ -->
+<!-- where $L$ is a loss function (to be defined next) and $f(X)$ some function to predict $Y$ (or $G$). (No, $f(X)$ is not the density pdf.) -->
+<p>Maybe brush up on this?</p>
+<p><strong>Resources</strong></p>
+<ul>
+<li>From TMA4268: <a href="https://www.math.ntnu.no/emner/TMA4268/2019v/2StatLearn/2StatLearn.html#random_vector">Module 2 - Random vectors</a></li>
+<li>From TMA4267: <a href="https://www.math.ntnu.no/emner/TMA4267/2017v/TMA4267V2017Part1.pdf">Part 1: Multivariate random variables and the multivariate normal distribution</a></li>
+</ul>
 <hr>
 </section>
 <section id="training-set" class="level2">
 <h2 class="anchored" data-anchor-id="training-set">Training set</h2>
 <p>(ELS 2.1)</p>
-<p>A set of size <span class="math inline">\(N\)</span> of independent pairs <span class="math inline">\((x_i,y_i)\)</span> is called the <em>training set</em> and often denoted <span class="math inline">\({\cal T}\)</span>.</p>
+<p>A set of size <span class="math inline">\(N\)</span> of independent pairs ov observations <span class="math inline">\((x_i,y_i)\)</span> is called the <em>training set</em> and often denoted <span class="math inline">\(\mathcal{T}\)</span>. Here <span class="math inline">\(x_i\)</span> may be a vector.</p>
 <p>The training data is used to estimate the unknown function <span class="math inline">\(f\)</span>.</p>
-<section id="test-data" class="level3">
-<h3 class="anchored" data-anchor-id="test-data">Test data</h3>
+</section>
+<section id="test-data" class="level2">
+<h2 class="anchored" data-anchor-id="test-data">Test data</h2>
 <p>Test data is in general thought of as future data, and plays an important role in both</p>
 <ul>
 <li>model selection (finding the best model among a candidate set) and also for</li>
 <li>model assessment (assess the performance of the fitted model on future data).</li>
 </ul>
 <p>We will consider theoretical results for future test data, and also look at different ways to split or resample available data.</p>
+<p>More about training, test, validation, cross-validation and bootstrapping in ELS Chapter 7.</p>
 <hr>
-</section>
 </section>
 <section id="group-discussion" class="level2">
 <h2 class="anchored" data-anchor-id="group-discussion">Group discussion</h2>
@@ -417,13 +445,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Set up the formal definition for <span class="math inline">\(f\)</span>, and model assumptions made</li>
 <li>What top results do you remember? Write them down.</li>
 <li>What are challenges?</li>
-<li>If time: What changes need to be done to each of the two methods for classification?</li>
 </ul>
 <hr>
-<section id="regression-and-mlr" class="level3">
-<h3 class="anchored" data-anchor-id="regression-and-mlr">Regression and MLR</h3>
+</section>
+<section id="regression-and-mlr" class="level2">
+<h2 class="anchored" data-anchor-id="regression-and-mlr">Regression and MLR</h2>
+<p>See also the exercises!</p>
 <p><strong>Resources</strong></p>
-<p>(mostly what we learned in TMA4267, or ELS ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)</p>
+<p>(mostly what we learned in TMA4267, or ELS Ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)</p>
 <ul>
 <li>From TMA4268: <a href="https://www.math.ntnu.no/emner/TMA4268/2019v/TMA4268overview.html">Overview</a> and in particular <a href="https://www.math.ntnu.no/emner/TMA4268/2019v/3LinReg/3LinReg.html">Module 3: Linear regression</a></li>
 <li>From TMA4315: <a href="https://www.math.ntnu.no/emner/TMA4315/2018h/TMA4315overviewH2018.html">Overview</a> and in particular <a href="https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html">Module 2: MLR</a></li>
@@ -432,10 +461,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <hr>
 </section>
 </section>
-</section>
 <section id="statistical-decision-theoretic-framework" class="level1">
 <h1>Statistical decision theoretic framework</h1>
-<p>(ELS ch 2.4)</p>
+<p>(ELS Ch 2.4, regression part)</p>
 <p>is a mathematical framework for developing models <span class="math inline">\(f\)</span> - and assessing optimality.</p>
 <p>First, regression:</p>
 <ul>
@@ -447,29 +475,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Ingredients: Loss function <span class="math inline">\(L(Y,f(X))\)</span> - for <em>penalizing errors in the prediction</em>.</p>
 <p>Criterion for choosing <span class="math inline">\(f\)</span>: Expected prediction error (EPE)</p>
 <hr>
-<p><span class="math display">\[ \text{EPE}(f)=\text{E}_{X,Y}[L(Y,f(X))]=\int_{x,y}L(y,f(x))p(x,y)dxdy\]</span></p>
-<p>Choose <span class="math inline">\(f\)</span> to minimize the <span class="math inline">\(\text{EPE}(f)\)</span>.</p>
+<p><span class="math display">\[ \text{EPE}(f)=\text{E}_{X,Y}[L(Y,f(X))]=\int_{x,y}L(y,f(x))p(x,y)dxdy\]</span> Choose <span class="math inline">\(f\)</span> to minimize the <span class="math inline">\(\text{EPE}(f)\)</span>.</p>
+<p>Q: Why do we not involve the distribution of the random variable <span class="math inline">\(f(X)\)</span>, but instead the distribution of <span class="math inline">\(X\)</span>?</p>
+<p>Law of the unconscious statistican (from our introductory course in statistics): <a href="https://en.wikipedia.org/wiki/Law_of_the_unconscious_statistician" class="uri">https://en.wikipedia.org/wiki/Law_of_the_unconscious_statistician</a> and <a href="https://tma4245.math.ntnu.no/forventing-og-varians/forventingsverdi/forventningsverdi-funksjoner-av-stokastiske-variabler-egx/">Thematics pages TMA4240/45</a>.</p>
 <p>What is the most popular loss function for regression?</p>
 <hr>
 <section id="squared-error-loss" class="level2">
 <h2 class="anchored" data-anchor-id="squared-error-loss">Squared error loss</h2>
 <p><span class="math display">\[ \text{EPE}(f)=\text{E}_{X,Y}[L(Y,f(X))]=\text{E}_{X}\text{E}_{Y \mid X}[(Y-f(X))^2\mid X]\]</span></p>
 <p>We want to minimize EPE, and see that it is sufficient to minimize <span class="math inline">\(\text{E}_{Y\mid X}[(Y-f(X))^2\mid X]\)</span> for each <span class="math inline">\(X=x\)</span> (pointwise):</p>
-<p><span class="math display">\[ f(x)=\text{argmin}_c \text{E}_{Y \mid X}[(Y-c)^2 \mid X=x]\]</span></p>
-<p>This gives as result the conditional expectation - the best prediction at any point <span class="math inline">\(X=x\)</span>:</p>
-<p><span class="math display">\[ f(x)=\text{E}[Y \mid X=x]\]</span></p>
-<p>Proof: by differentiating and setting equal 0.</p>
-<p>In practice: need to estimate <span class="math inline">\(f\)</span>.</p>
+<p><span class="math display">\[ f(x)=\text{argmin}_c \text{E}_{Y \mid X}[(Y-c)^2 \mid X=x]\]</span> This gives as result the conditional expectation - the best prediction at any point <span class="math inline">\(X=x\)</span>:</p>
+<p><span class="math display">\[ f(x)=\text{E}[Y \mid X=x]\]</span> Proof: by differentiating and setting equal 0.</p>
+<p>But, do we know this conditional distribution? In practice: need to estimate <span class="math inline">\(f\)</span>.</p>
 <hr>
-<section id="linear-regression" class="level3">
-<h3 class="anchored" data-anchor-id="linear-regression">Linear regression</h3>
+<section id="what-is-the-joint-distribution-is-multivariate-normal" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-the-joint-distribution-is-multivariate-normal">What is the joint distribution is multivariate normal?</h3>
 <p>Conditionally (known from before): if we assume that <span class="math inline">\((X,Y) \sim N_{p+1}(\mu,\Sigma)\)</span> then we have seen (TMA4267) that <span class="math inline">\(\text{E}(Y\mid X)\)</span> is linear in <span class="math inline">\(X\)</span> and <span class="math inline">\(\text{Cov}(Y \mid X)\)</span> is independent of <span class="math inline">\(X\)</span>.</p>
-<p>Then we know we get <span class="math inline">\(\hat{\beta}=(X^TX)^{-1}X^T Y\)</span> (with matrices) using OLS or MLE.</p>
+<p><a href="https://www.math.ntnu.no/emner/TMA4268/2019v/2StatLearn/2StatLearn.html#six_useful_properties_of_the_mvn">Properties of the mvN</a></p>
+<!-- Then we know we get  -->
+<!-- $\hat{\beta}=(X^TX)^{-1}X^T Y$ (with matrices) using OLS or MLE. -->
 <hr>
+</section>
+<section id="approximate-linear-model" class="level3">
+<h3 class="anchored" data-anchor-id="approximate-linear-model">Approximate linear model</h3>
 <p>But, also if we assume an approximate linear model: <span class="math inline">\(f(x)\approx x^T \beta\)</span></p>
 <p>Marginally: <span class="math inline">\(\text{argmin}_{\beta} \text{E}[(Y-X^T\beta)^2]\)</span> gives <span class="math inline">\(\beta=\text{E}[X X^T]^{-1}\text{E}[XY]\)</span> (now random vectors).</p>
 <p>We may replace expectations with averages in training data to estimate <span class="math inline">\(\beta\)</span>.</p>
 <p>This is not conditional on <span class="math inline">\(X\)</span>, but we have assumed a linear relationship.</p>
+<hr>
+</section>
+<section id="knn-and-conditional-expectation" class="level3">
+<h3 class="anchored" data-anchor-id="knn-and-conditional-expectation">kNN and conditional expectation</h3>
+<p>Local conditional mean for observations in <span class="math inline">\(\cal T\)</span> close to <span class="math inline">\(\bf{x}_0\)</span>: <span class="math display">\[\hat{f}({\bf x}_0)=\frac{1}{k}\sum_{i \in \cal N_k({\bf x}_0)}Y_i\]</span></p>
 <hr>
 </section>
 </section>
@@ -482,12 +519,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="exercises" class="level1">
 <h1>Exercises</h1>
-<section id="quadratic-loss-and-decision-theoretic-framework" class="level2">
-<h2 class="anchored" data-anchor-id="quadratic-loss-and-decision-theoretic-framework">Quadratic loss and decision theoretic framework</h2>
-<p>Prove that <span class="math inline">\(f(x)=\text{E}[Y \mid X=x]\)</span> for the quadratic loss.</p>
+<section id="law-of-total-expectation-and-total-variance" class="level3">
+<h3 class="anchored" data-anchor-id="law-of-total-expectation-and-total-variance">1: Law of total expectation and total variance</h3>
+<p>This is to get a feeling of the joint and conditional distributions, so that we understand expected value notation with joint, conditional and marginal distributions.</p>
+<p>Give a derivation of the law of total expectation:</p>
+<p><span class="math display">\[\text{E}[X]=\text{E}[\text{E}(X\mid Y)]\]</span></p>
+<p>and the law of total variance: <span class="math display">\[\text{Var}[X]=\text{E}\text{Var}[X \mid Y]+\text{Var}\text{E}[X\mid Y]\]</span> (There is also a law of total covariance.)</p>
 </section>
-<section id="curse-of-dimensionality" class="level2">
-<h2 class="anchored" data-anchor-id="curse-of-dimensionality">Curse of dimensionality</h2>
+<section id="quadratic-loss-and-decision-theoretic-framework" class="level3">
+<h3 class="anchored" data-anchor-id="quadratic-loss-and-decision-theoretic-framework">2: Quadratic loss and decision theoretic framework</h3>
+<p>Show that <span class="math inline">\(f(x)=\text{E}[Y \mid X=x]\)</span> for the quadratic loss.</p>
+</section>
+<section id="curse-of-dimensionality" class="level3">
+<h3 class="anchored" data-anchor-id="curse-of-dimensionality">3: Curse of dimensionality</h3>
 <p>Read pages 22-23 and then answer Exercise 2.3 - which is to “Derive equation (2.24).”</p>
 <p>Important take home messages:</p>
 <ul>
@@ -495,28 +539,81 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>If data are uniformly distributed in an hypercube in <span class="math inline">\(p\)</span> dimensions, we need to cover <span class="math inline">\(r^{1/p}\)</span> of the the range of each input variable to capture a fraction <span class="math inline">\(r\)</span> of the observations.</li>
 </ul>
 </section>
-<section id="expected-training-and-test-mse-for-linear-regression" class="level2">
-<h2 class="anchored" data-anchor-id="expected-training-and-test-mse-for-linear-regression">Expected training and test MSE for linear regression</h2>
-<p>Do exercise 2.9.</p>
-<p>Important take home message: We have proven (for MLR) that the expected test MSE is always at least as large as the expected training MSE.</p>
+<section id="key-results-from-mlr" class="level3">
+<h3 class="anchored" data-anchor-id="key-results-from-mlr">4: Key results from MLR</h3>
+<p>(These results are known from TMA4267 and TMA4315, but useful to brush up on?)</p>
+<p>Assume we have a data set with independent observation pairs <span class="math inline">\((y_i,{\bf x}_i)\)</span> for <span class="math inline">\(i=1,\ldots,N\)</span>.</p>
+<p><span class="math display">\[{\bf Y=X \boldsymbol{\beta}}+{\bf\varepsilon}\]</span> where <span class="math inline">\({\bf Y}\)</span> is a <span class="math inline">\(N \times 1\)</span> random column vector, <span class="math inline">\({\bf X}\)</span> a <span class="math inline">\(N \times (p+1)\)</span> design matrix with row for observations (<span class="math inline">\({\bf x}^T_i\)</span>) and columns for covariates, and <span class="math inline">\({\bf{\varepsilon}}\)</span> <span class="math inline">\(N \times 1\)</span> random column vector</p>
+<p>The assumptions for the classical linear model is:</p>
+<ol type="1">
+<li><p><span class="math inline">\(\text{E}(\bf{\varepsilon})=\bf{0}\)</span>.</p></li>
+<li><p><span class="math inline">\(\text{Cov}(\varepsilon)=\text{E}(\varepsilon \varepsilon^T)=\sigma^2\bf{I}\)</span>.</p></li>
+<li><p>The design matrix has full rank, <span class="math inline">\(\text{rank}({\bf X})=(p+1)\)</span>.</p></li>
+</ol>
+<p>The classical <em>normal</em> linear regression model is obtained if additionally</p>
+<ol start="4" type="1">
+<li><span class="math inline">\(\varepsilon\sim N_n(\bf{0},\sigma^2\bf{I})\)</span> holds.</li>
+</ol>
+<p>For random covariates these assumptions are to be understood conditionally on <span class="math inline">\(\bf{X}\)</span>.</p>
+<section id="a-regression-parameter-estimator" class="level4">
+<h4 class="anchored" data-anchor-id="a-regression-parameter-estimator">a) Regression parameter estimator</h4>
+<p>Derive the least squares (or the maximum likelihood estimator) for <span class="math inline">\(\hat{\beta}\)</span>.</p>
+</section>
+<section id="b-properties-of-regression-parameter-estimator" class="level4">
+<h4 class="anchored" data-anchor-id="b-properties-of-regression-parameter-estimator">b) Properties of regression parameter estimator</h4>
+<p>Derive the distribution of <span class="math inline">\(\hat{\beta}\)</span> (when assumption 4 is true).</p>
+</section>
+<section id="c-estimator-for-variance" class="level4">
+<h4 class="anchored" data-anchor-id="c-estimator-for-variance">c) Estimator for variance</h4>
+<p>Explain how we may find the restricted maximum likelihood estimator for <span class="math inline">\(\sigma^2\)</span>. Which distribution is used for inference for <span class="math inline">\(\sigma^2\)</span>?</p>
+</section>
+<section id="d-hypothesis-test" class="level4">
+<h4 class="anchored" data-anchor-id="d-hypothesis-test">d) Hypothesis test</h4>
+<p>How would you test the hypothesis <span class="math inline">\(H_0: \beta_j=0\)</span> against <span class="math inline">\(H_1: \beta_j\neq 0\)</span>?</p>
 <hr>
+</section>
 </section>
 </section>
 <section id="solutions-to-exercises" class="level1">
 <h1>Solutions to exercises</h1>
 <p>Please try yourself first, or take a small peek - and try some more - before fully reading the solutions. Report errors or improvements to <a href="mailto:Mette.Langaas@ntnu.no" class="email">Mette.Langaas@ntnu.no</a>. (The solutions given here are very similar to the UiO STK-IN4300 solutions, see link under References.)</p>
-<p>All except solution to 7.9 available.</p>
-<ul>
-<li>Quadratic loss: Page 8 of <a href="https://getd.libs.uga.edu/pdfs/ma_james_c_201412_ms.pdf" class="uri">https://getd.libs.uga.edu/pdfs/ma_james_c_201412_ms.pdf</a></li>
-<li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe23.pdf">2.3</a></li>
-<li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe29.pdf">2.9</a></li>
-</ul>
+<section id="law-of-total-e-and-var" class="level3">
+<h3 class="anchored" data-anchor-id="law-of-total-e-and-var">1: Law of total E and Var</h3>
+<p><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/TotalEandTotalVar.pdf">Try first yourself</a></p>
+</section>
+<section id="quadratic-loss" class="level3">
+<h3 class="anchored" data-anchor-id="quadratic-loss">2: Quadratic loss</h3>
+<p>Page 8 of <a href="https://getd.libs.uga.edu/pdfs/ma_james_c_201412_ms.pdf" class="uri">https://getd.libs.uga.edu/pdfs/ma_james_c_201412_ms.pdf</a></p>
+</section>
+<section id="curse-of-dimensionality-1" class="level3">
+<h3 class="anchored" data-anchor-id="curse-of-dimensionality-1">3: Curse of dimensionality</h3>
+<p><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe23.pdf">2.3</a></p>
+</section>
+<section id="key-results-from-mlr-1" class="level3">
+<h3 class="anchored" data-anchor-id="key-results-from-mlr-1">4: Key results from MLR</h3>
+<section id="a-regression-parameter-estimator-1" class="level4">
+<h4 class="anchored" data-anchor-id="a-regression-parameter-estimator-1">a) Regression parameter estimator</h4>
+<p>Both methods are written out in <a href="https://www.math.ntnu.no/emner/TMA4268/2018v/notes/LeastSquaresMLR.pdf">these class notes from TMA4267/8</a>. More on likelihood-version here: <a href="https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html#likelihood_theory_(from_b4)">TMA4315 GLM Module 2</a>.</p>
+</section>
+<section id="b-properties-of-regression-estimator" class="level4">
+<h4 class="anchored" data-anchor-id="b-properties-of-regression-estimator">b) Properties of regression estimator</h4>
+<p>[Page 3 of classnotes from TMA4268] (https://www.math.ntnu.no/emner/TMA4268/2019v/notes/M3L2notes.pdf)</p>
+</section>
+<section id="c-estimator-for-variance-1" class="level4">
+<h4 class="anchored" data-anchor-id="c-estimator-for-variance-1">c) Estimator for variance</h4>
+<p><a href="https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html#restricted_maximum_likelihood_estimator_for_(%7Bbf_sigma%7D%5E2)">TMA4315 GLM Module 2</a></p>
+</section>
+<section id="d-hypothesis-test-1" class="level4">
+<h4 class="anchored" data-anchor-id="d-hypothesis-test-1">d) Hypothesis test</h4>
+<p>[Page 4 of classnotes from TMA4268] (https://www.math.ntnu.no/emner/TMA4268/2019v/notes/M3L2notes.pdf)</p>
+</section>
+</section>
 </section>
 <section id="references" class="level1">
 <h1>References</h1>
 <ul>
 <li><p><a href="https://hastie.su.domains/ElemStatLearn/">ELS official errata:</a> and choose “Errata” in the left menu</p></li>
-<li><p><a href="https://waxworksmath.com/Authors/G_M/Hastie/hastie.html">ELS solutions to exercises</a></p></li>
+<li><p><a href="https://waxworksmath.com/Authors/G_M/Hastie/hastie.html">ELS notes and solutions to exercises</a></p></li>
 <li><p><a href="https://www.uio.no/studier/emner/matnat/math/STK-IN4300/h20/exercises.html">ELS solutions from UiO</a></p></li>
 <li><p><a href="https://en.wikipedia.org/wiki/Camel_case">Camel_case</a></p></li>
 <li><p><a href="https://en.wikipedia.org/wiki/Snake_case">Snake_case</a></p></li>
@@ -594,7 +691,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);

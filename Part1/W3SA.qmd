@@ -1,0 +1,129 @@
+---
+title: "MA8701 Advanced methods in statistical inference and learning"
+subtitle: "Week 3: Missing data"
+author: "Mette Langaas"
+format: 
+  html: 
+    toc: true
+    code-fold: true
+    toc-location: left
+    toc-depth: 2
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+  beamer:
+    incremental: false
+    aspectratio: 43
+    navigation: frame
+---
+
+# Missing covariates
+
+(ELS 9.6, and [van Buuren: "Flexible imputation of missing data"](https://stefvanbuuren.name/fimd/))
+
+When performing data analysis we often encounter data sets where some observations have missing values. It is important to understand the underlying mechanism for the observations to be missing, so that we may treat the missing data appropriately.
+
+We first look at the general definitions of missing variants, and then move to how missing data can be handled for trees.
+
+------------------------------------------------------------------------
+
+## Notation
+
+-   ${\bf y}$: response vector (no missing values)
+-   ${\bf X}$: the full covariate matrix
+-   ${\bf Z}=({\bf X},{\bf y})$: full responses and covariates
+-   ${\bf X}_{\text{obs}}$: the observed part of the covariate matrix
+-   ${\bf Z}_{\text{obs}}=({\bf X}_{\text{obs}},{\bf y})$
+-   ${\bf R}$: indicator matrix (0/1) for missingness in ${\bf X}$, the observability of ${\bf X}$.
+-   $\theta$: some parameter in the distribution of ${\bf R}$.
+
+The missing data mechanism is characterized by the conditional distribution of ${\bf R}$ $$P({\bf R} \mid {\bf Z},\theta)$$
+
+------------------------------------------------------------------------
+
+## Missing completely at random (MCAR)
+
+$$P({\bf R} \mid {\bf Z},\theta)=P({\bf R} \mid \theta)$$
+
+-   All observations have the same probability of being missing, and
+-   the missing mechanism is not related to the data.
+
+If observations with MCAR data are removed that should not bias the analyses (but the sample size will of cause be smaller).
+
+Examples:
+
+-   measure weight, and the scales run out of battery
+-   similar mechanism to taking a random sample
+
+------------------------------------------------------------------------
+
+## Missing at random (MAR)
+
+$$P({\bf R} \mid {\bf Z},\theta)=P({\bf R} \mid {\bf Z}_{\text obs},\theta)$$
+
+-   All observations in a group defined by the observed data have the same probability of being missing.
+-   Remark: not dependent on what could have been observed.
+
+Example:
+
+-   measure weight, and the scales have different missing proportions when being on a hard or soft surface
+
+Most methods for handling missing data require the data to be MAR.
+
+------------------------------------------------------------------------
+
+## Missing not at random (MNAR)
+
+We have MNAR if we do not have MAR or MCAR.
+
+Then the missing mechanism could depend on what we could have meaured.
+
+Examples:
+
+-   the scales give more often missing values for heavier objects than for lighter objects
+-   a patient is too sick to perform some procedure that would show a high value of a measurement
+
+------------------------------------------------------------------------
+
+## General solutions to missing covariates
+
+These solutions require that the missingness is MCAR.
+
+**Complete case analysis:** discard all observations containing missing values. Wasteful.
+
+Let each variable have a probability for missing values of 0.05, then for 20 variables the probability of an observation to be complete is $(1 − 0.05)^{20} = 0.36$, for 50 variables $0.08$. Not many observations left with complete case analysis.
+
+**Pairwise deletion:** for example when calculating a correlation matrix only complete pairs may enter in the calculation. Not so relevant for regression and classification.
+
+**LOCF:** Last observation carried forward. Time series etc. Not recommended, unless there is a reason to believe that nothing has changed.
+
+------------------------------------------------------------------------
+
+**Mean imputation:** Replace the missing value with the mean of the covariate over all samples. Will decrease the variability in the data. "Common solution" within machine learning, but not so common in statistics(?).
+
+**Multiple imputation:** Devise a method to construct the distribution of each covariate (that can be missing) based on other covariates (often a regression method). Sample multiple observation for each missing value, and get $m$ complete dataset. Analyse all $m$ dataset and weigh the results together. R: package `mice`.
+
+```{r mice import, output = FALSE}
+library(mice)
+```
+
+```{r mice example}
+imp = mice(nhanes, print = FALSE, m = 10, seed = 24415)
+fit = with(imp, lm(bmi ~ age))
+# Number of missing observations for our variables
+imp$nmis
+# Summary of mice results
+summary(pool(fit))
+```
+
+```{r mice plots}
+# Trace line plot, can be used to check convergence
+plot(imp)
+# Density of observed and imputed data, observed in blue
+densityplot(imp)
+# One dimensional scatter plots for observed and imputed data, observed in blue
+stripplot(imp)
+```
+
+**Use a method that handles missing data**: such as trees!
