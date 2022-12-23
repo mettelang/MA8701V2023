@@ -71,7 +71,7 @@ Sort out assumed background knowledge, and learn something new
 * Repetition of core concepts (regression and classification)
 * Statistical decision theoretic framework (partly new) ELS 2.4
 * Model selection and model assessment - including bias-variance trade-off (mostly new) ELS 7
-* Missing data ELS 9.6, Handbook of Missing data (parts of Chapters 11-12, partly 13) and Flexible Imputation of Missing Data (parts of Chapters 2-4)
+* Handbook of Missing Data Methology (parts of Chapters 11-12, partly 13) and Flexible Imputation of Missing Data (parts of Chapters 2-4)
 
 ---
 
@@ -100,7 +100,8 @@ Selected Chapters in ELS (8.7, 8.8, 9.2, parts of 10, 15, 16) and several articl
 
 Lectured by Kjersti Aas <https://www.nr.no/~kjersti/>.
 
-Articles on 
+Interpretable Machine Learning: A Guide for Making Black Box Models Explainable,
+Christoph Molnar, with the following topics:
 
 * LIME, 
 * partial dependence plots, 
@@ -242,7 +243,7 @@ snake: writing compound words where the elements are separated with one undersco
 
 ## W3: L5-6
 
-* How to handle missing data in data analyses (ELS 9.6), Handbook of Missing Data (Chapters 11-12-partly 13) and part of Chapters 2-4 from the Van Buuren (2018): Flexible Imputation of Missing Data.
+* How to handle missing data in data analyses 
 
 ---
 

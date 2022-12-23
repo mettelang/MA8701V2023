@@ -1,0 +1,57 @@
+---
+title: "MA8701 Advanced methods in statistical inference and learning"
+subtitle: "Compulsory project 1: Data sets"
+author: "Mette Langaas"
+format: 
+  html: 
+    toc: true
+    code-fold: true
+    toc-location: left
+    toc-depth: 2
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+  beamer:
+    incremental: false
+    aspectratio: 43
+    navigation: frame
+---
+
+```{r setup}
+#| include: true
+#| echo: false
+
+suppressPackageStartupMessages(library(knitr))
+knitr::opts_chunk$set(echo = FALSE, message=FALSE,warning = FALSE, error = FALSE)
+```
+
+
+# Resources for finding data sets
+https://wiki.math.ntnu.no/ma8701
+* Kaggle <https://www.kaggle.com/datasets>
+* UCI Machine Learning Repo <https://archive.ics.uci.edu/ml/datasets.php>
+* Google dataset search: <https://datasetsearch.research.google.com/>
+* Felles datakatalog: <https://data.norge.no/>
+* World bank open data: <https://data.worldbank.org/>
+* The humanitarian data exchange: <https://data.humdata.org/>
+
+# Data sets used in 2021
+
+
+# R resources
+
+<!-- * R style guide - Google: <https://google.github.io/styleguide/Rguide.html> -->
+* Tidyverse style guide (Hadley Wickham) <https://style.tidyverse.org/>
+
+# Python resourcs
+
+* Numpy - linear algebra: <numpy.org>
+* Pandas data frames: <pandas.pydata.org>
+* Scikit-learn: <scikit-learn.org>
+* Pyro probabilistic programming: <pyro.ai>
+* Pytorch: automatic differention, deep learning: <pytorch.org>
+
+
+
+
