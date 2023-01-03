@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
+<meta name="dcterms.date" content="2023-01-02">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -84,6 +85,25 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -129,17 +149,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#tentative-plan-for-part-1" id="toc-tentative-plan-for-part-1" class="nav-link" data-scroll-target="#tentative-plan-for-part-1">Tentative plan for part 1</a>
   <ul class="collapse">
-  <li><a href="#l1-notation-regression-and-statistical-theoretic-framework" id="toc-l1-notation-regression-and-statistical-theoretic-framework" class="nav-link" data-scroll-target="#l1-notation-regression-and-statistical-theoretic-framework">L1: notation, regression and statistical theoretic framework</a></li>
-  <li><a href="#l2-continue-with-the-same-framework-but-for-classification" id="toc-l2-continue-with-the-same-framework-but-for-classification" class="nav-link" data-scroll-target="#l2-continue-with-the-same-framework-but-for-classification">L2: continue with the same framework but for classification</a></li>
-  <li><a href="#w2-l3-4-then-cover-new-aspects-for" id="toc-w2-l3-4-then-cover-new-aspects-for" class="nav-link" data-scroll-target="#w2-l3-4-then-cover-new-aspects-for">W2: L3-4: Then, cover new aspects for</a></li>
-  <li><a href="#w3-l5-6" id="toc-w3-l5-6" class="nav-link" data-scroll-target="#w3-l5-6">W3: L5-6</a></li>
+  <li><a href="#l1" id="toc-l1" class="nav-link" data-scroll-target="#l1">L1</a></li>
+  <li><a href="#l2" id="toc-l2" class="nav-link" data-scroll-target="#l2">L2</a></li>
+  <li><a href="#w2" id="toc-w2" class="nav-link" data-scroll-target="#w2">W2</a></li>
+  <li><a href="#w3" id="toc-w3" class="nav-link" data-scroll-target="#w3">W3</a></li>
   </ul></li>
   <li><a href="#core-concepts" id="toc-core-concepts" class="nav-link" data-scroll-target="#core-concepts">Core concepts</a>
   <ul class="collapse">
   <li><a href="#notation" id="toc-notation" class="nav-link" data-scroll-target="#notation">Notation</a></li>
   <li><a href="#random-variables-and-random-vectors" id="toc-random-variables-and-random-vectors" class="nav-link" data-scroll-target="#random-variables-and-random-vectors">Random variables and random vectors</a></li>
   <li><a href="#training-set" id="toc-training-set" class="nav-link" data-scroll-target="#training-set">Training set</a></li>
-  <li><a href="#test-data" id="toc-test-data" class="nav-link" data-scroll-target="#test-data">Test data</a></li>
+  <li><a href="#validation-and-test-data" id="toc-validation-and-test-data" class="nav-link" data-scroll-target="#validation-and-test-data">Validation and test data</a></li>
   <li><a href="#group-discussion" id="toc-group-discussion" class="nav-link" data-scroll-target="#group-discussion">Group discussion</a></li>
   <li><a href="#regression-and-mlr" id="toc-regression-and-mlr" class="nav-link" data-scroll-target="#regression-and-mlr">Regression and MLR</a></li>
   </ul></li>
@@ -150,7 +170,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   <li><a href="#solutions-to-exercises" id="toc-solutions-to-exercises" class="nav-link" data-scroll-target="#solutions-to-exercises">Solutions to exercises</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#reference-links" id="toc-reference-links" class="nav-link" data-scroll-target="#reference-links">Reference links</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
 </nav>
 </div>
@@ -175,12 +196,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
   </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 2, 2023</p>
+    </div>
+  </div>
     
   </div>
   
 
 </header>
 
+<p>Course homepage: <a href="https://wiki.math.ntnu.no/ma8701/2023v/start" class="uri">https://wiki.math.ntnu.no/ma8701/2023v/start</a></p>
 <div class="cell">
 
 </div>
@@ -238,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="part-4-xai-2-weeks" class="level2">
 <h2 class="anchored" data-anchor-id="part-4-xai-2-weeks">Part 4: XAI [2 weeks]</h2>
 <p>Lectured by Kjersti Aas <a href="https://www.nr.no/~kjersti/" class="uri">https://www.nr.no/~kjersti/</a>.</p>
-<p>Interpretable Machine Learning: A Guide for Making Black Box Models Explainable, Christoph Molnar, with the following topics:</p>
+<p>Interpretable Machine Learning: A Guide for Making Black Box Models Explainable, <span class="citation" data-cites="molnar2019">Molnar (<a href="#ref-molnar2019" role="doc-biblioref">2019</a>)</span>, with the following topics:</p>
 <ul>
 <li>LIME,</li>
 <li>partial dependence plots,</li>
@@ -334,7 +362,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Dog person or cat person?</li>
 <li>When performing logistic regression - do you then say you do statistical learning or machine learning?</li>
-<li>I will show you the result of a descriptive analysis: summary or graphical display?</li>
+<li>I will show you the result of a descriptive analysis: table summary or graphical display?</li>
 <li>Learning something new: read a book or watch a video?</li>
 <li>Analysing data: R or python?</li>
 <li>Analysing data: report p-values and or confidence intervals</li>
@@ -349,30 +377,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="tentative-plan-for-part-1" class="level1">
 <h1>Tentative plan for part 1</h1>
 <p>(progress may be faster or slower than indicated)</p>
-<section id="l1-notation-regression-and-statistical-theoretic-framework" class="level2">
-<h2 class="anchored" data-anchor-id="l1-notation-regression-and-statistical-theoretic-framework">L1: notation, regression and statistical theoretic framework</h2>
+<section id="l1" class="level2">
+<h2 class="anchored" data-anchor-id="l1">L1</h2>
+<p>Notation, regression and statistical theoretic framework</p>
 <ul>
 <li>Notation (ELS Ch 2.2)</li>
 <li>Regression - should not be new (ELS Ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)</li>
 <li>Statistical decision theoretic framework for regression (ELS 2.4)</li>
 </ul>
 </section>
-<section id="l2-continue-with-the-same-framework-but-for-classification" class="level2">
-<h2 class="anchored" data-anchor-id="l2-continue-with-the-same-framework-but-for-classification">L2: continue with the same framework but for classification</h2>
+<section id="l2" class="level2">
+<h2 class="anchored" data-anchor-id="l2">L2</h2>
+<p>Continue with the same framework but for classification, if time also bias-variance trade-off</p>
 <ul>
 <li>Classification - should not be new (ELS Ch 4.1-4.5, except 4.4.4)</li>
 <li>Statistical decision theoretic framework for classification (ELS 2.4)</li>
+<li>and the bias-variance trade-off</li>
 </ul>
 <hr>
 </section>
-<section id="w2-l3-4-then-cover-new-aspects-for" class="level2">
-<h2 class="anchored" data-anchor-id="w2-l3-4-then-cover-new-aspects-for">W2: L3-4: Then, cover new aspects for</h2>
+<section id="w2" class="level2">
+<h2 class="anchored" data-anchor-id="w2">W2</h2>
+<p>L3-4: Then, cover new aspects for</p>
 <ul>
-<li>Model selection and assessment (ELS Ch 7.1-7.6, 7.10-7.12), including statistical learning and the bias-variance trade-off (ELS Ch 2).</li>
+<li>Model selection and assessment (ELS Ch 7.1-7.6, 7.10-7.12)</li>
 </ul>
 </section>
-<section id="w3-l5-6" class="level2">
-<h2 class="anchored" data-anchor-id="w3-l5-6">W3: L5-6</h2>
+<section id="w3" class="level2">
+<h2 class="anchored" data-anchor-id="w3">W3</h2>
+<p>L5-6</p>
 <ul>
 <li>How to handle missing data in data analyses</li>
 </ul>
@@ -426,15 +459,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A set of size <span class="math inline">\(N\)</span> of independent pairs ov observations <span class="math inline">\((x_i,y_i)\)</span> is called the <em>training set</em> and often denoted <span class="math inline">\(\mathcal{T}\)</span>. Here <span class="math inline">\(x_i\)</span> may be a vector.</p>
 <p>The training data is used to estimate the unknown function <span class="math inline">\(f\)</span>.</p>
 </section>
-<section id="test-data" class="level2">
-<h2 class="anchored" data-anchor-id="test-data">Test data</h2>
-<p>Test data is in general thought of as future data, and plays an important role in both</p>
-<ul>
-<li>model selection (finding the best model among a candidate set) and also for</li>
-<li>model assessment (assess the performance of the fitted model on future data).</li>
-</ul>
-<p>We will consider theoretical results for future test data, and also look at different ways to split or resample available data.</p>
-<p>More about training, test, validation, cross-validation and bootstrapping in ELS Chapter 7.</p>
+<section id="validation-and-test-data" class="level2">
+<h2 class="anchored" data-anchor-id="validation-and-test-data">Validation and test data</h2>
+<p>Validation data is used for <em>model selection</em> (finding the best model among a candidate set).</p>
+<p>Test data is used for <em>model assessment</em> (assess the performance of the fitted model on future data).</p>
+<p>We will consider theoretical results, and also look at different ways to split or resample available data.</p>
+<p>More in ELS Chapter 7.</p>
 <hr>
 </section>
 <section id="group-discussion" class="level2">
@@ -570,6 +600,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="d-hypothesis-test" class="level4">
 <h4 class="anchored" data-anchor-id="d-hypothesis-test">d) Hypothesis test</h4>
 <p>How would you test the hypothesis <span class="math inline">\(H_0: \beta_j=0\)</span> against <span class="math inline">\(H_1: \beta_j\neq 0\)</span>?</p>
+</section>
+<section id="e-explanability" class="level4">
+<h4 class="anchored" data-anchor-id="e-explanability">e) Explanability</h4>
+<p>Explanability is now very important - but then we usually talk about black box models. How would you explain the impact of each covariate in a multiple linear regression model? Can you give the proportion of the varibility that each variable is responsible for explaining?</p>
 <hr>
 </section>
 </section>
@@ -597,7 +631,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="b-properties-of-regression-estimator" class="level4">
 <h4 class="anchored" data-anchor-id="b-properties-of-regression-estimator">b) Properties of regression estimator</h4>
-<p>[Page 3 of classnotes from TMA4268] (https://www.math.ntnu.no/emner/TMA4268/2019v/notes/M3L2notes.pdf)</p>
+<p><a href="https://www.math.ntnu.no/emner/TMA4268/2019v/notes/M3L2notes.pdf">Page 3 of classnotes from TMA4268</a></p>
 </section>
 <section id="c-estimator-for-variance-1" class="level4">
 <h4 class="anchored" data-anchor-id="c-estimator-for-variance-1">c) Estimator for variance</h4>
@@ -605,12 +639,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="d-hypothesis-test-1" class="level4">
 <h4 class="anchored" data-anchor-id="d-hypothesis-test-1">d) Hypothesis test</h4>
-<p>[Page 4 of classnotes from TMA4268] (https://www.math.ntnu.no/emner/TMA4268/2019v/notes/M3L2notes.pdf)</p>
+<p><a href="https://www.math.ntnu.no/emner/TMA4268/2019v/notes/M3L2notes.pdf">Page 4 of classnotes from TMA4268</a></p>
+</section>
+<section id="e" class="level4">
+<h4 class="anchored" data-anchor-id="e">e)</h4>
+<p>Standardized regression coefficients, estimated regression coefficients divided by their standard errors, is the most used solution. But, also popular is the decomposition of the <span class="math inline">\(R^2\)</span> - easy for orthogonal design matrix, but not easy for correlated covariates. The LMG-method of <span class="citation" data-cites="gromping2007">Grömping (<a href="#ref-gromping2007" role="doc-biblioref">2007</a>)</span> (decomposing <span class="math inline">\(R^2\)</span>) gives a solution that is also valid with correlated covariates, that is identical to the Shapley value of Part 4 (more later).</p>
 </section>
 </section>
 </section>
-<section id="references" class="level1">
-<h1>References</h1>
+<section id="reference-links" class="level1">
+<h1>Reference links</h1>
 <ul>
 <li><p><a href="https://hastie.su.domains/ElemStatLearn/">ELS official errata:</a> and choose “Errata” in the left menu</p></li>
 <li><p><a href="https://waxworksmath.com/Authors/G_M/Hastie/hastie.html">ELS notes and solutions to exercises</a></p></li>
@@ -619,8 +657,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><a href="https://en.wikipedia.org/wiki/Snake_case">Snake_case</a></p></li>
 </ul>
 </section>
+<section id="bibliography" class="level1">
 
-</main>
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-gromping2007" class="csl-entry" role="doc-biblioentry">
+Grömping, U. 2007. <span>“Estimators of Relative Importance in Linear Regression Based on Variance Decomposition.”</span> <em>The American Statistician</em> 61: 139–47.
+</div>
+<div id="ref-ESL" class="csl-entry" role="doc-biblioentry">
+Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. Vol. 2. Springer series in statistics New York. <a href="https://hastie.su.domains/ElemStatLearn">hastie.su.domains/ElemStatLearn</a>.
+</div>
+<div id="ref-molnar2019" class="csl-entry" role="doc-biblioentry">
+Molnar, Christoph. 2019. <em>Interpretable Machine Learning: A Guide for Making Black Box Models Explainable</em>.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

@@ -2,6 +2,10 @@
 title: "MA8701 Advanced methods in statistical inference and learning"
 subtitle: "L1: Introduction and core concepts"
 author: "Mette Langaas"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+bibliography: references.bib
+nocite: |
+  @ESL
 format: 
   html: 
     toc: true
@@ -15,8 +19,9 @@ format:
   beamer:
     incremental: false
     aspectratio: 43
-    navigation: frame
 ---
+
+Course homepage: <https://wiki.math.ntnu.no/ma8701/2023v/start>
 
 ```{r setup}
 #| include: true
@@ -46,11 +51,11 @@ include_graphics("./overviewv2.png")
 
 The starting point is that we cover important parts of 
 
-The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman.
+The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. 
 
 but, since the book is from 2009 (2nd edition, 12th corrected printing from 2017) this means that for many topic we need (to be up to date) additional selected material in the form of book chapters and research articles.
 
-Download book at <https://hastie.su.domains/ElemStatLearn/download.html> (this is 12th corrected printing) or sign in at NTNU vpn at [Springer](https://link.springer.com/book/10.1007/978-0-387-84858-7) (but I am not sure if this is an earlier print without the version 12 corrections).
+Download book at <https://hastie.su.domains/ElemStatLearn/download.html> (this is 12th corrected printing) or sign in at NTNU vpn at [Springer](https://link.springer.com/book/10.1007/978-0-387-84858-7) (but I am not sure if this is an earlier print without the version 12 corrections). 
 
 ---
 
@@ -101,7 +106,7 @@ Selected Chapters in ELS (8.7, 8.8, 9.2, parts of 10, 15, 16) and several articl
 Lectured by Kjersti Aas <https://www.nr.no/~kjersti/>.
 
 Interpretable Machine Learning: A Guide for Making Black Box Models Explainable,
-Christoph Molnar, with the following topics:
+@molnar2019, with the following topics:
 
 * LIME, 
 * partial dependence plots, 
@@ -208,7 +213,7 @@ while (at least one student not presented)
 
 * Dog person or cat person?
 * When performing logistic regression - do you then say you do statistical learning or machine learning?
-* I will show you the result of a descriptive analysis: summary or graphical display?
+* I will show you the result of a descriptive analysis: table summary or graphical display?
 * Learning something new: read a book or watch a video?
 * Analysing data: R or python?
 * Analysing data: report p-values and or confidence intervals
@@ -224,24 +229,29 @@ snake: writing compound words where the elements are separated with one undersco
 # Tentative plan for part 1
 (progress may be faster or slower than indicated)
 
-## L1: notation, regression and statistical theoretic framework
+## L1
+Notation, regression and statistical theoretic framework
 
 * Notation (ELS Ch 2.2)
 * Regression - should not be new (ELS Ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)
 * Statistical decision theoretic framework for regression (ELS 2.4)
 
-## L2: continue with the same framework but for classification
+## L2
+Continue with the same framework but for classification, if time also bias-variance trade-off
 
 * Classification - should not be new (ELS Ch 4.1-4.5, except 4.4.4)
 * Statistical decision theoretic framework for classification (ELS 2.4)
+* and the bias-variance trade-off
 
 ---
 
-## W2: L3-4: Then, cover new aspects for 
+## W2
+L3-4: Then, cover new aspects for 
 
-* Model selection and assessment (ELS Ch 7.1-7.6, 7.10-7.12), including statistical learning and the bias-variance trade-off (ELS Ch 2).
+* Model selection and assessment (ELS Ch 7.1-7.6, 7.10-7.12)
 
-## W3: L5-6
+## W3
+L5-6
 
 * How to handle missing data in data analyses 
 
@@ -304,16 +314,15 @@ A set of size $N$ of independent pairs ov observations $(x_i,y_i)$ is called the
 
 The training data is used to estimate the unknown function $f$.
 
-## Test data
+## Validation and test data
 
-Test data is in general thought of as future data, and plays an important role in both 
+Validation data is used for _model selection_ (finding the best model among a candidate set).
 
-* model selection (finding the best model among a candidate set) and also for 
-* model assessment (assess the performance of the fitted model on future data).
+Test data is used for _model assessment_ (assess the performance of the fitted model on future data).
 
-We will consider theoretical results for future test data, and also look at different ways to split or resample available data.
+We will consider theoretical results, and also look at different ways to split or resample available data.
 
-More about training, test, validation, cross-validation and bootstrapping in ELS Chapter 7.
+More in ELS Chapter 7.
 
 ---
 
@@ -493,6 +502,11 @@ Explain how we may find the restricted maximum likelihood estimator for $\sigma^
 #### d) Hypothesis test
 How would you test the hypothesis $H_0: \beta_j=0$ against $H_1: \beta_j\neq 0$?
 
+#### e) Explanability
+Explanability is now very important - but then we usually talk about black box models.
+How would you explain the impact of each covariate in a multiple linear regression model?
+Can you give the proportion of the varibility that each variable is responsible for explaining?
+
 ---
 
 # Solutions to exercises
@@ -515,12 +529,13 @@ Page 8 of <https://getd.libs.uga.edu/pdfs/ma_james_c_201412_ms.pdf>
 
 #### a) Regression parameter estimator
 
-Both methods are written out in [these class notes from TMA4267/8](https://www.math.ntnu.no/emner/TMA4268/2018v/notes/LeastSquaresMLR.pdf).
+Both methods are written out in 
+[these class notes from TMA4267/8](https://www.math.ntnu.no/emner/TMA4268/2018v/notes/LeastSquaresMLR.pdf).
 More on likelihood-version here: [TMA4315 GLM Module 2](https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html#likelihood_theory_(from_b4)).
 
 #### b) Properties of regression estimator
 
-[Page 3 of classnotes from TMA4268] (https://www.math.ntnu.no/emner/TMA4268/2019v/notes/M3L2notes.pdf)
+[Page 3 of classnotes from TMA4268](https://www.math.ntnu.no/emner/TMA4268/2019v/notes/M3L2notes.pdf)
 
 #### c) Estimator for variance
 
@@ -528,9 +543,12 @@ More on likelihood-version here: [TMA4315 GLM Module 2](https://www.math.ntnu.no
 
 #### d) Hypothesis test
 
-[Page 4 of classnotes from TMA4268] (https://www.math.ntnu.no/emner/TMA4268/2019v/notes/M3L2notes.pdf)
+[Page 4 of classnotes from TMA4268](https://www.math.ntnu.no/emner/TMA4268/2019v/notes/M3L2notes.pdf)
 
-# References 
+#### e)
+Standardized regression coefficients, estimated regression coefficients divided by their standard errors, is the most used solution. But, also popular is the decomposition of the $R^2$ - easy for orthogonal design matrix, but not easy for correlated covariates. The LMG-method of @gromping2007 (decomposing $R^2$) gives a solution that is also valid with correlated covariates, that is identical to the Shapley value of Part 4 (more later).
+
+# Reference links
 
 * [ELS official errata:](https://hastie.su.domains/ElemStatLearn/) and choose "Errata" in the left menu
 
@@ -540,4 +558,7 @@ More on likelihood-version here: [TMA4315 GLM Module 2](https://www.math.ntnu.no
 * [Camel_case](https://en.wikipedia.org/wiki/Camel_case)
 * [Snake_case](https://en.wikipedia.org/wiki/Snake_case)
 
+# Bibliography
 
+::: {#refs}
+:::

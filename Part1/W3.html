@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mette Langaas">
+<meta name="dcterms.date" content="2022-12-29">
+
+<title>MA8701 Advanced methods in statistical inference and learning</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="W3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="W3_files/libs/quarto-html/quarto.js"></script>
+<script src="W3_files/libs/quarto-html/popper.min.js"></script>
+<script src="W3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="W3_files/libs/quarto-html/anchor.min.js"></script>
+<link href="W3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="W3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="W3_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="W3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="W3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#missing-data" id="toc-missing-data" class="nav-link active" data-scroll-target="#missing-data">Missing data</a>
+  <ul class="collapse">
+  <li><a href="#notation" id="toc-notation" class="nav-link" data-scroll-target="#notation">Notation</a></li>
+  <li><a href="#missing-mechanisms" id="toc-missing-mechanisms" class="nav-link" data-scroll-target="#missing-mechanisms">Missing mechanisms</a></li>
+  </ul></li>
+  <li><a href="#popular-solutions-to-missing-covariates" id="toc-popular-solutions-to-missing-covariates" class="nav-link" data-scroll-target="#popular-solutions-to-missing-covariates">Popular solutions to missing covariates</a></li>
+  <li><a href="#multiple-imputation" id="toc-multiple-imputation" class="nav-link" data-scroll-target="#multiple-imputation">Multiple imputation</a>
+  <ul class="collapse">
+  <li><a href="#imputation-model" id="toc-imputation-model" class="nav-link" data-scroll-target="#imputation-model">Imputation model</a></li>
+  <li><a href="#analysis-model" id="toc-analysis-model" class="nav-link" data-scroll-target="#analysis-model">Analysis model</a></li>
+  <li><a href="#rubins-rules" id="toc-rubins-rules" class="nav-link" data-scroll-target="#rubins-rules">Rubin´s rules</a></li>
+  <li><a href="#r-example" id="toc-r-example" class="nav-link" data-scroll-target="#r-example">R example</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">MA8701 Advanced methods in statistical inference and learning</h1>
+<p class="subtitle lead">Week 3: Missing data</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mette Langaas </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 29, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<p>Course homepage: <a href="https://wiki.math.ntnu.no/ma8701/2023v/start" class="uri">https://wiki.math.ntnu.no/ma8701/2023v/start</a></p>
+<p>(ELS 9.6, and <a href="https://stefvanbuuren.name/fimd/">van Buuren: “Flexible imputation of missing data”</a>) <span class="citation" data-cites="VanBuuren2008">(<a href="#ref-VanBuuren2008" role="doc-biblioref"><strong>VanBuuren2008?</strong></a>)</span></p>
+<section id="missing-data" class="level1">
+<h1>Missing data</h1>
+<p>When performing data analysis we often encounter data sets where some observations have missing values. It is important to understand the underlying mechanism for the observations to be missing, so that we may treat the missing data appropriately.</p>
+<p>If we do not treat missing data correctly, this may lead to * wrong conclusions (the observed data might not be representative for the population under study), * there is a loss of power for statistical tests (or length of CIs) so that conclusions are weaker than if the data were complete, and * the statistical analyses may be complicated since standard methods (assuming no missing data) can´t be used.</p>
+<p>We first look at notation and then definitions of missing mechanisms.</p>
+<section id="notation" class="level2">
+<h2 class="anchored" data-anchor-id="notation">Notation</h2>
+<ul>
+<li><span class="math inline">\({\bf y}\)</span>: response vector (no missing values)</li>
+<li><span class="math inline">\({\bf X}\)</span>: the full covariate matrix</li>
+<li><span class="math inline">\({\bf Z}=({\bf X},{\bf y})\)</span>: full responses and covariates</li>
+<li><span class="math inline">\({\bf X}_{\text{obs}}\)</span>: the observed part of the covariate matrix</li>
+<li><span class="math inline">\({\bf X}_{\text{mis}}\)</span>: the missing part of the covariate matrix</li>
+<li><span class="math inline">\({\bf Z}_{\text{obs}}=({\bf X}_{\text{obs}},{\bf y})\)</span>: the observed responses and covariates</li>
+<li><span class="math inline">\({\bf R}\)</span>: indicator matrix (0/1) for missingness/observability of <span class="math inline">\({\bf X}\)</span>, where <span class="math inline">\(1\)</span> denotes observed and <span class="math inline">\(0\)</span> denotes missing. (ELS 9.6 does the opposite, but that is not the common use.)</li>
+<li><span class="math inline">\(\theta\)</span>: some parameter in the distribution of <span class="math inline">\({\bf R}\)</span>.</li>
+</ul>
+<p>We may use the indicator matrix together with the missing data vector and observed data vector to write out the full covariate matrix.</p>
+<p>The missing data mechanism is characterized by the conditional distribution of <span class="math inline">\({\bf R}\)</span>; <span class="math display">\[P({\bf R} \mid {\bf Z},\theta)\]</span></p>
+<hr>
+</section>
+<section id="missing-mechanisms" class="level2">
+<h2 class="anchored" data-anchor-id="missing-mechanisms">Missing mechanisms</h2>
+<section id="missing-completely-at-random-mcar" class="level3">
+<h3 class="anchored" data-anchor-id="missing-completely-at-random-mcar">Missing completely at random (MCAR)</h3>
+<p><span class="math display">\[P({\bf R} \mid {\bf Z},\theta)=P({\bf R} \mid \theta)\]</span></p>
+<ul>
+<li>All observations have the same probability of being missing, and</li>
+<li>the missing mechanism is not related to the data (not to observed or missing data).</li>
+</ul>
+<p>If observations with MCAR data are removed that should not bias the analyses (but the sample size will of cause be smaller), because the subset of complete observations should have the same distribution as the full data set.</p>
+<p>Examples:</p>
+<ul>
+<li>measure weight, and the scales run out of battery</li>
+<li>similar mechanism to taking a random sample</li>
+</ul>
+<hr>
+</section>
+<section id="missing-at-random-mar" class="level3">
+<h3 class="anchored" data-anchor-id="missing-at-random-mar">Missing at random (MAR)</h3>
+<p><span class="math display">\[P({\bf R} \mid {\bf Z},\theta)=P({\bf R} \mid {\bf Z}_{\text obs},\theta)\]</span></p>
+<ul>
+<li>The probability of an entry to be missing depends (possibly) on observed data, but not on unobserved data.</li>
+<li>Thus, all information about the missing data that we need to perform valid statistical analysis is found in the observed data (but maybe difficult to construct a model for this).</li>
+<li>In a regression or classifiation setting this means that the missingness of a covariate may be dependent on the observed response.</li>
+<li>Remark: not dependent on what could have been observed (i.e.&nbsp;what is not observed).</li>
+</ul>
+<p>Example:</p>
+<ul>
+<li>measure weight, and the scales have different missing proportions when being on a hard or soft surface</li>
+</ul>
+<p>Most methods for handling missing data require the data to be MAR. If you know that the missingness is at least MAR, then there exists tests to check if the data also is MCAR.</p>
+<hr>
+</section>
+<section id="missing-not-at-random-mnar" class="level3">
+<h3 class="anchored" data-anchor-id="missing-not-at-random-mnar">Missing not at random (MNAR)</h3>
+<p>We have MNAR if we don´t have MAR or MCAR.</p>
+<p>Then the missing mechanism could depend on what we could have measured (unobserved data) or other observed values (covariates or response that we are noe collecting). Statistical analyses can not be performed without modelling the underlying missing data mechanism.</p>
+<p>Examples:</p>
+<ul>
+<li>the scales give more often missing values for heavier objects than for lighter objects</li>
+<li>a patient is too sick to perform some procedure that would show a high value of a measurement</li>
+</ul>
+<hr>
+</section>
+<section id="group-discussion" class="level3">
+<h3 class="anchored" data-anchor-id="group-discussion">Group discussion</h3>
+<p>Look at data to be used in the future - and say if MCAR, MNAR, MAR? Or come up with data where this is the case themselves? Suggest to create simulation experiments to check the invalidity or validity of complete case analysis under the three types of missingness?</p>
+</section>
+</section>
+</section>
+<section id="popular-solutions-to-missing-covariates" class="level1">
+<h1>Popular solutions to missing covariates</h1>
+<p>SE info fra SL i slides og evt annet for å få ryggdekning for når metodene er gyldige.</p>
+<p><strong>Complete case analysis:</strong> discard all observations containing missing values. Wasteful, but will give valid inference for MCAR.</p>
+<p>Let each variable have a probability for missing values of 0.05, then for 20 variables the probability of an observation to be complete is <span class="math inline">\((1 − 0.05)^20 = 0.36\)</span>, for 50 variables <span class="math inline">\(0.08\)</span>. Not many observations left with complete case analysis. Of cause some variables may have more missing than others, and removing those variables first may of cause lead to less observations that are incomplete</p>
+<p><strong>Pairwise deletion:</strong> for example when calculating a correlation matrix only complete pairs may enter in the calculation. Not so relevant for regression and classification.</p>
+<p><strong>LOCF:</strong> Last observation carried forward. Time series etc. Not recommended, unless there is a reason to believe that nothing has changed.</p>
+<hr>
+<p><strong>Mean imputation:</strong> Replace the missing value with the mean of the covariate over all samples. Will decrease the variability in the data. “Common solution” within machine learning, but not so common in statistics. Will not give valid inference.</p>
+<p><strong>Multiple imputation:</strong> Devise a method to construct the distribution of each covariate (that can be missing) based on other covariates (often a regression method). Sample multiple observation for each missing value, and get <span class="math inline">\(m\)</span> complete dataset. Analyse all <span class="math inline">\(m\)</span> dataset and weigh the results together. R: package <code>mice</code>. Will give powerful and valid inference for MAR and MCAR</p>
+<p><strong>Use an analysis method that handles missing data</strong>: such as trees! More in Part 3.</p>
+</section>
+<section id="multiple-imputation" class="level1">
+<h1>Multiple imputation</h1>
+<section id="imputation-model" class="level2">
+<h2 class="anchored" data-anchor-id="imputation-model">Imputation model</h2>
+</section>
+<section id="analysis-model" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-model">Analysis model</h2>
+</section>
+<section id="rubins-rules" class="level2">
+<h2 class="anchored" data-anchor-id="rubins-rules">Rubin´s rules</h2>
+</section>
+<section id="r-example" class="level2">
+<h2 class="anchored" data-anchor-id="r-example">R example</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>imp <span class="ot">=</span> <span class="fu">mice</span>(nhanes, <span class="at">print =</span> <span class="cn">FALSE</span>, <span class="at">m =</span> <span class="dv">10</span>, <span class="at">seed =</span> <span class="dv">24415</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">=</span> <span class="fu">with</span>(imp, <span class="fu">lm</span>(bmi <span class="sc">~</span> age))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of missing observations for our variables</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>imp<span class="sc">$</span>nmis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>age bmi hyp chl 
+  0   9   8  10 </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of mice results</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">pool</span>(fit))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         term  estimate std.error statistic       df      p.value
+1 (Intercept) 29.621111  2.248428 13.174145 12.62920 9.477666e-09
+2         age -1.802222  1.108781 -1.625408 14.42517 1.257173e-01</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Trace line plot, can be used to check convergence</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/mice%20plots-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Density of observed and imputed data, observed in blue</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">densityplot</span>(imp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/mice%20plots-2.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One dimensional scatter plots for observed and imputed data, observed in blue</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stripplot</span>(imp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/mice%20plots-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references">References</h3>
+<p>::: {#refs}</p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

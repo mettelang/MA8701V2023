@@ -1,0 +1,1322 @@
+---
+title: "MA8701 Advanced methods in statistical inference and learning"
+subtitle: "Datasets in teaching"
+author: "Mette Langaas"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+bibliography: references.bib
+format: 
+  html: 
+    toc: true
+    code-fold: true
+    toc-location: left
+    toc-depth: 2
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+  beamer:
+    incremental: false
+    aspectratio: 43
+    navigation: frame
+---
+
+```{r setup}
+#| include: true
+#| echo: false
+
+suppressPackageStartupMessages(library(knitr))
+knitr::opts_chunk$set(echo = FALSE, message=FALSE,warning = FALSE, error = FALSE)
+library(leaps)
+library(nortest)
+suppressPackageStartupMessages(library(ggpubr))
+suppressPackageStartupMessages(library(cowplot))
+suppressPackageStartupMessages(library(magick))
+suppressPackageStartupMessages(library(pheatmap))
+suppressPackageStartupMessages(library(monomvn))
+suppressPackageStartupMessages(library(glmnet))
+suppressPackageStartupMessages(library(HDCI))
+suppressPackageStartupMessages(library(lars)) #data diabetes
+suppressPackageStartupMessages(library(hdi))
+suppressPackageStartupMessages(library(GGally))
+suppressPackageStartupMessages(library(bestglm))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(glmnet))
+suppressPackageStartupMessages(library(rpart.plot))
+suppressPackageStartupMessages(library(randomForest))
+suppressPackageStartupMessages(library(MASS))
+suppressPackageStartupMessages(library(GGally))
+suppressPackageStartupMessages(library(caret)) #for confusion matrices
+suppressPackageStartupMessages(library(pROC)) #for ROC curves
+suppressPackageStartupMessages(library(corrplot)) #for ROC curves
+suppressPackageStartupMessages(library(correlation)) #for ROC curves
+suppressPackageStartupMessages(library(h2o)) 
+suppressPackageStartupMessages(library(tree)) 
+```
+
+Course homepage: <https://wiki.math.ntnu.no/ma8701/2023v/start>
+
+# Gasoline
+
+## Data set
+
+(L2)
+Consider the multiple linear regression model, with response vector
+$\bf{Y}$ of dimension $(N \times 1)$ and $p$ covariates and intercept in $\bf{X}$ $(N \times p+1)$.
+
+\begin{align}
+ \bf{Y} = \bf{X}\bf{\beta} + \bf{\varepsilon}
+\end{align}
+where $\bf{\varepsilon}\sim N(\bf{0},\sigma^2\bf{I})$.
+
+When gasoline is pumped into the tank of a car, vapors are vented into the atmosphere. An experiment was conducted to determine whether $Y$, the amount of vapor, can be predicted using the following four variables based on initial conditions of the tank and the dispensed gasoline:
+
+* `TankTemp`  	tank temperature (F) 
+* `GasTemp` 		gasoline temperature (F) 
+* `TankPres` 	vapor pressure in tank (psi)
+* `GasPres`		vapor pressure of gasoline (psi)
+
+The data set is called `sniffer.dat`.
+
+We start by standardizing the
+covariates (make the mean 0 and the variance 1), we also center the response. From the scatter plots of the response and the covariates - would you think an MLR is suitable?
+
+---
+
+```{r,echo=TRUE}
+ds <- read.table("./sniffer.dat",header=TRUE)
+x <- apply(ds[,-5],2,scale)
+y <- ds[,5]-mean(ds[,5])
+print(dim(x))
+dss=data.frame(y,x)
+ggpairs(dss)
+```
+
+Calculate the estimated covariance matrix of the standardized
+covariates. Do you see a potential problem here?
+
+```{r,echo=TRUE}
+cov(dss)
+```
+
+
+## Multiple linear regression
+
+We have fitted a MLR with all four covariates. Explain what you see.
+
+```{r,echo=TRUE}
+full <- lm(y~.,dss)
+summary(full)
+confint(full)
+ggplot(full, aes(.fitted, .stdresid)) + geom_point(pch = 21) + geom_hline(yintercept = 0, 
+    linetype = "dashed") + geom_smooth(se = FALSE, col = "red", size = 0.5, 
+    method = "loess") + labs(x = "Fitted values", y = "Standardized residuals", 
+    title = "Fitted values vs standardized residuals", subtitle = deparse(full$call))
+ggplot(full, aes(sample = .stdresid)) + stat_qq(pch = 19) + geom_abline(intercept = 0, 
+    slope = 1, linetype = "dotted") + labs(x = "Theoretical quantiles", 
+    y = "Standardized residuals", title = "Normal Q-Q", subtitle = deparse(full$call))
+ad.test(rstudent(full))
+```
+
+---
+
+Perform best subset selection using Mallows $C_p$ (equivalent to AIC) to
+choose the best model. 
+
+```{r,echo=TRUE}
+bests <- regsubsets(x,y)
+sumbests <- summary(bests)
+print(sumbests)
+which.min(sumbests$cp) 
+```
+---
+
+Model after best subset selection.
+
+```{r,echo=TRUE}
+red <- lm(y~GasTemp+TankPres+GasPres,data=dss)
+summary(red)
+confint(red)
+```
+
+## Ridge regression
+
+```{r,echo=TRUE}
+start=glmnet(x=x,y=y,alpha=0)
+autolambda=start$lambda # automatic choice of lambda had smallest lambda 0.96 - but I added more small values to also be able to see that LS-solution is for lambda=0
+newlambda=c(autolambda,0.5,0.3,0.2,0.1)
+fit.ridge=glmnet(x,y,alpha=0,lambda=newlambda)
+plot(fit.ridge,xvar="lambda",label=TRUE)
+#plot(fit.ridge,xvar="norm",label=TRUE)
+```
+
+## Ridge vs MLR
+
+```{r,echo=TRUE}
+cv.ridge=cv.glmnet(x,y,alpha=0,lambda=newlambda)
+print(paste("The lamda giving the smallest CV error",cv.ridge$lambda.min))
+print(paste("The 1sd err method lambda",cv.ridge$lambda.1se))
+
+plot(cv.ridge)
+
+# use 1sd error rule default
+plot(fit.ridge,xvar="lambda",label=TRUE);
+abline(v=log(cv.ridge$lambda.1se));
+
+coef(cv.ridge)
+full$coeff
+red$coeff
+```
+
+## Lasso
+
+```{r}
+# Now we fit a lasso model; for this we use the default `alpha=1`
+fit.lasso=glmnet(x,y)#,lambda=newlambda)
+plot(fit.lasso,xvar="lambda",label=TRUE)
+
+cv.lasso=cv.glmnet(x,y)
+#which.min(cv.lasso$cvm)
+
+plot(cv.lasso)
+plot(fit.lasso,xvar="lambda",label=TRUE);
+abline(v=log(cv.lasso$lambda.1se))
+
+coef(cv.lasso)
+```
+---
+
+# South African Heart Disease
+(2021 L3)
+
+## Data set
+
+The data is presented in ELS Section 4.4.2, and downloaded from <http://statweb.stanford.edu/~tibs/ElemStatLearn.1stEd/> with information in the file `SAheat.info` and data in `SAheart.data`.
+
+* This is a retrospective sample of males in a heart-disease high-risk region in South Africa. 
+* It consists of 462 observations on the 10 variables. All subjects are male in the age range 15-64. 
+* There are 160 cases (individuals who have suffered from a conorary heart disease) and 302 controls (individuals who have not suffered from a conorary heart disease).    
+* The overall prevalence in the region was 5.1%.
+
+The response value (`chd`) and covariates
+
+* `chd` : conorary heart disease \{yes, no\} coded by the numbers \{1, 0\}
+* `sbp` : systolic blood pressure  
+* `tobacco` : cumulative tobacco (kg)  
+* `ldl` : low density lipoprotein cholesterol
+* `adiposity` : a numeric vector
+* `famhist` : family history of heart disease. Categorical variable with two levels: \{Absent, Present\}.
+* `typea` : type-A behavior
+* `obesity` : a numerical value
+* `alcohol` : current alcohol consumption
+* `age` : age at onset
+
+_The goal is to identify important risk factors._ 
+
+---
+
+## Data description
+
+We start by loading and looking at the data:
+
+```{r,echo=TRUE}
+ds=read.csv("./SAheart.data",sep=",")[,-1]
+ds$chd=as.factor(ds$chd)
+ds$famhist=as.factor(ds$famhist)
+dim(ds)
+colnames(ds)
+head(ds)
+
+# to be easier to compare with lasso and ridge, we standardize the xs
+xs=model.matrix(chd~.,data=ds)[,-1] # to take care of categorical variables, but not include the intercept column
+xss=scale(xs)
+ys=as.numeric(ds[,10])-1 # not factor, must be numeric else errors...
+head(xss)
+table(ys)
+
+dss=data.frame(ys,xss)
+colnames(dss)[1]="chd"
+apply(dss,2,sd)
+apply(dss,2,mean)
+```
+
+The coloring is done according to the response variable, where green represents a case $Y=1$ and red represents a control $Y=0$.
+
+```{r, warning=FALSE, message=FALSE}
+ggpairs(ds, ggplot2::aes(color=chd), #upper="blank",  
+        lower = list(continuous = wrap("points", alpha = 0.3, size=0.2)))
+corrplot(cor(xss))#,type="upper")
+```
+
+**Q:** Comment on the correlation between covariates, and what that may lead to?
+
+---
+
+## Logistic regression
+
+We now fit a (multiple) logistic regression model using the `glm` function and the full data set. In order to fit a logistic model, the `family` argument must be set equal to `="binomial"`. The `summary` function prints out the estimates of the coefficients, their standard errors and z-values. As for a linear regression model, the significant coefficients are indicated by stars where the significant codes are included in the `R` printout.
+
+```{r,echo=TRUE}
+glm_heart = glm(chd~.,data=dss, family="binomial")
+summary(glm_heart)
+exp(coef(glm_heart))
+```
+
+A very surprising result here is that `sbp` and `obesity` are NOT significant and `obesity` has negative sign. This is a result of the correlation between covariates. In separate models with only `sbp` or only `obesity` each is positive and significant. 
+
+**Q:** How would you interpret the estimated coefficient for `tobacco`?
+
+---
+
+## Ridge logistic regression
+
+```{r,echo=TRUE}
+ridgefit=glmnet(x=xss,y=ys,alpha=0,standardize=FALSE,family="binomial") # already standardized
+plot(ridgefit,xvar="lambda",label=TRUE)
+
+cv.ridge=cv.glmnet(x=xss,y=ys,alpha=0,standardize=FALSE,family="binomial")
+print(paste("The lamda giving the smallest CV error",cv.ridge$lambda.min))
+print(paste("The 1sd err method lambda",cv.ridge$lambda.1se))
+
+plot(cv.ridge)
+
+# use 1sd error rule default
+plot(ridgefit,xvar="lambda",label=TRUE);
+abline(v=log(cv.ridge$lambda.1se));
+
+print(cbind(coef(ridgefit,s=cv.ridge$lambda.1se),coef(glm_heart)))
+# now possible to compare since the glm was also on standardized variables
+```
+
+---
+
+## Lasso logistic regression
+
+Numbering in plots is order of covariates, so:
+
+```{r,echo=TRUE}
+cbind(1:9,colnames(xss))
+
+lassofit=glmnet(x=xss,y=ys,alpha=1,standardize=FALSE,family="binomial") # already standardized
+plot(lassofit,xvar="lambda",label=TRUE)
+
+cv.lasso=cv.glmnet(x=xss,y=ys,alpha=1,standardize=FALSE,,family="binomial")
+print(paste("The lamda giving the smallest CV error",cv.lasso$lambda.min))
+print(paste("The 1sd err method lambda",cv.lasso$lambda.1se))
+
+plot(cv.lasso)
+
+# use 1sd error rule default
+plot(lassofit,xvar="lambda",label=TRUE);
+abline(v=log(cv.lasso$lambda.1se));
+
+resmat=cbind(coef(lassofit,s=cv.lasso$lambda.1se),coef(ridgefit,s=cv.ridge$lambda.1se),coef(glm_heart))
+colnames(resmat)=c("lasso logistic","ridge logistic","logistic")
+print(resmat)
+```
+
+## Discussions
+(2021 L4)
+
+We start by discussing the data analysis included in the class material from L3, but not discussed in class before.  
+
+**Group discussion:** 
+
+* What is done?
+* What are the results?
+* Where are the confidence intervals and $p$-values in the ridge and lasso print-out?
+
+---
+
+# Diabetes data 
+(2021 L4)
+
+In a medical study the aim was to explain the ethiology of diabetes progression. Data was collected from  $n=442$ diabetes patients, and from each patient the following measurements are available:
+ 
+* `age` (in years) at baseline
+* `sex` (0=female and 1=male) at baseline
+* body mass index (`bmi`) at baseline
+* mean arterial blood pressure (`map`) at baseline
+* six blood serum measurements: total cholesterol (`tc`), ldl cholesterol (`ldl`), hdl cholesterol (`hdl`), `tch`, `ltg`, glucose `glu`, all at baseline,
+* a quantitative measurement of disease progression one year after baseline (`prog`)
+
+All measurements except `sex` are continuous. There are 10 covariates.
+
+The response is the disease progression `prog` - thus a regression problem.
+
+---
+
+Data can be
+
+* downloaded from <https://web.stanford.edu/~hastie/StatLearnSparsity_files/DATA/diabetes.html> in three variants: raw, standardized and 442 $\times$ 64 matrix with quadratic terms (not used here).
+* Or, loaded from the `lars` package, that is automatically loaded in the `monomvn` package (where `blasso` is found).
+
+---
+
+```{r,eval=TRUE}
+
+data(diabetes)
+x=cbind(diabetes$x)#,diabetes$x2)
+y=diabetes$y
+df=data.frame(x,y)
+df$sex=as.factor(df$sex)
+ggpairs(df)
+```
+
+---
+
+## Diabetes example with `blasso`
+
+```{r,echo=TRUE}
+## code below copied from the help(blasso)
+## following the lars diabetes example
+data(diabetes)
+attach(diabetes)
+
+## Ordinary Least Squares regression
+reg.ols <- regress(x, y)
+
+## Lasso regression
+reg.las <- regress(x, y, method="lasso")
+
+## Bayesian Lasso regression
+reg.blas <- blasso(x, y,verb=0)
+
+## summarize the beta (regression coefficients) estimates
+plot(reg.blas, burnin=200)
+points(drop(reg.las$b), col=2, pch=20)
+points(drop(reg.ols$b), col=3, pch=18)
+legend("topleft", c("blasso-map", "lasso", "lsr"),
+       col=c(2,2,3), pch=c(21,20,18))
+```
+
+```{r,echo=TRUE}
+## plot the size of different models visited
+#plot(reg.blas, burnin=200, which="m")
+
+## get the summary
+s <- summary(reg.blas, burnin=200)
+
+## calculate the probability that each beta coef != zero
+barplot(s$bn0,names.arg=colnames(diabetes$x),main="Probability each coefficient is NOT zero in the blasso")
+```
+
+```{r,eval=FALSE}
+## summarize s2
+plot(reg.blas, burnin=200, which="s2")
+s$s2
+
+## summarize lambda2
+plot(reg.blas, burnin=200, which="lambda2")
+s$lambda2
+```
+
+
+## Bootstrapping
+
+```{r}
+data(diabetes)
+#ds=read.csv("https://web.stanford.edu/~hastie/CASI_files/DATA/diabetes.csv",sep=",")
+#dim(ds)
+#colnames(diabetes)
+#apply(diabetes,2,sd)
+# not standardized
+x=cbind(diabetes$x)#,diabetes$x2)
+y=diabetes$y
+```
+
+```{r}
+org=cv.glmnet(x,y)
+plot(org)
+```
+
+---
+
+```{r}
+fit.org=glmnet(x,y,standardize = TRUE)
+plot(fit.org,xvar="lambda",label=TRUE)
+abline(v=log(org$lambda.1se))
+```
+
+---
+
+```{r}
+coef(org)
+```
+
+```{r,eval=FALSE}
+# boostrap loop
+set.seed(8701) 
+B=1000
+n=nrow(x)
+p=ncol(x)
+lassomat=matrix(ncol=p+1,nrow=B)
+ridgemat=matrix(ncol=p+1,nrow=B)
+
+# no need or separate function for steps 1-6 since can use cv.glmnet
+# and weight argument for giving the new bootstrapped data
+for (b in 1:B)
+{
+  ids=sort(sample(1:n,replace=TRUE))
+  wids=rep(0,n)
+  for (i in 1:n)
+    wids[i]=sum(ids==i)
+  resl=cv.glmnet(x,y,weights=wids)
+  resr=cv.glmnet(x,y,weights=wids,alpha=0)
+  lassomat[b,]=as.vector(coef(resl)) #automatic lambda 1sd
+  ridgemat[b,]=as.vector(coef(resr)) #automatic lambda 1sd
+}
+colnames(lassomat)=colnames(ridgemat)=c("Int.cept",colnames(x))
+dput(lassomat,"diabeteslassomat.dd")
+dput(ridgemat,"diabetesridgemat.dd")
+```
+
+---
+
+```{r,echo=TRUE}
+lassomat=dget("diabeteslassomat.dd")
+ridgemat=dget("diabetesridgemat.dd")
+
+# plotting boxplots
+
+lassomatUI=lassomat[,-1]
+lassods=reshape2::melt(lassomatUI,
+         variable.name ="variable",value.name="value")
+lassopp=ggplot(lassods,aes(x=Var2,y=value))+geom_boxplot()+ggtitle("Boxplots for boostrapped lasso for diabetes data")
+lassopp
+
+ridgematUI=ridgemat[,-1]
+ridgeds=reshape2::melt(ridgematUI,variable.name="variable",value.name="value")
+ridgepp=ggplot(ridgeds,aes(x=Var2,y=value))+geom_boxplot()+ggtitle("Boxplots for boostrapped ridge for diabetes data")
+ridgepp
+
+lasso0perc=apply(abs(lassomat)<.Machine$double.eps,2,mean)
+barplot(lasso0perc)
+```
+
+## Bootstrap ridge and lasso percentile CI
+
+```{r,eval=FALSE}
+quant95=function(x) return(quantile(x,probs=c(0.025,0.5,0.975)))
+ridgeCI=apply(ridgemat,2,quant95)
+lassoCI=apply(lassomat,2,quant95)
+#ridgeCI
+lassoCI
+#cbind(t(ridgeCI),t(lassoCI))
+```
+
+## HDI
+
+```{r,eval=FALSE,echo=TRUE}
+data(diabetes)
+x=cbind(diabetes$x)#,diabetes$x2)
+y=diabetes$y
+
+hdires=multi.split(x=x,y=y,B=1000,fraction=0.5,
+                   ci.level=0.95, model.selector=lasso.cv,
+                   classical.fit=lm.pval, classical.ci=lm.ci,
+                   return.nonaggr = FALSE, #if not adj for multiple testing
+                   return.selmodels=FALSE, #just to have a look!
+                   verbose=FALSE)
+dput(hdires,"hdires.dd")
+```
+
+
+
+```{r,echo=TRUE}
+hdires=dget("hdires.dd")
+names(hdires)
+hdires$gamma.min
+#summary(hdires$pvals.nonaggr) # if return.nonaggr=TRUE
+hdires$pval.corr
+cbind(hdires$lci, hdires$uci)
+```
+
+
+# Boston house data
+(2021 L5)
+(ISLR book, Section 8.3.4.)
+(en gruppe også analyser på prosjekt 2021)
+
+Information from <https://www.cs.toronto.edu/~delve/data/boston/bostonDetail.html>.
+
+* Collected by the U.S Census Service concerning housing in the area of Boston Massachusetts, US.
+* Two tasks often performed: predict nitrous oxide level (nox), or predict the median value of a house with in a "town" (medv).
+
+---
+
+### Variables
+
+* CRIM - per capita crime rate by town
+* ZN - proportion of residential land zoned for lots over 25,000 sq.ft.
+* INDUS - proportion of non-retail business acres per town.
+* CHAS - Charles River dummy variable (1 if tract bounds river; 0 otherwise)
+* NOX - nitric oxides concentration (parts per 10 million)
+* RM - average number of rooms per dwelling
+* AGE - proportion of owner-occupied units built prior to 1940
+* DIS - weighted distances to five Boston employment centres
+* RAD - index of accessibility to radial highways
+* TAX - full-value property-tax rate per $10,000
+* PTRATIO - pupil-teacher ratio by town
+* B - #1000(Bk - 0.63)^2# where Bk is the proportion of African Americans by town (black below)
+* LSTAT - % lower status of the population
+* MEDV - Median value of owner-occupied homes in $1000's (seems to be a truncation)
+
+---
+
+### Data
+
+Boston data used from the `MASS` R package.
+Data are divided into a training and a test set with 70/30 split.
+
+```{r}
+set.seed(1)
+train = sample(1:nrow(Boston), 0.7*nrow(Boston))
+colnames(Boston)
+head(Boston)
+```
+
+---
+
+## Regression tree
+
+First with `tree` and default parameters.
+
+```{r,echo=TRUE}
+tree.boston=tree(medv~.,Boston,subset=train)
+summary(tree.boston); plot(tree.boston)
+text(tree.boston,pretty=0)
+tree.boston
+```
+
+---
+
+Then with the `rpart` R package, and default parameters. This gives the same tree as `tree`. (What do you think of the tree from `rpart.plot`?)
+
+```{r,echo=TRUE}
+boston.rpart <- rpart(formula = medv~. , data = Boston,subset=train)
+plot(boston.rpart)
+text(boston.rpart,pretty=0)
+rpart.plot(boston.rpart,type = 3, box.palette = c("red", "grey"), fallen.leaves = TRUE)
+```
+
+---
+
+## Need to prune?
+
+The default criterion to monitor is the deviance. For normal regression the deviance is proportional to the MSE.
+
+```{r,echo=TRUE}
+cv.boston=cv.tree(tree.boston)
+plot(cv.boston$size,cv.boston$dev,type='b')
+```
+
+Most complex tree selected.
+
+---
+
+## Pruning
+
+Just to show pruning (even if most complex tree was selected).
+
+```{r, echo=TRUE}
+prune.boston=prune.tree(tree.boston,best=5)
+plot(prune.boston)
+text(prune.boston,pretty=0)
+```
+
+---
+
+## Test error for full tree
+
+```{r,echo=TRUE}
+yhat=predict(tree.boston,newdata=Boston[-train,])
+boston.test=Boston[-train,"medv"]
+plot(yhat,boston.test, pch=20)
+abline(0,1)
+print("MSE on test set for tree")
+mean((yhat-boston.test)^2)
+```
+
+---
+
+## Effect of changing training set
+
+```{r,echo=TRUE}
+set.seed(4)
+train2 = sample(1:nrow(Boston), 0.7*nrow(Boston))
+tree.boston2=tree(medv~.,Boston,subset=train2)
+summary(tree.boston2); plot(tree.boston2)
+text(tree.boston2,pretty=0)
+tree.boston2
+
+xnew=Boston[1,]
+predict(tree.boston,newdata=xnew)
+predict(tree.boston2,newdata=xnew)
+```
+
+## Missing data
+
+Look at the Boston default tree with `tree` and `rpart` to see how the two handles missing values.
+
+```{r}
+print("tree package")
+testobs=Boston[1,]
+testobs[1,13]=NA
+print(testobs)
+predict(tree.boston,newdata=testobs)
+print("rpart package")
+predict(boston.rpart,newdata=testobs)
+tree.boston
+```
+
+## Bagging
+
+I R we can do bagging by using the function _randomForest()_ in the _randomForest_ library, but specify that all predictors will be used at all splits, here `mtry=13`.
+
+The regression tree does noe automatically output OOB MSE.
+
+```{r}
+set.seed(1)
+bag.boston=randomForest(medv~.,data=Boston,subset=train,mtry=13)
+print(bag.boston)
+```
+
+Plotting predicted test values vs true values.
+
+```{r}
+yhat.bag = predict(bag.boston,newdata=Boston[-train,])
+plot(yhat.bag, boston.test,pch=20)
+abline(0,1)
+mean((yhat.bag-boston.test)^2)
+```
+
+Error rate on test set for bagging
+
+```{r,eval=FALSE,echo=FALSE}
+bag.boston=randomForest(medv~.,data=Boston,subset=train,mtry=13,ntree=25)
+yhat.bag = predict(bag.boston,newdata=Boston[-train,])
+mean((yhat.bag-boston.test)^2)
+```
+
+Remember that the error rate on the test set for a single tree was:
+`r mean((yhat-boston.test)^2)`. 
+
+---
+
+## Variable importance
+(L5)
+
+%IncMSE is a OOB estimate. IncNodePurity is not OOB. Not normalized to 100.
+
+```{r,echo=TRUE}
+set.seed(1)
+rf.boston=randomForest(medv~.,data=Boston,subset=train,mtry=6,importance=TRUE)
+yhat.rf = predict(rf.boston,newdata=Boston[-train,])
+mean((yhat.rf-boston.test)^2)
+importance(rf.boston)
+varImpPlot(rf.boston)
+summary(rf.boston$oob.times) #for 500 trees in total
+varImpPlot(rf.boston,pch=20,type=1)
+#varImpPlot(rf.boston,pch=20,type=2)
+
+```
+
+## Stacked ensembles/SuperLearner
+
+Code is copied from [Guide to SuperLearner](https://cran.r-project.org/web/packages/SuperLearner/vignettes/Guide-to-SuperLearner.html) and the presentation
+follows this guide. The data used is the Boston housing dataset from
+`MASS`, but with the median value of a house dichotomized into a
+classification problem.
+
+Observe that only 150 of the 560 observations is used (to speed up
+things, but of cause that gives less accurate results).
+
+```{r,echo=TRUE}
+data(Boston, package = "MASS")
+#colSums(is.na(Boston)) # no missing values
+outcome = Boston$medv
+# Create a dataframe to contain our explanatory variables.
+data = subset(Boston, select = -medv)
+#Set a seed for reproducibility in this random sampling.
+set.seed(1)
+# Reduce to a dataset of 150 observations to speed up model fitting.
+train_obs = sample(nrow(data), 150)
+# X is our training sample.
+x_train = data[train_obs, ]
+# Create a holdout set for evaluating model performance.
+# Note: cross-validation is even better than a single holdout sample.
+x_holdout = data[-train_obs, ]
+# Create a binary outcome variable: towns in which median home value is > 22,000.
+outcome_bin = as.numeric(outcome > 22)
+y_train = outcome_bin[train_obs]
+y_holdout = outcome_bin[-train_obs]
+table(y_train, useNA = "ifany")
+```
+
+Then checking out the possible functions and how they differ from their
+"original versions".
+
+```{r,echo=TRUE}
+listWrappers()
+# how does SL.glm differ from glm? obsWeight added to easy use the traning fold in the CV and returns a prediction for new observarions
+SL.glm
+# min and not 1sd used, again obsWeights, make sure model matrix correctly specified
+SL.glmnet
+```
+
+The fitting lasso to check what is being done. The default metalearner
+is "method.NNLS" (both for regression and two-class classification -
+probably then for linear predictor NNLS?).
+
+```{r,echo=TRUE}
+set.seed(1)
+sl_lasso=SuperLearner(Y=y_train, X=x_train,family=binomial(),SL.library="SL.glmnet")
+sl_lasso
+#str(sl_lasso)
+sl_lasso$cvRisk
+```
+
+Now use lasso and randomforest, and also add the average of ys just as
+the benchmark.
+
+```{r,echo=TRUE}
+set.seed(1)
+sl=SuperLearner(Y=y_train, X=x_train,family=binomial(),SL.library=c("SL.mean","SL.glmnet","SL.randomForest"))
+sl
+sl$times$everything
+```
+
+Our ensemble give weight 0.13 to lasso and 0.86 to the random forest.
+(The guide used a different implementation of the random forest called
+ranger, and got 0.02 and 0.98.)
+
+Predict on the part of the dataset not used for the training.
+
+```{r,echo=TRUE}
+pred=predict(sl,x_holdout=x_holdout,onlySL=TRUE)
+str(pred)
+summary(pred$pred)
+summary(pred$library.predict)
+```
+
+Add now an external cross-validation loop - only using the training
+data. Here the default $V=10$ is used for the inner loop, and we set the
+value for the outer loop (here $V=3$ for speed).
+
+```{r,echo=TRUE}
+system.time({cv_sl=CV.SuperLearner(Y=y_train, X=x_train,V=10,family=binomial(),SL.library=c("SL.mean","SL.glmnet","SL.randomForest"))})
+summary(cv_sl)
+```
+
+See the guide for more information on running multiple versions of one
+base learner, and parallellisation.
+
+## Hyperparameter tuning
+
+(Kuhn and Silge, Ch 14, the example is for SVM)
+
+First just grid search to test what is best value for `mtry`
+
+```{r,echo=TRUE}
+data(Boston, package = "MASS")
+# first using a grid
+tune_grid <- expand.grid(
+  mtry = (1:13))
+#  ntree=seq(100,500,length=10)) # how to also include ntree? primary only mtry, how to define secondary?
+tune_control <- caret::trainControl(
+  method = "oob", # cross-validation #eller cv
+  #number = 3, # with n folds 
+  verboseIter = FALSE, # no training log
+  allowParallel = FALSE # FALSE for reproducible results 
+)
+rf_tune <- caret::train(
+  medv~crim+zn+indus+chas+nox+rm+age+dis+rad+tax+ptratio+black+lstat, 
+  data=Boston,
+  na.action=na.roughfix,
+  trControl = tune_control,
+  tuneGrid = tune_grid,
+  method = "rf", # rf is randomForest, checked at #vhttp://topepo.github.io/caret/train-models-by-tag.html#Random_Forest
+  verbose = TRUE
+)
+tuneplot <- function(x, probs = .90) {
+  ggplot(x) +
+    coord_cartesian(ylim = c(quantile(x$results$RMSE, probs = probs), min(x$results$RMSE))) +
+    theme_bw()
+}
+tuneplot(rf_tune)
+rf_tune$bestTune
+```
+
+```{r,echo=TRUE,eval=FALSE}
+tree_rec <- recipe(medv~crim+zn+indus+chas+nox+rm+age+dis+rad+tax+ptratio+black+lstat, data = Boston)
+
+tune_spec <- rand_forest( # parsnip interface to random forests models
+  mode="regression",
+  mtry = tune(),
+  trees = tune(),
+#  min_n = tune()
+) %>%
+#  set_mode("regression") %>%
+#  set_engine("ranger",objective="reg:rmse") # errors with ranger
+  set_engine("randomForest") # randomforest ok
+
+tune_wf <- workflow() %>%
+  add_recipe(tree_rec) %>%
+  add_model(tune_spec)
+
+tune_param <- tune_spec%>% 
+  parameters%>% 
+  update(mtry=mtry(c(1L,13L)),trees=trees(c(100L,500L)))
+
+vfold  <- vfold_cv(Boston, v = 5)
+# then trying BO
+ctrl <- control_bayes(verbose = TRUE)
+bayesres<- tune_bayes(tune_wf,
+    resamples = vfold,
+    #metrics = rmse,
+    corr=list(type="matern",nu=5/2), 
+    #default in corr_mat(GPfit) is "exponential" power 1.95
+    initial = 10,
+    param_info = tune_param,
+    iter = 10,
+    objective=exp_improve(),
+    control = ctrl
+  )
+dput(bayesres,"bayesres.dd")
+```
+
+```{r}
+bayesres=dget("bayesres.dd")
+show_best(bayesres,n=10)
+autoplot(bayesres,type="performance")
+autoplot(bayesres,type="parameters")
+#names(bayesres)
+```
+
+```{r,echo=TRUE, eval=FALSE}
+bayesres2<- tune_bayes(tune_wf,
+    resamples = vfold,
+    #metrics = rmse,
+    #corr=list(type="matern",nu=5/2), 
+    #default in corr_mat(GPfit) is "exponential" power 1.95
+    initial = 10,
+    param_info = tune_param,
+    iter = 10,
+    objective=exp_improve(),
+    control = ctrl
+  )
+dput(bayesres2,"bayesres2.dd")
+```
+
+```{r,echo=TRUE}
+bayesres2=dget("bayesres2.dd")
+show_best(bayesres2,n=10)
+autoplot(bayesres2,type="performance")
+autoplot(bayesres2,type="parameters")
+```
+
+# Pima indians
+(2021 L5)
+Note to self: version with NAs?
+
+
+We will use the classical data set of _diabetes_ from a population of women of Pima Indian heritage in the US, available in the R `MASS` package. The following information is available for each woman:
+
+* diabetes: `0`= not present, `1`= present
+* npreg: number of pregnancies
+* glu: plasma glucose concentration in an oral glucose tolerance test
+* bp: diastolic blood pressure (mmHg)
+* skin: triceps skin fold thickness (mm)
+* bmi: body mass index (weight in kg/(height in m)$^2$)
+* ped: diabetes pedigree function.
+* age: age in years
+
+We will use a training set (called `ctrain`) with 300 observations (200 non-diabetes and 100 diabetes cases) and a test set (called `ctest`) with 232 observations (155 non-diabetes and 77 diabetes cases). Our aim is to make a classification rule for diabetes (or not) based on the available data. 
+
+(There is a version of the training data with missing values, `Pima.tr2` in the `MASS` library. Here a slightly different shuffling for training and test data than in `MASS` is used, because these data were used in a project in TMA4268.)
+
+---
+
+```{r}
+flying=dget("https://www.math.ntnu.no/emner/TMA4268/2019v/data/flying.dd")
+ctrain=flying$ctrain
+ctest=flying$ctest
+ctrain.tmp=ctrain
+ctrain.tmp$diabetes=as.factor(ctrain.tmp$diabetes)
+ctrain.tmp$npreg=as.factor(ctrain.tmp$npreg)
+ggpairs(ctrain.tmp,cardinality_threshold = 16)
+summary(ctrain)
+table(ctrain$npreg)
+corrplot(cor(ctrain))
+```
+
+---
+
+### Full tree performance
+
+```{r}
+fit=tree(factor(diabetes)~npreg+glu+bp+skin+bmi+ped+age,data=ctrain)
+summary(fit)
+plot(fit)
+text(fit,pretty=0)
+fit
+#print("Full tree performance")
+train.res=predict(fit)[,2]
+test.res=predict(fit,newdata=ctest)[,2]
+train.class=ifelse(train.res>=0.5,1,0)
+test.class=ifelse(test.res>=0.5,1,0)
+print("Performance on training set")
+confusionMatrix(factor(train.class),factor(ctrain$diabetes))
+print("Performance on test set")
+confusionMatrix(factor(test.class),factor(ctest$diabetes))
+roc.tree = roc(factor(ctest$diabetes),test.res,legacy.axes=TRUE)
+auc(roc.tree)
+ggroc(roc.tree)+ggtitle("ROC curve")
+```
+
+---
+
+### Pruned tree performance
+
+```{r}
+cv.fit=cv.tree(fit) 
+plot(cv.fit$size,cv.fit$dev,type='b')
+best=cv.fit$size[which.min(cv.fit$dev)]
+prune.fit=prune.tree(fit,best=best)
+plot(prune.fit)
+text(prune.fit,pretty=0)
+prune.fit
+
+train.res=predict(prune.fit)[,2]
+test.res=predict(prune.fit,newdata=ctest)[,2]
+#print("Pruned tree performance")
+train.class=ifelse(train.res>=0.5,1,0)
+test.class=ifelse(test.res>=0.5,1,0)
+print("Performance on training set")
+confusionMatrix(factor(train.class),factor(ctrain$diabetes))
+print("Performance on test set")
+confusionMatrix(factor(test.class),factor(ctest$diabetes))
+roc.tree = roc(factor(ctest$diabetes),test.res,legacy.axes=TRUE)
+auc(roc.tree)
+ggroc(roc.tree)+ggtitle("ROC curve")
+```
+
+---
+
+## Bagging
+Here the misclassification rate for the OOB is reported.
+
+```{r, eval=TRUE}
+set.seed(1)
+rf=randomForest(as.factor(diabetes)~npreg+glu+bp+skin+bmi+ped+age,data=ctrain,mtry=7) #default is 500 trees
+rf
+test.x=ctest[,-1]
+test.y=ctest[,1]
+train.y=ctrain[,1]
+train.x=ctrain[,-1]
+
+train.res=predict(rf,type="prob")[,2]
+test.res=predict(rf,newdata=test.x,type="prob")[,2]
+train.class=ifelse(train.res>=0.5,1,0)
+test.class=ifelse(test.res>=0.5,1,0)
+
+print("Evaluation on training data")
+confusionMatrix(factor(train.class),factor(train.y))$overall[1]
+
+print("Evaluation on test data")
+confusionMatrix(factor(test.class),factor(test.y))$overall[1]
+roc.rf = roc(test.y,test.res,legacy.axes=TRUE)
+print(auc(roc.rf))
+ggroc(roc.rf)+ggtitle("ROC curve")
+```
+
+Remember that the misclassification error rate on the test set for a single tree (after pruning) was: $1-0.75=0.25$.
+
+## Random forest
+
+We decorrelate the trees by using the _randomForest()_ function again, but this time we set _mtry=3_. This means that the algorithm only considers three of the predictors in each split. We choose $3$ because we have $10$ predictors in total and $\sqrt{10}\approx 3$. 
+
+Deviance (not Gini) used for node impurity.
+
+```{r, eval=TRUE,echo=TRUE}
+set.seed(1)
+rf=randomForest(factor(diabetes)~npreg+glu+bp+skin+bmi+ped+age,data=ctrain,mtry=3,importance=TRUE) #default is 500 trees
+rf
+test.x=ctest[,-1]
+test.y=ctest[,1]
+train.y=ctrain[,1]
+train.x=ctrain[,-1]
+
+train.res=predict(rf,type="prob")[,2]
+test.res=predict(rf,newdata=test.x,type="prob")[,2]
+train.class=ifelse(train.res>=0.5,1,0)
+#train.class2=predict(rf,type="response") #same as train.class
+test.class=ifelse(test.res>=0.5,1,0)
+print("Evaluation on training data")
+
+confusionMatrix(factor(train.class),factor(train.y))$overall[1]
+print("Evaluation on test data")
+confusionMatrix(factor(test.class),factor(test.y))$overall[1]
+roc.rf = roc(test.y,test.res,legacy.axes=TRUE)
+print(auc(roc.rf))
+ggroc(roc.rf)+ggtitle("ROC curve")
+varImpPlot(rf,pch=20)
+#varImpPlot(rf,pch=20,type=1)
+#varImpPlot(rf,pch=20,type=2)
+```
+
+# Bike data
+(2021 L12+13 on XAI)
+
+## Linear model
+
+```{r}
+# download manually
+#"https://github.com/christophM/interpretable‐ml‐book/blob/master/data/bike.Rdata"
+load("bike.Rdata")
+colnames(bike)
+
+n=dim(bike)[1]
+bikeTrain=bike[1:600,]
+bikeTest<-bike[601:n,]
+
+linearMod <- lm(cnt~.,data=bikeTrain) #bikeTrain
+
+tmp <- summary(linearMod)
+tmp$r.square
+tmp$coefficients[rev(order(abs(tmp$coefficients[,3]))),]
+corrplot(cor(bikeTrain[,8:11]))
+```
+
+## LMG
+
+Problems with variable 6, removed for the LMG-method.
+
+```{r,eval=FALSE}
+library("relaimpo")
+calc.relimp(cnt~., data=bikeTrain|,-6], type="lmg",rela=TRUE)
+rev(sort(crf$lmg))
+```
+
+## ALE and PDP for RF
+
+```{r}
+
+# ICE
+X=model.matrix(~.-cnt,data=bike)
+rf=randomForest(y=bike$cnt, x=X,ntree=50,  importance=TRUE)        
+this=ice(rf,X=X,predictor=27,plot=TRUE)
+plot(this,centered=FALSE,xlab="temp",frac_to_plot=1,plot_orig_pts_preds=TRUE,pts_preds_size=0.5)
+plot(this,centered=FALSE,xlab="temp",frac_to_plot=0.1,plot_orig_pts_preds=TRUE,pts_preds_size=0.5)
+
+rf=randomForest(cnt ~ ., data = bike, ntree = 50)
+print(rf)
+mod=Predictor$new(rf, data = bike)
+
+
+eff1=FeatureEffect$new(mod, feature = "days_since_2011", method="ale")
+plot(eff1)
+eff2=FeatureEffect$new(mod, feature = "days_since_2011", method="pdp")
+plot(eff2)
+
+#PD plot
+eff1=FeatureEffect$new(mod, feature = "temp", method="pdp")
+plot(eff1)
+#ALE plot
+eff2=FeatureEffect$new(mod, feature = "temp", method="ale")
+plot(eff2)
+
+eff<-FeatureEffects$new(mod, method="ale")
+eff$plot()
+
+#eff<-FeatureEffects$new(mod, method="ice",feature="temp")
+#eff$plot()
+```
+
+## ALE and PDP for xgboost
+
+```{r}
+library(xgboost)
+n<-dim(bike)[1]
+bikeTrain<-bike[1:600,]
+bikeTest<-bike[601:n,]
+xgb.train=xgb.DMatrix(data = as.matrix(sapply(bikeTrain[,-11], as.numeric)),label = bikeTrain[,"cnt"])
+xgb.test<-xgb.DMatrix(data = as.matrix(sapply(bikeTest[,-11], as.numeric)),label = bikeTest[,"cnt"])
+
+params<-list(eta = 0.1,
+objective = "reg:squarederror",
+eval_metric = "rmse",
+tree_method="hist") # gpu_hist
+#RNGversion(vstr = "3.5.0")
+set.seed(12345)
+
+model<-xgb.train(data = xgb.train,
+params = params,
+nrounds = 50,
+print_every_n = 10,
+ntread = 5,
+watchlist = list(train = xgb.train,
+test = xgb.test),
+verbose = 1)
+
+xgb.importance(model=model)
+# 1. create a data frame with just the features
+features<-bikeTrain[,-11]
+# 2. Create a vector with the actual responses
+response<-bikeTrain[,"cnt"]
+# 3. Create custom predict function that returns the predicted values as a vector
+pred<-function(model, newdata)
+{
+#xgb.test<-xgb.DMatrix(data = as.matrix(sapply(newdata[,‐11], as.numeric)),label = newdata[,11])
+xgb.test<-xgb.DMatrix(data = as.matrix(sapply(newdata, as.numeric)))
+results<-predict(model,newdata=xgb.test)
+#return(results[[3L]])
+return(results)
+}
+#4. Define predictor
+predictor.xgb<-Predictor$new(
+model = model,
+data = features,
+y = response,
+predict.fun = pred,
+class = "regression"
+)
+#5. Compute feature effects
+eff<-FeatureEffect$new(predictor.xgb, feature = "temp", method="ale")
+plot(eff)
+eff<-FeatureEffects$new(predictor.xgb, method="ale")
+eff$plot()
+```
+
+## LIME
+
+Fitting random forest with the ranger package to the bike data.
+
+```{r}
+library(lime)
+library(ranger)
+predict_model.ranger <- function(x,newdata,type)
+{
+pred.rf <- predict(x, data = newdata)
+switch(
+type,
+raw = data.frame(Response = res$class, stringsAsFactors = FALSE),
+prob = as.data.frame(pred.rf$predictions[,2])
+)
+}
+
+model_type.ranger <- function(x, ...)
+{
+'regression'
+}
+
+model<- ranger(cnt ~ ., data = bikeTrain, num.trees = 50, num.threads = 6,
+verbose = TRUE,
+probability = FALSE,
+importance = "impurity",
+mtry = sqrt(27))
+
+print(model)
+```
+
+Using `lime` to explain the random forest for test observationos 10:14 using `n_features=5` and `kernel_width=3`.
+
+```{r}
+explainer <- lime::lime(
+bikeTrain,
+model = model,
+#bin_continuous = FALSE
+bin_continuous = TRUE,
+n_bins = 10,
+quantile_bins=TRUE
+)
+explanationLime <- explain(
+bikeTest[10:14,-11],
+explainer = explainer,
+#n_labels = 1,
+n_features = 5,
+n_permutations = 5000,
+feature_select = "auto",
+kernel_width = 3)
+lime::plot_features(explanationLime,
+ncol = 2)
+```
+
+## Shapley regression with realtive weights
+
+Show that relative weight give the same answer as the LMG-method.
+
+```{r}
+rwa(bikeTrain[,-6],"cnt",c("temp","hum","windspeed","days_since_2011"))$result$Rescaled.RelWeight
+
+100*calc.relimp(cnt~.,data=bikeTrain[,8:12],type ="lmg", rela = TRUE )$lmg
+```
+
+
+```{r}
+# probably other model used in slide set
+model<- ranger(cnt ~ ., data = bikeTrain,
+num.trees = 50, num.threads = 6,
+verbose = TRUE,
+probability = FALSE,
+importance = "impurity",
+mtry = sqrt(27))
+  
+pfun <- function(object, newdata)
+predict(object, data = newdata)$predictions
+mod <- Predictor$new(model = model, data = bikeTrain, predict.fun = pfun)
+x.interest <- bikeTest[1, ]
+shapley <- Shapley$new(mod, x.interest = x.interest)
+plot(shapley)
+```
+
+## ctree approach in shapr
+
+```{r,eval=FALSE}
+explainer <- shapr(bikeTrain[,-11], model)
+p <- mean(bikeTrain[,11])
+explain <- shapr::explain(bikeTest[1,],
+explainer,
+approach = "ctree",
+prediction_zero = p,
+mincriterion = 0.95,
+minsplit = 20,
+minbucket = 7,
+sample = TRUE)
+
+print(explain$dt)
+
+if (requireNamespace("ggplot2", quietly = TRUE))
+{plot(explain)}
+
+```
+
+```{r,eval=FALSE}
+#Independence
+pfun <- function(object, newdata)
+predict(object, data = newdata)$predictions
+mod <- Predictor$new(model = model, data = bikeTrain, predict.fun = pfun)
+x.interest <- bikeTest[1, ]
+shapley <- Shapley$new(mod, x.interest = x.interest)
+plot(shapley)
+```
+
+
+# Different Pima indians
+STK compulsory
+mlbench(PimaIndiansDataset2)?
+
+# Qsar
+STK compulsory
+
+# Higgs dataset
+<https://archive.ics.uci.edu/ml/datasets/HIGGS>
+
+https://docs.h2o.ai/h2o-tutorials/latest-stable/tutorials/ensembles-stacking/index.html
+
+
+Further ideas:
+
+https://www.math.ntnu.no/emner/TMA4268/2019v/4Classif/4Classif-sol.html
+se data analyss med Auto-dataene og noe som heter Weekly.
+Også Wine...
