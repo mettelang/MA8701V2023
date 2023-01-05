@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-02">
+<meta name="dcterms.date" content="2023-01-05">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -130,7 +130,8 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul class="collapse">
-  <li><a href="#course-topics" id="toc-course-topics" class="nav-link active" data-scroll-target="#course-topics">Course topics</a>
+  <li><a href="#course-philosophy" id="toc-course-philosophy" class="nav-link active" data-scroll-target="#course-philosophy">Course philosophy</a></li>
+  <li><a href="#course-topics" id="toc-course-topics" class="nav-link" data-scroll-target="#course-topics">Course topics</a>
   <ul class="collapse">
   <li><a href="#part-1-core-concepts-3-weeks" id="toc-part-1-core-concepts-3-weeks" class="nav-link" data-scroll-target="#part-1-core-concepts-3-weeks">Part 1: Core concepts [3 weeks]</a></li>
   <li><a href="#part-2-shrinkage-and-regularization-3-weeks" id="toc-part-2-shrinkage-and-regularization-3-weeks" class="nav-link" data-scroll-target="#part-2-shrinkage-and-regularization-3-weeks">Part 2: Shrinkage and regularization [3 weeks]</a></li>
@@ -199,9 +200,10 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 2, 2023</p>
+      <p class="date">January 5, 2023</p>
     </div>
   </div>
+  
     
   </div>
   
@@ -216,7 +218,22 @@ div.csl-indent {
 
 </div>
 <hr>
-<!--- ![ELS](ELSbookcover.jpeg){fig-align="left"}--->
+<section id="course-philosophy" class="level1">
+<h1>Course philosophy</h1>
+<p>“Important new algorithms often arise outside the world of professional statisticians: neural nets, support vector machines, and boosting are three famous examples. None of this is surprising. New sources of data, satellite imagery for example, or medical microarrays, inspire novel methodology from the observing scientists. The early literature tends toward the enthusiastic, with claims of enormous applicability and power.”</p>
+<p>In the second phase, statisticians try to locate the new metholodogy within the framework of statistical theory. In other words, they carry out the statistical inference part of the cycle, placing the new methodology within the known Bayesian and frequentist limits of performance This is a healthy chain of events, good both for the hybrid vigor of the statistics profession and for the further progress of algorithmic technology.”</p>
+<hr>
+<p>From <span class="citation" data-cites="casi">Efron and Hastie (<a href="#ref-casi" role="doc-biblioref">2016</a>)</span> (page 10).</p>
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="jacket_wave_cropped.jpeg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 <section id="course-topics" class="level1">
 <h1>Course topics</h1>
 <p>The starting point is that we cover important parts of</p>
@@ -506,6 +523,7 @@ div.csl-indent {
 <p>Criterion for choosing <span class="math inline">\(f\)</span>: Expected prediction error (EPE)</p>
 <hr>
 <p><span class="math display">\[ \text{EPE}(f)=\text{E}_{X,Y}[L(Y,f(X))]=\int_{x,y}L(y,f(x))p(x,y)dxdy\]</span> Choose <span class="math inline">\(f\)</span> to minimize the <span class="math inline">\(\text{EPE}(f)\)</span>.</p>
+<hr>
 <p>Q: Why do we not involve the distribution of the random variable <span class="math inline">\(f(X)\)</span>, but instead the distribution of <span class="math inline">\(X\)</span>?</p>
 <p>Law of the unconscious statistican (from our introductory course in statistics): <a href="https://en.wikipedia.org/wiki/Law_of_the_unconscious_statistician" class="uri">https://en.wikipedia.org/wiki/Law_of_the_unconscious_statistician</a> and <a href="https://tma4245.math.ntnu.no/forventing-og-varians/forventingsverdi/forventningsverdi-funksjoner-av-stokastiske-variabler-egx/">Thematics pages TMA4240/45</a>.</p>
 <p>What is the most popular loss function for regression?</p>
@@ -536,7 +554,7 @@ div.csl-indent {
 </section>
 <section id="knn-and-conditional-expectation" class="level3">
 <h3 class="anchored" data-anchor-id="knn-and-conditional-expectation">kNN and conditional expectation</h3>
-<p>Local conditional mean for observations in <span class="math inline">\(\cal T\)</span> close to <span class="math inline">\(\bf{x}_0\)</span>: <span class="math display">\[\hat{f}({\bf x}_0)=\frac{1}{k}\sum_{i \in \cal N_k({\bf x}_0)}Y_i\]</span></p>
+<p>Local conditional mean for observations in <span class="math inline">\(\cal T\)</span> close to <span class="math inline">\({\mathbf x}_0\)</span>: <span class="math display">\[\hat{f}({\mathbf x}_0)=\frac{1}{k}\sum_{i \in \cal N_k({\mathbf x}_0)}Y_i\]</span></p>
 <hr>
 </section>
 </section>
@@ -559,6 +577,7 @@ div.csl-indent {
 <section id="quadratic-loss-and-decision-theoretic-framework" class="level3">
 <h3 class="anchored" data-anchor-id="quadratic-loss-and-decision-theoretic-framework">2: Quadratic loss and decision theoretic framework</h3>
 <p>Show that <span class="math inline">\(f(x)=\text{E}[Y \mid X=x]\)</span> for the quadratic loss.</p>
+<hr>
 </section>
 <section id="curse-of-dimensionality" class="level3">
 <h3 class="anchored" data-anchor-id="curse-of-dimensionality">3: Curse of dimensionality</h3>
@@ -572,19 +591,19 @@ div.csl-indent {
 <section id="key-results-from-mlr" class="level3">
 <h3 class="anchored" data-anchor-id="key-results-from-mlr">4: Key results from MLR</h3>
 <p>(These results are known from TMA4267 and TMA4315, but useful to brush up on?)</p>
-<p>Assume we have a data set with independent observation pairs <span class="math inline">\((y_i,{\bf x}_i)\)</span> for <span class="math inline">\(i=1,\ldots,N\)</span>.</p>
-<p><span class="math display">\[{\bf Y=X \boldsymbol{\beta}}+{\bf\varepsilon}\]</span> where <span class="math inline">\({\bf Y}\)</span> is a <span class="math inline">\(N \times 1\)</span> random column vector, <span class="math inline">\({\bf X}\)</span> a <span class="math inline">\(N \times (p+1)\)</span> design matrix with row for observations (<span class="math inline">\({\bf x}^T_i\)</span>) and columns for covariates, and <span class="math inline">\({\bf{\varepsilon}}\)</span> <span class="math inline">\(N \times 1\)</span> random column vector</p>
+<p>Assume we have a data set with independent observation pairs <span class="math inline">\((y_i,{\mathbf x}_i)\)</span> for <span class="math inline">\(i=1,\ldots,N\)</span>.</p>
+<p><span class="math display">\[{\mathbf Y=X \boldsymbol{\beta}}+{\mathbf \varepsilon}\]</span> where <span class="math inline">\({\mathbf Y}\)</span> is a <span class="math inline">\(N \times 1\)</span> random column vector, <span class="math inline">\({\mathbf X}\)</span> a <span class="math inline">\(N \times (p+1)\)</span> design matrix with row for observations (<span class="math inline">\({\mathbf x}^T_i\)</span>) and columns for covariates, and <span class="math inline">\({\mathbf \varepsilon}\)</span> <span class="math inline">\(N \times 1\)</span> random column vector</p>
 <p>The assumptions for the classical linear model is:</p>
 <ol type="1">
-<li><p><span class="math inline">\(\text{E}(\bf{\varepsilon})=\bf{0}\)</span>.</p></li>
-<li><p><span class="math inline">\(\text{Cov}(\varepsilon)=\text{E}(\varepsilon \varepsilon^T)=\sigma^2\bf{I}\)</span>.</p></li>
-<li><p>The design matrix has full rank, <span class="math inline">\(\text{rank}({\bf X})=(p+1)\)</span>.</p></li>
+<li><p><span class="math inline">\(\text{E}({\mathbf \varepsilon})={\mathbf 0}\)</span>.</p></li>
+<li><p><span class="math inline">\(\text{Cov}(\varepsilon)=\text{E}(\varepsilon \varepsilon^T)=\sigma^2{\mathbf I}\)</span>.</p></li>
+<li><p>The design matrix has full rank, <span class="math inline">\(\text{rank}\)</span> <span class="math inline">\(({\mathbf X})=(p+1)\)</span>.</p></li>
 </ol>
 <p>The classical <em>normal</em> linear regression model is obtained if additionally</p>
 <ol start="4" type="1">
-<li><span class="math inline">\(\varepsilon\sim N_n(\bf{0},\sigma^2\bf{I})\)</span> holds.</li>
+<li><span class="math inline">\(\varepsilon\sim N_n({\mathbf 0},\sigma^2{\mathbf I})\)</span> holds.</li>
 </ol>
-<p>For random covariates these assumptions are to be understood conditionally on <span class="math inline">\(\bf{X}\)</span>.</p>
+<p>For random covariates these assumptions are to be understood conditionally on <span class="math inline">\({\mathbf X}\)</span>.</p>
 <section id="a-regression-parameter-estimator" class="level4">
 <h4 class="anchored" data-anchor-id="a-regression-parameter-estimator">a) Regression parameter estimator</h4>
 <p>Derive the least squares (or the maximum likelihood estimator) for <span class="math inline">\(\hat{\beta}\)</span>.</p>
@@ -658,11 +677,11 @@ div.csl-indent {
 </ul>
 </section>
 <section id="bibliography" class="level1">
-
-
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<h1>Bibliography</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-casi" class="csl-entry" role="doc-biblioentry">
+Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference - Algorithms, Evidence, and Data Science</em>. Cambridge University Press. <a href="https://hastie.su.domains/CASI/">https://hastie.su.domains/CASI/</a>.
+</div>
 <div id="ref-gromping2007" class="csl-entry" role="doc-biblioentry">
 Grömping, U. 2007. <span>“Estimators of Relative Importance in Linear Regression Based on Variance Decomposition.”</span> <em>The American Statistician</em> 61: 139–47.
 </div>
@@ -672,7 +691,10 @@ Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. <em>The Elements o
 <div id="ref-molnar2019" class="csl-entry" role="doc-biblioentry">
 Molnar, Christoph. 2019. <em>Interpretable Machine Learning: A Guide for Making Black Box Models Explainable</em>.
 </div>
-</div></section></div></main>
+</div>
+</section>
+
+</main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -715,7 +737,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -751,24 +790,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

@@ -44,8 +44,22 @@ include_graphics("./overviewv2.png")
 
 ---
 
+# Course philosophy
 
-<!--- ![ELS](ELSbookcover.jpeg){fig-align="left"}--->
+"Important new algorithms often arise outside the world of professional statisticians: neural nets, support vector machines, and boosting are three famous examples. None of this is surprising. New sources of data, satellite imagery for example, or medical microarrays, inspire novel methodology from the observing scientists. The early literature tends toward the enthusiastic, with claims of enormous applicability and power."
+
+In the second phase, statisticians try to locate the new metholodogy within the framework of statistical theory. In other words, they carry out the statistical inference part of the cycle, placing the new methodology within the known Bayesian and frequentist limits of performance This is a healthy chain of events, good both for the hybrid vigor of the statistics profession and for the further progress of algorithmic technology."
+
+---
+
+From @casi (page 10).
+
+```{r}
+#| out.width: "60%"
+#| fig.align: "left"
+#| fig.show: "hold"
+include_graphics("jacket_wave_cropped.jpeg")
+```
 
 # Course topics
 
@@ -67,6 +81,8 @@ Download book at <https://hastie.su.domains/ElemStatLearn/download.html> (this i
 include_graphics("ELSbookcover.jpeg")
 ```
 ---
+
+
 
 ## Part 1: Core concepts [3 weeks]
 
@@ -376,6 +392,8 @@ Criterion for choosing $f$: Expected prediction error (EPE)
 $$ \text{EPE}(f)=\text{E}_{X,Y}[L(Y,f(X))]=\int_{x,y}L(y,f(x))p(x,y)dxdy$$
 Choose $f$ to minimize the $\text{EPE}(f)$. 
 
+---
+
 Q: Why do we not involve the distribution of the random variable $f(X)$, but instead the distribution of $X$?
 
 Law of the unconscious statistican (from our introductory course in statistics):
@@ -428,8 +446,8 @@ This is not conditional on $X$, but we have assumed a linear relationship.
 
 ### kNN and conditional expectation
 
-Local conditional mean for observations in $\cal T$ close to $\bf{x}_0$:
-$$\hat{f}({\bf x}_0)=\frac{1}{k}\sum_{i \in \cal N_k({\bf x}_0)}Y_i$$
+Local conditional mean for observations in $\cal T$ close to ${\mathbf x}_0$:
+$$\hat{f}({\mathbf x}_0)=\frac{1}{k}\sum_{i \in \cal N_k({\mathbf x}_0)}Y_i$$
 
 ---
 
@@ -459,6 +477,8 @@ $$\text{Var}[X]=\text{E}\text{Var}[X \mid Y]+\text{Var}\text{E}[X\mid Y]$$
 
 Show that $f(x)=\text{E}[Y \mid X=x]$ for the quadratic loss.
 
+---
+
 ### 3: Curse of dimensionality
 
 Read pages 22-23 and then answer Exercise 2.3 - which is to "Derive equation (2.24)."
@@ -471,24 +491,24 @@ Important take home messages:
 ### 4: Key results from MLR
 (These results are known from TMA4267 and TMA4315, but useful to brush up on?)
 
-Assume we have a data set with independent observation pairs $(y_i,{\bf x}_i)$ for  $i=1,\ldots,N$.
+Assume we have a data set with independent observation pairs $(y_i,{\mathbf x}_i)$ for  $i=1,\ldots,N$.
 
-$${\bf Y=X \boldsymbol{\beta}}+{\bf\varepsilon}$$
-where ${\bf Y}$ is a $N \times 1$ random column vector, ${\bf X}$ a $N \times (p+1)$ design matrix with row for observations (${\bf x}^T_i$) and columns for covariates, and ${\bf{\varepsilon}}$ $N \times 1$ random column vector
+$${\mathbf Y=X \boldsymbol{\beta}}+{\mathbf \varepsilon}$$
+where ${\mathbf Y}$ is a $N \times 1$ random column vector, ${\mathbf X}$ a $N \times (p+1)$ design matrix with row for observations (${\mathbf x}^T_i$) and columns for covariates, and ${\mathbf \varepsilon}$ $N \times 1$ random column vector
 
 The assumptions for the classical linear model is:
 
-1. $\text{E}(\bf{\varepsilon})=\bf{0}$.
+1. $\text{E}({\mathbf \varepsilon})={\mathbf 0}$.
 
-2. $\text{Cov}(\varepsilon)=\text{E}(\varepsilon \varepsilon^T)=\sigma^2\bf{I}$.
+2. $\text{Cov}(\varepsilon)=\text{E}(\varepsilon \varepsilon^T)=\sigma^2{\mathbf I}$.
 
-3. The design matrix has full rank, $\text{rank}({\bf X})=(p+1)$.
+3. The design matrix has full rank, $\text{rank}$ $({\mathbf X})=(p+1)$.
 
 The classical _normal_ linear regression model is obtained if additionally
 
-4. $\varepsilon\sim N_n(\bf{0},\sigma^2\bf{I})$ holds. 
+4. $\varepsilon\sim N_n({\mathbf 0},\sigma^2{\mathbf I})$ holds. 
 
-For random covariates these assumptions are to be understood conditionally on $\bf{X}$.
+For random covariates these assumptions are to be understood conditionally on ${\mathbf X}$.
 
 #### a) Regression parameter estimator
 Derive the least squares (or the maximum likelihood estimator) for $\hat{\beta}$.

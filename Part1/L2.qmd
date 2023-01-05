@@ -33,9 +33,8 @@ knitr::opts_chunk$set(echo = FALSE, message=FALSE,warning = FALSE, error = FALSE
 ```
 
 # Plan
-for this lecture (L2 in Part 1):
 
-Continue with the decision theoretic framework from L1, but now for classification. If time also bias-variance trade-off.
+Continue with the decision theoretic framework from L1, but now for classification. Bias-variance trade-off.
 
 * Classification - should not be new (ELS Ch 4.1-4.5, except 4.4.4)
 * Statistical decision theoretic framework for classification (ELS 2.4)

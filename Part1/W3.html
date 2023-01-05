@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2022-12-29">
+<meta name="dcterms.date" content="2023-01-05">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -134,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">MA8701 Advanced methods in statistical inference and learning</h1>
-<p class="subtitle lead">Week 3: Missing data</p>
+<p class="subtitle lead">Week 3 (L5+L6): Missing data</p>
 </div>
 
 
@@ -151,9 +151,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 29, 2022</p>
+      <p class="date">January 5, 2023</p>
     </div>
   </div>
+  
     
   </div>
   
@@ -235,15 +236,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="popular-solutions-to-missing-covariates" class="level1">
 <h1>Popular solutions to missing covariates</h1>
+<p><span class="citation" data-cites="brandphd">(<a href="#ref-brandphd" role="doc-biblioref"><strong>brandphd?</strong></a>)</span></p>
 <p>SE info fra SL i slides og evt annet for å få ryggdekning for når metodene er gyldige.</p>
-<p><strong>Complete case analysis:</strong> discard all observations containing missing values. Wasteful, but will give valid inference for MCAR.</p>
-<p>Let each variable have a probability for missing values of 0.05, then for 20 variables the probability of an observation to be complete is <span class="math inline">\((1 − 0.05)^20 = 0.36\)</span>, for 50 variables <span class="math inline">\(0.08\)</span>. Not many observations left with complete case analysis. Of cause some variables may have more missing than others, and removing those variables first may of cause lead to less observations that are incomplete</p>
-<p><strong>Pairwise deletion:</strong> for example when calculating a correlation matrix only complete pairs may enter in the calculation. Not so relevant for regression and classification.</p>
-<p><strong>LOCF:</strong> Last observation carried forward. Time series etc. Not recommended, unless there is a reason to believe that nothing has changed.</p>
-<hr>
-<p><strong>Mean imputation:</strong> Replace the missing value with the mean of the covariate over all samples. Will decrease the variability in the data. “Common solution” within machine learning, but not so common in statistics. Will not give valid inference.</p>
-<p><strong>Multiple imputation:</strong> Devise a method to construct the distribution of each covariate (that can be missing) based on other covariates (often a regression method). Sample multiple observation for each missing value, and get <span class="math inline">\(m\)</span> complete dataset. Analyse all <span class="math inline">\(m\)</span> dataset and weigh the results together. R: package <code>mice</code>. Will give powerful and valid inference for MAR and MCAR</p>
 <p><strong>Use an analysis method that handles missing data</strong>: such as trees! More in Part 3.</p>
+<p><strong>Complete case analysis:</strong> discard all observations containing missing values. This is also called “listwise deletion”. Wasteful, but will give valid inference for MCAR. If the missing is MAR a complete case analysis may lead to bias. In a regression setting if a missing covariate is dependent on the response, then parameter estimates may become biased.</p>
+<p>Let each variable have a probability for missing values of 0.05, then for 20 variables the probability of an observation to be complete is <span class="math inline">\((1 − 0.05)^20 = 0.36\)</span>, for 50 variables <span class="math inline">\(0.08\)</span>. Not many observations left with complete case analysis. Of cause some variables may have more missing than others, and removing those variables first may of cause lead to less observations that are incomplete</p>
+<p><strong>Pairwise deletion:</strong> for example when calculating a correlation matrix only complete pairs may enter in the calculation. This is also called “available-case analysis”. A covariance matrix constructed from pairwise deletion may not be positive definite.</p>
+<hr>
+<p><strong>Single imputation:</strong> here each missing value is imputed (filled in) once by some “estimate” and the data set is then complete and standard statistical methods may be used.</p>
+<p>Versions of single imputation:</p>
+<p><strong>LOCF:</strong> Last observation carried forward. Time series etc. Not recommended, unless there is a reason to believe that nothing has changed.</p>
+<p><strong>Mean imputation:</strong> Replace the missing value with the mean of the covariate over all samples. Will decrease the variability in the data. “Common solution” within machine learning, but not so common in statistics. Will not give valid inference.</p>
+<p><strong>Problems with single imputation:</strong> Standard errors may be understimated giving too narrow CIs and too low <span class="math inline">\(p\)</span>-values. Why: the imputed data are treated as fixed (known) values.</p>
+<hr>
+<p><strong>Likelihood approaches:</strong></p>
+<p><strong>Bayesian approaches:</strong></p>
+<p><strong>Multiple imputation:</strong> Devise a method to construct the distribution of each covariate (that can be missing) based on other covariates (often a regression method). Sample multiple observation for each missing value, and get <span class="math inline">\(m\)</span> complete dataset. Analyse all <span class="math inline">\(m\)</span> dataset and weigh the results together. R: package <code>mice</code>. Will give powerful and valid inference for MAR and MCAR</p>
 </section>
 <section id="multiple-imputation" class="level1">
 <h1>Multiple imputation</h1>
@@ -255,6 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="rubins-rules" class="level2">
 <h2 class="anchored" data-anchor-id="rubins-rules">Rubin´s rules</h2>
+<p>From the statistics A, B, C then standard errors, confidence intervals and <span class="math inline">\(p\)</span>-values may be found. The assumption used for statistical inference is that the distribution of A can be approximated by a multivariate normal distribution. Thus, the sample size needs to be sufficiently large.</p>
 </section>
 <section id="r-example" class="level2">
 <h2 class="anchored" data-anchor-id="r-example">R example</h2>
@@ -363,7 +372,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -399,24 +425,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
