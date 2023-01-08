@@ -41,18 +41,18 @@ We first look at notation and then definitions of missing mechanisms.
 
 ## Notation
 
--   ${\bf y}$: response vector (no missing values)
--   ${\bf X}$: the full covariate matrix
--   ${\bf Z}=({\bf X},{\bf y})$: full responses and covariates
--   ${\bf X}_{\text{obs}}$: the observed part of the covariate matrix
--   ${\bf X}_{\text{mis}}$: the missing part of the covariate matrix
--   ${\bf Z}_{\text{obs}}=({\bf X}_{\text{obs}},{\bf y})$: the observed responses and covariates
--   ${\bf R}$: indicator matrix (0/1) for missingness/observability of ${\bf X}$, where $1$ denotes observed and $0$ denotes missing. (ELS 9.6 does the opposite, but that is not the common use.)
--   $\theta$: some parameter in the distribution of ${\bf R}$.
+-   ${\mathbf y}$: response vector (no missing values)
+-   ${\mathbf X}$: the full covariate matrix
+-   ${\mathbf Z}=({\mathbf X},{\mathbf y})$: full responses and covariates
+-   ${\mathbf X}_{\text{obs}}$: the observed part of the covariate matrix
+-   ${\mathbf X}_{\text{mis}}$: the missing part of the covariate matrix
+-   ${\mathbf Z}_{\text{obs}}=({\mathbf X}_{\text{obs}},{\mathbf y})$: the observed responses and covariates
+-   ${\mathbf R}$: indicator matrix (0/1) for missingness/observability of ${\mathbf X}$, where $1$ denotes observed and $0$ denotes missing. (ELS 9.6 does the opposite, but that is not the common use.)
+-   $\theta$: some parameter in the distribution of ${\mathbf R}$.
 
 We may use the indicator matrix together with the missing data vector and observed data vector to write out the full covariate matrix.
 
-The missing data mechanism is characterized by the conditional distribution of ${\bf R}$; $$P({\bf R} \mid {\bf Z},\theta)$$
+The missing data mechanism is characterized by the conditional distribution of ${\mathbf R}$; $$P({\mathbf R} \mid {\mathbf Z},\theta)$$
 
 ---
 
@@ -60,7 +60,7 @@ The missing data mechanism is characterized by the conditional distribution of $
 
 ### Missing completely at random (MCAR)
 
-$$P({\bf R} \mid {\bf Z},\theta)=P({\bf R} \mid \theta)$$
+$$P({\mathbf R} \mid {\mathbf Z},\theta)=P({\mathbf R} \mid \theta)$$
 
 -   All observations have the same probability of being missing, and
 -   the missing mechanism is not related to the data (not to observed or missing data).
@@ -76,7 +76,7 @@ Examples:
 
 ### Missing at random (MAR)
 
-$$P({\bf R} \mid {\bf Z},\theta)=P({\bf R} \mid {\bf Z}_{\text obs},\theta)$$
+$$P({\mathbf R} \mid {\mathbf Z},\theta)=P({\mathbf R} \mid {\mathbf Z}_{\text obs},\theta)$$
 
 - The probability of an entry to be missing depends (possibly) on observed data, but not on unobserved data. 
 - Thus, all information about the missing data that we need to perform valid statistical analysis is found in the observed data (but maybe difficult to construct a model for this).

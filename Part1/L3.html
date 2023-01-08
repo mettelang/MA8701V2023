@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-05">
+<meta name="dcterms.date" content="2023-01-08">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -21,6 +21,25 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
 }
 </style>
 
@@ -52,18 +71,6 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#plan" id="toc-plan" class="nav-link" data-scroll-target="#plan">Plan</a></li>
   </ul></li>
-  <li><a href="#expected-prediction-error---the-start" id="toc-expected-prediction-error---the-start" class="nav-link" data-scroll-target="#expected-prediction-error---the-start">Expected prediction error - the start</a>
-  <ul class="collapse">
-  <li><a href="#data-rich-situation" id="toc-data-rich-situation" class="nav-link" data-scroll-target="#data-rich-situation">Data rich situation</a></li>
-  <li><a href="#data-poor-situation" id="toc-data-poor-situation" class="nav-link" data-scroll-target="#data-poor-situation">Data poor situation</a></li>
-  </ul></li>
-  <li><a href="#expected-prediction-error---compared-to-training-error" id="toc-expected-prediction-error---compared-to-training-error" class="nav-link" data-scroll-target="#expected-prediction-error---compared-to-training-error">Expected prediction error - compared to training error</a>
-  <ul class="collapse">
-  <li><a href="#training-error" id="toc-training-error" class="nav-link" data-scroll-target="#training-error">Training error</a></li>
-  <li><a href="#group-discussion" id="toc-group-discussion" class="nav-link" data-scroll-target="#group-discussion">Group discussion</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  <li><a href="#loss-function-and-training-error-for-classification" id="toc-loss-function-and-training-error-for-classification" class="nav-link" data-scroll-target="#loss-function-and-training-error-for-classification">Loss function and training error for classification</a></li>
-  </ul></li>
   <li><a href="#optimism-of-the-training-error-rate" id="toc-optimism-of-the-training-error-rate" class="nav-link" data-scroll-target="#optimism-of-the-training-error-rate">Optimism of the training error rate</a>
   <ul class="collapse">
   <li><a href="#in-sample-error" id="toc-in-sample-error" class="nav-link" data-scroll-target="#in-sample-error">In-sample error</a></li>
@@ -75,26 +82,33 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#result-for-omega" id="toc-result-for-omega" class="nav-link" data-scroll-target="#result-for-omega">Result for <span class="math inline">\(\omega\)</span></a></li>
   </ul></li>
-  <li><a href="#three-ways-to-perform-model-selection" id="toc-three-ways-to-perform-model-selection" class="nav-link" data-scroll-target="#three-ways-to-perform-model-selection">Three ways to perform model selection</a>
+  <li><a href="#three-ways-to-perform-model-selection" id="toc-three-ways-to-perform-model-selection" class="nav-link" data-scroll-target="#three-ways-to-perform-model-selection">Three ways to perform model selection</a></li>
+  <li><a href="#estimates-of-expected-in-sample-prediction-error" id="toc-estimates-of-expected-in-sample-prediction-error" class="nav-link" data-scroll-target="#estimates-of-expected-in-sample-prediction-error">Estimates of (expected) in-sample prediction error</a>
   <ul class="collapse">
-  <li><a href="#estimates-of-expected-in-sample-prediction-error" id="toc-estimates-of-expected-in-sample-prediction-error" class="nav-link" data-scroll-target="#estimates-of-expected-in-sample-prediction-error">Estimates of (expected) in-sample prediction error</a></li>
   <li><a href="#c_p-statistics" id="toc-c_p-statistics" class="nav-link" data-scroll-target="#c_p-statistics"><span class="math inline">\(C_p\)</span> statistics</a></li>
   <li><a href="#akaike-information-criterion-aic" id="toc-akaike-information-criterion-aic" class="nav-link" data-scroll-target="#akaike-information-criterion-aic">Akaike information criterion (AIC)</a></li>
-  <li><a href="#the-effective-number-of-parameters" id="toc-the-effective-number-of-parameters" class="nav-link" data-scroll-target="#the-effective-number-of-parameters">The effective number of parameters</a></li>
-  <li><a href="#cross-validation-cv" id="toc-cross-validation-cv" class="nav-link" data-scroll-target="#cross-validation-cv">Cross-validation (CV)</a></li>
-  <li><a href="#bootstrap-methods" id="toc-bootstrap-methods" class="nav-link" data-scroll-target="#bootstrap-methods">Bootstrap methods</a></li>
   </ul></li>
+  <li><a href="#the-effective-number-of-parameters" id="toc-the-effective-number-of-parameters" class="nav-link" data-scroll-target="#the-effective-number-of-parameters">The effective number of parameters</a></li>
+  <li><a href="#cross-validation-cv" id="toc-cross-validation-cv" class="nav-link" data-scroll-target="#cross-validation-cv">Cross-validation (CV)</a>
+  <ul class="collapse">
+  <li><a href="#formal-set-up-for-model-assessment" id="toc-formal-set-up-for-model-assessment" class="nav-link" data-scroll-target="#formal-set-up-for-model-assessment">Formal set-up for model assessment</a></li>
+  <li><a href="#formal-set-up-for-model-selection" id="toc-formal-set-up-for-model-selection" class="nav-link" data-scroll-target="#formal-set-up-for-model-selection">Formal set-up for model selection</a></li>
+  <li><a href="#choice-of-k" id="toc-choice-of-k" class="nav-link" data-scroll-target="#choice-of-k">Choice of <span class="math inline">\(K\)</span></a></li>
+  <li><a href="#generalized-cross-validation-gcv" id="toc-generalized-cross-validation-gcv" class="nav-link" data-scroll-target="#generalized-cross-validation-gcv">Generalized cross-validation (GCV)</a></li>
+  <li><a href="#the-wrong-and-the-right-way-to-do-cross-validation" id="toc-the-wrong-and-the-right-way-to-do-cross-validation" class="nav-link" data-scroll-target="#the-wrong-and-the-right-way-to-do-cross-validation">The wrong and the right way to do cross-validation</a></li>
+  </ul></li>
+  <li><a href="#bootstrap-methods" id="toc-bootstrap-methods" class="nav-link" data-scroll-target="#bootstrap-methods">Bootstrap methods</a></li>
   <li><a href="#conclusions-model-selection-and-assessment-and-future-use" id="toc-conclusions-model-selection-and-assessment-and-future-use" class="nav-link" data-scroll-target="#conclusions-model-selection-and-assessment-and-future-use">Conclusions: Model selection and assessment and future use</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
   <ul class="collapse">
   <li><a href="#expected-training-and-test-mse-for-linear-regression" id="toc-expected-training-and-test-mse-for-linear-regression" class="nav-link" data-scroll-target="#expected-training-and-test-mse-for-linear-regression">Expected training and test MSE for linear regression</a></li>
-  <li><a href="#look-into-the-derivation-for-the-bias-and-variance" id="toc-look-into-the-derivation-for-the-bias-and-variance" class="nav-link" data-scroll-target="#look-into-the-derivation-for-the-bias-and-variance">Look into the derivation for the bias and variance</a></li>
   <li><a href="#establish-the-average-optimism-in-the-training-error" id="toc-establish-the-average-optimism-in-the-training-error" class="nav-link" data-scroll-target="#establish-the-average-optimism-in-the-training-error">Establish the average optimism in the training error</a></li>
   <li><a href="#relate-the-covariance-to-the-trace-of-a-linear-smoother" id="toc-relate-the-covariance-to-the-trace-of-a-linear-smoother" class="nav-link" data-scroll-target="#relate-the-covariance-to-the-trace-of-a-linear-smoother">Relate the covariance to the trace of a linear smoother</a></li>
   <li><a href="#something-with-programming-and-data" id="toc-something-with-programming-and-data" class="nav-link" data-scroll-target="#something-with-programming-and-data">Something with programming and data?</a></li>
   </ul></li>
   <li><a href="#solutions-to-exercises" id="toc-solutions-to-exercises" class="nav-link" data-scroll-target="#solutions-to-exercises">Solutions to exercises</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#reference-links" id="toc-reference-links" class="nav-link" data-scroll-target="#reference-links">Reference links</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
 </nav>
 </div>
@@ -122,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 5, 2023</p>
+      <p class="date">January 8, 2023</p>
     </div>
   </div>
   
@@ -138,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="model-assessment-and-selection" class="level1">
 <h1>Model assessment and selection</h1>
-<p>(ELS Ch 7.1-7.6,7.10-7.12)</p>
+<p>(ESL Ch 7.1-7.6,7.10-7.12)</p>
 <p>The generalization performance of <span class="math inline">\(\hat{f}\)</span> can be evaluated from the EPE (expected prediction error) on an independent test set.</p>
 <p>We use this for</p>
 <ul>
@@ -155,84 +169,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Cross-validation and .632 bootstrap estimates of EPE</li>
 <li>How will we build on this in the rest of the course?</li>
 </ol>
-<p>We finished 1) in L2, now we continue!</p>
-<hr>
-</section>
-</section>
-<section id="expected-prediction-error---the-start" class="level1">
-<h1>Expected prediction error - the start</h1>
-<p>(ELS 7.2 and 7.4, and we are now back to a general loss function - but first have regression in mind)</p>
-<p>If we now keep the training set fixed (we would do that in practice - since we usually only have one training set):</p>
-<p><span class="math display">\[ \text{Err}_{\cal T}=\text{E}[L(Y,\hat{f}(X))\mid {\cal T}]\]</span></p>
-<p>as before the expected value is with respect to <span class="math inline">\((X,Y)\)</span>, but the training set is fixed - so that this is the test set error is for this specific training set <span class="math inline">\({\cal T}\)</span>. This is a different way of conditioning than we have looked at before.</p>
-<hr>
-<p>Getting back to the unconditional version, we take expected value over ALL that is random - including the training set <span class="math display">\[ \text{Err}=\text{E}(\text{E}[L(Y,\hat{f}(X))\mid {\cal T}])=\text{E}_{\cal T} [\text{Err}_{\cal T}]\]</span></p>
-<p>We want to estimate <span class="math inline">\(\text{Err}_{\cal T}\)</span>, but we will soon see that it turns out that most methods estimate <span class="math inline">\(\text{Err}\)</span>.</p>
-<p>Why do we want to estimate <span class="math inline">\(\text{Err}_{\cal T}\)</span> and not <span class="math inline">\(\text{Err}\)</span>?</p>
-<hr>
-<section id="data-rich-situation" class="level2">
-<h2 class="anchored" data-anchor-id="data-rich-situation">Data rich situation</h2>
-<p>If we are in a <em>data rich situation</em> we “just” divide our data into three parts, and use</p>
-<ul>
-<li>one for training</li>
-<li>one for validation (model selection)</li>
-<li>one for testing (model assessment)</li>
-</ul>
-<p>A typical split might be 50-60% training and 20-25% validation and test, but this depends on the complexity of the model to be fitted and the signal-to-noise ratio in the data.</p>
-<p>The focus in Ch 7 of ELS is to present methods to be used in the situations where we <em>do not have enough data</em> to rely on the training-validation-testing split.</p>
-<hr>
-</section>
-<section id="data-poor-situation" class="level2">
-<h2 class="anchored" data-anchor-id="data-poor-situation">Data poor situation</h2>
-<p>In a data poor situation we often want to use the training data to both fit a model but to also do model selection.</p>
-<p>We may do this due to some results we soon will derive (on expected optimism).</p>
-<p>For model assessment we do in generel want a separate test set, but also solution using cross-validation or bootstrapping are used.</p>
-<p>In addition - given that you are in a data rich, the results we will look into may not be something you will need in your everyday work. However, the results on how to estimate the Err and Err<span class="math inline">\(_{\cal T}\)</span> can give insight into existing methods and situations!</p>
-</section>
-</section>
-<section id="expected-prediction-error---compared-to-training-error" class="level1">
-<h1>Expected prediction error - compared to training error</h1>
-<section id="training-error" class="level2">
-<h2 class="anchored" data-anchor-id="training-error">Training error</h2>
-<p>(also referred to as apparent error)</p>
-<p>For a regression problem the squared loss is popular and the training error is the average loss over the training sample: <span class="math display">\[\overline{\text{err}}=\frac{1}{N} \sum_{i=1}^N L(y_i,\hat{f}(x_i))\]</span> <!--Unfortuneately the training error is  not a good estimate of the test error. --></p>
-<hr>
-</section>
-<section id="group-discussion" class="level2">
-<h2 class="anchored" data-anchor-id="group-discussion">Group discussion</h2>
-<p>Look at Figure 7.1 (with figure caption) on 220 in the ELS book. The text reads that “100 simulated training sets of size 50” and that “lasso produced sequence of fits”.</p>
-<p>Explain what you see - in particular what are the red and blue lines and the bold lines? What can you conclude from the figure?</p>
-<ul>
-<li>Red lines:</li>
-<li>Bold red line:</li>
-<li>Blue lines:</li>
-<li>Bold blue line:</li>
-</ul>
-<hr>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="ELSfig71.png" class="img-fluid" width="452"></p>
-</div>
-</div>
-<hr>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>(from Figure 7.1)</p>
-<p>The training error <span class="math inline">\(\overline{\text{err}}\)</span> is not a good estimate for neighter the <span class="math inline">\(\text{Err}_{\cal T}\)</span> nor the <span class="math inline">\(\text{Err}\)</span>.</p>
-<hr>
-</section>
-<section id="loss-function-and-training-error-for-classification" class="level2">
-<h2 class="anchored" data-anchor-id="loss-function-and-training-error-for-classification">Loss function and training error for classification</h2>
-<ul>
-<li><span class="math inline">\(X \in \Re^p\)</span></li>
-<li><span class="math inline">\(G \in {\cal G}=\{1,\ldots,K\}\)</span></li>
-<li><span class="math inline">\(\hat{G}(X) \in {\cal G}=\{1,\ldots,K\}\)</span></li>
-</ul>
-<p>0-1 loss with <span class="math inline">\(\hat{G}(X)=\text{argmax}_k \hat{p}_k(X)\)</span> <span class="math display">\[L(G,\hat{G}(X))=I(G\neq \hat{G}(X))\]</span> <span class="math inline">\(-2\)</span>-loglikelihood loss (why <span class="math inline">\(-2\)</span>?): <span class="math display">\[ L(G,\hat{p}(X))=-2 \text{log} \hat{p}_G(X)\]</span></p>
-<hr>
-<p>Test error (only replace <span class="math inline">\(\hat{f}\)</span> with <span class="math inline">\(\hat{G}\)</span>): <span class="math display">\[ \text{Err}_{\cal T}=\text{E}[L(Y,\hat{G}(X))\mid {\cal T}]\]</span> <span class="math display">\[ \text{Err}=\text{E}[\text{E}[L(Y,\hat{G}(X))\mid {\cal T}]]=\text{E} [\text{Err}_{\cal T}]\]</span></p>
-<p>Training error (for 0-1 loss) <span class="math display">\[\overline{\text{err}}=\frac{1}{N}\sum_{i=1}^N I(g_i\neq \hat{g}(x_i))\]</span> Training error (for <span class="math inline">\(-2\)</span>loglikelihood loss) <span class="math display">\[\overline{\text{err}}=-\frac{2}{N}\sum_{i=1}^N \text{log}\hat{p}_{g_i}(x_i)\]</span></p>
+<p>We finished 1) and 2) in L2, now we continue!</p>
 <hr>
 </section>
 </section>
@@ -244,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
 <p>and then the averaging over the training set (both <span class="math inline">\(X\)</span>s and <span class="math inline">\(Y\)</span>s in the training set): <span class="math display">\[\text{Err}=\text{E}_{\cal T} \text{E}_{X^0,Y^0}[L(Y^0,\hat{f}(X^0))\mid {\cal T}]\]</span></p>
 <p>This is also called <em>extra-sample error</em> (in contrast to what we now will define to be in-sample).</p>
 <hr>
-<p>We saw before - from the ELS Figure 7.1, the training error <span class="math inline">\(\overline{\text{err}}\)</span> is (in general) less than (or equal to) the true test error, so not a good estimator for the test error.</p>
+<p>We saw before - from the ESL Figure 7.1, the training error <span class="math inline">\(\overline{\text{err}}\)</span> is (in general) less than (or equal to) the true test error, so not a good estimator for the test error.</p>
 <p><span class="math display">\[\overline{\text{err}}=\frac{1}{N} \sum_{i=1}^N L(y_i,\hat{f}(x_i))\]</span></p>
 <p>[In Exercise 2.9 we prove that the expected training error is smaller or equal the expected error of a testset - for MLR. Important to work on this exercise!]</p>
 <p>Part of this is due to where the <span class="math inline">\(X\)</span> values are “placed”. The test input vectors need not be “in the same positions” as in the training <span class="math inline">\(X\)</span> values (when the mean is taken over the full distribution of <span class="math inline">\(X\)</span>).</p>
@@ -263,15 +200,15 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="average-optimism" class="level2">
 <h2 class="anchored" data-anchor-id="average-optimism">Average optimism</h2>
-<p>is defined as the expected value of the optimism, where the expectation is taken over the distribution of the training responses - denoted <span class="math inline">\({\bf y}\)</span> (training predictors still kept fixed):</p>
-<p><span class="math display">\[ \omega=\text{E}_{\bf y}(op)=\text{E}_{\bf y}(\text{Err}_{\text{in}})-\text{E}_{\bf y}(\overline{\text{err}})\]</span></p>
-<p>Observe that if we write <span class="math inline">\({\cal T}\)</span> then the expectation is taken over the distribution of both the predictors and responses in the training set, and we here write <span class="math inline">\({\bf y}\)</span> for taking the distribution only over the reponses in the training set (not the predictors in the training set).</p>
+<p>is defined as the expected value of the optimism, where the expectation is taken over the distribution of the training responses - denoted <span class="math inline">\({\mathbf y}\)</span> (training predictors still kept fixed):</p>
+<p><span class="math display">\[ \omega=\text{E}_{\mathbf y}(op)=\text{E}_{\mathbf y}(\text{Err}_{\text{in}})-\text{E}_{\mathbf y}(\overline{\text{err}})\]</span></p>
+<p>Observe that if we write <span class="math inline">\({\cal T}\)</span> then the expectation is taken over the distribution of both the predictors and responses in the training set, and we here write <span class="math inline">\({\mathbf y}\)</span> for taking the distribution only over the reponses in the training set (not the predictors in the training set).</p>
 <p>So: we will focus on “modelling” <span class="math inline">\(\omega\)</span>, “instead of” <span class="math inline">\(\text{Err}\)</span>.</p>
 <hr>
 </section>
 <section id="covariance-result" class="level2">
 <h2 class="anchored" data-anchor-id="covariance-result">Covariance result</h2>
-<p>For squared error (see ELS Exercise 7.4), 0-1 loss, and “other loss functions” it can be shown</p>
+<p>For squared error (see ESL Exercise 7.4), 0-1 loss, and “other loss functions” it can be shown</p>
 <p><span class="math display">\[ \omega=\frac{2}{N} \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)\]</span> Interpretation:</p>
 <ul>
 <li>how much the training error <em>underestimates</em> the true error depends on how strongly the observed response <span class="math inline">\(y_i\)</span> affects its own prediction <span class="math inline">\(\hat{y}_i\)</span>.</li>
@@ -282,33 +219,33 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="expected-in-sample-prediction-error" class="level1">
 <h1>Expected in-sample prediction error</h1>
-<p><span class="math display">\[ \text{E}_{\bf y}(\text{Err}_{\text{in}})=\text{E}_{\bf y}(\overline{\text{err}})+\frac{2}{N} \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)\]</span> This is the starting point for several methods to “penalize” fitting complex models!</p>
+<p><span class="math display">\[ \text{E}_{\mathbf y}(\text{Err}_{\text{in}})=\text{E}_{\mathbf y}(\overline{\text{err}})+\frac{2}{N} \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)\]</span> This is the starting point for several methods to “penalize” fitting complex models!</p>
 <hr>
 <section id="result-for-omega" class="level2">
 <h2 class="anchored" data-anchor-id="result-for-omega">Result for <span class="math inline">\(\omega\)</span></h2>
 <p>Additive error model and squared loss: <span class="math inline">\(Y=f(X)+\varepsilon\)</span>, with <span class="math inline">\(\hat{y}_i\)</span> obtained by a linear fit with <span class="math inline">\(d\)</span> inputs (or basis functions) <span class="math display">\[\omega=2 \frac{d}{N}\sigma_{\varepsilon}^2\]</span></p>
-<p>Proof? We look at a generalization in ELS exercise 7.5.</p>
+<p>Proof? We look at a generalization in ESL exercise 7.5.</p>
 <p>Observe that the optimism increases with <span class="math inline">\(d\)</span> and decreases with <span class="math inline">\(N\)</span>.</p>
-<p>Comment: versions of the formula hold approximately for other error models than linear with squared loss (ELS mention binary data and entropy loss), but not in general for 0-1 loss (page 231, bottom, with reference to Efron 1986 - consult the ELS book).</p>
+<p>Comment: versions of the formula hold approximately for other error models than linear with squared loss (ESL mention binary data and entropy loss), but not in general for 0-1 loss (page 231, bottom, with reference to Efron 1986 - consult the ESL book).</p>
 <hr>
 </section>
 </section>
 <section id="three-ways-to-perform-model-selection" class="level1">
 <h1>Three ways to perform model selection</h1>
 <ul>
-<li><p>Estimate of expected in-sample prediction error (ELS Ch 7.5-7.6): We may develop the average optimism for a class of models that are linear in the parameters (Mallows Cp, AIC, BIC, …) - and compare models of different complexity using <span class="math inline">\(\text{E}_{\bf y}(\text{Err}_{\text{in}})\)</span>. Remark: in-sample error is not of interest, but used to choose between models effectively.</p></li>
-<li><p>Estimate <span class="math inline">\(\text{Err}\)</span> (ELS Ch 7.10-7.11): We may instead use resampling methods (cross-validation and bootstrapping) to estimate <span class="math inline">\(\text{Err}\)</span> directly (and use that for model selection and assessment).</p></li>
-<li><p>In the data rich approach: we have so much data that we use a separate validation set for model selection (and a separate test set for model assessment). That is not the focus of ELS Ch 7.</p></li>
+<li><p>Estimate of expected in-sample prediction error (ESL Ch 7.5-7.6): We may develop the average optimism for a class of models that are linear in the parameters (Mallows Cp, AIC, BIC, …) - and compare models of different complexity using <span class="math inline">\(\text{E}_{\mathbf y}(\text{Err}_{\text{in}})\)</span>. Remark: in-sample error is not of interest, but used to choose between models effectively.</p></li>
+<li><p>Estimate <span class="math inline">\(\text{Err}\)</span> (ESL Ch 7.10-7.11): We may instead use resampling methods (cross-validation and bootstrapping) to estimate <span class="math inline">\(\text{Err}\)</span> directly (and use that for model selection and assessment).</p></li>
+<li><p>In the data rich approach: we have so much data that we use a separate validation set for model selection (and a separate test set for model assessment). That is not the focus of ESL Ch 7.</p></li>
 </ul>
 <hr>
-<section id="estimates-of-expected-in-sample-prediction-error" class="level2">
-<h2 class="anchored" data-anchor-id="estimates-of-expected-in-sample-prediction-error">Estimates of (expected) in-sample prediction error</h2>
-<p>We have the following result:</p>
-<p><span class="math display">\[ \text{E}_{\bf y}(\text{Err}_{\text{in}})=\text{E}_{\bf y}(\overline{\text{err}})+\frac{2}{N} \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)\]</span> where now <span class="math display">\[ \omega=\frac{2}{N} \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)\]</span> We now want to get an estimate of the average optimism, to get an estimate of the in-sample prediction error:</p>
-<p><span class="math display">\[ \widehat{\text{Err}_{\text{in}}}=\overline{\text{err}}+\hat{\omega}\]</span></p>
-<p>Comment: observe that <span class="math inline">\(\overline{\text{err}}\)</span> is now an estimate of <span class="math inline">\(\text{E}_{\bf y}(\overline{\text{err}})\)</span> and even though we write <span class="math inline">\(\widehat{\text{Err}_{\text{in}}}\)</span> we are aiming to estimate <span class="math inline">\(\text{E}_{\bf y}(\text{Err}_{\text{in}})\)</span>. Focus now is on <span class="math inline">\(\hat{\omega}\)</span>!</p>
-<hr>
 </section>
+<section id="estimates-of-expected-in-sample-prediction-error" class="level1">
+<h1>Estimates of (expected) in-sample prediction error</h1>
+<p>We have the following result:</p>
+<p><span class="math display">\[ \text{E}_{\mathbf y}(\text{Err}_{\text{in}})=\text{E}_{\mathbf y}(\overline{\text{err}})+\frac{2}{N} \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)\]</span> where now <span class="math display">\[ \omega=\frac{2}{N} \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)\]</span> We now want to get an estimate of the average optimism, to get an estimate of the in-sample prediction error:</p>
+<p><span class="math display">\[ \widehat{\text{Err}_{\text{in}}}=\overline{\text{err}}+\hat{\omega}\]</span></p>
+<p>Comment: observe that <span class="math inline">\(\overline{\text{err}}\)</span> is now an estimate of <span class="math inline">\(\text{E}_{\mathbf y}(\overline{\text{err}})\)</span> and even though we write <span class="math inline">\(\widehat{\text{Err}_{\text{in}}}\)</span> we are aiming to estimate <span class="math inline">\(\text{E}_{\mathbf y}(\text{Err}_{\text{in}})\)</span>. Focus now is on <span class="math inline">\(\hat{\omega}\)</span>!</p>
+<hr>
 <section id="c_p-statistics" class="level2">
 <h2 class="anchored" data-anchor-id="c_p-statistics"><span class="math inline">\(C_p\)</span> statistics</h2>
 <p>for squared error loss (follows directly from the <span class="math inline">\(\omega\)</span>-result for additive error model)</p>
@@ -341,34 +278,35 @@ ul.task-list li input[type="checkbox"] {
 <p>This is not true if the models are chosen adaptively (for example basis functions) this formula underestimates the optimism - and we may regard this as the <em>effective number of parameters</em> is larger than <span class="math inline">\(d\)</span>.</p>
 <hr>
 </section>
-<section id="the-effective-number-of-parameters" class="level2">
-<h2 class="anchored" data-anchor-id="the-effective-number-of-parameters">The effective number of parameters</h2>
-<p>(ELS 7.6)</p>
+</section>
+<section id="the-effective-number-of-parameters" class="level1">
+<h1>The effective number of parameters</h1>
+<p>(ESL 7.6)</p>
 <p>The number of parameters <span class="math inline">\(d\)</span> can be generalized into an <em>effective number of parameters</em>. We will look at linear fitting method:</p>
-<p><span class="math display">\[ \hat{\bf y}={\bf Sy}\]</span> where <span class="math inline">\({\bf S}\)</span> as a <span class="math inline">\(n \times n\)</span> matrix depending on covariates <span class="math inline">\(x_i\)</span> but not responses <span class="math inline">\(y_i\)</span>.</p>
+<p><span class="math display">\[ \hat{\mathbf y}={\mathbf Sy}\]</span> where <span class="math inline">\({\mathbf S}\)</span> as a <span class="math inline">\(n \times n\)</span> matrix depending on covariates <span class="math inline">\(x_i\)</span> but not responses <span class="math inline">\(y_i\)</span>.</p>
 <ul>
-<li>MLR <span class="math inline">\({\bf H}={\bf X}({\bf X}^T{\bf X})^{-1}{\bf X}^T\)</span></li>
+<li>MLR <span class="math inline">\({\mathbf H}={\mathbf X}({\mathbf X}^T{\mathbf X})^{-1}{\mathbf X}^T\)</span></li>
 <li>cubic smoothing splines</li>
 <li>ridge regression</li>
 </ul>
 <p>The effective number of parameters is</p>
-<p><span class="math display">\[\text{df}({\bf S})=\text{trace}({\bf S})\]</span> Remember that the trace of a square matrix is the sum of the diagonal elements, and trace is often denoted tr.</p>
+<p><span class="math display">\[\text{df}({\mathbf S})=\text{trace}({\mathbf S})\]</span> Remember that the trace of a square matrix is the sum of the diagonal elements, and trace is often denoted tr.</p>
 <p>What is the trace (tr) for MLR?</p>
-<p><span class="math inline">\(\text{tr}({\bf H})=\text{tr}({\bf X}({\bf X}^T{\bf X})^{-1}{\bf X}^T)=\text{tr}(({\bf X}^T{\bf X})^{-1}{\bf X}^T{\bf X})=\text{tr}({\bf I})_{p+1}=(p+1)\)</span> if intercept model with <span class="math inline">\(p\)</span> covariates.</p>
+<p><span class="math inline">\(\text{tr}({\mathbf H})=\text{tr}({\mathbf X}({\mathbf X}^T{\mathbf X})^{-1}{\mathbf X}^T)=\text{tr}(({\mathbf X}^T{\mathbf X})^{-1}{\mathbf X}^T{\mathbf X})=\text{tr}({\mathbf I})_{p+1}=(p+1)\)</span> if intercept model with <span class="math inline">\(p\)</span> covariates.</p>
 <hr>
-<p><strong>Additive error model and squared loss:</strong> <span class="math inline">\(Y=f(X)+\varepsilon\)</span> with <span class="math inline">\(\text{Var}(\varepsilon)=\sigma_{\varepsilon}^2\)</span> then <span class="math display">\[ \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)=\text{trace}({\bf S})\sigma_{\varepsilon}^2\]</span> leading to a generalization <span class="math display">\[\text{df}(\hat{{\bf y}})=\frac{\sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)}{\sigma_{\varepsilon}^2}\]</span> See exercise 7.5 to prove this.</p>
-<p>We return to this formula when we look at neural networks with quadratic penalization (weigth decay, ridge regularization) in Part 3.</p>
+<p><strong>Additive error model and squared loss:</strong> <span class="math inline">\(Y=f(X)+\varepsilon\)</span> with <span class="math inline">\(\text{Var}(\varepsilon)=\sigma_{\varepsilon}^2\)</span> then <span class="math display">\[ \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)=\text{trace}({\mathbf S})\sigma_{\varepsilon}^2\]</span> leading to a generalization <span class="math display">\[\text{df}(\hat{{\mathbf y}})=\frac{\sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)}{\sigma_{\varepsilon}^2}\]</span> See exercise 7.5 to prove this.</p>
+<p>We return to this formula when we look at neural networks with quadratic penalization (weigth decay, ridge regularization) in Part 2.</p>
 <hr>
 </section>
-<section id="cross-validation-cv" class="level2">
-<h2 class="anchored" data-anchor-id="cross-validation-cv">Cross-validation (CV)</h2>
-<p>(ELS Ch 7.10, 7.12 - most should be known from TMA4268)</p>
-<p>The aim is to estimate <span class="math inline">\(\text{Err}_{\cal T}\)</span>, but from simulation analyses (ELS Ch 7.12) it turns out that cross-validation estimates <span class="math inline">\(\text{Err}\)</span> “the best”.</p>
+<section id="cross-validation-cv" class="level1">
+<h1>Cross-validation (CV)</h1>
+<p>(ESL Ch 7.10, 7.12 - most should be known from TMA4268)</p>
+<p>The aim is to estimate <span class="math inline">\(\text{Err}_{\cal T}\)</span>, but from simulation analyses (ESL Ch 7.12) it turns out that cross-validation estimates <span class="math inline">\(\text{Err}\)</span> “the best”.</p>
 <p>The starting point for the method is that we only have one training set - and try to use that for either model selection or model assessment (not both).</p>
 <p>What to do when both is needed, is not covered in this chapter. Nested cross-validations aka two-layers of cross-validation is one possibility. Another is to set aside data for a test set for model assessment, but use the training set in cross-validation for model selection.</p>
 <hr>
-<section id="formal-set-up-for-model-assessment" class="level3">
-<h3 class="anchored" data-anchor-id="formal-set-up-for-model-assessment">Formal set-up for model assessment</h3>
+<section id="formal-set-up-for-model-assessment" class="level2">
+<h2 class="anchored" data-anchor-id="formal-set-up-for-model-assessment">Formal set-up for model assessment</h2>
 <ul>
 <li><p>The allocation of observation <span class="math inline">\(\{1,\ldots,N\}\)</span> to folds <span class="math inline">\(\{1,\ldots,K\}\)</span> is done using an indexing function <span class="math inline">\(\kappa: \{1,\ldots,N\} \rightarrow \{1,\ldots,K\}\)</span>, that for each observation allocate the observation to one of <span class="math inline">\(K\)</span> folds.</p></li>
 <li><p>Further, <span class="math inline">\(\hat{f}^{-k}(x)\)</span> is the fitted function, computed on the observations except the <span class="math inline">\(k\)</span>th fold (the observations from the <span class="math inline">\(k\)</span>th fold is removed).</p></li>
@@ -376,8 +314,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <hr>
 </section>
-<section id="formal-set-up-for-model-selection" class="level3">
-<h3 class="anchored" data-anchor-id="formal-set-up-for-model-selection">Formal set-up for model selection</h3>
+<section id="formal-set-up-for-model-selection" class="level2">
+<h2 class="anchored" data-anchor-id="formal-set-up-for-model-selection">Formal set-up for model selection</h2>
 <ul>
 <li><p>The indexing function <span class="math inline">\(\kappa\)</span> is unchanged, and for the fitting function we add a tuning parameter <span class="math inline">\(\alpha\)</span>: <span class="math inline">\(f(x,\alpha)\)</span> such that <span class="math inline">\(\hat{f}^{-k}(x,\alpha)\)</span> is the fitted function using tuning parameter <span class="math inline">\(\alpha\)</span>, with the <span class="math inline">\(k\)</span>th fold removed from the model fitting.</p></li>
 <li><p>The expected prediction error is estimated by</p></li>
@@ -385,38 +323,38 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math display">\[ \text{CV}(\hat{f},\alpha)=\frac{1}{N}\sum_{i=1}^N L(y_i,\hat{f}^{-k(i)}(x_i,\alpha))\]</span></p>
 <ul>
 <li><p>We find the best tuning parameter <span class="math inline">\(\hat{\alpha}\)</span> that minimize the <span class="math inline">\(\text{CV}(\hat{f},\alpha)\)</span>. Alternatively the <em>one-standard error rule</em> can be used: choose the most parsimonious (“smallest”) model whose error is no more than one standard error above the error of the best model.</p></li>
-<li><p>This best chosen model is then fit to all the data. (ELS page 242).</p></li>
+<li><p>This best chosen model is then fit to all the data. (ESL page 242).</p></li>
 </ul>
 <hr>
 </section>
-<section id="choice-of-k" class="level3">
-<h3 class="anchored" data-anchor-id="choice-of-k">Choice of <span class="math inline">\(K\)</span></h3>
+<section id="choice-of-k" class="level2">
+<h2 class="anchored" data-anchor-id="choice-of-k">Choice of <span class="math inline">\(K\)</span></h2>
 <ul>
 <li>Popular choices are 5 and 10 based on observations in simulation studies- and arguments similar to a bias-variance trace off.</li>
 <li><span class="math inline">\(K=N\)</span> is called <em>leave-one-out</em> cross-validation LOOCV, and gives the lowest bias for estimating the <span class="math inline">\(\text{Err}\)</span>.</li>
 </ul>
 <hr>
 </section>
-<section id="generalized-cross-validation-gcv" class="level3">
-<h3 class="anchored" data-anchor-id="generalized-cross-validation-gcv">Generalized cross-validation (GCV)</h3>
-<p>For LOOCV with squared loss and linear fitting. Remember <span class="math display">\[ \hat{\bf y}={\bf Sy}\]</span> For many fitting methods (including MLR)</p>
-<p><span class="math display">\[ \frac{1}{N}\sum_{i=1}^N [y_i-\hat{f}^{-i}(x_i)]^2=\frac{1}{N}\sum_{i=1}^N [\frac{y_i-\hat{f}(x_i)}{1-S_{ii}}]^2\]</span> where <span class="math inline">\(S_{ii}\)</span> is the <span class="math inline">\(i\)</span>th diagonal element of <span class="math inline">\({\bf S}\)</span>. This leads to the GCV approximation:</p>
-<p><span class="math display">\[ \text{GCV}(\hat{f})=\frac{1}{N}\sum_{i=1}^N [\frac{y_i-\hat{f}(x_i)}{1-\text{tr}({\bf S})/N}]^2\]</span> where we recognise the effective number of parameters <span class="math inline">\(\text{trace}({\bf S})\)</span>. In some settings the <span class="math inline">\(\text{trace}({\bf S})\)</span> is computed more easily than the individual elements <span class="math inline">\(S_{ii}\)</span>.</p>
+<section id="generalized-cross-validation-gcv" class="level2">
+<h2 class="anchored" data-anchor-id="generalized-cross-validation-gcv">Generalized cross-validation (GCV)</h2>
+<p>For LOOCV with squared loss and linear fitting. Remember <span class="math display">\[ \hat{\mathbf y}={\mathbf Sy}\]</span> For many fitting methods (including MLR)</p>
+<p><span class="math display">\[ \frac{1}{N}\sum_{i=1}^N [y_i-\hat{f}^{-i}(x_i)]^2=\frac{1}{N}\sum_{i=1}^N [\frac{y_i-\hat{f}(x_i)}{1-S_{ii}}]^2\]</span> where <span class="math inline">\(S_{ii}\)</span> is the <span class="math inline">\(i\)</span>th diagonal element of <span class="math inline">\({\mathbf S}\)</span>. This leads to the GCV approximation:</p>
+<p><span class="math display">\[ \text{GCV}(\hat{f})=\frac{1}{N}\sum_{i=1}^N [\frac{y_i-\hat{f}(x_i)}{1-\text{tr}({\mathbf S})/N}]^2\]</span> where we recognise the effective number of parameters <span class="math inline">\(\text{trace}({\mathbf S})\)</span>. In some settings the <span class="math inline">\(\text{trace}({\mathbf S})\)</span> is computed more easily than the individual elements <span class="math inline">\(S_{ii}\)</span>.</p>
 <hr>
 </section>
-<section id="the-wrong-and-the-right-way-to-do-cross-validation" class="level3">
-<h3 class="anchored" data-anchor-id="the-wrong-and-the-right-way-to-do-cross-validation">The wrong and the right way to do cross-validation</h3>
+<section id="the-wrong-and-the-right-way-to-do-cross-validation" class="level2">
+<h2 class="anchored" data-anchor-id="the-wrong-and-the-right-way-to-do-cross-validation">The wrong and the right way to do cross-validation</h2>
 <p>In short: make sure that all part of the model fit process is “inside” the CV.</p>
 <p>See learning material from TMA4268: <a href="https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample.html#the_right_and_the_wrong_way_to_do_cross-validation">Module 5: Resampling</a>, and I also recommend to work on <a href="https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample.html#problem_3:_selection_bias_and_the_%E2%80%9Cwrong_way_to_do_cv%E2%80%9D">Problem 3</a> with <a href="">solutions</a></p>
 <hr>
 </section>
 </section>
-<section id="bootstrap-methods" class="level2">
-<h2 class="anchored" data-anchor-id="bootstrap-methods">Bootstrap methods</h2>
-<p>(ELS Ch 7.11 - bootstrapping is known from TMA4268 and TMA4300, but not the special case of estimating <span class="math inline">\(\text{Err}\)</span>). <a href="https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample.html#the_bootstrap">Bootstrap in TMA4268: Module 5</a></p>
-<p><strong>Notation:</strong> <span class="math inline">\({\bf Z}=(z_1,\ldots,z_N)\)</span> is the training set with <span class="math inline">\(z_i=(x_i,y_i)\)</span>.</p>
-<p><strong>Aim:</strong> Of interest is some quantity calculated from the data <span class="math inline">\({\bf Z}\)</span>, denoted <span class="math inline">\(S({\bf Z})\)</span>. We will have focus on the expected prediction error.</p>
-<p><strong>Resampling:</strong> We draw with replacement from <span class="math inline">\({\bf Z}\)</span> a total of <span class="math inline">\(N\)</span> observastions into <span class="math inline">\({\bf Z}^{*b}\)</span>. We repeat this <span class="math inline">\(B\)</span> times.</p>
+<section id="bootstrap-methods" class="level1">
+<h1>Bootstrap methods</h1>
+<p>(ESL Ch 7.11 - bootstrapping is known from TMA4268 and TMA4300, but not the special case of estimating <span class="math inline">\(\text{Err}\)</span>). <a href="https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample.html#the_bootstrap">Bootstrap in TMA4268: Module 5</a></p>
+<p><strong>Notation:</strong> <span class="math inline">\({\mathbf Z}=(z_1,\ldots,z_N)\)</span> is the training set with <span class="math inline">\(z_i=(x_i,y_i)\)</span>.</p>
+<p><strong>Aim:</strong> Of interest is some quantity calculated from the data <span class="math inline">\({\mathbf Z}\)</span>, denoted <span class="math inline">\(S({\mathbf Z})\)</span>. We will have focus on the expected prediction error.</p>
+<p><strong>Resampling:</strong> We draw with replacement from <span class="math inline">\({\mathbf Z}\)</span> a total of <span class="math inline">\(N\)</span> observastions into <span class="math inline">\({\mathbf Z}^{*b}\)</span>. We repeat this <span class="math inline">\(B\)</span> times.</p>
 <p><strong>Estimator for expected predicted error <span class="math inline">\(\text{Err}\)</span>:</strong></p>
 <p><span class="math display">\[\widehat{\text{Err}}_{\text{boot}}=\frac{1}{B}\frac{1}{N}\sum_{b=1}^B \sum_{i=1}^N L(y_i,\hat{f}^{*b}(x_i))\]</span></p>
 <hr>
@@ -438,7 +376,7 @@ ul.task-list li input[type="checkbox"] {
 <p>The “.632” estimator:</p>
 <p><span class="math display">\[\widehat{\text{Err}}^{(.632)}=0.368 \overline{\text{err}}+0.632 \widehat{\text{Err}}^{(1)}\]</span></p>
 <hr>
-<p>According to ELS (page 251): the derivation of the .632 estimator is complex, and the estimator is expected to work well in situation where the data is not overfitted, but may break down in overfit situations.</p>
+<p>According to ESL (page 251): the derivation of the .632 estimator is complex, and the estimator is expected to work well in situation where the data is not overfitted, but may break down in overfit situations.</p>
 <p>According to CASI (page 323) the .632 rule is less variable than the leave-one-out CV.</p>
 <p>Example of this on page 251-252: two equal size classes where predictors independent of class, classification with <span class="math inline">\(1\)</span>NN gives <span class="math inline">\(\overline{\text{err}}=0\)</span>, <span class="math inline">\(\widehat{\text{Err}}^{(1)}=0.5\)</span> and thus <span class="math inline">\(\widehat{\text{Err}}^{(.632)}=0.632\cdot 0.5=0.316\)</span>, where here the true error rate is <span class="math inline">\(0.5\)</span>.</p>
 <hr>
@@ -448,9 +386,8 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 <p>Finally, the “.632+”-estimator is</p>
 <p><span class="math display">\[\widehat{\text{Err}}^{(.632+)}=(1-\hat{w}) \overline{\text{err}}+ \hat{w} \widehat{\text{Err}}^{(1)}\]</span> where <span class="math inline">\(\hat{w}=\frac{0.632}{1-0.368 \hat{R}}\)</span>.</p>
-<p>For details on this approach consult ELS page 252-253.</p>
+<p>For details on this approach consult ESL page 252-253.</p>
 <hr>
-</section>
 </section>
 <section id="conclusions-model-selection-and-assessment-and-future-use" class="level1">
 <h1>Conclusions: Model selection and assessment and future use</h1>
@@ -467,11 +404,6 @@ ul.task-list li input[type="checkbox"] {
 <p>Do exercise 2.9.</p>
 <p>Important take home message: We have proven (for MLR) that the expected test MSE is always at least as large as the expected training MSE.</p>
 </section>
-<section id="look-into-the-derivation-for-the-bias-and-variance" class="level2">
-<h2 class="anchored" data-anchor-id="look-into-the-derivation-for-the-bias-and-variance">Look into the derivation for the bias and variance</h2>
-<p>(no solutions posted)</p>
-<p>for <span class="math inline">\(k\)</span>NN in Equation 7.10 and OLS in Equation 7.11 on pages 222-223.</p>
-</section>
 <section id="establish-the-average-optimism-in-the-training-error" class="level2">
 <h2 class="anchored" data-anchor-id="establish-the-average-optimism-in-the-training-error">Establish the average optimism in the training error</h2>
 <p>Exercise 7.4</p>
@@ -483,7 +415,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="something-with-programming-and-data" class="level2">
 <h2 class="anchored" data-anchor-id="something-with-programming-and-data">Something with programming and data?</h2>
-<p>WHAT?</p>
+<p>TO BE ADDED!</p>
 </section>
 </section>
 <section id="solutions-to-exercises" class="level1">
@@ -493,18 +425,26 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe29.pdf">2.9</a></li>
 <li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe74.pdf">7.4</a></li>
 <li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe75.pdf">7.5</a></li>
-<li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe79.html">7.9</a></li>
+<li>Programming and data example?</li>
 </ul>
 </section>
-<section id="references" class="level1">
-<h1>References</h1>
+<section id="reference-links" class="level1">
+<h1>Reference links</h1>
 <ul>
-<li><p><a href="https://hastie.su.domains/ElemStatLearn/">ELS official errata:</a> and choose “Errata” in the left menu</p></li>
-<li><p><a href="https://waxworksmath.com/Authors/G_M/Hastie/hastie.html">ELS solutions to exercises</a></p></li>
-<li><p><a href="https://www.uio.no/studier/emner/matnat/math/STK-IN4300/h20/exercises.html">ELS solutions from UiO</a></p></li>
+<li><p><a href="https://hastie.su.domains/ElemStatLearn/">ESL official errata:</a> and choose “Errata” in the left menu</p></li>
+<li><p><a href="https://waxworksmath.com/Authors/G_M/Hastie/hastie.html">ESL solutions to exercises</a></p></li>
+<li><p><a href="https://www.uio.no/studier/emner/matnat/math/STK-IN4300/h20/exercises.html">ESL solutions from UiO</a></p></li>
 <li><p><a href="https://web.stanford.edu/~hastie/CASI_files/PDF/casi.pdf">CASI Computer Age Statistical Inference, Efron and Hastie (2017). Chapter 12: Cross-Validation and <span class="math inline">\(C_p\)</span> Estimates of Prediction Error</a></p></li>
 <li><p><a href="https://link.springer.com/chapter/10.1007/978-0-387-22456-5_7">Burnham and Andersen (2002): Model Selection and Multimodel Inference: A Practical Information-Theoretic Approach. Springer. Chapter 7: Statistical Theory and Numerical Results</a></p></li>
 </ul>
+</section>
+<section id="bibliography" class="level1">
+<h1>Bibliography</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-casi" class="csl-entry" role="doc-biblioentry">
+Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference - Algorithms, Evidence, and Data Science</em>. Cambridge University Press. <a href="https://hastie.su.domains/CASI/">https://hastie.su.domains/CASI/</a>.
+</div>
+</div>
 </section>
 
 </main>

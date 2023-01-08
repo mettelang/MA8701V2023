@@ -36,13 +36,13 @@ knitr::opts_chunk$set(echo = FALSE, message=FALSE,warning = FALSE, error = FALSE
 
 Continue with the decision theoretic framework from L1, but now for classification. Bias-variance trade-off.
 
-* Classification - should not be new (ELS Ch 4.1-4.5, except 4.4.4)
-* Statistical decision theoretic framework for classification (ELS 2.4)
-* and the bias-variance trade-off (ELS 2.9 and 7.2-7.3)
+* Classification - should not be new (ESL Ch 4.1-4.5, except 4.4.4)
+* Statistical decision theoretic framework for classification (ESL 2.4)
+* and the bias-variance trade-off (ESL 2.9 and 7.2-7.3)
 
 
 # Statistical decision theoretic framework
-(ELS Ch 2.4)
+(ESL Ch 2.4)
 
 is a mathematical framework for developing models $f$ - and assessing optimality.
 
@@ -104,7 +104,7 @@ The _Bayes classifier_ classifies to the most probable class using the condition
 
 ## Group discussion
 
-1) What do we know about classification? (TMA4268 and TMA4315 mainly, or ELS ch 4.1-4.5, except 4.4.4)
+1) What do we know about classification? (TMA4268 and TMA4315 mainly, or ESL ch 4.1-4.5, except 4.4.4)
 
 Some possible variants:
 * What is the difference between discrimination and classification?
@@ -117,7 +117,7 @@ Some possible variants:
 
 **Resources**
 
-(mostly what we learned in TMA4267, or ELS ch 4.1-4.5, except 4.4.4)
+(mostly what we learned in TMA4267, or ESL ch 4.1-4.5, except 4.4.4)
 
 * From TMA4268: [Overview](https://www.math.ntnu.no/emner/TMA4268/2019v/TMA4268overview.html) and in particular [Module 4: Classification](https://www.math.ntnu.no/emner/TMA4268/2019v/4Classif/4Classif.html) and [Module 2: Statistical learning](https://www.math.ntnu.no/emner/TMA4268/2019v/2StatLearn/2StatLearn.html#k-nearest_neighbour_classifier)
 * From TMA4315: [Overview](https://www.math.ntnu.no/emner/TMA4315/2018h/TMA4315overviewH2018.html) and in particular [Module 3: Binary regression](https://www.math.ntnu.no/emner/TMA4315/2018h/3BinReg.html)
@@ -127,7 +127,7 @@ and for more than two classes: [Module 6: Categorical regression](https://www.ma
 
 # Model assessment and selection
 
-(ELS Ch 7.1-7.6,7.10-7.12)
+(ESL Ch 7.1-7.6,7.10-7.12)
 
 We use a training set to estimate $\hat{f}$. 
 
@@ -148,7 +148,7 @@ If we are in a _data rich situation_ we "just" divide our data into three parts,
 
 A typical split might be 50-60% training and 20-25% validation and test, but this depends on the complexity of the model to be fitted and the signal-to-noise ratio in the data.
 
-The focus in Ch 7 of ELS is to present methods to be used in the situations where we _do not have enough data_ to rely on the training-validation-testing split.
+The focus in Ch 7 of ESL is to present methods to be used in the situations where we _do not have enough data_ to rely on the training-validation-testing split.
 
 And, even if we have enough data - what we now will learn will give us insight into much used methods for model assessment and model selection!
 
@@ -169,7 +169,7 @@ And, even if we have enough data - what we now will learn will give us insight i
 
 ## The bias-variance trade-off 
 
-(ELS p26 and 7.3)
+(ESL p26 and 7.3)
 
 Assume:
 $$ Y=f(X)+\varepsilon$$
@@ -222,9 +222,9 @@ See the exercises below to study the results for $k$NN and OLS.
 
 ## Expected prediction error 
 
-(ELS 7.2 and 7.4, and we are now back to a general loss function - but first have regression in mind)
+(ESL 7.2 and 7.4, and we are now back to a general loss function - but first have regression in mind)
 
-If we now keep the training set fixed (we would do that in practice - since we usually only have one training set):
+If we now keep the training set fixed (we would do that in practice - since we often only have one training set):
 
 $$ \text{Err}_{\cal T}=\text{E}[L(Y,\hat{f}(X))\mid {\cal T}]$$
 
@@ -250,7 +250,7 @@ $$\overline{\text{err}}=\frac{1}{N} \sum_{i=1}^N L(y_i,\hat{f}(x_i))$$
 
 ## Group discussion
 
-Look at Figure 7.1 (with figure caption) on 220 in the ELS book. 
+Look at Figure 7.1 (with figure caption) on page 220 in the ESL book. 
 The text reads that "100 simulated training sets of size 50" and that "lasso produced sequence of fits".
 
 Explain what you see - in particular what are the red and blue lines and the bold lines. What can you conclude from the figure?
@@ -278,7 +278,6 @@ include_graphics("ELSfig71.png")
 
 The training error $\overline{\text{err}}$ is not a good estimate for the $\text{Err}_{\cal T}$ nor the $\text{Err}$.
 
-
 ---
 
 ## Loss function and training error for classification
@@ -303,8 +302,11 @@ $$\overline{\text{err}}=\frac{1}{N}\sum_{i=1}^N I(g_i\neq \hat{g}(x_i))$$
 Training error (for $-2$loglikelihood loss)
 $$\overline{\text{err}}=-\frac{2}{N}\sum_{i=1}^N \text{log}\hat{p}_{g_i}(x_i)$$
 
----
+# Discussion and conclusions
 
+* What are key take home messages from today´s teaching session?
+* What do you plan to do before the next teaching session?
+* Feedback on today´s teaching session?
 
 # Exercises
 
@@ -314,10 +316,31 @@ $$\overline{\text{err}}=-\frac{2}{N}\sum_{i=1}^N \text{log}\hat{p}_{g_i}(x_i)$$
 * How would you use these results?
 
 ## Look into the derivation for the bias and variance
-(no solutions posted- MAKE!)
+(no solutions posted)
 
 * for $k$NN in Equation 7.10 and 
-* OLS in Equation 7.11 on pages 222-223.
+* OLS in Equation 7.11 on pages 222-223 of ESL.
+
+## Key results from logistic regression
+
+#### a) What are the three components of a generalized linear model?
+
+#### b) What are these three for a logistic regression?
+
+#### c) Parameter estimation
+How are regression parameters estimated for the GLM, and for logistic regression in particular?
+
+Does it matter if you use the observed or expected information matrix for logistic regression?
+
+#### d) Asymptotic distribution
+What is the asymptotic distribution of the estimator for the regression parameter $\hat{\beta}$? How can that be used to construct confidence intervals or perform hypothesis tests?
+
+#### e) Deviance
+How is the deviance defined in general, and how is this done for the logistic regression?
+
+# Solutions to exercises
+
+Please try yourself first, or take a small peek - and try some more - before fully reading the solutions. Report errors or improvements to <Mette.Langaas@ntnu.no>. 
 
 ## Key results from logistic regression
 
@@ -326,34 +349,21 @@ $$\overline{\text{err}}=-\frac{2}{N}\sum_{i=1}^N \text{log}\hat{p}_{g_i}(x_i)$$
 [TMA4315 GLM, module 5](https://www.math.ntnu.no/emner/TMA4315/2018h/5GLM.html)
 
 #### b) What are these three for a logistic regression?
-
 [Binary response from TMA4315 Module 3](https://www.math.ntnu.no/emner/TMA4315/2018h/3BinReg.html#how_to_model_a_binary_response)
 
 #### c) Parameter estimation
-How are regression parameters estimated for the GLM, and for logistic regression in particular?
-
-Does it matter if you use the observed or expected information matrix for logistic regression?
-
 [TMA4315 GLM Module 2](https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html#restricted_maximum_likelihood_estimator_for_({bf_sigma}^2))
 
 #### d) Asymptotic distribution
-What is the asymptotic distribution of the estimator for the regression parameter $\hat{\beta}$? How can that be used to construct confidence intervals or perform hypothesis tests?
-
 #### e) Deviance
-How is the deviance defined in general, and how is this done for the logistic regression?
-
-https://www.math.ntnu.no/emner/TMA4315/2018h/3BinReg.html#grouped_vs_individual_data
-
-# Solutions to exercises
-
-Please try yourself first, or take a small peek - and try some more - before fully reading the solutions. Report errors or improvements to <Mette.Langaas@ntnu.no>. 
+[Grouped vs individual data  - and deviance](https://www.math.ntnu.no/emner/TMA4315/2018h/3BinReg.html#grouped_vs_individual_data)
 
 # Reference links
 
-* [ELS official errata:](https://hastie.su.domains/ElemStatLearn/) and choose "Errata" in the left menu
+* [ESL official errata:](https://hastie.su.domains/ElemStatLearn/) and choose "Errata" in the left menu
 
-* [ELS solutions to exercises](https://waxworksmath.com/Authors/G_M/Hastie/hastie.html)
-* [ELS solutions from UiO](https://www.uio.no/studier/emner/matnat/math/STK-IN4300/h20/exercises.html)
+* [ESL solutions to exercises](https://waxworksmath.com/Authors/G_M/Hastie/hastie.html)
+* [ESL solutions from UiO](https://www.uio.no/studier/emner/matnat/math/STK-IN4300/h20/exercises.html)
 
 * [CASI Computer Age Statistical Inference, Efron and Hastie (2017). Chapter 12: Cross-Validation and $C_p$ Estimates of Prediction Error](https://web.stanford.edu/~hastie/CASI_files/PDF/casi.pdf)
 * [Burnham and Andersen (2002): Model Selection and Multimodel Inference: A Practical Information-Theoretic Approach. Springer.  Chapter 7: Statistical Theory and Numerical Results](https://link.springer.com/chapter/10.1007/978-0-387-22456-5_7)

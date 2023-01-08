@@ -50,16 +50,43 @@ include_graphics("./overviewv2.png")
 
 In the second phase, statisticians try to locate the new metholodogy within the framework of statistical theory. In other words, they carry out the statistical inference part of the cycle, placing the new methodology within the known Bayesian and frequentist limits of performance This is a healthy chain of events, good both for the hybrid vigor of the statistics profession and for the further progress of algorithmic technology."
 
+@casi (page 10).
+
 ---
 
-From @casi (page 10).
-
 ```{r}
-#| out.width: "60%"
+#| out.width: "50%"
 #| fig.align: "left"
 #| fig.show: "hold"
 include_graphics("jacket_wave_cropped.jpeg")
 ```
+
+---
+
+# Learning 
+
+## Learning outcome
+
+**1. Knowledge**
+
+* Understand and explain the central theoretical aspects in statistical inference and learning. 
+* Understand and explain how to use methods from statistical inference and learning to perform a sound data analysis. 
+* Be able to evaluate strengths and weaknesses for the methods and choose between different methods in a given data analysis situation.
+
+[Take home message in MA8701 in 2021 according to the students]( https://htmlpreview.github.io/?https://github.com/mettelang/MA8701V2021/blob/main/L14.html#from-students-core-take-home-message)
+
+---
+
+**2. Skills**
+
+Be able to analyse a dataset using methods from statistical inference and learning in practice (using R or Python), and give a good presentation and discussion of the choices done and the results found.
+
+**3. Competence**
+
+* The students will be able to participate in scientific discussions, read research presented in statistical journals. 
+* They will be able to participate in applied projects, and analyse data using methods from statistical inference and learning.
+
+---
 
 # Course topics
 
@@ -82,16 +109,14 @@ include_graphics("ELSbookcover.jpeg")
 ```
 ---
 
-
-
 ## Part 1: Core concepts [3 weeks]
 
 Sort out assumed background knowledge, and learn something new
 
 * Notation
 * Repetition of core concepts (regression and classification)
-* Statistical decision theoretic framework (partly new) ELS 2.4
-* Model selection and model assessment - including bias-variance trade-off (mostly new) ELS 7
+* Statistical decision theoretic framework (partly new) ESL 2.4
+* Model selection and model assessment - including bias-variance trade-off (mostly new) ESL 7
 * Handbook of Missing Data Methology (parts of Chapters 11-12, partly 13) and Flexible Imputation of Missing Data (parts of Chapters 2-4)
 
 ---
@@ -100,7 +125,7 @@ Sort out assumed background knowledge, and learn something new
 
 or "Regularized linear and generalized linear models", with focus on the ridge and lasso regression (in detail).
 
-* ELS 3.2.3,3.4, 3.8, 4.4.4.
+* ESL 3.2.3,3.4, 3.8, 4.4.4.
 * Hastie, Tibshirani, Wainwright (HTW): "Statistical Learning with Sparsity: The Lasso and Generalizations". Selected sections from Chapters 1,2,3,4,6.
 * Selective inference (articles)
 
@@ -113,7 +138,7 @@ or "Regularized linear and generalized linear models", with focus on the ridge a
 * general ensembles (including super learner)
 * hyper-parameter tuning
 
-Selected Chapters in ELS (8.7, 8.8, 9.2, parts of 10, 15, 16) and several articles.
+Selected Chapters in ESL (8.7, 8.8, 9.2, parts of 10, 15, 16) and several articles.
 
 ---
 
@@ -135,6 +160,15 @@ Interpretable Machine Learning: A Guide for Making Black Box Models Explainable,
 ---
 
 
+## Some observations about the course
+
+* Mainly a frequentist course, but some of the concepts and methods have a Bayesian version that might give insight into why and how the methods work, then Bayesian methods will be used.
+* Focus is on regression and classification, and unsupervised learning is not planned to be part of the course.
+* The required previous knowledge is listed because this is a PhD-course designed for statistics students. The background make the students go past an overview level of understanding of the course parts (move from algorithmic to deep understanding).
+
+---
+
+
 ## "Required" previous knowledge
 
 * TMA4267 Linear statistical methods
@@ -148,46 +182,6 @@ Interpretable Machine Learning: A Guide for Making Black Box Models Explainable,
 
 ---
 
-## Some observations about the course
-
-* Mainly a frequentist course, but some of the concepts and methods have a Bayesian version that might give insight into why and how the methods work. Then Bayesian methods will be used.
-* Focus is on regression and classification, and unsupervised learning is not planned to be part of the course.
-* The required previous knowledge is listed because this is a phd-course designed for statistics studenets. The background make the students go past an overview level of understanding of the course parts (move from algorithmic to deep understanding).
-
----
-
-# Learning 
-
-## Learning outcome
-
-**1. Knowledge**
-
-* Understand and explain the central theoretical aspects in statistical inference and learning. 
-* Understand and explain how to use methods from statistical inference and learning to perform a sound data analysis. 
-* Be able to evaluate strengths and weaknesses for the methods and choose between different methods in a given data analysis situation.
-
----
-
-**2. Skills**
-
-Be able to analyse a dataset using methods from statistical inference and learning in practice (using R or Python), and give a good presentation and discussion of the choices done and the results found.
-
-**3. Competence**
-
-* The students will be able to participate in scientific discussions, read research presented in statistical journals. 
-* They will be able to participate in applied projects, and analyse data using methods from statistical inference and learning.
-
-
----
-
-## Learning methods and activities
-
-Herbert A. Simon (Cognitive science, Nobel Laureate):
-_Learning results from what the student does and thinks
-and only from what the student does and thinks. The
-teacher can advance learning only by influencing what the
-student does to learn._
-
 ---
 
 ## Course elements
@@ -195,8 +189,8 @@ student does to learn._
 Course wiki at <https://wiki.math.ntnu.no/ma8701/2023v/start>
 
 * Lectures 
-* Office hours (poll?)
 * Problem sets to work on between lectures.
+* Office hours and/or mattelab.math.ntnu.no?
 
 * Study techniques (share)
 * Ethical considerations
@@ -242,21 +236,31 @@ snake: writing compound words where the elements are separated with one undersco
 
 ---
 
+## Learning methods and activities
+
+Herbert A. Simon (Cognitive science, Nobel Laureate):
+_Learning results from what the student does and thinks
+and only from what the student does and thinks. The
+teacher can advance learning only by influencing what the
+student does to learn._
+
+---
+
 # Tentative plan for part 1
 (progress may be faster or slower than indicated)
 
 ## L1
 Notation, regression and statistical theoretic framework
 
-* Notation (ELS Ch 2.2)
-* Regression - should not be new (ELS Ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)
-* Statistical decision theoretic framework for regression (ELS 2.4)
+* Notation (ESL Ch 2.2)
+* Regression - should not be new (ESL Ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)
+* Statistical decision theoretic framework for regression (ESL 2.4)
 
 ## L2
 Continue with the same framework but for classification, if time also bias-variance trade-off
 
-* Classification - should not be new (ELS Ch 4.1-4.5, except 4.4.4)
-* Statistical decision theoretic framework for classification (ELS 2.4)
+* Classification - should not be new (ESL Ch 4.1-4.5, except 4.4.4)
+* Statistical decision theoretic framework for classification (ESL 2.4)
 * and the bias-variance trade-off
 
 ---
@@ -264,7 +268,7 @@ Continue with the same framework but for classification, if time also bias-varia
 ## W2
 L3-4: Then, cover new aspects for 
 
-* Model selection and assessment (ELS Ch 7.1-7.6, 7.10-7.12)
+* Model selection and assessment (ESL Ch 7.1-7.6, 7.10-7.12)
 
 ## W3
 L5-6
@@ -277,7 +281,7 @@ L5-6
 
 ## Notation
 
-(mainly from ELS 2.2)
+(mainly from ESL 2.2)
 
 We will only consider supervised methods.
 
@@ -296,7 +300,7 @@ Random variables and (column) vectors are written as uppercase letters $X$, and 
 
 Matrices are presented with uppercase boldface: $\boldsymbol{X}$, often $N \times (p+1)$. 
 
-ELS uses boldface also for $\boldsymbol{x}_j$ being a vector of all $N$ observations of variable $j$, but in general vectors are not boldface and the vector of observed variables for observation $i$ is just $x_i$.
+ESL uses boldface also for $\boldsymbol{x}_j$ being a vector of all $N$ observations of variable $j$, but in general vectors are not boldface and the vector of observed variables for observation $i$ is just $x_i$.
 
 ---
 
@@ -324,7 +328,7 @@ Maybe brush up on this?
 ---
 
 ## Training set
-(ELS 2.1)
+(ESL 2.1)
 
 A set of size $N$ of independent pairs ov observations $(x_i,y_i)$ is called the _training set_ and often denoted $\mathcal{T}$. Here $x_i$ may be a vector.
 
@@ -338,7 +342,7 @@ Test data is used for _model assessment_ (assess the performance of the fitted m
 
 We will consider theoretical results, and also look at different ways to split or resample available data.
 
-More in ELS Chapter 7.
+More in ESL Chapter 7.
 
 ---
 
@@ -361,7 +365,7 @@ See also the exercises!
 
 **Resources**
 
-(mostly what we learned in TMA4267, or ELS Ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)
+(mostly what we learned in TMA4267, or ESL Ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)
 
 * From TMA4268: [Overview](https://www.math.ntnu.no/emner/TMA4268/2019v/TMA4268overview.html) and in particular [Module 3: Linear regression](https://www.math.ntnu.no/emner/TMA4268/2019v/3LinReg/3LinReg.html)
 * From TMA4315: [Overview](https://www.math.ntnu.no/emner/TMA4315/2018h/TMA4315overviewH2018.html) and in particular [Module 2: MLR](https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html)
@@ -371,7 +375,7 @@ For $k$NN see also Problem 1 of the [TMA4268 2018 exam](https://www.math.ntnu.no
 ---
 
 # Statistical decision theoretic framework
-(ELS Ch 2.4, regression part)
+(ESL Ch 2.4, regression part)
 
 is a mathematical framework for developing models $f$ - and assessing optimality.
 
@@ -457,6 +461,12 @@ $$\hat{f}({\mathbf x}_0)=\frac{1}{k}\sum_{i \in \cal N_k({\mathbf x}_0)}Y_i$$
 Regression with absolute (L1) loss: $L(Y,f(X))=\lvert Y-f(X) \rvert$ gives $\hat{f}(x)=\text{median}(Y\mid X=x)$.
 
 Proof: for example pages 8-11 of <https://getd.libs.uga.edu/pdfs/ma_james_c_201412_ms.pdf>
+
+# Discussion and conclusions
+
+* What are key take home messages from today´s teaching session?
+* What do you plan to do before the next teaching session?
+* Feedback on today´s teaching session?
 
 ---
 
@@ -570,10 +580,10 @@ Standardized regression coefficients, estimated regression coefficients divided 
 
 # Reference links
 
-* [ELS official errata:](https://hastie.su.domains/ElemStatLearn/) and choose "Errata" in the left menu
+* [ESL official errata:](https://hastie.su.domains/ElemStatLearn/) and choose "Errata" in the left menu
 
-* [ELS notes and solutions to exercises](https://waxworksmath.com/Authors/G_M/Hastie/hastie.html)
-* [ELS solutions from UiO](https://www.uio.no/studier/emner/matnat/math/STK-IN4300/h20/exercises.html)
+* [ESL notes and solutions to exercises](https://waxworksmath.com/Authors/G_M/Hastie/hastie.html)
+* [ESL solutions from UiO](https://www.uio.no/studier/emner/matnat/math/STK-IN4300/h20/exercises.html)
 
 * [Camel_case](https://en.wikipedia.org/wiki/Camel_case)
 * [Snake_case](https://en.wikipedia.org/wiki/Snake_case)

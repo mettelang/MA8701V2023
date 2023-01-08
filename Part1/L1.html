@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-05">
+<meta name="dcterms.date" content="2023-01-08">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -131,6 +131,10 @@ div.csl-indent {
    
   <ul class="collapse">
   <li><a href="#course-philosophy" id="toc-course-philosophy" class="nav-link active" data-scroll-target="#course-philosophy">Course philosophy</a></li>
+  <li><a href="#learning" id="toc-learning" class="nav-link" data-scroll-target="#learning">Learning</a>
+  <ul class="collapse">
+  <li><a href="#learning-outcome" id="toc-learning-outcome" class="nav-link" data-scroll-target="#learning-outcome">Learning outcome</a></li>
+  </ul></li>
   <li><a href="#course-topics" id="toc-course-topics" class="nav-link" data-scroll-target="#course-topics">Course topics</a>
   <ul class="collapse">
   <li><a href="#part-1-core-concepts-3-weeks" id="toc-part-1-core-concepts-3-weeks" class="nav-link" data-scroll-target="#part-1-core-concepts-3-weeks">Part 1: Core concepts [3 weeks]</a></li>
@@ -138,15 +142,11 @@ div.csl-indent {
   <li><a href="#part-3-ensembles-4-weeks" id="toc-part-3-ensembles-4-weeks" class="nav-link" data-scroll-target="#part-3-ensembles-4-weeks">Part 3: Ensembles [4 weeks]</a></li>
   <li><a href="#part-4-xai-2-weeks" id="toc-part-4-xai-2-weeks" class="nav-link" data-scroll-target="#part-4-xai-2-weeks">Part 4: XAI [2 weeks]</a></li>
   <li><a href="#part-5-closing-2-weeks" id="toc-part-5-closing-2-weeks" class="nav-link" data-scroll-target="#part-5-closing-2-weeks">Part 5: Closing [2 weeks]</a></li>
-  <li><a href="#required-previous-knowledge" id="toc-required-previous-knowledge" class="nav-link" data-scroll-target="#required-previous-knowledge">“Required” previous knowledge</a></li>
   <li><a href="#some-observations-about-the-course" id="toc-some-observations-about-the-course" class="nav-link" data-scroll-target="#some-observations-about-the-course">Some observations about the course</a></li>
-  </ul></li>
-  <li><a href="#learning" id="toc-learning" class="nav-link" data-scroll-target="#learning">Learning</a>
-  <ul class="collapse">
-  <li><a href="#learning-outcome" id="toc-learning-outcome" class="nav-link" data-scroll-target="#learning-outcome">Learning outcome</a></li>
-  <li><a href="#learning-methods-and-activities" id="toc-learning-methods-and-activities" class="nav-link" data-scroll-target="#learning-methods-and-activities">Learning methods and activities</a></li>
+  <li><a href="#required-previous-knowledge" id="toc-required-previous-knowledge" class="nav-link" data-scroll-target="#required-previous-knowledge">“Required” previous knowledge</a></li>
   <li><a href="#course-elements" id="toc-course-elements" class="nav-link" data-scroll-target="#course-elements">Course elements</a></li>
   <li><a href="#class-activity" id="toc-class-activity" class="nav-link" data-scroll-target="#class-activity">Class activity</a></li>
+  <li><a href="#learning-methods-and-activities" id="toc-learning-methods-and-activities" class="nav-link" data-scroll-target="#learning-methods-and-activities">Learning methods and activities</a></li>
   </ul></li>
   <li><a href="#tentative-plan-for-part-1" id="toc-tentative-plan-for-part-1" class="nav-link" data-scroll-target="#tentative-plan-for-part-1">Tentative plan for part 1</a>
   <ul class="collapse">
@@ -169,6 +169,7 @@ div.csl-indent {
   <li><a href="#squared-error-loss" id="toc-squared-error-loss" class="nav-link" data-scroll-target="#squared-error-loss">Squared error loss</a></li>
   <li><a href="#absolute-loss" id="toc-absolute-loss" class="nav-link" data-scroll-target="#absolute-loss">Absolute loss</a></li>
   </ul></li>
+  <li><a href="#discussion-and-conclusions" id="toc-discussion-and-conclusions" class="nav-link" data-scroll-target="#discussion-and-conclusions">Discussion and conclusions</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   <li><a href="#solutions-to-exercises" id="toc-solutions-to-exercises" class="nav-link" data-scroll-target="#solutions-to-exercises">Solutions to exercises</a></li>
   <li><a href="#reference-links" id="toc-reference-links" class="nav-link" data-scroll-target="#reference-links">Reference links</a></li>
@@ -200,7 +201,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 5, 2023</p>
+      <p class="date">January 8, 2023</p>
     </div>
   </div>
   
@@ -222,17 +223,40 @@ div.csl-indent {
 <h1>Course philosophy</h1>
 <p>“Important new algorithms often arise outside the world of professional statisticians: neural nets, support vector machines, and boosting are three famous examples. None of this is surprising. New sources of data, satellite imagery for example, or medical microarrays, inspire novel methodology from the observing scientists. The early literature tends toward the enthusiastic, with claims of enormous applicability and power.”</p>
 <p>In the second phase, statisticians try to locate the new metholodogy within the framework of statistical theory. In other words, they carry out the statistical inference part of the cycle, placing the new methodology within the known Bayesian and frequentist limits of performance This is a healthy chain of events, good both for the hybrid vigor of the statistics profession and for the further progress of algorithmic technology.”</p>
+<p><span class="citation" data-cites="casi">Efron and Hastie (<a href="#ref-casi" role="doc-biblioref">2016</a>)</span> (page 10).</p>
 <hr>
-<p>From <span class="citation" data-cites="casi">Efron and Hastie (<a href="#ref-casi" role="doc-biblioref">2016</a>)</span> (page 10).</p>
 <div class="cell" data-layout-align="left">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="jacket_wave_cropped.jpeg" class="img-fluid figure-img" style="width:60.0%"></p>
+<p><img src="jacket_wave_cropped.jpeg" class="img-fluid figure-img" style="width:50.0%"></p>
 </figure>
 </div>
 </div>
 </div>
+<hr>
+</section>
+<section id="learning" class="level1">
+<h1>Learning</h1>
+<section id="learning-outcome" class="level2">
+<h2 class="anchored" data-anchor-id="learning-outcome">Learning outcome</h2>
+<p><strong>1. Knowledge</strong></p>
+<ul>
+<li>Understand and explain the central theoretical aspects in statistical inference and learning.</li>
+<li>Understand and explain how to use methods from statistical inference and learning to perform a sound data analysis.</li>
+<li>Be able to evaluate strengths and weaknesses for the methods and choose between different methods in a given data analysis situation.</li>
+</ul>
+<p><a href="https://htmlpreview.github.io/?https://github.com/mettelang/MA8701V2021/blob/main/L14.html#from-students-core-take-home-message">Take home message in MA8701 in 2021 according to the students</a></p>
+<hr>
+<p><strong>2. Skills</strong></p>
+<p>Be able to analyse a dataset using methods from statistical inference and learning in practice (using R or Python), and give a good presentation and discussion of the choices done and the results found.</p>
+<p><strong>3. Competence</strong></p>
+<ul>
+<li>The students will be able to participate in scientific discussions, read research presented in statistical journals.</li>
+<li>They will be able to participate in applied projects, and analyse data using methods from statistical inference and learning.</li>
+</ul>
+<hr>
+</section>
 </section>
 <section id="course-topics" class="level1">
 <h1>Course topics</h1>
@@ -253,8 +277,8 @@ div.csl-indent {
 <ul>
 <li>Notation</li>
 <li>Repetition of core concepts (regression and classification)</li>
-<li>Statistical decision theoretic framework (partly new) ELS 2.4</li>
-<li>Model selection and model assessment - including bias-variance trade-off (mostly new) ELS 7</li>
+<li>Statistical decision theoretic framework (partly new) ESL 2.4</li>
+<li>Model selection and model assessment - including bias-variance trade-off (mostly new) ESL 7</li>
 <li>Handbook of Missing Data Methology (parts of Chapters 11-12, partly 13) and Flexible Imputation of Missing Data (parts of Chapters 2-4)</li>
 </ul>
 <hr>
@@ -263,7 +287,7 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="part-2-shrinkage-and-regularization-3-weeks">Part 2: Shrinkage and regularization [3 weeks]</h2>
 <p>or “Regularized linear and generalized linear models”, with focus on the ridge and lasso regression (in detail).</p>
 <ul>
-<li>ELS 3.2.3,3.4, 3.8, 4.4.4.</li>
+<li>ESL 3.2.3,3.4, 3.8, 4.4.4.</li>
 <li>Hastie, Tibshirani, Wainwright (HTW): “Statistical Learning with Sparsity: The Lasso and Generalizations”. Selected sections from Chapters 1,2,3,4,6.</li>
 <li>Selective inference (articles)</li>
 </ul>
@@ -277,7 +301,7 @@ div.csl-indent {
 <li>general ensembles (including super learner)</li>
 <li>hyper-parameter tuning</li>
 </ul>
-<p>Selected Chapters in ELS (8.7, 8.8, 9.2, parts of 10, 15, 16) and several articles.</p>
+<p>Selected Chapters in ESL (8.7, 8.8, 9.2, parts of 10, 15, 16) and several articles.</p>
 <hr>
 </section>
 <section id="part-4-xai-2-weeks" class="level2">
@@ -296,6 +320,15 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="part-5-closing-2-weeks">Part 5: Closing [2 weeks]</h2>
 <hr>
 </section>
+<section id="some-observations-about-the-course" class="level2">
+<h2 class="anchored" data-anchor-id="some-observations-about-the-course">Some observations about the course</h2>
+<ul>
+<li>Mainly a frequentist course, but some of the concepts and methods have a Bayesian version that might give insight into why and how the methods work, then Bayesian methods will be used.</li>
+<li>Focus is on regression and classification, and unsupervised learning is not planned to be part of the course.</li>
+<li>The required previous knowledge is listed because this is a PhD-course designed for statistics students. The background make the students go past an overview level of understanding of the course parts (move from algorithmic to deep understanding).</li>
+</ul>
+<hr>
+</section>
 <section id="required-previous-knowledge" class="level2">
 <h2 class="anchored" data-anchor-id="required-previous-knowledge">“Required” previous knowledge</h2>
 <ul>
@@ -309,40 +342,6 @@ div.csl-indent {
 <li>Skills in group work - possibly using git or other collaborative tools.</li>
 </ul>
 <hr>
-</section>
-<section id="some-observations-about-the-course" class="level2">
-<h2 class="anchored" data-anchor-id="some-observations-about-the-course">Some observations about the course</h2>
-<ul>
-<li>Mainly a frequentist course, but some of the concepts and methods have a Bayesian version that might give insight into why and how the methods work. Then Bayesian methods will be used.</li>
-<li>Focus is on regression and classification, and unsupervised learning is not planned to be part of the course.</li>
-<li>The required previous knowledge is listed because this is a phd-course designed for statistics studenets. The background make the students go past an overview level of understanding of the course parts (move from algorithmic to deep understanding).</li>
-</ul>
-<hr>
-</section>
-</section>
-<section id="learning" class="level1">
-<h1>Learning</h1>
-<section id="learning-outcome" class="level2">
-<h2 class="anchored" data-anchor-id="learning-outcome">Learning outcome</h2>
-<p><strong>1. Knowledge</strong></p>
-<ul>
-<li>Understand and explain the central theoretical aspects in statistical inference and learning.</li>
-<li>Understand and explain how to use methods from statistical inference and learning to perform a sound data analysis.</li>
-<li>Be able to evaluate strengths and weaknesses for the methods and choose between different methods in a given data analysis situation.</li>
-</ul>
-<hr>
-<p><strong>2. Skills</strong></p>
-<p>Be able to analyse a dataset using methods from statistical inference and learning in practice (using R or Python), and give a good presentation and discussion of the choices done and the results found.</p>
-<p><strong>3. Competence</strong></p>
-<ul>
-<li>The students will be able to participate in scientific discussions, read research presented in statistical journals.</li>
-<li>They will be able to participate in applied projects, and analyse data using methods from statistical inference and learning.</li>
-</ul>
-<hr>
-</section>
-<section id="learning-methods-and-activities" class="level2">
-<h2 class="anchored" data-anchor-id="learning-methods-and-activities">Learning methods and activities</h2>
-<p>Herbert A. Simon (Cognitive science, Nobel Laureate): <em>Learning results from what the student does and thinks and only from what the student does and thinks. The teacher can advance learning only by influencing what the student does to learn.</em></p>
 <hr>
 </section>
 <section id="course-elements" class="level2">
@@ -350,8 +349,8 @@ div.csl-indent {
 <p>Course wiki at <a href="https://wiki.math.ntnu.no/ma8701/2023v/start" class="uri">https://wiki.math.ntnu.no/ma8701/2023v/start</a></p>
 <ul>
 <li><p>Lectures</p></li>
-<li><p>Office hours (poll?)</p></li>
 <li><p>Problem sets to work on between lectures.</p></li>
+<li><p>Office hours and/or mattelab.math.ntnu.no?</p></li>
 <li><p>Study techniques (share)</p></li>
 <li><p>Ethical considerations</p></li>
 <li><p>Compulsory work</p></li>
@@ -390,6 +389,11 @@ div.csl-indent {
 <p>snake: writing compound words where the elements are separated with one underscore character (_) and no spaces, with each element’s initial letter usually lower cased within the compound and the first letter either upper- or lower case as in “foo_bar”</p>
 <hr>
 </section>
+<section id="learning-methods-and-activities" class="level2">
+<h2 class="anchored" data-anchor-id="learning-methods-and-activities">Learning methods and activities</h2>
+<p>Herbert A. Simon (Cognitive science, Nobel Laureate): <em>Learning results from what the student does and thinks and only from what the student does and thinks. The teacher can advance learning only by influencing what the student does to learn.</em></p>
+<hr>
+</section>
 </section>
 <section id="tentative-plan-for-part-1" class="level1">
 <h1>Tentative plan for part 1</h1>
@@ -398,17 +402,17 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="l1">L1</h2>
 <p>Notation, regression and statistical theoretic framework</p>
 <ul>
-<li>Notation (ELS Ch 2.2)</li>
-<li>Regression - should not be new (ELS Ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)</li>
-<li>Statistical decision theoretic framework for regression (ELS 2.4)</li>
+<li>Notation (ESL Ch 2.2)</li>
+<li>Regression - should not be new (ESL Ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)</li>
+<li>Statistical decision theoretic framework for regression (ESL 2.4)</li>
 </ul>
 </section>
 <section id="l2" class="level2">
 <h2 class="anchored" data-anchor-id="l2">L2</h2>
 <p>Continue with the same framework but for classification, if time also bias-variance trade-off</p>
 <ul>
-<li>Classification - should not be new (ELS Ch 4.1-4.5, except 4.4.4)</li>
-<li>Statistical decision theoretic framework for classification (ELS 2.4)</li>
+<li>Classification - should not be new (ESL Ch 4.1-4.5, except 4.4.4)</li>
+<li>Statistical decision theoretic framework for classification (ESL 2.4)</li>
 <li>and the bias-variance trade-off</li>
 </ul>
 <hr>
@@ -417,7 +421,7 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="w2">W2</h2>
 <p>L3-4: Then, cover new aspects for</p>
 <ul>
-<li>Model selection and assessment (ELS Ch 7.1-7.6, 7.10-7.12)</li>
+<li>Model selection and assessment (ESL Ch 7.1-7.6, 7.10-7.12)</li>
 </ul>
 </section>
 <section id="w3" class="level2">
@@ -433,7 +437,7 @@ div.csl-indent {
 <h1>Core concepts</h1>
 <section id="notation" class="level2">
 <h2 class="anchored" data-anchor-id="notation">Notation</h2>
-<p>(mainly from ELS 2.2)</p>
+<p>(mainly from ESL 2.2)</p>
 <p>We will only consider supervised methods.</p>
 <ul>
 <li>Response <span class="math inline">\(Y\)</span> (or <span class="math inline">\(G\)</span>): dependent variable, outcome, usually univariate (but may be multivariate)
@@ -451,7 +455,7 @@ div.csl-indent {
 <hr>
 <p>Random variables and (column) vectors are written as uppercase letters <span class="math inline">\(X\)</span>, and <span class="math inline">\(Y\)</span>, while observed values are written with lowercase <span class="math inline">\((x,y)\)</span>. (Dimensions specified if needed.)</p>
 <p>Matrices are presented with uppercase boldface: <span class="math inline">\(\boldsymbol{X}\)</span>, often <span class="math inline">\(N \times (p+1)\)</span>.</p>
-<p>ELS uses boldface also for <span class="math inline">\(\boldsymbol{x}_j\)</span> being a vector of all <span class="math inline">\(N\)</span> observations of variable <span class="math inline">\(j\)</span>, but in general vectors are not boldface and the vector of observed variables for observation <span class="math inline">\(i\)</span> is just <span class="math inline">\(x_i\)</span>.</p>
+<p>ESL uses boldface also for <span class="math inline">\(\boldsymbol{x}_j\)</span> being a vector of all <span class="math inline">\(N\)</span> observations of variable <span class="math inline">\(j\)</span>, but in general vectors are not boldface and the vector of observed variables for observation <span class="math inline">\(i\)</span> is just <span class="math inline">\(x_i\)</span>.</p>
 <hr>
 </section>
 <section id="random-variables-and-random-vectors" class="level2">
@@ -472,7 +476,7 @@ div.csl-indent {
 </section>
 <section id="training-set" class="level2">
 <h2 class="anchored" data-anchor-id="training-set">Training set</h2>
-<p>(ELS 2.1)</p>
+<p>(ESL 2.1)</p>
 <p>A set of size <span class="math inline">\(N\)</span> of independent pairs ov observations <span class="math inline">\((x_i,y_i)\)</span> is called the <em>training set</em> and often denoted <span class="math inline">\(\mathcal{T}\)</span>. Here <span class="math inline">\(x_i\)</span> may be a vector.</p>
 <p>The training data is used to estimate the unknown function <span class="math inline">\(f\)</span>.</p>
 </section>
@@ -481,7 +485,7 @@ div.csl-indent {
 <p>Validation data is used for <em>model selection</em> (finding the best model among a candidate set).</p>
 <p>Test data is used for <em>model assessment</em> (assess the performance of the fitted model on future data).</p>
 <p>We will consider theoretical results, and also look at different ways to split or resample available data.</p>
-<p>More in ELS Chapter 7.</p>
+<p>More in ESL Chapter 7.</p>
 <hr>
 </section>
 <section id="group-discussion" class="level2">
@@ -499,7 +503,7 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="regression-and-mlr">Regression and MLR</h2>
 <p>See also the exercises!</p>
 <p><strong>Resources</strong></p>
-<p>(mostly what we learned in TMA4267, or ELS Ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)</p>
+<p>(mostly what we learned in TMA4267, or ESL Ch 3, except 3.2.3, 3.2.4, 3.4, 3.7, 3.8)</p>
 <ul>
 <li>From TMA4268: <a href="https://www.math.ntnu.no/emner/TMA4268/2019v/TMA4268overview.html">Overview</a> and in particular <a href="https://www.math.ntnu.no/emner/TMA4268/2019v/3LinReg/3LinReg.html">Module 3: Linear regression</a></li>
 <li>From TMA4315: <a href="https://www.math.ntnu.no/emner/TMA4315/2018h/TMA4315overviewH2018.html">Overview</a> and in particular <a href="https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html">Module 2: MLR</a></li>
@@ -510,7 +514,7 @@ div.csl-indent {
 </section>
 <section id="statistical-decision-theoretic-framework" class="level1">
 <h1>Statistical decision theoretic framework</h1>
-<p>(ELS Ch 2.4, regression part)</p>
+<p>(ESL Ch 2.4, regression part)</p>
 <p>is a mathematical framework for developing models <span class="math inline">\(f\)</span> - and assessing optimality.</p>
 <p>First, regression:</p>
 <ul>
@@ -562,8 +566,16 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="absolute-loss">Absolute loss</h2>
 <p>Regression with absolute (L1) loss: <span class="math inline">\(L(Y,f(X))=\lvert Y-f(X) \rvert\)</span> gives <span class="math inline">\(\hat{f}(x)=\text{median}(Y\mid X=x)\)</span>.</p>
 <p>Proof: for example pages 8-11 of <a href="https://getd.libs.uga.edu/pdfs/ma_james_c_201412_ms.pdf" class="uri">https://getd.libs.uga.edu/pdfs/ma_james_c_201412_ms.pdf</a></p>
-<hr>
 </section>
+</section>
+<section id="discussion-and-conclusions" class="level1">
+<h1>Discussion and conclusions</h1>
+<ul>
+<li>What are key take home messages from today´s teaching session?</li>
+<li>What do you plan to do before the next teaching session?</li>
+<li>Feedback on today´s teaching session?</li>
+</ul>
+<hr>
 </section>
 <section id="exercises" class="level1">
 <h1>Exercises</h1>
@@ -669,9 +681,9 @@ div.csl-indent {
 <section id="reference-links" class="level1">
 <h1>Reference links</h1>
 <ul>
-<li><p><a href="https://hastie.su.domains/ElemStatLearn/">ELS official errata:</a> and choose “Errata” in the left menu</p></li>
-<li><p><a href="https://waxworksmath.com/Authors/G_M/Hastie/hastie.html">ELS notes and solutions to exercises</a></p></li>
-<li><p><a href="https://www.uio.no/studier/emner/matnat/math/STK-IN4300/h20/exercises.html">ELS solutions from UiO</a></p></li>
+<li><p><a href="https://hastie.su.domains/ElemStatLearn/">ESL official errata:</a> and choose “Errata” in the left menu</p></li>
+<li><p><a href="https://waxworksmath.com/Authors/G_M/Hastie/hastie.html">ESL notes and solutions to exercises</a></p></li>
+<li><p><a href="https://www.uio.no/studier/emner/matnat/math/STK-IN4300/h20/exercises.html">ESL solutions from UiO</a></p></li>
 <li><p><a href="https://en.wikipedia.org/wiki/Camel_case">Camel_case</a></p></li>
 <li><p><a href="https://en.wikipedia.org/wiki/Snake_case">Snake_case</a></p></li>
 </ul>
