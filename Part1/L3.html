@@ -104,7 +104,9 @@ div.csl-indent {
   <li><a href="#expected-training-and-test-mse-for-linear-regression" id="toc-expected-training-and-test-mse-for-linear-regression" class="nav-link" data-scroll-target="#expected-training-and-test-mse-for-linear-regression">Expected training and test MSE for linear regression</a></li>
   <li><a href="#establish-the-average-optimism-in-the-training-error" id="toc-establish-the-average-optimism-in-the-training-error" class="nav-link" data-scroll-target="#establish-the-average-optimism-in-the-training-error">Establish the average optimism in the training error</a></li>
   <li><a href="#relate-the-covariance-to-the-trace-of-a-linear-smoother" id="toc-relate-the-covariance-to-the-trace-of-a-linear-smoother" class="nav-link" data-scroll-target="#relate-the-covariance-to-the-trace-of-a-linear-smoother">Relate the covariance to the trace of a linear smoother</a></li>
-  <li><a href="#something-with-programming-and-data" id="toc-something-with-programming-and-data" class="nav-link" data-scroll-target="#something-with-programming-and-data">Something with programming and data?</a></li>
+  <li><a href="#derive-the-estimate-of-in-sample-error" id="toc-derive-the-estimate-of-in-sample-error" class="nav-link" data-scroll-target="#derive-the-estimate-of-in-sample-error">Derive the estimate of in-sample error</a></li>
+  <li><a href="#additive-error-model-effective-degrees-of-freedom" id="toc-additive-error-model-effective-degrees-of-freedom" class="nav-link" data-scroll-target="#additive-error-model-effective-degrees-of-freedom">Additive error model effective degrees of freedom</a></li>
+  <li><a href="#comparing-methods" id="toc-comparing-methods" class="nav-link" data-scroll-target="#comparing-methods">Comparing methods</a></li>
   </ul></li>
   <li><a href="#solutions-to-exercises" id="toc-solutions-to-exercises" class="nav-link" data-scroll-target="#solutions-to-exercises">Solutions to exercises</a></li>
   <li><a href="#reference-links" id="toc-reference-links" class="nav-link" data-scroll-target="#reference-links">Reference links</a></li>
@@ -413,9 +415,21 @@ div.csl-indent {
 <p>Exercise 7.5</p>
 <p>Need to know about covariance and variance of linear combinations. The reading list in TMA4267 included Härdle and Simar (2015): Applied Multivariate Statistical Analysis (fourth edition) - <a href="https://www.springer.com/gp/book/9783662451717">ebook from Springer available at NTNU</a>. Alternatively [classnotes from TMA4267 (page 58-59)] (https://www.math.ntnu.no/emner/TMA4267/2017v/TMA4267V2017Part1.pdf)</p>
 </section>
-<section id="something-with-programming-and-data" class="level2">
-<h2 class="anchored" data-anchor-id="something-with-programming-and-data">Something with programming and data?</h2>
-<p>TO BE ADDED!</p>
+<section id="derive-the-estimate-of-in-sample-error" class="level2">
+<h2 class="anchored" data-anchor-id="derive-the-estimate-of-in-sample-error">Derive the estimate of in-sample error</h2>
+<p>for the additive error model <span class="math display">\[Y=f(X)+\varepsilon\]</span> of Eq (7.24):</p>
+<p><span class="math display">\[ \text{E}_{y}(\text{Err}_{\text{in}})=\text{E}_{y}(\bar{\text{err}})+2 \cdot \frac{d}{N} \sigma^2_{\varepsilon}\]</span></p>
+<p>Exercise 7.1</p>
+</section>
+<section id="additive-error-model-effective-degrees-of-freedom" class="level2">
+<h2 class="anchored" data-anchor-id="additive-error-model-effective-degrees-of-freedom">Additive error model effective degrees of freedom</h2>
+<p>Exercise 7.6</p>
+<p>Show that for an additive-error model, the eﬀective degrees-of freedom for the <span class="math inline">\(k\)</span>-nearest-neighbors regression ﬁt is <span class="math inline">\(N/k\)</span>.</p>
+</section>
+<section id="comparing-methods" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-methods">Comparing methods</h2>
+<p>Exercise 7.9 (minus BIC).</p>
+<p>For the prostate data of ESL Chapter 3, carry out a best-subset linear regression analysis, as in Table 3.3 (third column from left). Compute the AIC, ﬁve- and tenfold cross-validation, and bootstrap .632 estimates of prediction error. Discuss the results.</p>
 </section>
 </section>
 <section id="solutions-to-exercises" class="level1">
@@ -425,7 +439,9 @@ div.csl-indent {
 <li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe29.pdf">2.9</a></li>
 <li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe74.pdf">7.4</a></li>
 <li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe75.pdf">7.5</a></li>
-<li>Programming and data example?</li>
+<li>7.1</li>
+<li>7.6</li>
+<li>7.9</li>
 </ul>
 </section>
 <section id="reference-links" class="level1">

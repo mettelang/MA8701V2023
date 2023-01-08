@@ -413,6 +413,7 @@ Do exercise 2.9.
 
 Important take home message: We have proven (for MLR) that the expected test MSE is always at least as large as the expected training MSE.
 
+
 ## Establish the average optimism in the training error
 
 Exercise 7.4
@@ -424,9 +425,26 @@ Exercise 7.5
 Need to know about covariance and variance of linear combinations. The reading list in TMA4267 included Härdle and Simar (2015): Applied Multivariate Statistical Analysis (fourth edition) - [ebook from Springer available at NTNU](https://www.springer.com/gp/book/9783662451717). Alternatively [classnotes from TMA4267 (page 58-59)]
 (https://www.math.ntnu.no/emner/TMA4267/2017v/TMA4267V2017Part1.pdf)
 
-## Something with programming and data?
+## Derive the estimate of in-sample error
+for the additive error model
+$$Y=f(X)+\varepsilon$$
+of Eq (7.24):
 
-TO BE ADDED!
+$$ \text{E}_{y}(\text{Err}_{\text{in}})=\text{E}_{y}(\bar{\text{err}})+2 \cdot \frac{d}{N} \sigma^2_{\varepsilon}$$
+
+Exercise 7.1
+
+## Additive error model effective degrees of freedom
+
+Exercise 7.6
+
+Show that for an additive-error model, the eﬀective degrees-of freedom for the $k$-nearest-neighbors regression ﬁt is $N/k$.
+
+## Comparing methods
+ 
+Exercise 7.9 (minus BIC).
+
+For the prostate data of ESL Chapter 3, carry out a best-subset linear regression analysis, as in Table 3.3 (third column from left). Compute the AIC, ﬁve- and tenfold cross-validation, and bootstrap .632 estimates of prediction error. Discuss the results.
 
 # Solutions to exercises
 
@@ -435,7 +453,10 @@ Please try yourself first, or take a small peek - and try some more - before ful
 * [2.9](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe29.pdf) 
 * [7.4](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe74.pdf) 
 * [7.5](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe75.pdf) 
-* Programming and data example?
+* 7.1
+* 7.6
+* 7.9
+
 
 # Reference links
 

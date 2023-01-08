@@ -321,6 +321,10 @@ $$\overline{\text{err}}=-\frac{2}{N}\sum_{i=1}^N \text{log}\hat{p}_{g_i}(x_i)$$
 * for $k$NN in Equation 7.10 and 
 * OLS in Equation 7.11 on pages 222-223 of ESL.
 
+## Bayes classier, Bayes decision boundary and Bayes error rate
+
+Solve TMA4268 exam problem 9 in 2029 at <https://www.math.ntnu.no/emner/TMA4268/Exam/V2019e.pdf>
+
 ## Key results from logistic regression
 
 #### a) What are the three components of a generalized linear model?

@@ -182,8 +182,6 @@ Interpretable Machine Learning: A Guide for Making Black Box Models Explainable,
 
 ---
 
----
-
 ## Course elements
 
 Course wiki at <https://wiki.math.ntnu.no/ma8701/2023v/start>
@@ -550,6 +548,7 @@ Please try yourself first, or take a small peek - and try some more - before ful
 ### 2: Quadratic loss
 
 Page 8 of <https://getd.libs.uga.edu/pdfs/ma_james_c_201412_ms.pdf> 
+or [Mettes notes](https://github.com/mettelang/MA8701V2023/blob/main/Part1/QuadLossCondEYmidx.pdf)
 
 ### 3: Curse of dimensionality
 
