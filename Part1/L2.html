@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-09">
+<meta name="dcterms.date" content="2023-01-10">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -86,13 +86,13 @@ div.csl-indent {
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
   <ul class="collapse">
   <li><a href="#what-are-the-most-important-results-from-the-statistical-decision-theoretic-framework" id="toc-what-are-the-most-important-results-from-the-statistical-decision-theoretic-framework" class="nav-link" data-scroll-target="#what-are-the-most-important-results-from-the-statistical-decision-theoretic-framework">What are the most important results from the “Statistical decision theoretic framework”?</a></li>
-  <li><a href="#look-into-the-derivation-for-the-bias-and-variance" id="toc-look-into-the-derivation-for-the-bias-and-variance" class="nav-link" data-scroll-target="#look-into-the-derivation-for-the-bias-and-variance">Look into the derivation for the bias and variance</a></li>
+  <li><a href="#look-into-the-derivation-for-the-bias-and-variance-decomposition" id="toc-look-into-the-derivation-for-the-bias-and-variance-decomposition" class="nav-link" data-scroll-target="#look-into-the-derivation-for-the-bias-and-variance-decomposition">Look into the derivation for the bias and variance decomposition</a></li>
   <li><a href="#bayes-classier-bayes-decision-boundary-and-bayes-error-rate" id="toc-bayes-classier-bayes-decision-boundary-and-bayes-error-rate" class="nav-link" data-scroll-target="#bayes-classier-bayes-decision-boundary-and-bayes-error-rate">Bayes classier, Bayes decision boundary and Bayes error rate</a></li>
   <li><a href="#key-results-from-logistic-regression" id="toc-key-results-from-logistic-regression" class="nav-link" data-scroll-target="#key-results-from-logistic-regression">Key results from logistic regression</a></li>
   </ul></li>
   <li><a href="#solutions-to-exercises" id="toc-solutions-to-exercises" class="nav-link" data-scroll-target="#solutions-to-exercises">Solutions to exercises</a>
   <ul class="collapse">
-  <li><a href="#look-into-the-derivation-for-the-bias-and-variance-1" id="toc-look-into-the-derivation-for-the-bias-and-variance-1" class="nav-link" data-scroll-target="#look-into-the-derivation-for-the-bias-and-variance-1">Look into the derivation for the bias and variance</a></li>
+  <li><a href="#look-into-the-derivation-for-the-bias-and-variance" id="toc-look-into-the-derivation-for-the-bias-and-variance" class="nav-link" data-scroll-target="#look-into-the-derivation-for-the-bias-and-variance">Look into the derivation for the bias and variance</a></li>
   <li><a href="#bayes-classier-bayes-decision-boundary-and-bayes-error-rate-1" id="toc-bayes-classier-bayes-decision-boundary-and-bayes-error-rate-1" class="nav-link" data-scroll-target="#bayes-classier-bayes-decision-boundary-and-bayes-error-rate-1">Bayes classier, Bayes decision boundary and Bayes error rate</a></li>
   <li><a href="#key-results-from-logistic-regression-1" id="toc-key-results-from-logistic-regression-1" class="nav-link" data-scroll-target="#key-results-from-logistic-regression-1">Key results from logistic regression</a></li>
   </ul></li>
@@ -125,7 +125,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 9, 2023</p>
+      <p class="date">January 10, 2023</p>
     </div>
   </div>
   
@@ -356,8 +356,8 @@ div.csl-indent {
 <li>How would you use these results?</li>
 </ul>
 </section>
-<section id="look-into-the-derivation-for-the-bias-and-variance" class="level2">
-<h2 class="anchored" data-anchor-id="look-into-the-derivation-for-the-bias-and-variance">Look into the derivation for the bias and variance</h2>
+<section id="look-into-the-derivation-for-the-bias-and-variance-decomposition" class="level2">
+<h2 class="anchored" data-anchor-id="look-into-the-derivation-for-the-bias-and-variance-decomposition">Look into the derivation for the bias and variance decomposition</h2>
 <ul>
 <li>for <span class="math inline">\(k\)</span>NN in Equation 7.10 and</li>
 <li>OLS in Equation 7.11 on pages 222-223 of ESL.</li>
@@ -393,12 +393,10 @@ div.csl-indent {
 <section id="solutions-to-exercises" class="level1">
 <h1>Solutions to exercises</h1>
 <p>Please try yourself first, or take a small peek - and try some more - before fully reading the solutions. Report errors or improvements to <a href="mailto:Mette.Langaas@ntnu.no" class="email">Mette.Langaas@ntnu.no</a>.</p>
-<section id="look-into-the-derivation-for-the-bias-and-variance-1" class="level2">
-<h2 class="anchored" data-anchor-id="look-into-the-derivation-for-the-bias-and-variance-1">Look into the derivation for the bias and variance</h2>
-<ul>
-<li>for <span class="math inline">\(k\)</span>NN in Equation 7.10 and</li>
-<li>OLS in Equation 7.11 on pages 222-223 of ESL.</li>
-</ul>
+<section id="look-into-the-derivation-for-the-bias-and-variance" class="level2">
+<h2 class="anchored" data-anchor-id="look-into-the-derivation-for-the-bias-and-variance">Look into the derivation for the bias and variance</h2>
+<p><span class="math inline">\(k\)</span>NN in Equation 7.10: <a href="See%20page%20103%20of%20the%20solutions%20manual">https://waxworksmath.com/Authors/G_M/Hastie/WriteUp/Weatherwax_Epstein_Hastie_Solution_Manual.pdf</a></p>
+<p>OLS in Equation 7.11 on pages 222-223 of ESL: We solved this in 2019 in <a href="a%20compulsory%20exercise%20in%20TMA4268">https://www.math.ntnu.no/emner/TMA4268/2019v/CompEx/Compulsory1withLF.html#problem_3:_bias-variance_trade-off</a>, where we compared with the ridge (to be studied in Part 2) and also plotted functions.</p>
 </section>
 <section id="bayes-classier-bayes-decision-boundary-and-bayes-error-rate-1" class="level2">
 <h2 class="anchored" data-anchor-id="bayes-classier-bayes-decision-boundary-and-bayes-error-rate-1">Bayes classier, Bayes decision boundary and Bayes error rate</h2>
@@ -420,6 +418,7 @@ div.csl-indent {
 </section>
 <section id="d-asymptotic-distribution-1" class="level4">
 <h4 class="anchored" data-anchor-id="d-asymptotic-distribution-1">d) Asymptotic distribution</h4>
+<p><a href="https://www.math.ntnu.no/emner/TMA4315/2018h/5GLM.html#distribution_of_the_mle">TMA4315 GLM, module 5</a></p>
 </section>
 <section id="e-deviance-1" class="level4">
 <h4 class="anchored" data-anchor-id="e-deviance-1">e) Deviance</h4>
@@ -432,6 +431,7 @@ div.csl-indent {
 <ul>
 <li><p><a href="https://hastie.su.domains/ElemStatLearn/">ESL official errata:</a> and choose “Errata” in the left menu</p></li>
 <li><p><a href="https://waxworksmath.com/Authors/G_M/Hastie/hastie.html">ESL solutions to exercises</a></p></li>
+<li><p><a href="https://drive.google.com/file/d/1c6AOUQRKf2W2xWMS_hZU-SKa_IYCjZfG/view">Jarle Tufto´s lecture notes in TMA4315 GLM, 168 pages</a></p></li>
 </ul>
 </section>
 <section id="bibliography" class="level1">

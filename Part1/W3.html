@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-05">
+<meta name="dcterms.date" content="2023-01-10">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -151,7 +151,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 5, 2023</p>
+      <p class="date">January 10, 2023</p>
     </div>
   </div>
   
@@ -171,24 +171,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="notation" class="level2">
 <h2 class="anchored" data-anchor-id="notation">Notation</h2>
 <ul>
-<li><span class="math inline">\({\bf y}\)</span>: response vector (no missing values)</li>
-<li><span class="math inline">\({\bf X}\)</span>: the full covariate matrix</li>
-<li><span class="math inline">\({\bf Z}=({\bf X},{\bf y})\)</span>: full responses and covariates</li>
-<li><span class="math inline">\({\bf X}_{\text{obs}}\)</span>: the observed part of the covariate matrix</li>
-<li><span class="math inline">\({\bf X}_{\text{mis}}\)</span>: the missing part of the covariate matrix</li>
-<li><span class="math inline">\({\bf Z}_{\text{obs}}=({\bf X}_{\text{obs}},{\bf y})\)</span>: the observed responses and covariates</li>
-<li><span class="math inline">\({\bf R}\)</span>: indicator matrix (0/1) for missingness/observability of <span class="math inline">\({\bf X}\)</span>, where <span class="math inline">\(1\)</span> denotes observed and <span class="math inline">\(0\)</span> denotes missing. (ELS 9.6 does the opposite, but that is not the common use.)</li>
-<li><span class="math inline">\(\theta\)</span>: some parameter in the distribution of <span class="math inline">\({\bf R}\)</span>.</li>
+<li><span class="math inline">\({\mathbf y}\)</span>: response vector (no missing values)</li>
+<li><span class="math inline">\({\mathbf X}\)</span>: the full covariate matrix</li>
+<li><span class="math inline">\({\mathbf Z}=({\mathbf X},{\mathbf y})\)</span>: full responses and covariates</li>
+<li><span class="math inline">\({\mathbf X}_{\text{obs}}\)</span>: the observed part of the covariate matrix</li>
+<li><span class="math inline">\({\mathbf X}_{\text{mis}}\)</span>: the missing part of the covariate matrix</li>
+<li><span class="math inline">\({\mathbf Z}_{\text{obs}}=({\mathbf X}_{\text{obs}},{\mathbf y})\)</span>: the observed responses and covariates</li>
+<li><span class="math inline">\({\mathbf R}\)</span>: indicator matrix (0/1) for missingness/observability of <span class="math inline">\({\mathbf X}\)</span>, where <span class="math inline">\(1\)</span> denotes observed and <span class="math inline">\(0\)</span> denotes missing. (ELS 9.6 does the opposite, but that is not the common use.)</li>
+<li><span class="math inline">\(\theta\)</span>: some parameter in the distribution of <span class="math inline">\({\mathbf R}\)</span>.</li>
 </ul>
 <p>We may use the indicator matrix together with the missing data vector and observed data vector to write out the full covariate matrix.</p>
-<p>The missing data mechanism is characterized by the conditional distribution of <span class="math inline">\({\bf R}\)</span>; <span class="math display">\[P({\bf R} \mid {\bf Z},\theta)\]</span></p>
+<p>The missing data mechanism is characterized by the conditional distribution of <span class="math inline">\({\mathbf R}\)</span>; <span class="math display">\[P({\mathbf R} \mid {\mathbf Z},\theta)\]</span></p>
 <hr>
 </section>
 <section id="missing-mechanisms" class="level2">
 <h2 class="anchored" data-anchor-id="missing-mechanisms">Missing mechanisms</h2>
 <section id="missing-completely-at-random-mcar" class="level3">
 <h3 class="anchored" data-anchor-id="missing-completely-at-random-mcar">Missing completely at random (MCAR)</h3>
-<p><span class="math display">\[P({\bf R} \mid {\bf Z},\theta)=P({\bf R} \mid \theta)\]</span></p>
+<p><span class="math display">\[P({\mathbf R} \mid {\mathbf Z},\theta)=P({\mathbf R} \mid \theta)\]</span></p>
 <ul>
 <li>All observations have the same probability of being missing, and</li>
 <li>the missing mechanism is not related to the data (not to observed or missing data).</li>
@@ -203,7 +203,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="missing-at-random-mar" class="level3">
 <h3 class="anchored" data-anchor-id="missing-at-random-mar">Missing at random (MAR)</h3>
-<p><span class="math display">\[P({\bf R} \mid {\bf Z},\theta)=P({\bf R} \mid {\bf Z}_{\text obs},\theta)\]</span></p>
+<p><span class="math display">\[P({\mathbf R} \mid {\mathbf Z},\theta)=P({\mathbf R} \mid {\mathbf Z}_{\text obs},\theta)\]</span></p>
 <ul>
 <li>The probability of an entry to be missing depends (possibly) on observed data, but not on unobserved data.</li>
 <li>Thus, all information about the missing data that we need to perform valid statistical analysis is found in the observed data (but maybe difficult to construct a model for this).</li>

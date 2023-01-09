@@ -322,7 +322,7 @@ $$\overline{\text{err}}=-\frac{2}{N}\sum_{i=1}^N \text{log}\hat{p}_{g_i}(x_i)$$
 * What are results to remember for regression and for classification? 
 * How would you use these results?
 
-## Look into the derivation for the bias and variance
+## Look into the derivation for the bias and variance decomposition
 
 * for $k$NN in Equation 7.10 and 
 * OLS in Equation 7.11 on pages 222-223 of ESL.
@@ -354,8 +354,10 @@ Please try yourself first, or take a small peek - and try some more - before ful
 
 ## Look into the derivation for the bias and variance
 
-* for $k$NN in Equation 7.10 and 
-* OLS in Equation 7.11 on pages 222-223 of ESL.
+$k$NN in Equation 7.10: 
+[https://waxworksmath.com/Authors/G_M/Hastie/WriteUp/Weatherwax_Epstein_Hastie_Solution_Manual.pdf](See page 103 of the solutions manual)
+
+OLS in Equation 7.11 on pages 222-223 of ESL: We solved this in 2019 in [https://www.math.ntnu.no/emner/TMA4268/2019v/CompEx/Compulsory1withLF.html#problem_3:_bias-variance_trade-off](a compulsory exercise in TMA4268), where we compared with the ridge (to be studied in Part 2) and also plotted functions.
 
 ## Bayes classier, Bayes decision boundary and Bayes error rate
 
@@ -374,6 +376,7 @@ Please try yourself first, or take a small peek - and try some more - before ful
 [TMA4315 GLM Module 2](https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html#restricted_maximum_likelihood_estimator_for_({bf_sigma}^2))
 
 #### d) Asymptotic distribution
+[TMA4315 GLM, module 5](https://www.math.ntnu.no/emner/TMA4315/2018h/5GLM.html#distribution_of_the_mle)
 
 #### e) Deviance
 
@@ -384,6 +387,8 @@ Please try yourself first, or take a small peek - and try some more - before ful
 * [ESL official errata:](https://hastie.su.domains/ElemStatLearn/) and choose "Errata" in the left menu
 
 * [ESL solutions to exercises](https://waxworksmath.com/Authors/G_M/Hastie/hastie.html)
+
+* [Jarle Tufto´s lecture notes in TMA4315 GLM, 168 pages ](https://drive.google.com/file/d/1c6AOUQRKf2W2xWMS_hZU-SKa_IYCjZfG/view)
 
 # Bibliography
 
