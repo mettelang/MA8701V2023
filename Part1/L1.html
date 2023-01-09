@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-08">
+<meta name="dcterms.date" content="2023-01-09">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -201,7 +201,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 8, 2023</p>
+      <p class="date">January 9, 2023</p>
     </div>
   </div>
   
@@ -357,8 +357,6 @@ div.csl-indent {
 </ul>
 <p>The learning material is also available at <a href="https://github.com/mettelang/MA8701V2023" class="uri">https://github.com/mettelang/MA8701V2023</a>.</p>
 <hr>
-<p><strong>Questions?</strong></p>
-<hr>
 </section>
 <section id="class-activity" class="level2">
 <h2 class="anchored" data-anchor-id="class-activity">Class activity</h2>
@@ -476,7 +474,7 @@ div.csl-indent {
 <section id="training-set" class="level2">
 <h2 class="anchored" data-anchor-id="training-set">Training set</h2>
 <p>(ESL 2.1)</p>
-<p>A set of size <span class="math inline">\(N\)</span> of independent pairs ov observations <span class="math inline">\((x_i,y_i)\)</span> is called the <em>training set</em> and often denoted <span class="math inline">\(\mathcal{T}\)</span>. Here <span class="math inline">\(x_i\)</span> may be a vector.</p>
+<p>A set of size <span class="math inline">\(N\)</span> of independent pairs of observations <span class="math inline">\((x_i,y_i)\)</span> is called the <em>training set</em> and often denoted <span class="math inline">\(\mathcal{T}\)</span>. Here <span class="math inline">\(x_i\)</span> may be a vector.</p>
 <p>The training data is used to estimate the unknown function <span class="math inline">\(f\)</span>.</p>
 </section>
 <section id="validation-and-test-data" class="level2">
@@ -539,9 +537,10 @@ div.csl-indent {
 <p><span class="math display">\[ f(x)=\text{E}[Y \mid X=x]\]</span> Proof: by differentiating and setting equal 0.</p>
 <p>But, do we know this conditional distribution? In practice: need to estimate <span class="math inline">\(f\)</span>.</p>
 <hr>
-<section id="what-is-the-joint-distribution-is-multivariate-normal" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-the-joint-distribution-is-multivariate-normal">What is the joint distribution is multivariate normal?</h3>
-<p>Conditionally (known from before): if we assume that <span class="math inline">\((X,Y) \sim N_{p+1}(\mu,\Sigma)\)</span> then we have seen (TMA4267) that <span class="math inline">\(\text{E}(Y\mid X)\)</span> is linear in <span class="math inline">\(X\)</span> and <span class="math inline">\(\text{Cov}(Y \mid X)\)</span> is independent of <span class="math inline">\(X\)</span>.</p>
+<section id="what-if-the-joint-distribution-is-multivariate-normal" class="level3">
+<h3 class="anchored" data-anchor-id="what-if-the-joint-distribution-is-multivariate-normal">What if the joint distribution is multivariate normal?</h3>
+<p>Conditionally (known from before):</p>
+<p>if we assume that <span class="math inline">\((X,Y) \sim N_{p+1}(\mu,\Sigma)\)</span> then we have seen (TMA4267) that <span class="math inline">\(\text{E}(Y\mid X)\)</span> is linear in <span class="math inline">\(X\)</span> and <span class="math inline">\(\text{Cov}(Y \mid X)\)</span> is independent of <span class="math inline">\(X\)</span>.</p>
 <p><a href="https://www.math.ntnu.no/emner/TMA4268/2019v/2StatLearn/2StatLearn.html#six_useful_properties_of_the_mvn">Properties of the mvN</a></p>
 <!-- Then we know we get  -->
 <!-- $\hat{\beta}=(X^TX)^{-1}X^T Y$ (with matrices) using OLS or MLE. -->

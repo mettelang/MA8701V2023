@@ -2,7 +2,7 @@
 title: "MA8701 Advanced methods in statistical inference and learning"
 subtitle: "L1: Introduction and core concepts"
 author: "Mette Langaas"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
+date: "Lectured 2023.01.09"
 bibliography: references.bib
 nocite: |
   @ESL
@@ -200,10 +200,6 @@ The learning material is also available at <https://github.com/mettelang/MA8701V
 
 ---
 
-**Questions?**
-
----
-
 ## Class activity
 
 Aim: get to know each other - to improve on subsequent group work!
@@ -328,7 +324,7 @@ Maybe brush up on this?
 ## Training set
 (ESL 2.1)
 
-A set of size $N$ of independent pairs ov observations $(x_i,y_i)$ is called the _training set_ and often denoted $\mathcal{T}$. Here $x_i$ may be a vector.
+A set of size $N$ of independent pairs of observations $(x_i,y_i)$ is called the _training set_ and often denoted $\mathcal{T}$. Here $x_i$ may be a vector.
 
 The training data is used to estimate the unknown function $f$.
 
@@ -422,9 +418,11 @@ But, do we know this conditional distribution? In practice: need to estimate $f$
 
 ---
 
-### What is the joint distribution is multivariate normal?
+### What if the joint distribution is multivariate normal?
 
-Conditionally (known from before): if we assume that $(X,Y) \sim N_{p+1}(\mu,\Sigma)$ then we have seen (TMA4267) that $\text{E}(Y\mid X)$ is linear in $X$ and $\text{Cov}(Y \mid X)$ is independent of $X$. 
+Conditionally (known from before): 
+
+if we assume that $(X,Y) \sim N_{p+1}(\mu,\Sigma)$ then we have seen (TMA4267) that $\text{E}(Y\mid X)$ is linear in $X$ and $\text{Cov}(Y \mid X)$ is independent of $X$. 
 
 
 [Properties of the mvN](https://www.math.ntnu.no/emner/TMA4268/2019v/2StatLearn/2StatLearn.html#six_useful_properties_of_the_mvn)

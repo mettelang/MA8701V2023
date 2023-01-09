@@ -5,7 +5,7 @@ author: "Mette Langaas"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 bibliography: references.bib
 nocite: |
-  @casi
+  @casi, @esl
 format: 
   html: 
     toc: true
@@ -71,7 +71,7 @@ What changes do we need to do for classifiation?
 
 * $X \in \Re^p$
 * $G \in {\cal G}=\{1,\ldots,K\}$
-* $\hat{G}(X) \in {\cal G}=\{1,\ldots,K\}$ (why $f$ for regression and $\hat{G}$ for classification? Why not $g$ or $h$?)
+* $\hat{G}(X) \in {\cal G}=\{1,\ldots,K\}$ (why $f$ for regression and $\hat{G}$ for classification? strange?)
 * $L(G,\hat{G}(X))$ is a $K\times K$ matrix where $K=\lvert G \rvert$, with elements $l_{jk}$ giving the price to pay to misclassify an observation with true class $g_j$ to class $g_k$. 
 * Elements on the diagonal of $L$ is 0, and off-diagonal elements are often $1$.
 
@@ -107,6 +107,7 @@ The _Bayes classifier_ classifies to the most probable class using the condition
 1) What do we know about classification? (TMA4268 and TMA4315 mainly, or ESL ch 4.1-4.5, except 4.4.4)
 
 Some possible variants:
+
 * What is the difference between discrimination and classification?
 * What are the sampling vs diagnostic paradigm? Which paradigm for $k$NN and LDA?
 * Parametric vs non-parametric methods?
@@ -161,7 +162,7 @@ And, even if we have enough data - what we now will learn will give us insight i
 
 
 2) Study EPE (Err) unconditional and conditional on the training set
-3) Study optimism of the training error rate, and how in-sample error may shed light
+3) Study optimism of the training error rate, and how in-sample error may shed light on methods for model selection (like AIC, Mallows Cp)
 4) Cross-validation and .632 bootstrap estimates of EPE
 5) How will we build on this in Parts 2-4?
 
@@ -169,9 +170,9 @@ And, even if we have enough data - what we now will learn will give us insight i
 
 ## The bias-variance trade-off 
 
-(ESL p26 and 7.3)
+(ESL p 26 and 7.3)
 
-Assume:
+Assume additive error model:
 $$ Y=f(X)+\varepsilon$$
 where $\text{E}(\varepsilon)=0$ and $\text{Var}(\varepsilon)=\sigma_{\varepsilon}^2$.
 
@@ -191,6 +192,12 @@ $$ \text{Err}(x_0)=\text{E}[(Y-\hat{f}(x_0))^2 \mid X=x_0]=\sigma_{\varepsilon}^
 * Second term: variance of the prediction at $x_0$ or the expected deviation around the mean at $x_0$. If the variance is high, there is large uncertainty associated with the prediction. 
 * Third term: squared bias. The bias gives an estimate of how much the prediction differs from the true mean. If the bias is low the model gives a prediction which is close to the true value.
 
+---
+
+## Group activity
+
+* Remind yourself on how this derivation was done and the meaning of each term.
+* What is the role of $x_0$ here?
 
 ---
 
@@ -230,7 +237,7 @@ $$ \text{Err}_{\cal T}=\text{E}[L(Y,\hat{f}(X))\mid {\cal T}]$$
 
 as before the expected value is with respect to $(X,Y)$, but the training set is fixed - so that this is the test set error is for this specific training set ${\cal T}$.
 
-Getting back to the unconditional version, we take expected value over ALL that is random - including the training set 
+Getting back to the unconditional version, we take expected value over ALL that is random - now including the training set 
 $$ \text{Err}=\text{E}(\text{E}[L(Y,\hat{f}(X))\mid {\cal T}])=\text{E}_{\cal T} [\text{Err}_{\cal T}]$$
 
 We want to estimate $\text{Err}_{\cal T}$, but we will soon see that it turns out that most methods estimate $\text{Err}$.
@@ -251,14 +258,14 @@ $$\overline{\text{err}}=\frac{1}{N} \sum_{i=1}^N L(y_i,\hat{f}(x_i))$$
 ## Group discussion
 
 Look at Figure 7.1 (with figure caption) on page 220 in the ESL book. 
-The text reads that "100 simulated training sets of size 50" and that "lasso produced sequence of fits".
+The text reads that "100 simulated training sets of size 50" and that "lasso produced sequence of fits" (this means that we have different model complexities on the x-axis).
 
 Explain what you see - in particular what are the red and blue lines and the bold lines. What can you conclude from the figure?
 
-* Red lines
-* Bold red line
-* Blue lines
-* Bold blue line
+* Red lines=
+* Bold red line=
+* Blue lines=
+* Bold blue line=
 
 ---
 
@@ -316,14 +323,13 @@ $$\overline{\text{err}}=-\frac{2}{N}\sum_{i=1}^N \text{log}\hat{p}_{g_i}(x_i)$$
 * How would you use these results?
 
 ## Look into the derivation for the bias and variance
-(no solutions posted)
 
 * for $k$NN in Equation 7.10 and 
 * OLS in Equation 7.11 on pages 222-223 of ESL.
 
 ## Bayes classier, Bayes decision boundary and Bayes error rate
 
-Solve TMA4268 exam problem 9 in 2029 at <https://www.math.ntnu.no/emner/TMA4268/Exam/V2019e.pdf>
+Solve TMA4268 exam problem 9 in 2019 at <https://www.math.ntnu.no/emner/TMA4268/Exam/V2019e.pdf>
 
 ## Key results from logistic regression
 
@@ -346,6 +352,15 @@ How is the deviance defined in general, and how is this done for the logistic re
 
 Please try yourself first, or take a small peek - and try some more - before fully reading the solutions. Report errors or improvements to <Mette.Langaas@ntnu.no>. 
 
+## Look into the derivation for the bias and variance
+
+* for $k$NN in Equation 7.10 and 
+* OLS in Equation 7.11 on pages 222-223 of ESL.
+
+## Bayes classier, Bayes decision boundary and Bayes error rate
+
+<https://www.math.ntnu.no/emner/TMA4268/Exam/e2019sol.html>
+
 ## Key results from logistic regression
 
 #### a) What are the three components of a generalized linear model?
@@ -359,7 +374,9 @@ Please try yourself first, or take a small peek - and try some more - before ful
 [TMA4315 GLM Module 2](https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html#restricted_maximum_likelihood_estimator_for_({bf_sigma}^2))
 
 #### d) Asymptotic distribution
+
 #### e) Deviance
+
 [Grouped vs individual data  - and deviance](https://www.math.ntnu.no/emner/TMA4315/2018h/3BinReg.html#grouped_vs_individual_data)
 
 # Reference links
@@ -367,10 +384,6 @@ Please try yourself first, or take a small peek - and try some more - before ful
 * [ESL official errata:](https://hastie.su.domains/ElemStatLearn/) and choose "Errata" in the left menu
 
 * [ESL solutions to exercises](https://waxworksmath.com/Authors/G_M/Hastie/hastie.html)
-* [ESL solutions from UiO](https://www.uio.no/studier/emner/matnat/math/STK-IN4300/h20/exercises.html)
-
-* [CASI Computer Age Statistical Inference, Efron and Hastie (2017). Chapter 12: Cross-Validation and $C_p$ Estimates of Prediction Error](https://web.stanford.edu/~hastie/CASI_files/PDF/casi.pdf)
-* [Burnham and Andersen (2002): Model Selection and Multimodel Inference: A Practical Information-Theoretic Approach. Springer.  Chapter 7: Statistical Theory and Numerical Results](https://link.springer.com/chapter/10.1007/978-0-387-22456-5_7)
 
 # Bibliography
 

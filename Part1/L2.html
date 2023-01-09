@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-08">
+<meta name="dcterms.date" content="2023-01-09">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -77,6 +77,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#plan-1" id="toc-plan-1" class="nav-link" data-scroll-target="#plan-1">Plan</a></li>
   <li><a href="#the-bias-variance-trade-off" id="toc-the-bias-variance-trade-off" class="nav-link" data-scroll-target="#the-bias-variance-trade-off">The bias-variance trade-off</a></li>
+  <li><a href="#group-activity" id="toc-group-activity" class="nav-link" data-scroll-target="#group-activity">Group activity</a></li>
   <li><a href="#expected-prediction-error" id="toc-expected-prediction-error" class="nav-link" data-scroll-target="#expected-prediction-error">Expected prediction error</a></li>
   <li><a href="#group-discussion-1" id="toc-group-discussion-1" class="nav-link" data-scroll-target="#group-discussion-1">Group discussion</a></li>
   <li><a href="#loss-function-and-training-error-for-classification" id="toc-loss-function-and-training-error-for-classification" class="nav-link" data-scroll-target="#loss-function-and-training-error-for-classification">Loss function and training error for classification</a></li>
@@ -86,10 +87,13 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#what-are-the-most-important-results-from-the-statistical-decision-theoretic-framework" id="toc-what-are-the-most-important-results-from-the-statistical-decision-theoretic-framework" class="nav-link" data-scroll-target="#what-are-the-most-important-results-from-the-statistical-decision-theoretic-framework">What are the most important results from the “Statistical decision theoretic framework”?</a></li>
   <li><a href="#look-into-the-derivation-for-the-bias-and-variance" id="toc-look-into-the-derivation-for-the-bias-and-variance" class="nav-link" data-scroll-target="#look-into-the-derivation-for-the-bias-and-variance">Look into the derivation for the bias and variance</a></li>
+  <li><a href="#bayes-classier-bayes-decision-boundary-and-bayes-error-rate" id="toc-bayes-classier-bayes-decision-boundary-and-bayes-error-rate" class="nav-link" data-scroll-target="#bayes-classier-bayes-decision-boundary-and-bayes-error-rate">Bayes classier, Bayes decision boundary and Bayes error rate</a></li>
   <li><a href="#key-results-from-logistic-regression" id="toc-key-results-from-logistic-regression" class="nav-link" data-scroll-target="#key-results-from-logistic-regression">Key results from logistic regression</a></li>
   </ul></li>
   <li><a href="#solutions-to-exercises" id="toc-solutions-to-exercises" class="nav-link" data-scroll-target="#solutions-to-exercises">Solutions to exercises</a>
   <ul class="collapse">
+  <li><a href="#look-into-the-derivation-for-the-bias-and-variance-1" id="toc-look-into-the-derivation-for-the-bias-and-variance-1" class="nav-link" data-scroll-target="#look-into-the-derivation-for-the-bias-and-variance-1">Look into the derivation for the bias and variance</a></li>
+  <li><a href="#bayes-classier-bayes-decision-boundary-and-bayes-error-rate-1" id="toc-bayes-classier-bayes-decision-boundary-and-bayes-error-rate-1" class="nav-link" data-scroll-target="#bayes-classier-bayes-decision-boundary-and-bayes-error-rate-1">Bayes classier, Bayes decision boundary and Bayes error rate</a></li>
   <li><a href="#key-results-from-logistic-regression-1" id="toc-key-results-from-logistic-regression-1" class="nav-link" data-scroll-target="#key-results-from-logistic-regression-1">Key results from logistic regression</a></li>
   </ul></li>
   <li><a href="#reference-links" id="toc-reference-links" class="nav-link" data-scroll-target="#reference-links">Reference links</a></li>
@@ -121,7 +125,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 8, 2023</p>
+      <p class="date">January 9, 2023</p>
     </div>
   </div>
   
@@ -166,7 +170,7 @@ div.csl-indent {
 <ul>
 <li><span class="math inline">\(X \in \Re^p\)</span></li>
 <li><span class="math inline">\(G \in {\cal G}=\{1,\ldots,K\}\)</span></li>
-<li><span class="math inline">\(\hat{G}(X) \in {\cal G}=\{1,\ldots,K\}\)</span> (why <span class="math inline">\(f\)</span> for regression and <span class="math inline">\(\hat{G}\)</span> for classification? Why not <span class="math inline">\(g\)</span> or <span class="math inline">\(h\)</span>?)</li>
+<li><span class="math inline">\(\hat{G}(X) \in {\cal G}=\{1,\ldots,K\}\)</span> (why <span class="math inline">\(f\)</span> for regression and <span class="math inline">\(\hat{G}\)</span> for classification? strange?)</li>
 <li><span class="math inline">\(L(G,\hat{G}(X))\)</span> is a <span class="math inline">\(K\times K\)</span> matrix where <span class="math inline">\(K=\lvert G \rvert\)</span>, with elements <span class="math inline">\(l_{jk}\)</span> giving the price to pay to misclassify an observation with true class <span class="math inline">\(g_j\)</span> to class <span class="math inline">\(g_k\)</span>.</li>
 <li>Elements on the diagonal of <span class="math inline">\(L\)</span> is 0, and off-diagonal elements are often <span class="math inline">\(1\)</span>.</li>
 </ul>
@@ -189,7 +193,12 @@ div.csl-indent {
 <ol type="1">
 <li>What do we know about classification? (TMA4268 and TMA4315 mainly, or ESL ch 4.1-4.5, except 4.4.4)</li>
 </ol>
-<p>Some possible variants: * What is the difference between discrimination and classification? * What are the sampling vs diagnostic paradigm? Which paradigm for <span class="math inline">\(k\)</span>NN and LDA? * Parametric vs non-parametric methods?</p>
+<p>Some possible variants:</p>
+<ul>
+<li>What is the difference between discrimination and classification?</li>
+<li>What are the sampling vs diagnostic paradigm? Which paradigm for <span class="math inline">\(k\)</span>NN and LDA?</li>
+<li>Parametric vs non-parametric methods?</li>
+</ul>
 <ol start="2" type="1">
 <li>Logistic regression is by many seen as the “most important method in machine learning”. What do we remember about logistic regression?</li>
 </ol>
@@ -229,7 +238,7 @@ div.csl-indent {
 <ol type="1">
 <li><p>Look at <span class="math inline">\(\text{EPE}(x_0)\)</span> (now called Err(<span class="math inline">\(x_0\)</span>) after we have estimated <span class="math inline">\(f\)</span>) and how model complexity can be broken down into irreducible error, squared bias and variance (should be known from before)</p></li>
 <li><p>Study EPE (Err) unconditional and conditional on the training set</p></li>
-<li><p>Study optimism of the training error rate, and how in-sample error may shed light</p></li>
+<li><p>Study optimism of the training error rate, and how in-sample error may shed light on methods for model selection (like AIC, Mallows Cp)</p></li>
 <li><p>Cross-validation and .632 bootstrap estimates of EPE</p></li>
 <li><p>How will we build on this in Parts 2-4?</p></li>
 </ol>
@@ -237,8 +246,8 @@ div.csl-indent {
 </section>
 <section id="the-bias-variance-trade-off" class="level2">
 <h2 class="anchored" data-anchor-id="the-bias-variance-trade-off">The bias-variance trade-off</h2>
-<p>(ESL p26 and 7.3)</p>
-<p>Assume: <span class="math display">\[ Y=f(X)+\varepsilon\]</span> where <span class="math inline">\(\text{E}(\varepsilon)=0\)</span> and <span class="math inline">\(\text{Var}(\varepsilon)=\sigma_{\varepsilon}^2\)</span>.</p>
+<p>(ESL p 26 and 7.3)</p>
+<p>Assume additive error model: <span class="math display">\[ Y=f(X)+\varepsilon\]</span> where <span class="math inline">\(\text{E}(\varepsilon)=0\)</span> and <span class="math inline">\(\text{Var}(\varepsilon)=\sigma_{\varepsilon}^2\)</span>.</p>
 <p>For the bias-variance decomposition we only consider the squared loss. Why?</p>
 <p>In Ch 7 we use the notation Err instead of EPE (expected prediction error) that we used in Ch 2, and now we have estimated <span class="math inline">\(f\)</span> by <span class="math inline">\(\hat{f}\)</span>.</p>
 <p>Let <span class="math inline">\(\text{Err}(x_0)\)</span> be the expected prediction error of a regression fit <span class="math inline">\(\hat{f}(X)\)</span> at a (new) input value <span class="math inline">\(X=x_0\)</span>. As in Ch 2 the expected value is over <span class="math inline">\((X,Y)\)</span> for Err, and we may look at <span class="math display">\[ \text{Err}=E_{x_0} \text{Err}(x_0)\]</span> How can we partition <span class="math inline">\(\text{Err}(x_0)\)</span> into different sources?</p>
@@ -248,6 +257,14 @@ div.csl-indent {
 <li>First term: irreducible error, <span class="math inline">\(\text{Var}(\varepsilon)=\sigma^2\)</span> and is always present unless we have measurements without error. This term cannot be reduced regardless how well our statistical model fits the data.</li>
 <li>Second term: variance of the prediction at <span class="math inline">\(x_0\)</span> or the expected deviation around the mean at <span class="math inline">\(x_0\)</span>. If the variance is high, there is large uncertainty associated with the prediction.</li>
 <li>Third term: squared bias. The bias gives an estimate of how much the prediction differs from the true mean. If the bias is low the model gives a prediction which is close to the true value.</li>
+</ul>
+<hr>
+</section>
+<section id="group-activity" class="level2">
+<h2 class="anchored" data-anchor-id="group-activity">Group activity</h2>
+<ul>
+<li>Remind yourself on how this derivation was done and the meaning of each term.</li>
+<li>What is the role of <span class="math inline">\(x_0\)</span> here?</li>
 </ul>
 <hr>
 <section id="derivation" class="level3">
@@ -274,7 +291,7 @@ div.csl-indent {
 <p>If we now keep the training set fixed (we would do that in practice - since we often only have one training set):</p>
 <p><span class="math display">\[ \text{Err}_{\cal T}=\text{E}[L(Y,\hat{f}(X))\mid {\cal T}]\]</span></p>
 <p>as before the expected value is with respect to <span class="math inline">\((X,Y)\)</span>, but the training set is fixed - so that this is the test set error is for this specific training set <span class="math inline">\({\cal T}\)</span>.</p>
-<p>Getting back to the unconditional version, we take expected value over ALL that is random - including the training set <span class="math display">\[ \text{Err}=\text{E}(\text{E}[L(Y,\hat{f}(X))\mid {\cal T}])=\text{E}_{\cal T} [\text{Err}_{\cal T}]\]</span></p>
+<p>Getting back to the unconditional version, we take expected value over ALL that is random - now including the training set <span class="math display">\[ \text{Err}=\text{E}(\text{E}[L(Y,\hat{f}(X))\mid {\cal T}])=\text{E}_{\cal T} [\text{Err}_{\cal T}]\]</span></p>
 <p>We want to estimate <span class="math inline">\(\text{Err}_{\cal T}\)</span>, but we will soon see that it turns out that most methods estimate <span class="math inline">\(\text{Err}\)</span>.</p>
 <hr>
 <section id="training-error" class="level3">
@@ -287,13 +304,13 @@ div.csl-indent {
 </section>
 <section id="group-discussion-1" class="level2">
 <h2 class="anchored" data-anchor-id="group-discussion-1">Group discussion</h2>
-<p>Look at Figure 7.1 (with figure caption) on page 220 in the ESL book. The text reads that “100 simulated training sets of size 50” and that “lasso produced sequence of fits”.</p>
+<p>Look at Figure 7.1 (with figure caption) on page 220 in the ESL book. The text reads that “100 simulated training sets of size 50” and that “lasso produced sequence of fits” (this means that we have different model complexities on the x-axis).</p>
 <p>Explain what you see - in particular what are the red and blue lines and the bold lines. What can you conclude from the figure?</p>
 <ul>
-<li>Red lines</li>
-<li>Bold red line</li>
-<li>Blue lines</li>
-<li>Bold blue line</li>
+<li>Red lines=</li>
+<li>Bold red line=</li>
+<li>Blue lines=</li>
+<li>Bold blue line=</li>
 </ul>
 <hr>
 <div class="cell">
@@ -341,11 +358,14 @@ div.csl-indent {
 </section>
 <section id="look-into-the-derivation-for-the-bias-and-variance" class="level2">
 <h2 class="anchored" data-anchor-id="look-into-the-derivation-for-the-bias-and-variance">Look into the derivation for the bias and variance</h2>
-<p>(no solutions posted)</p>
 <ul>
 <li>for <span class="math inline">\(k\)</span>NN in Equation 7.10 and</li>
 <li>OLS in Equation 7.11 on pages 222-223 of ESL.</li>
 </ul>
+</section>
+<section id="bayes-classier-bayes-decision-boundary-and-bayes-error-rate" class="level2">
+<h2 class="anchored" data-anchor-id="bayes-classier-bayes-decision-boundary-and-bayes-error-rate">Bayes classier, Bayes decision boundary and Bayes error rate</h2>
+<p>Solve TMA4268 exam problem 9 in 2019 at <a href="https://www.math.ntnu.no/emner/TMA4268/Exam/V2019e.pdf" class="uri">https://www.math.ntnu.no/emner/TMA4268/Exam/V2019e.pdf</a></p>
 </section>
 <section id="key-results-from-logistic-regression" class="level2">
 <h2 class="anchored" data-anchor-id="key-results-from-logistic-regression">Key results from logistic regression</h2>
@@ -373,6 +393,17 @@ div.csl-indent {
 <section id="solutions-to-exercises" class="level1">
 <h1>Solutions to exercises</h1>
 <p>Please try yourself first, or take a small peek - and try some more - before fully reading the solutions. Report errors or improvements to <a href="mailto:Mette.Langaas@ntnu.no" class="email">Mette.Langaas@ntnu.no</a>.</p>
+<section id="look-into-the-derivation-for-the-bias-and-variance-1" class="level2">
+<h2 class="anchored" data-anchor-id="look-into-the-derivation-for-the-bias-and-variance-1">Look into the derivation for the bias and variance</h2>
+<ul>
+<li>for <span class="math inline">\(k\)</span>NN in Equation 7.10 and</li>
+<li>OLS in Equation 7.11 on pages 222-223 of ESL.</li>
+</ul>
+</section>
+<section id="bayes-classier-bayes-decision-boundary-and-bayes-error-rate-1" class="level2">
+<h2 class="anchored" data-anchor-id="bayes-classier-bayes-decision-boundary-and-bayes-error-rate-1">Bayes classier, Bayes decision boundary and Bayes error rate</h2>
+<p><a href="https://www.math.ntnu.no/emner/TMA4268/Exam/e2019sol.html" class="uri">https://www.math.ntnu.no/emner/TMA4268/Exam/e2019sol.html</a></p>
+</section>
 <section id="key-results-from-logistic-regression-1" class="level2">
 <h2 class="anchored" data-anchor-id="key-results-from-logistic-regression-1">Key results from logistic regression</h2>
 <section id="a-what-are-the-three-components-of-a-generalized-linear-model-1" class="level4">
@@ -401,9 +432,6 @@ div.csl-indent {
 <ul>
 <li><p><a href="https://hastie.su.domains/ElemStatLearn/">ESL official errata:</a> and choose “Errata” in the left menu</p></li>
 <li><p><a href="https://waxworksmath.com/Authors/G_M/Hastie/hastie.html">ESL solutions to exercises</a></p></li>
-<li><p><a href="https://www.uio.no/studier/emner/matnat/math/STK-IN4300/h20/exercises.html">ESL solutions from UiO</a></p></li>
-<li><p><a href="https://web.stanford.edu/~hastie/CASI_files/PDF/casi.pdf">CASI Computer Age Statistical Inference, Efron and Hastie (2017). Chapter 12: Cross-Validation and <span class="math inline">\(C_p\)</span> Estimates of Prediction Error</a></p></li>
-<li><p><a href="https://link.springer.com/chapter/10.1007/978-0-387-22456-5_7">Burnham and Andersen (2002): Model Selection and Multimodel Inference: A Practical Information-Theoretic Approach. Springer. Chapter 7: Statistical Theory and Numerical Results</a></p></li>
 </ul>
 </section>
 <section id="bibliography" class="level1">
