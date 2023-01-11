@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-10">
+<meta name="dcterms.date" content="2023-01-12">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -71,6 +71,7 @@ div.csl-indent {
   <li><a href="#statistical-decision-theoretic-framework" id="toc-statistical-decision-theoretic-framework" class="nav-link" data-scroll-target="#statistical-decision-theoretic-framework">Statistical decision theoretic framework</a>
   <ul class="collapse">
   <li><a href="#classification-set-up" id="toc-classification-set-up" class="nav-link" data-scroll-target="#classification-set-up">Classification set-up</a></li>
+  <li><a href="#simple-example" id="toc-simple-example" class="nav-link" data-scroll-target="#simple-example">Simple example</a></li>
   <li><a href="#group-discussion" id="toc-group-discussion" class="nav-link" data-scroll-target="#group-discussion">Group discussion</a></li>
   </ul></li>
   <li><a href="#model-assessment-and-selection" id="toc-model-assessment-and-selection" class="nav-link" data-scroll-target="#model-assessment-and-selection">Model assessment and selection</a>
@@ -125,7 +126,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 10, 2023</p>
+      <p class="date">January 12, 2023</p>
     </div>
   </div>
   
@@ -186,6 +187,16 @@ div.csl-indent {
 <p><span class="math display">\[=\text{argmax}_{g \in {\cal G}}P(G=g \mid X=x)\]</span></p>
 <p>The <em>Bayes classifier</em> classifies to the most probable class using the conditional distribution <span class="math inline">\(P(G \mid X)\)</span>. The class boundaries are the <em>Bayes decision boundaries</em> and the error rate is the <em>Bayes rate</em>.</p>
 <!-- Note: can also achieve the same result with dummy variable coding for classes and squared error. -->
+</section>
+<section id="simple-example" class="level2">
+<h2 class="anchored" data-anchor-id="simple-example">Simple example</h2>
+<p>Let assume we have <span class="math inline">\(G=2\)</span>, <span class="math inline">\(p=1\)</span>, and know <span class="math inline">\(P(G=1 \mid X=x)=\frac{\exp(\beta_0+\beta_1 x}{1+\exp(\beta_0+\beta_1 x}\)</span> where <span class="math inline">\(\beta_0=0\)</span> and <span class="math inline">\(\beta_1=0.8\)</span>. The Bayes classifier classifies to group <span class="math inline">\(1\)</span> if <span class="math inline">\(x&gt;0\)</span>, as shown below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L2_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>In practice we don´t know that this is true or the value for the two parameters <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, so we estimate from data.</p>
 <hr>
 </section>
 <section id="group-discussion" class="level2">
@@ -193,14 +204,14 @@ div.csl-indent {
 <ol type="1">
 <li>What do we know about classification? (TMA4268 and TMA4315 mainly, or ESL ch 4.1-4.5, except 4.4.4)</li>
 </ol>
-<p>Some possible variants:</p>
 <ul>
 <li>What is the difference between discrimination and classification?</li>
-<li>What are the sampling vs diagnostic paradigm? Which paradigm for <span class="math inline">\(k\)</span>NN and LDA?</li>
-<li>Parametric vs non-parametric methods?</li>
+<li>What are the sampling vs diagnostic paradigm? Give an example of one method of each type.</li>
+<li>Give an example of one parametric and one non-parametric classification method.</li>
 </ul>
 <ol start="2" type="1">
-<li>Logistic regression is by many seen as the “most important method in machine learning”. What do we remember about logistic regression?</li>
+<li><p>Logistic regression is by many seen as the “most important method in machine learning”. What do we remember about logistic regression? (Will be a very important method in Part 2.)</p></li>
+<li><p>What “changes” need to be done to 2) when we have <span class="math inline">\(K&gt;2\)</span> classes?</p></li>
 </ol>
 <hr>
 <p><strong>Resources</strong></p>
@@ -264,7 +275,7 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="group-activity">Group activity</h2>
 <ul>
 <li>Remind yourself on how this derivation was done and the meaning of each term.</li>
-<li>What is the role of <span class="math inline">\(x_0\)</span> here?</li>
+<li>What is the role of <span class="math inline">\(x_0\)</span> here? How can you get rid of <span class="math inline">\(x_0\)</span>?</li>
 </ul>
 <hr>
 <section id="derivation" class="level3">

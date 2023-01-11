@@ -100,19 +100,37 @@ The _Bayes classifier_ classifies to the most probable class using the condition
 
 <!-- Note: can also achieve the same result with dummy variable coding for classes and squared error. -->
 
+## Simple example
+
+Let assume we have $G=2$, $p=1$, and know $P(G=1 \mid X=x)=\frac{\exp(\beta_0+\beta_1 x}{1+\exp(\beta_0+\beta_1 x}$
+where $\beta_0=0$ and $\beta_1=0.8$. The Bayes classifier classifies to group $1$ if $x>0$, as shown below.
+
+```{r}
+library(ggplot2)
+expit=function(x) return(exp(x)/(1+exp(x)))
+beta0=0
+beta1=0.8 
+ggplot(data.frame(x = c(-6, 5)), aes(x)) + 
+  xlab(expression(x)) + 
+  ylab(expression(mu)) + 
+  stat_function(fun = function(x) expit(beta0+beta1*x), geom = "line", colour = "red")
+```
+
+In practice we don´t know that this is true or the value for the two parameters $\beta_0$ and $\beta_1$, so we estimate from data.
+
 ---
 
 ## Group discussion
 
 1) What do we know about classification? (TMA4268 and TMA4315 mainly, or ESL ch 4.1-4.5, except 4.4.4)
 
-Some possible variants:
+* What is the difference between discrimination and classification? 
+* What are the sampling vs diagnostic paradigm? Give an example of one method of each type.
+* Give an example of one parametric and one non-parametric classification method.
 
-* What is the difference between discrimination and classification?
-* What are the sampling vs diagnostic paradigm? Which paradigm for $k$NN and LDA?
-* Parametric vs non-parametric methods?
+2) Logistic regression is by many seen as the "most important method in machine learning". What do we remember about logistic regression? (Will be a very important method in Part 2.)
 
-2) Logistic regression is by many seen as the "most important method in machine learning". What do we remember about logistic regression?
+3) What "changes" need to be done to 2) when we have $K>2$ classes?
 
 ---
 
@@ -197,7 +215,7 @@ $$ \text{Err}(x_0)=\text{E}[(Y-\hat{f}(x_0))^2 \mid X=x_0]=\sigma_{\varepsilon}^
 ## Group activity
 
 * Remind yourself on how this derivation was done and the meaning of each term.
-* What is the role of $x_0$ here?
+* What is the role of $x_0$ here? How can you get rid of $x_0$?
 
 ---
 
