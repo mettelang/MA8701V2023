@@ -100,6 +100,8 @@ The _Bayes classifier_ classifies to the most probable class using the condition
 
 <!-- Note: can also achieve the same result with dummy variable coding for classes and squared error. -->
 
+---
+
 ## Simple example
 
 Let assume we have $G=2$, $p=1$, and know $P(G=1 \mid X=x)=\frac{\exp(\beta_0+\beta_1 x}{1+\exp(\beta_0+\beta_1 x}$
@@ -290,7 +292,7 @@ Explain what you see - in particular what are the red and blue lines and the bol
 ```{r}
 #http://zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/
 # options in r chunk settings
-# out.width="100%"
+# out.width="110%"
 # dpi=72
 
 include_graphics("ELSfig71.png")
@@ -348,6 +350,8 @@ $$\overline{\text{err}}=-\frac{2}{N}\sum_{i=1}^N \text{log}\hat{p}_{g_i}(x_i)$$
 ## Bayes classier, Bayes decision boundary and Bayes error rate
 
 Solve TMA4268 exam problem 9 in 2019 at <https://www.math.ntnu.no/emner/TMA4268/Exam/V2019e.pdf>
+
+---
 
 ## Key results from logistic regression
 
