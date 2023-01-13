@@ -72,7 +72,7 @@ What changes do we need to do for classifiation?
 * $X \in \Re^p$
 * $G \in {\cal G}=\{1,\ldots,K\}$
 * $\hat{G}(X) \in {\cal G}=\{1,\ldots,K\}$ (why $f$ for regression and $\hat{G}$ for classification? strange?)
-* $L(G,\hat{G}(X))$ is a $K\times K$ matrix where $K=\lvert G \rvert$, with elements $l_{jk}$ giving the price to pay to misclassify an observation with true class $g_j$ to class $g_k$. 
+* $L(G,\hat{G}(X))$ is a function with $K\times K$ possible values where $K=\lvert G \rvert$. We may present this as a matrix with with elements $l_{jk}$ giving the price to pay to misclassify an observation with true class $g_j$ to class $g_k$. 
 * Elements on the diagonal of $L$ is 0, and off-diagonal elements are often $1$.
 
 ---
@@ -395,7 +395,7 @@ OLS in Equation 7.11 on pages 222-223 of ESL: We solved this in 2019 in [https:/
 [Binary response from TMA4315 Module 3](https://www.math.ntnu.no/emner/TMA4315/2018h/3BinReg.html#how_to_model_a_binary_response)
 
 #### c) Parameter estimation
-[TMA4315 GLM Module 2](https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html#restricted_maximum_likelihood_estimator_for_({bf_sigma}^2))
+[TMA4315 GLM Module 2](https://www.math.ntnu.no/emner/TMA4315/2018h/3BinReg.html#likelihood_and_derivations_thereof_-_continued))
 
 #### d) Asymptotic distribution
 [TMA4315 GLM, module 5](https://www.math.ntnu.no/emner/TMA4315/2018h/5GLM.html#distribution_of_the_mle)

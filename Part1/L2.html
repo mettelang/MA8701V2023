@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-12">
+<meta name="dcterms.date" content="2023-01-13">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -126,7 +126,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 12, 2023</p>
+      <p class="date">January 13, 2023</p>
     </div>
   </div>
   
@@ -172,7 +172,7 @@ div.csl-indent {
 <li><span class="math inline">\(X \in \Re^p\)</span></li>
 <li><span class="math inline">\(G \in {\cal G}=\{1,\ldots,K\}\)</span></li>
 <li><span class="math inline">\(\hat{G}(X) \in {\cal G}=\{1,\ldots,K\}\)</span> (why <span class="math inline">\(f\)</span> for regression and <span class="math inline">\(\hat{G}\)</span> for classification? strange?)</li>
-<li><span class="math inline">\(L(G,\hat{G}(X))\)</span> is a <span class="math inline">\(K\times K\)</span> matrix where <span class="math inline">\(K=\lvert G \rvert\)</span>, with elements <span class="math inline">\(l_{jk}\)</span> giving the price to pay to misclassify an observation with true class <span class="math inline">\(g_j\)</span> to class <span class="math inline">\(g_k\)</span>.</li>
+<li><span class="math inline">\(L(G,\hat{G}(X))\)</span> is a function with <span class="math inline">\(K\times K\)</span> possible values where <span class="math inline">\(K=\lvert G \rvert\)</span>. We may present this as a matrix with with elements <span class="math inline">\(l_{jk}\)</span> giving the price to pay to misclassify an observation with true class <span class="math inline">\(g_j\)</span> to class <span class="math inline">\(g_k\)</span>.</li>
 <li>Elements on the diagonal of <span class="math inline">\(L\)</span> is 0, and off-diagonal elements are often <span class="math inline">\(1\)</span>.</li>
 </ul>
 <hr>
@@ -187,6 +187,7 @@ div.csl-indent {
 <p><span class="math display">\[=\text{argmax}_{g \in {\cal G}}P(G=g \mid X=x)\]</span></p>
 <p>The <em>Bayes classifier</em> classifies to the most probable class using the conditional distribution <span class="math inline">\(P(G \mid X)\)</span>. The class boundaries are the <em>Bayes decision boundaries</em> and the error rate is the <em>Bayes rate</em>.</p>
 <!-- Note: can also achieve the same result with dummy variable coding for classes and squared error. -->
+<hr>
 </section>
 <section id="simple-example" class="level2">
 <h2 class="anchored" data-anchor-id="simple-example">Simple example</h2>
@@ -377,6 +378,7 @@ div.csl-indent {
 <section id="bayes-classier-bayes-decision-boundary-and-bayes-error-rate" class="level2">
 <h2 class="anchored" data-anchor-id="bayes-classier-bayes-decision-boundary-and-bayes-error-rate">Bayes classier, Bayes decision boundary and Bayes error rate</h2>
 <p>Solve TMA4268 exam problem 9 in 2019 at <a href="https://www.math.ntnu.no/emner/TMA4268/Exam/V2019e.pdf" class="uri">https://www.math.ntnu.no/emner/TMA4268/Exam/V2019e.pdf</a></p>
+<hr>
 </section>
 <section id="key-results-from-logistic-regression" class="level2">
 <h2 class="anchored" data-anchor-id="key-results-from-logistic-regression">Key results from logistic regression</h2>
@@ -425,7 +427,7 @@ div.csl-indent {
 </section>
 <section id="c-parameter-estimation-1" class="level4">
 <h4 class="anchored" data-anchor-id="c-parameter-estimation-1">c) Parameter estimation</h4>
-<p><a href="https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html#restricted_maximum_likelihood_estimator_for_(%7Bbf_sigma%7D%5E2)">TMA4315 GLM Module 2</a></p>
+<p><a href="https://www.math.ntnu.no/emner/TMA4315/2018h/3BinReg.html#likelihood_and_derivations_thereof_-_continued">TMA4315 GLM Module 2</a>)</p>
 </section>
 <section id="d-asymptotic-distribution-1" class="level4">
 <h4 class="anchored" data-anchor-id="d-asymptotic-distribution-1">d) Asymptotic distribution</h4>
