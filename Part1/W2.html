@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-13">
+<meta name="dcterms.date" content="2023-01-15">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -77,16 +77,20 @@ div.csl-indent {
   <li><a href="#optimism" id="toc-optimism" class="nav-link" data-scroll-target="#optimism">Optimism</a></li>
   <li><a href="#average-optimism" id="toc-average-optimism" class="nav-link" data-scroll-target="#average-optimism">Average optimism</a></li>
   <li><a href="#covariance-result" id="toc-covariance-result" class="nav-link" data-scroll-target="#covariance-result">Covariance result</a></li>
+  <li><a href="#group-discussion" id="toc-group-discussion" class="nav-link" data-scroll-target="#group-discussion">Group discussion</a></li>
   </ul></li>
   <li><a href="#expected-in-sample-prediction-error" id="toc-expected-in-sample-prediction-error" class="nav-link" data-scroll-target="#expected-in-sample-prediction-error">Expected in-sample prediction error</a>
   <ul class="collapse">
   <li><a href="#result-for-omega" id="toc-result-for-omega" class="nav-link" data-scroll-target="#result-for-omega">Result for <span class="math inline">\(\omega\)</span></a></li>
+  <li><a href="#group-discussion-1" id="toc-group-discussion-1" class="nav-link" data-scroll-target="#group-discussion-1">Group discussion</a></li>
   </ul></li>
   <li><a href="#three-ways-to-perform-model-selection" id="toc-three-ways-to-perform-model-selection" class="nav-link" data-scroll-target="#three-ways-to-perform-model-selection">Three ways to perform model selection</a></li>
   <li><a href="#estimates-of-expected-in-sample-prediction-error" id="toc-estimates-of-expected-in-sample-prediction-error" class="nav-link" data-scroll-target="#estimates-of-expected-in-sample-prediction-error">Estimates of (expected) in-sample prediction error</a>
   <ul class="collapse">
   <li><a href="#c_p-statistics" id="toc-c_p-statistics" class="nav-link" data-scroll-target="#c_p-statistics"><span class="math inline">\(C_p\)</span> statistics</a></li>
   <li><a href="#akaike-information-criterion-aic" id="toc-akaike-information-criterion-aic" class="nav-link" data-scroll-target="#akaike-information-criterion-aic">Akaike information criterion (AIC)</a></li>
+  <li><a href="#expected-in-sample-prediction-error-for-binary-classification" id="toc-expected-in-sample-prediction-error-for-binary-classification" class="nav-link" data-scroll-target="#expected-in-sample-prediction-error-for-binary-classification">Expected in-sample prediction error for binary classification</a></li>
+  <li><a href="#group-discussion-2" id="toc-group-discussion-2" class="nav-link" data-scroll-target="#group-discussion-2">Group discussion</a></li>
   </ul></li>
   <li><a href="#the-effective-number-of-parameters" id="toc-the-effective-number-of-parameters" class="nav-link" data-scroll-target="#the-effective-number-of-parameters">The effective number of parameters</a></li>
   <li><a href="#cross-validation-cv" id="toc-cross-validation-cv" class="nav-link" data-scroll-target="#cross-validation-cv">Cross-validation (CV)</a>
@@ -95,6 +99,7 @@ div.csl-indent {
   <li><a href="#formal-set-up-for-model-selection" id="toc-formal-set-up-for-model-selection" class="nav-link" data-scroll-target="#formal-set-up-for-model-selection">Formal set-up for model selection</a></li>
   <li><a href="#choice-of-k" id="toc-choice-of-k" class="nav-link" data-scroll-target="#choice-of-k">Choice of <span class="math inline">\(K\)</span></a></li>
   <li><a href="#generalized-cross-validation-gcv" id="toc-generalized-cross-validation-gcv" class="nav-link" data-scroll-target="#generalized-cross-validation-gcv">Generalized cross-validation (GCV)</a></li>
+  <li><a href="#what-is-estimated" id="toc-what-is-estimated" class="nav-link" data-scroll-target="#what-is-estimated">What is estimated?</a></li>
   <li><a href="#the-wrong-and-the-right-way-to-do-cross-validation" id="toc-the-wrong-and-the-right-way-to-do-cross-validation" class="nav-link" data-scroll-target="#the-wrong-and-the-right-way-to-do-cross-validation">The wrong and the right way to do cross-validation</a></li>
   </ul></li>
   <li><a href="#bootstrap-methods" id="toc-bootstrap-methods" class="nav-link" data-scroll-target="#bootstrap-methods">Bootstrap methods</a></li>
@@ -106,6 +111,7 @@ div.csl-indent {
   <li><a href="#relate-the-covariance-to-the-trace-of-a-linear-smoother" id="toc-relate-the-covariance-to-the-trace-of-a-linear-smoother" class="nav-link" data-scroll-target="#relate-the-covariance-to-the-trace-of-a-linear-smoother">Relate the covariance to the trace of a linear smoother</a></li>
   <li><a href="#derive-the-estimate-of-in-sample-error" id="toc-derive-the-estimate-of-in-sample-error" class="nav-link" data-scroll-target="#derive-the-estimate-of-in-sample-error">Derive the estimate of in-sample error</a></li>
   <li><a href="#additive-error-model-effective-degrees-of-freedom" id="toc-additive-error-model-effective-degrees-of-freedom" class="nav-link" data-scroll-target="#additive-error-model-effective-degrees-of-freedom">Additive error model effective degrees of freedom</a></li>
+  <li><a href="#uio-stk-in4300stk-in9300-statistical-learning-methods-in-data-science" id="toc-uio-stk-in4300stk-in9300-statistical-learning-methods-in-data-science" class="nav-link" data-scroll-target="#uio-stk-in4300stk-in9300-statistical-learning-methods-in-data-science">UiO STK-IN4300/STK-IN9300 –– Statistical learning methods in Data Science</a></li>
   <li><a href="#comparing-methods" id="toc-comparing-methods" class="nav-link" data-scroll-target="#comparing-methods">Comparing methods</a></li>
   </ul></li>
   <li><a href="#solutions-to-exercises" id="toc-solutions-to-exercises" class="nav-link" data-scroll-target="#solutions-to-exercises">Solutions to exercises</a></li>
@@ -138,7 +144,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 13, 2023</p>
+      <p class="date">January 15, 2023</p>
     </div>
   </div>
   
@@ -205,13 +211,23 @@ div.csl-indent {
 <p>is defined as the expected value of the optimism, where the expectation is taken over the distribution of the training responses - denoted <span class="math inline">\({\mathbf y}\)</span> (training predictors still kept fixed):</p>
 <p><span class="math display">\[ \omega=\text{E}_{\mathbf y}(op)=\text{E}_{\mathbf y}(\text{Err}_{\text{in}})-\text{E}_{\mathbf y}(\overline{\text{err}})\]</span></p>
 <p>Observe that if we write <span class="math inline">\({\cal T}\)</span> then the expectation is taken over the distribution of both the predictors and responses in the training set, and we here write <span class="math inline">\({\mathbf y}\)</span> for taking the distribution only over the reponses in the training set (not the predictors in the training set).</p>
-<p>So: we will focus on “modelling” <span class="math inline">\(\omega\)</span>, “instead of” <span class="math inline">\(\text{Err}\)</span>.</p>
+<p>We will focus on “modelling” <span class="math inline">\(\omega\)</span>, “instead of” <span class="math inline">\(\text{Err}\)</span>.</p>
 <hr>
 </section>
 <section id="covariance-result" class="level2">
 <h2 class="anchored" data-anchor-id="covariance-result">Covariance result</h2>
-<p>For squared error (see ESL Exercise 7.4), 0-1 loss, and “other loss functions” it can be shown</p>
-<p><span class="math display">\[ \omega=\frac{2}{N} \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)\]</span> Interpretation:</p>
+<p>For squared error, 0-1 loss, and “other loss functions” it can be shown</p>
+<p><span class="math display">\[ \omega=\frac{2}{N} \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)\]</span></p>
+</section>
+<section id="group-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="group-discussion">Group discussion</h2>
+<ol type="1">
+<li>Give an interpretation of the result.</li>
+<li>How do you think this result can be used?</li>
+<li>Study the derivation of the covariance formula for squared loss. This is Exercise 7.4 and solutions are available <a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ESLe74add.pdf">here</a> and in the <a href="https://waxworksmath.com/Authors/G_M/Hastie/hastie.html">ESL solutions to exercises</a>.</li>
+</ol>
+<hr>
+<p>Interpretation:</p>
 <ul>
 <li>how much the training error <em>underestimates</em> the true error depends on how strongly the observed response <span class="math inline">\(y_i\)</span> affects its own prediction <span class="math inline">\(\hat{y}_i\)</span>.</li>
 <li>the <em>harder</em> we fit the data the greater the covariance - which increases the expected (averaged) optimism.</li>
@@ -226,7 +242,20 @@ div.csl-indent {
 <section id="result-for-omega" class="level2">
 <h2 class="anchored" data-anchor-id="result-for-omega">Result for <span class="math inline">\(\omega\)</span></h2>
 <p>Additive error model and squared loss: <span class="math inline">\(Y=f(X)+\varepsilon\)</span>, with <span class="math inline">\(\hat{y}_i\)</span> obtained by a linear fit with <span class="math inline">\(d\)</span> inputs (or basis functions) <span class="math display">\[\omega=2 \frac{d}{N}\sigma_{\varepsilon}^2\]</span></p>
-<p>Proof? We look at a generalization in ESL exercise 7.5.</p>
+<p>Proof: ESL <a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ESLe71.pdf">7.1</a></p>
+<hr>
+<p>For the proof: Remember that the trace of a square matrix is the sum of the diagonal elements, and trace is often denoted tr.</p>
+<p>What is the trace (tr) for MLR?</p>
+<p><span class="math inline">\(\text{tr}({\mathbf H})=\text{tr}({\mathbf X}({\mathbf X}^T{\mathbf X})^{-1}{\mathbf X}^T)=\text{tr}(({\mathbf X}^T{\mathbf X})^{-1}{\mathbf X}^T{\mathbf X})=\text{tr}({\mathbf I})_{p+1}=(p+1)\)</span> if intercept model with <span class="math inline">\(p\)</span> covariates.</p>
+<hr>
+</section>
+<section id="group-discussion-1" class="level2">
+<h2 class="anchored" data-anchor-id="group-discussion-1">Group discussion</h2>
+<ul>
+<li>Comment on the derivation of <span class="math inline">\(\omega\)</span> - anything unclear?</li>
+<li>How does <span class="math inline">\(d\)</span> and <span class="math inline">\(N\)</span> and <span class="math inline">\(\sigma^2_{\varepsilon}\)</span> influence the average optimism?</li>
+</ul>
+<hr>
 <p>Observe that the optimism increases with <span class="math inline">\(d\)</span> and decreases with <span class="math inline">\(N\)</span>.</p>
 <p>Comment: versions of the formula hold approximately for other error models than linear with squared loss (ESL mention binary data and entropy loss), but not in general for 0-1 loss (page 231, bottom, with reference to Efron 1986 - consult the ESL book).</p>
 <hr>
@@ -280,6 +309,20 @@ div.csl-indent {
 <p>This is not true if the models are chosen adaptively (for example basis functions) this formula underestimates the optimism - and we may regard this as the <em>effective number of parameters</em> is larger than <span class="math inline">\(d\)</span>.</p>
 <hr>
 </section>
+<section id="expected-in-sample-prediction-error-for-binary-classification" class="level2">
+<h2 class="anchored" data-anchor-id="expected-in-sample-prediction-error-for-binary-classification">Expected in-sample prediction error for binary classification</h2>
+<p>(<span class="citation" data-cites="casi">Efron and Hastie (<a href="#ref-casi" role="doc-biblioref">2016</a>)</span> page 225)</p>
+<p>Misclassification loss function: <span class="math inline">\(L(\hat{G}(X),G)=1\)</span> for incorrect classification and <span class="math inline">\(0\)</span> for correct.</p>
+<p>The training error is then <span class="math inline">\(\overline{\text{err}}=(\#{(\hat{G}_i\neq G_i}))/N\)</span>.</p>
+<p>The insample error is then <span class="math inline">\(\frac{1}{N}\sum_{i=1}^N P(G_{0i}(X_i)\neq \hat{G}(X_i))\)</span>.</p>
+<p>The estimate of (expected) in-sample prediction error is then <span class="math display">\[ \widehat{\text{Err}_{\text in}}=\frac{\#{(\hat{G}_i\neq G_i})}{N}+\frac{2}{N}\sum_{i=1}^N \text{Cov}(\hat{G}(X_i),G(X_i))\]</span> where <span class="math display">\[\text{Cov}(\hat{G}(X_i),G(X_i))=\text{E}(\hat{G}(X_i)\cdot G(X_i))-\text{E}(\hat{G}(X_i))\cdot \text{E}(G(X_i))\]</span> <span class="math display">\[=\mu_i (1-\mu_i)[P(\hat{G}(X_i)=1 \mid G(X_i)=1)-P(\hat{G}(X_i)=1 \mid G(X_i)=0)]\]</span> where <span class="math inline">\(\mu_i=P(G(X_i)=1)\)</span>.</p>
+<hr>
+</section>
+<section id="group-discussion-2" class="level2">
+<h2 class="anchored" data-anchor-id="group-discussion-2">Group discussion</h2>
+<p>What is the take home message from this part on “Estimates of (expected) in-sample prediction error”?</p>
+<hr>
+</section>
 </section>
 <section id="the-effective-number-of-parameters" class="level1">
 <h1>The effective number of parameters</h1>
@@ -293,10 +336,6 @@ div.csl-indent {
 </ul>
 <p>The effective number of parameters is</p>
 <p><span class="math display">\[\text{df}({\mathbf S})=\text{trace}({\mathbf S})\]</span></p>
-<hr>
-<p>Remember that the trace of a square matrix is the sum of the diagonal elements, and trace is often denoted tr.</p>
-<p>What is the trace (tr) for MLR?</p>
-<p><span class="math inline">\(\text{tr}({\mathbf H})=\text{tr}({\mathbf X}({\mathbf X}^T{\mathbf X})^{-1}{\mathbf X}^T)=\text{tr}(({\mathbf X}^T{\mathbf X})^{-1}{\mathbf X}^T{\mathbf X})=\text{tr}({\mathbf I})_{p+1}=(p+1)\)</span> if intercept model with <span class="math inline">\(p\)</span> covariates.</p>
 <hr>
 <p><strong>Additive error model and squared loss:</strong> <span class="math inline">\(Y=f(X)+\varepsilon\)</span> with <span class="math inline">\(\text{Var}(\varepsilon)=\sigma_{\varepsilon}^2\)</span> then <span class="math display">\[ \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)=\text{trace}({\mathbf S})\sigma_{\varepsilon}^2\]</span> leading to a generalization <span class="math display">\[\text{df}(\hat{{\mathbf y}})=\frac{\sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)}{\sigma_{\varepsilon}^2}\]</span> See exercise 7.5 to prove this.</p>
 <!-- We return to this formula when we look at neural networks with quadratic penalization (weigth decay, ridge regularization) in Part 2.  -->
@@ -314,7 +353,7 @@ div.csl-indent {
 <ul>
 <li><p>The allocation of observation <span class="math inline">\(\{1,\ldots,N\}\)</span> to folds <span class="math inline">\(\{1,\ldots,K\}\)</span> is done using an indexing function <span class="math inline">\(\kappa: \{1,\ldots,N\} \rightarrow \{1,\ldots,K\}\)</span>, that for each observation allocate the observation to one of <span class="math inline">\(K\)</span> folds.</p></li>
 <li><p>Further, <span class="math inline">\(\hat{f}^{-k}(x)\)</span> is the fitted function, computed on the observations except the <span class="math inline">\(k\)</span>th fold (the observations from the <span class="math inline">\(k\)</span>th fold is removed).</p></li>
-<li><p>The CV estimate of the expected prediction error <span class="math inline">\(\text{Err}=\text{Err}=\text{E}_{\cal T} \text{E}_{X^0,Y^0}[L(Y^0,\hat{f}(X^0))\mid {\cal T}]\)</span> is then <span class="math display">\[ \text{CV}(\hat{f})=\frac{1}{N}\sum_{i=1}^N L(y_i,\hat{f}^{-k(i)}(x_i))\]</span></p></li>
+<li><p>The CV estimate of the expected prediction error <span class="math inline">\(\text{Err}=\text{E}_{\cal T} \text{E}_{X^0,Y^0}[L(Y^0,\hat{f}(X^0))\mid {\cal T}]\)</span> is then <span class="math display">\[ \text{CV}(\hat{f})=\frac{1}{N}\sum_{i=1}^N L(y_i,\hat{f}^{-k(i)}(x_i))\]</span></p></li>
 </ul>
 <hr>
 </section>
@@ -346,6 +385,11 @@ div.csl-indent {
 <p><span class="math display">\[ \text{GCV}(\hat{f})=\frac{1}{N}\sum_{i=1}^N [\frac{y_i-\hat{f}(x_i)}{1-\text{tr}({\mathbf S})/N}]^2\]</span> where we recognise the effective number of parameters <span class="math inline">\(\text{trace}({\mathbf S})\)</span>. In some settings the <span class="math inline">\(\text{trace}({\mathbf S})\)</span> is computed more easily than the individual elements <span class="math inline">\(S_{ii}\)</span>.</p>
 <hr>
 </section>
+<section id="what-is-estimated" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-estimated">What is estimated?</h2>
+<p><span class="citation" data-cites="casi">Efron and Hastie (<a href="#ref-casi" role="doc-biblioref">2016</a>)</span> page 218: “<span class="math inline">\(\text{CV}(\hat{f})\)</span> is estimating the average prediction error of the algorithm producing <span class="math inline">\(\hat{f}\)</span>, not <span class="math inline">\(\hat{f}\)</span> itself”.</p>
+<hr>
+</section>
 <section id="the-wrong-and-the-right-way-to-do-cross-validation" class="level2">
 <h2 class="anchored" data-anchor-id="the-wrong-and-the-right-way-to-do-cross-validation">The wrong and the right way to do cross-validation</h2>
 <p>In short: make sure that all part of the model fit process is “inside” the CV.</p>
@@ -358,18 +402,18 @@ div.csl-indent {
 <p>(ESL Ch 7.11 - bootstrapping is known from TMA4268 and TMA4300, but not the special case of estimating <span class="math inline">\(\text{Err}\)</span>). <a href="https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample.html#the_bootstrap">Bootstrap in TMA4268: Module 5</a></p>
 <p><strong>Notation:</strong> <span class="math inline">\({\mathbf Z}=(z_1,\ldots,z_N)\)</span> is the training set with <span class="math inline">\(z_i=(x_i,y_i)\)</span>.</p>
 <p><strong>Aim:</strong> Of interest is some quantity calculated from the data <span class="math inline">\({\mathbf Z}\)</span>, denoted <span class="math inline">\(S({\mathbf Z})\)</span>. We will have focus on the expected prediction error.</p>
-<p><strong>Resampling:</strong> We draw with replacement from <span class="math inline">\({\mathbf Z}\)</span> a total of <span class="math inline">\(N\)</span> observastions into <span class="math inline">\({\mathbf Z}^{*b}\)</span>. We repeat this <span class="math inline">\(B\)</span> times.</p>
+<p><strong>Resampling:</strong> We draw with replacement from <span class="math inline">\({\mathbf Z}\)</span> a total of <span class="math inline">\(N\)</span> observations into <span class="math inline">\({\mathbf Z}^{*b}\)</span>. We repeat this <span class="math inline">\(B\)</span> times.</p>
 <p><strong>Estimator for expected predicted error <span class="math inline">\(\text{Err}\)</span>:</strong></p>
 <p><span class="math display">\[\widehat{\text{Err}}_{\text{boot}}=\frac{1}{B}\frac{1}{N}\sum_{b=1}^B \sum_{i=1}^N L(y_i,\hat{f}^{*b}(x_i))\]</span></p>
 <hr>
 <p>However - <span class="math inline">\(\widehat{\text{Err}}_{\text{boot}}\)</span> is not a good estimator: bootstrap datasets are acting as training data and the original data as a test sample - and the two samples have observations in common.</p>
-<p>This overlap can make predictions too good. Remeber, in CV we have no overlap.</p>
+<p>This overlap can make predictions too good. Remember, in CV we have no overlap.</p>
 <p><strong>Q:</strong> What is the probability that observation <span class="math inline">\(i\)</span> is included in bootstrap sample <span class="math inline">\(b\)</span>?</p>
 <hr>
 <p>The problem is given in TMA4268 Module 5 as <a href="https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample.html#recexboot">Problem 1</a> with (handwritten) <a href="https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample-sol.pdf">solutions</a>.</p>
 <p>The answer is <span class="math inline">\(1-(1-\frac{1}{N})^N\approx 1-e^{-1}=0.632\)</span>.</p>
 <p>Why is this relevant?</p>
-<p>What if we try to change the bootstrap <span class="math inline">\(\text{Err}\)</span> estimator - so that we for each observation <span class="math inline">\(i\)</span> only keep predictions from bootstrap samples this observation is not present? Then we would mimick the CV-estimator.</p>
+<p>What if we try to change the bootstrap <span class="math inline">\(\text{Err}\)</span> estimator - so that we for each observation <span class="math inline">\(i\)</span> only keep predictions from bootstrap samples where this observation is not present? Then we would mimic the CV-estimator.</p>
 <hr>
 <p>The <em>leave-one-out</em> bootstrap estimate:</p>
 <p><span class="math display">\[\widehat{\text{Err}}^{(1)}=\frac{1}{N} \sum_{i=1}^N \frac{1}{\lvert C^{-i} \rvert} \sum_{b \in C^{-i}} L(y_i,\hat{f}^{*b}(x_i))\]</span> where <span class="math inline">\(C^{-i}\)</span> are the indices in the bootstrap sample <span class="math inline">\(b\)</span> that do not contain observation <span class="math inline">\(i\)</span>, and <span class="math inline">\(\lvert C^{-i} \rvert\)</span> is the number of samples. (<span class="math inline">\(B\)</span> must be large enough that we do not get any <span class="math inline">\(C^{-i}\)</span>s that are empty, or leave out these zero sets in the formula.)</p>
@@ -382,7 +426,7 @@ div.csl-indent {
 <hr>
 <p>According to ESL (page 251): the derivation of the .632 estimator is complex, and the estimator is expected to work well in situation where the data is not overfitted, but may break down in overfit situations.</p>
 <p>According to CASI (page 323) the .632 rule is less variable than the leave-one-out CV.</p>
-<p>Example of this on page 251-252: two equal size classes where predictors independent of class, classification with <span class="math inline">\(1\)</span>NN gives <span class="math inline">\(\overline{\text{err}}=0\)</span>, <span class="math inline">\(\widehat{\text{Err}}^{(1)}=0.5\)</span> and thus <span class="math inline">\(\widehat{\text{Err}}^{(.632)}=0.632\cdot 0.5=0.316\)</span>, where here the true error rate is <span class="math inline">\(0.5\)</span>.</p>
+<p>Example of this on page 251-252: two equal size classes where predictors independent of class, classification with <span class="math inline">\(1\)</span>NN gives <span class="math inline">\(\overline{\text{err}}=0\)</span> and <span class="math inline">\(\widehat{\text{Err}}^{(1)}=0.5\)</span> and thus <span class="math inline">\(\widehat{\text{Err}}^{(.632)}=0.632\cdot 0.5=0.316\)</span>, where here the true error rate is <span class="math inline">\(0.5\)</span>.</p>
 <hr>
 <p>There is an improved version of the estimator - taking into account the amount of overfitting, leading to an adjustment to the weight <span class="math inline">\(w=0.632\)</span> (and <span class="math inline">\(1-w=0.368\)</span>) dependent on a socalled <em>no-information error rate</em>=<span class="math inline">\(\gamma\)</span>=the error rate of the prediction rule when predictors and class labels are independent.</p>
 <p><span class="math display">\[\hat{\gamma}=\frac{1}{N^2}\sum_{i=1}^{N}\sum_{i´=1}^N L(y_i,\hat{f}(x_{i´}))\]</span> Further the <em>relative overfitting rate</em> is defined to be</p>
@@ -395,7 +439,7 @@ div.csl-indent {
 </section>
 <section id="conclusions-model-selection-and-assessment-and-future-use" class="level1">
 <h1>Conclusions: Model selection and assessment and future use</h1>
-<p><strong>Group discussion:</strong> Construct a “mind map”/“overview sheet”/“concept map” for the “Model assessement and selection” topics, and write down important take home messages!</p>
+<p><strong>Group discussion:</strong> Construct a “mind map” or “overview sheet” or “concept map” for the “Model assessment and selection” topics, and write down important take home messages!</p>
 <hr>
 <!-- * in a perfect world we would be rich on data and can divide available data into sets for training, validation and testing -->
 <!-- * cool covariance-result on expected optimism for training error related to in-sample prediction error (the covariance) - that is used for finding model selection criteria (but not for model assessment) -->
@@ -410,26 +454,40 @@ div.csl-indent {
 </section>
 <section id="establish-the-average-optimism-in-the-training-error" class="level2">
 <h2 class="anchored" data-anchor-id="establish-the-average-optimism-in-the-training-error">Establish the average optimism in the training error</h2>
-<p>Exercise 7.4</p>
+<p><span class="math display">\[ \omega=\frac{2}{N} \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)\]</span> Exercise 7.4</p>
 <hr>
 </section>
 <section id="relate-the-covariance-to-the-trace-of-a-linear-smoother" class="level2">
 <h2 class="anchored" data-anchor-id="relate-the-covariance-to-the-trace-of-a-linear-smoother">Relate the covariance to the trace of a linear smoother</h2>
 <p>Exercise 7.5</p>
-<p>Need to know about covariance and variance of linear combinations. The reading list in TMA4267 included Härdle and Simar (2015): Applied Multivariate Statistical Analysis (fourth edition) - <a href="https://www.springer.com/gp/book/9783662451717">ebook from Springer available at NTNU</a>. Alternatively [classnotes from TMA4267 (page 58-59)] (https://www.math.ntnu.no/emner/TMA4267/2017v/TMA4267V2017Part1.pdf)</p>
+<p>Need to know about covariance and variance of linear combinations. The reading list in TMA4267 included Härdle and Simar (2015): Applied Multivariate Statistical Analysis (fourth edition) - <a href="https://www.springer.com/gp/book/9783662451717">ebook from Springer available at NTNU</a>. Alternatively <a href="https://www.math.ntnu.no/emner/TMA4267/2017v/TMA4267V2017Part1.pdf">classnotes from TMA4267 (page 58-59)</a></p>
 <hr>
 </section>
 <section id="derive-the-estimate-of-in-sample-error" class="level2">
 <h2 class="anchored" data-anchor-id="derive-the-estimate-of-in-sample-error">Derive the estimate of in-sample error</h2>
 <p>for the additive error model <span class="math display">\[Y=f(X)+\varepsilon\]</span> of Eq (7.24):</p>
-<p><span class="math display">\[ \text{E}_{y}(\text{Err}_{\text{in}})=\text{E}_{y}(\bar{\text{err}})+2 \cdot \frac{d}{N} \sigma^2_{\varepsilon}\]</span></p>
-<p>Exercise 7.1</p>
+<p><span class="math display">\[ \text{E}_{y}(\text{Err}_{\text{in}})=\text{E}_{y}(\bar{\text{err}})+2 \cdot \frac{d}{N} \sigma^2_{\varepsilon}\]</span> Prove this for the MLR OLS solution.</p>
 <hr>
 </section>
 <section id="additive-error-model-effective-degrees-of-freedom" class="level2">
 <h2 class="anchored" data-anchor-id="additive-error-model-effective-degrees-of-freedom">Additive error model effective degrees of freedom</h2>
 <p>Exercise 7.6</p>
 <p>Show that for an additive-error model, the eﬀective degrees-of freedom for the <span class="math inline">\(k\)</span>-nearest-neighbors regression ﬁt is <span class="math inline">\(N/k\)</span>.</p>
+<p>Hint: write this as a linear smoother.</p>
+</section>
+<section id="uio-stk-in4300stk-in9300-statistical-learning-methods-in-data-science" class="level2">
+<h2 class="anchored" data-anchor-id="uio-stk-in4300stk-in9300-statistical-learning-methods-in-data-science">UiO STK-IN4300/STK-IN9300 –– Statistical learning methods in Data Science</h2>
+<p>Exam 2018, Problem 2: Bootstrapping for model evaluation</p>
+<p>Consider the following procedure to estimate the prediction error:</p>
+<ol type="1">
+<li><p>generate <span class="math inline">\(B\)</span> bootstrap samples <span class="math inline">\(z_1,z_2,\ldots, z_B\)</span> where <span class="math inline">\(z_b=\{(y_1^*,x_1^*),\ldots,(y_N^*,x_N^*)\}\)</span>, <span class="math inline">\(b=1,\ldots,B\)</span> and <span class="math inline">\((y_i^*,x_i^*)\)</span>, <span class="math inline">\(i = 1, . . . , N\)</span>, is an observation sampled from the original dataset;</p></li>
+<li><p>apply the prediction rule to each bootstrap sample to derive the preditions <span class="math inline">\(\hat{f}_b^*(x_i)\)</span>, <span class="math inline">\(b=1,\ldots,B\)</span>.</p></li>
+<li><p>compute the error for each point, and take the average, <span class="math display">\[\widehat{\text{Err}}_{\text{boot}}=\frac{1}{B}\sum_{b=1}^B \frac{1}{N}\sum_{i=1}^N L(y_i,\hat{f}_b^*(x_i))\]</span></p></li>
+</ol>
+<ol type="a">
+<li><p>Explain why this procedure is incorrect and suggest a diﬀerent way to proceed which still uses a bootstrap approach.</p></li>
+<li><p>Describe the 0.632 bootstrap and the 0.632+ bootstrap procedures, explaining in particular the rationale behind their construction.</p></li>
+</ol>
 </section>
 <section id="comparing-methods" class="level2">
 <h2 class="anchored" data-anchor-id="comparing-methods">Comparing methods</h2>
@@ -442,12 +500,25 @@ div.csl-indent {
 <p>Please try yourself first, or take a small peek - and try some more - before fully reading the solutions. Report errors or improvements to <a href="mailto:Mette.Langaas@ntnu.no" class="email">Mette.Langaas@ntnu.no</a>. (The solutions given here are very similar to the UiO STK-IN4300 solutions, see link under References.)</p>
 <ul>
 <li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe29.pdf">2.9</a></li>
-<li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe74.pdf">7.4</a></li>
+<li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ESLe74add.pdf">7.4</a></li>
 <li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe75.pdf">7.5</a></li>
-<li>7.1</li>
-<li>7.6</li>
+<li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ESLe71.pdf">7.1</a></li>
+<li><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/ESLe76.pdf">7.6</a></li>
 <li>Solution from Hastie: <a href="https://waxworksmath.com/Authors/G_M/Hastie/Code/Chapter7/Exericse_7_9.R">7.9</a> also using <a href="https://waxworksmath.com/Authors/G_M/Hastie/Code/Chapter7/utils.R">utils.R</a></li>
 </ul>
+<section id="uio-stk-in4300stk-in9300-solutions-from-uio" class="level3">
+<h3 class="anchored" data-anchor-id="uio-stk-in4300stk-in9300-solutions-from-uio">UiO STK-IN4300/STK-IN9300 Solutions (from UiO)</h3>
+<ol type="a">
+<li>The procedure is incorrect because the prediction error is computed on observations already used to train the prediction rule. This lead to underestimation of the error (writing “too optimistic” was acceptable).</li>
+</ol>
+<p>A possible solution is to compute the prediction error only on those observations (in average 36.8% of the original sample) not included in the bootstrap sample. Since this approach leads to overestimating the prediction error, solutions like those described in the point (b) has been implemented.</p>
+<ol start="2" type="a">
+<li>The 0.632 bootstrap procedure addresses the problem of overestimation of the correct procedure described in point (a) by averaging it (with weight 0.632 and 0.368, respectively) with the training error (underestimated error). The result is a sort of compromise between overestimation and underestimation.</li>
+</ol>
+<p><span class="math display">\[\widehat{\text{Err}}^{(\text{0.632})}=0.632 \cdot  \widehat{\text{Err}}^{(1)}+0.368 \cdot \overline{\text{err}}\]</span> where <span class="math inline">\(\overline{\text{err}}\)</span> is the training error and <span class="math inline">\(\widehat{\text{Err}}^{(1)}\)</span> the corrected procedure decribed in (a). Since the <span class="math inline">\(0.632\)</span> and <span class="math inline">\(0.382\)</span> weights may not be the best choice (e.g., in case of complete overﬁtting in the training set), the 0.632+ bootstrap has been developed. In the latter procedure,</p>
+<p><span class="math display">\[\widehat{\text{Err}}^{(\text{0.632+})}=\hat{w} \cdot  \widehat{\text{Err}}^{(1)}+ (1-\hat{w}) \cdot \overline{\text{err}}\]</span></p>
+<p>the weights depend on the relative overﬁtting rate, so the 0.632+ bootstrap can be seen as a better compromise between the overestimation and underestimation of the prediction error done by the corrected procedure described at point (a) and the training error, respectively.</p>
+</section>
 </section>
 <section id="reference-links" class="level1">
 <h1>Reference links</h1>

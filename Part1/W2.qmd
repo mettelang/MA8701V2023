@@ -106,15 +106,24 @@ $$ \omega=\text{E}_{\mathbf y}(op)=\text{E}_{\mathbf y}(\text{Err}_{\text{in}})-
 
 Observe that if we write ${\cal T}$ then the expectation is taken over the distribution of both the predictors and responses in the training set, and we here write ${\mathbf y}$ for taking the distribution only over the reponses in the training set (not the predictors in the training set). 
 
-So: we will focus on "modelling" $\omega$, "instead of" $\text{Err}$.
+We will focus on "modelling" $\omega$, "instead of" $\text{Err}$.
 
 ---
 
 ## Covariance result
 
-For squared error (see ESL Exercise 7.4), 0-1 loss, and "other loss functions" it can be shown
+For squared error, 0-1 loss, and "other loss functions" it can be shown
 
 $$ \omega=\frac{2}{N} \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)$$
+
+## Group discussion
+
+1) Give an interpretation of the result. 
+2) How do you think this result can be used?
+3) Study the derivation of the covariance formula for squared loss. This is Exercise 7.4 and solutions are available [here](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ESLe74add.pdf) and in the [ESL solutions to exercises](https://waxworksmath.com/Authors/G_M/Hastie/hastie.html).
+
+---
+
 Interpretation: 
 
 * how much the training error _underestimates_ the true error depends on how strongly the observed response $y_i$ affects its own prediction $\hat{y}_i$.
@@ -134,7 +143,24 @@ This is the starting point for several methods to "penalize" fitting complex mod
 Additive error model and squared loss: $Y=f(X)+\varepsilon$, with $\hat{y}_i$ obtained by a linear fit with $d$ inputs (or basis functions)
 $$\omega=2 \frac{d}{N}\sigma_{\varepsilon}^2$$
 
-Proof? We look at a generalization in ESL exercise 7.5.
+Proof: ESL [7.1](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ESLe71.pdf)
+
+---
+
+For the proof: Remember that the trace of a square matrix is the sum of the diagonal elements, and trace is often denoted tr.
+
+What is the trace (tr) for MLR? 
+
+$\text{tr}({\mathbf H})=\text{tr}({\mathbf X}({\mathbf X}^T{\mathbf X})^{-1}{\mathbf X}^T)=\text{tr}(({\mathbf X}^T{\mathbf X})^{-1}{\mathbf X}^T{\mathbf X})=\text{tr}({\mathbf I})_{p+1}=(p+1)$ if intercept model with $p$ covariates.
+
+---
+
+## Group discussion
+
+* Comment on the derivation of $\omega$ - anything unclear?
+* How does $d$ and $N$ and $\sigma^2_{\varepsilon}$ influence the average optimism?
+
+---
 
 Observe that the optimism increases with $d$ and decreases with $N$.
 
@@ -214,6 +240,30 @@ This is not true if the models are chosen adaptively (for example basis function
 
 ---
 
+## Expected in-sample prediction error for binary classification
+(@casi page 225)
+
+Misclassification loss function: $L(\hat{G}(X),G)=1$ for incorrect classification and $0$ for correct.
+
+The training error is then $\overline{\text{err}}=(\#{(\hat{G}_i\neq G_i}))/N$.
+
+The insample error is then $\frac{1}{N}\sum_{i=1}^N P(G_{0i}(X_i)\neq \hat{G}(X_i))$. 
+
+The estimate of (expected) in-sample prediction error is then
+$$ \widehat{\text{Err}_{\text in}}=\frac{\#{(\hat{G}_i\neq G_i})}{N}+\frac{2}{N}\sum_{i=1}^N \text{Cov}(\hat{G}(X_i),G(X_i))$$
+where
+$$\text{Cov}(\hat{G}(X_i),G(X_i))=\text{E}(\hat{G}(X_i)\cdot G(X_i))-\text{E}(\hat{G}(X_i))\cdot \text{E}(G(X_i))$$
+$$=\mu_i (1-\mu_i)[P(\hat{G}(X_i)=1 \mid G(X_i)=1)-P(\hat{G}(X_i)=1 \mid G(X_i)=0)]$$
+where $\mu_i=P(G(X_i)=1)$.
+
+---
+
+## Group discussion
+
+What is the take home message from this part on "Estimates of (expected) in-sample prediction error"?
+
+---
+
 # The effective number of parameters
 (ESL 7.6)
 
@@ -231,13 +281,6 @@ The effective number of parameters is
 $$\text{df}({\mathbf S})=\text{trace}({\mathbf S})$$
 ---
 
-Remember that the trace of a square matrix is the sum of the diagonal elements, and trace is often denoted tr.
-
-What is the trace (tr) for MLR? 
-
-$\text{tr}({\mathbf H})=\text{tr}({\mathbf X}({\mathbf X}^T{\mathbf X})^{-1}{\mathbf X}^T)=\text{tr}(({\mathbf X}^T{\mathbf X})^{-1}{\mathbf X}^T{\mathbf X})=\text{tr}({\mathbf I})_{p+1}=(p+1)$ if intercept model with $p$ covariates.
-
----
 
 **Additive error model and squared loss:** $Y=f(X)+\varepsilon$ with $\text{Var}(\varepsilon)=\sigma_{\varepsilon}^2$ then 
 $$ \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)=\text{trace}({\mathbf S})\sigma_{\varepsilon}^2$$
@@ -266,7 +309,7 @@ What to do when both is needed, is not covered in this chapter. Nested cross-val
 
 * Further, $\hat{f}^{-k}(x)$ is the fitted function, computed on the observations except the $k$th fold (the observations from the $k$th fold is removed).
 
-* The CV estimate of the expected prediction error $\text{Err}=\text{Err}=\text{E}_{\cal T} \text{E}_{X^0,Y^0}[L(Y^0,\hat{f}(X^0))\mid {\cal T}]$ is then 
+* The CV estimate of the expected prediction error $\text{Err}=\text{E}_{\cal T} \text{E}_{X^0,Y^0}[L(Y^0,\hat{f}(X^0))\mid {\cal T}]$ is then 
 $$ \text{CV}(\hat{f})=\frac{1}{N}\sum_{i=1}^N L(y_i,\hat{f}^{-k(i)}(x_i))$$
 
 ---
@@ -307,6 +350,13 @@ where we recognise the effective number of parameters $\text{trace}({\mathbf S})
 
 ---
 
+## What is estimated?
+
+@casi page 218: "$\text{CV}(\hat{f})$ is estimating the average prediction error of the algorithm producing $\hat{f}$, not $\hat{f}$ itself".
+
+---
+
+
 ## The wrong and the right way to do cross-validation
 
 In short: make sure that all part of the model fit process is "inside" the CV.
@@ -322,7 +372,7 @@ See learning material from TMA4268: [Module 5: Resampling](https://www.math.ntnu
 
 **Aim:** Of interest is some quantity calculated from the data ${\mathbf Z}$, denoted $S({\mathbf Z})$. We will have focus on the expected prediction error. 
 
-**Resampling:** We draw with replacement from ${\mathbf Z}$ a total of $N$ observastions into ${\mathbf Z}^{*b}$. We repeat this $B$ times.
+**Resampling:** We draw with replacement from ${\mathbf Z}$ a total of $N$ observations into ${\mathbf Z}^{*b}$. We repeat this $B$ times.
 
 **Estimator for expected predicted error $\text{Err}$:**
 
@@ -332,7 +382,7 @@ $$\widehat{\text{Err}}_{\text{boot}}=\frac{1}{B}\frac{1}{N}\sum_{b=1}^B \sum_{i=
 
 However - $\widehat{\text{Err}}_{\text{boot}}$ is not a good estimator: bootstrap datasets are acting as training data and the original data as a test sample - and the two samples have observations in common.
 
-This overlap can make predictions too good. Remeber, in CV we have no overlap.
+This overlap can make predictions too good. Remember, in CV we have no overlap.
 
 **Q:** What is the probability that observation $i$ is included in bootstrap sample $b$?
 
@@ -346,7 +396,7 @@ The answer is $1-(1-\frac{1}{N})^N\approx 1-e^{-1}=0.632$.
 
 Why is this relevant?
 
-What if we try to change the bootstrap $\text{Err}$ estimator - so that we for each observation $i$ only keep predictions from bootstrap samples this observation is not present? Then we would mimick the CV-estimator.
+What if we try to change the bootstrap $\text{Err}$ estimator - so that we for each observation $i$ only keep predictions from bootstrap samples where this observation is not present? Then we would mimic the CV-estimator.
 
 ---
 
@@ -373,7 +423,7 @@ According to ESL (page 251): the derivation of the .632 estimator is complex, an
 
 According to CASI (page 323) the .632 rule is less variable than the leave-one-out CV. 
 
-Example of this on page 251-252: two equal size classes where predictors independent of class, classification with $1$NN gives $\overline{\text{err}}=0$, $\widehat{\text{Err}}^{(1)}=0.5$ and thus 
+Example of this on page 251-252: two equal size classes where predictors independent of class, classification with $1$NN gives $\overline{\text{err}}=0$ and $\widehat{\text{Err}}^{(1)}=0.5$ and thus 
 $\widehat{\text{Err}}^{(.632)}=0.632\cdot 0.5=0.316$, where here the true error rate is $0.5$.
 
 ---
@@ -398,10 +448,9 @@ For details on this approach consult ESL page 252-253.
 
 # Conclusions: Model selection and assessment and future use
 
-**Group discussion:** Construct a "mind map"/"overview sheet"/"concept map" for the "Model assessement and selection" topics, and write down important take home messages!
+**Group discussion:** Construct a "mind map" or "overview sheet" or "concept map" for the "Model assessment and selection" topics, and write down important take home messages!
 
 ---
-
 
 <!-- * in a perfect world we would be rich on data and can divide available data into sets for training, validation and testing -->
 <!-- * cool covariance-result on expected optimism for training error related to in-sample prediction error (the covariance) - that is used for finding model selection criteria (but not for model assessment) -->
@@ -418,6 +467,7 @@ Important take home message: We have proven (for MLR) that the expected test MSE
 
 ## Establish the average optimism in the training error
 
+$$ \omega=\frac{2}{N} \sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)$$
 Exercise 7.4
 
 ---
@@ -426,8 +476,7 @@ Exercise 7.4
 
 Exercise 7.5
 
-Need to know about covariance and variance of linear combinations. The reading list in TMA4267 included Härdle and Simar (2015): Applied Multivariate Statistical Analysis (fourth edition) - [ebook from Springer available at NTNU](https://www.springer.com/gp/book/9783662451717). Alternatively [classnotes from TMA4267 (page 58-59)]
-(https://www.math.ntnu.no/emner/TMA4267/2017v/TMA4267V2017Part1.pdf)
+Need to know about covariance and variance of linear combinations. The reading list in TMA4267 included Härdle and Simar (2015): Applied Multivariate Statistical Analysis (fourth edition) - [ebook from Springer available at NTNU](https://www.springer.com/gp/book/9783662451717). Alternatively [classnotes from TMA4267 (page 58-59)](https://www.math.ntnu.no/emner/TMA4267/2017v/TMA4267V2017Part1.pdf)
 
 ---
 
@@ -437,8 +486,7 @@ $$Y=f(X)+\varepsilon$$
 of Eq (7.24):
 
 $$ \text{E}_{y}(\text{Err}_{\text{in}})=\text{E}_{y}(\bar{\text{err}})+2 \cdot \frac{d}{N} \sigma^2_{\varepsilon}$$
-
-Exercise 7.1
+Prove this for the MLR OLS solution.
 
 ---
 
@@ -447,6 +495,25 @@ Exercise 7.1
 Exercise 7.6
 
 Show that for an additive-error model, the eﬀective degrees-of freedom for the $k$-nearest-neighbors regression ﬁt is $N/k$.
+
+Hint: write this as a linear smoother. 
+
+##  UiO STK-IN4300/STK-IN9300 –– Statistical learning methods in Data Science
+Exam 2018, Problem 2: Bootstrapping for model evaluation
+
+Consider the following procedure to estimate the prediction error:
+
+1. generate $B$ bootstrap samples $z_1,z_2,\ldots, z_B$ where $z_b=\{(y_1^*,x_1^*),\ldots,(y_N^*,x_N^*)\}$, $b=1,\ldots,B$ and $(y_i^*,x_i^*)$, $i = 1, . . . , N$, is an observation sampled from
+the original dataset;
+
+2. apply the prediction rule to each bootstrap sample to derive the preditions $\hat{f}_b^*(x_i)$, $b=1,\ldots,B$.
+
+3. compute the error for each point, and take the average,
+$$\widehat{\text{Err}}_{\text{boot}}=\frac{1}{B}\sum_{b=1}^B \frac{1}{N}\sum_{i=1}^N L(y_i,\hat{f}_b^*(x_i))$$
+
+a) Explain why this procedure is incorrect and suggest a diﬀerent way to proceed which still uses a bootstrap approach.
+
+b) Describe the 0.632 bootstrap and the 0.632+ bootstrap procedures, explaining in particular the rationale behind their construction.
 
 ## Comparing methods
  
@@ -459,12 +526,27 @@ For the prostate data of ESL Chapter 3, carry out a best-subset linear regressio
 Please try yourself first, or take a small peek - and try some more - before fully reading the solutions. Report errors or improvements to <Mette.Langaas@ntnu.no>. (The solutions given here are very similar to the UiO STK-IN4300 solutions, see link under References.)
 
 * [2.9](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe29.pdf) 
-* [7.4](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe74.pdf) 
+* [7.4](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ESLe74add.pdf) 
 * [7.5](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ELSe75.pdf) 
-* 7.1
-* 7.6
+* [7.1](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ESLe71.pdf)
+* [7.6](https://github.com/mettelang/MA8701V2023/blob/main/Part1/ESLe76.pdf)
 * Solution from Hastie: [7.9](https://waxworksmath.com/Authors/G_M/Hastie/Code/Chapter7/Exericse_7_9.R) also using [utils.R](https://waxworksmath.com/Authors/G_M/Hastie/Code/Chapter7/utils.R)
 
+
+### UiO STK-IN4300/STK-IN9300 Solutions (from UiO)
+
+a) The procedure is incorrect because the prediction error is computed on observations already used to train the prediction rule. This lead to underestimation of the error (writing “too optimistic” was acceptable).
+
+A possible solution is to compute the prediction error only on those observations (in average 36.8\% of the original sample) not included in the bootstrap sample. Since this approach leads to overestimating the prediction error, solutions like those described in the point (b) has been implemented.
+
+b) The 0.632 bootstrap procedure addresses the problem of overestimation of the correct procedure described in point (a) by averaging it (with weight 0.632 and 0.368, respectively) with the training error (underestimated error). The result is a sort of compromise between overestimation and underestimation. 
+
+$$\widehat{\text{Err}}^{(\text{0.632})}=0.632 \cdot  \widehat{\text{Err}}^{(1)}+0.368 \cdot \overline{\text{err}}$$
+where $\overline{\text{err}}$ is the training error and $\widehat{\text{Err}}^{(1)}$ the corrected procedure decribed in (a). Since the $0.632$ and $0.382$ weights may not be the best choice (e.g., in case of complete overﬁtting in the training set), the 0.632+ bootstrap has been developed. In the latter procedure, 
+
+ $$\widehat{\text{Err}}^{(\text{0.632+})}=\hat{w} \cdot  \widehat{\text{Err}}^{(1)}+ (1-\hat{w}) \cdot \overline{\text{err}}$$
+ 
+the weights depend on the relative overﬁtting rate, so the 0.632+ bootstrap can be seen as a better compromise between the overestimation and underestimation of the prediction error done by the corrected procedure described at point (a) and the training error, respectively.
 
 # Reference links
 
