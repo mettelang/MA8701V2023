@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-12">
+<meta name="dcterms.date" content="2023-01-16">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -170,7 +170,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 12, 2023</p>
+      <p class="date">January 16, 2023</p>
     </div>
   </div>
   
@@ -181,7 +181,11 @@ div.csl-indent {
 </header>
 
 <p>Course homepage: <a href="https://wiki.math.ntnu.no/ma8701/2023v/start" class="uri">https://wiki.math.ntnu.no/ma8701/2023v/start</a></p>
-<p>(ELS 9.6, and <a href="https://stefvanbuuren.name/fimd/">van Buuren: “Flexible imputation of missing data”</a>) <span class="citation" data-cites="VanBuuren2008">(<a href="#ref-VanBuuren2008" role="doc-biblioref"><strong>VanBuuren2008?</strong></a>)</span></p>
+<p>Reading list:</p>
+<ul>
+<li>Handbook of missing data: Chapter</li>
+<li><span class="citation" data-cites="VanBuuren2008">(<a href="#ref-VanBuuren2008" role="doc-biblioref"><strong>VanBuuren2008?</strong></a>)</span> <a href="https://stefvanbuuren.name/fimd/">Flexible imputation of missing data”</a>)</li>
+</ul>
 <section id="missing-data" class="level1">
 <h1>Missing data</h1>
 <p>When performing data analysis we often encounter data sets where some observations have missing values. It is important to understand the underlying mechanism for the observations to be missing, so that we may treat the missing data appropriately.</p>
@@ -274,8 +278,27 @@ div.csl-indent {
 </section>
 <section id="multiple-imputation" class="level1">
 <h1>Multiple imputation</h1>
+<p><span class="citation" data-cites="lydersen_multippel">Lydersen (<a href="#ref-lydersen_multippel" role="doc-biblioref">2022</a>)</span> gives a nice overview for medical doctors - maybe a good place to start?</p>
 <section id="imputation-model" class="level2">
 <h2 class="anchored" data-anchor-id="imputation-model">Imputation model</h2>
+<!-- \begin{algorithm} -->
+<!-- \caption{MICE algorithm}\label{alg:mice} -->
+<!-- \begin{algorithmic}[1] -->
+<!-- \State Choose an univariate imputation model $P(Y_j^{\mathrm{mis}}\ | \ Y_j^{\mathrm{obs}}, Y_{-j})$ for each variable $Y_j$ where $j = 1, \dots, p$. -->
+<!-- \State For each iteration j, fill in initial imputations $\dot{Y_j}^0$ by random draws from $Y_j^{\mathrm{obs}}$ -->
+<!-- \State Repeat for $t = 1, \dots, T$ -->
+<!--     \Indent  -->
+<!--     \State Repeat for $j = 1, \dots, p$ -->
+<!--     \Indent -->
+<!--     \State Define $\dot{Y}_{-j}^t = (\dot{Y}_1^t, \dots, \dot{Y}_{j-1}^t,\dot{Y}_{j+1}^{t-1}, \dots, \dot{Y}_{p}^{t-1})$ as the complete data except $Y_j$ -->
+<!--     \State Draw $\dot{\gamma}_j^t \sim P(\gamma^t\ | \ Y_j^{\mathrm{obs}}, \dot{Y}_{-j}^t)$ -->
+<!--     \State Draw imputations $\dot{Y_j}^t \sim P(Y_j^{\mathrm{mis}} \ | \ Y_j^{\mathrm{obs}}, \dot{Y}_{-j}^t, \dot{\gamma}_j^t)$ -->
+<!--     \EndIndent -->
+<!--     \State End repeat j -->
+<!--     \EndIndent -->
+<!-- \State End repeat t -->
+<!-- \end{algorithmic} -->
+<!-- \end{algorithm} -->
 </section>
 <section id="analysis-model" class="level2">
 <h2 class="anchored" data-anchor-id="analysis-model">Analysis model</h2>
@@ -343,8 +366,10 @@ div.csl-indent {
 </div>
 <section id="references" class="level3">
 <h3 class="anchored" data-anchor-id="references">References</h3>
-<div id="refs" role="doc-bibliography">
-
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-lydersen_multippel" class="csl-entry" role="doc-biblioentry">
+Lydersen, Stian. 2022. <span>“Multippel Imputering Av Manglende Data.”</span> <em>Tidsskrift for Den Norske Legeforening</em>. <a href="https://doi.org/10.4045/tidsskr.21.0772">https://doi.org/10.4045/tidsskr.21.0772</a>.
+</div>
 </div>
 </section>
 </section>

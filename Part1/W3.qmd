@@ -22,9 +22,11 @@ format:
 
 Course homepage: <https://wiki.math.ntnu.no/ma8701/2023v/start>
 
+Reading list:
 
-(ELS 9.6, and [van Buuren: "Flexible imputation of missing data"](https://stefvanbuuren.name/fimd/))
-@VanBuuren2008
+* Handbook of missing data: Chapter
+* @VanBuuren2008 [Flexible imputation of missing data"](https://stefvanbuuren.name/fimd/))
+
 
 
 # Missing data
@@ -147,7 +149,29 @@ Versions of single imputation:
 
 # Multiple imputation
 
+@lydersen_multippel gives a nice overview for medical doctors - maybe a good place to start?
+
+
 ## Imputation model
+
+<!-- \begin{algorithm} -->
+<!-- \caption{MICE algorithm}\label{alg:mice} -->
+<!-- \begin{algorithmic}[1] -->
+<!-- \State Choose an univariate imputation model $P(Y_j^{\mathrm{mis}}\ | \ Y_j^{\mathrm{obs}}, Y_{-j})$ for each variable $Y_j$ where $j = 1, \dots, p$. -->
+<!-- \State For each iteration j, fill in initial imputations $\dot{Y_j}^0$ by random draws from $Y_j^{\mathrm{obs}}$ -->
+<!-- \State Repeat for $t = 1, \dots, T$ -->
+<!--     \Indent  -->
+<!--     \State Repeat for $j = 1, \dots, p$ -->
+<!--     \Indent -->
+<!--     \State Define $\dot{Y}_{-j}^t = (\dot{Y}_1^t, \dots, \dot{Y}_{j-1}^t,\dot{Y}_{j+1}^{t-1}, \dots, \dot{Y}_{p}^{t-1})$ as the complete data except $Y_j$ -->
+<!--     \State Draw $\dot{\gamma}_j^t \sim P(\gamma^t\ | \ Y_j^{\mathrm{obs}}, \dot{Y}_{-j}^t)$ -->
+<!--     \State Draw imputations $\dot{Y_j}^t \sim P(Y_j^{\mathrm{mis}} \ | \ Y_j^{\mathrm{obs}}, \dot{Y}_{-j}^t, \dot{\gamma}_j^t)$ -->
+<!--     \EndIndent -->
+<!--     \State End repeat j -->
+<!--     \EndIndent -->
+<!-- \State End repeat t -->
+<!-- \end{algorithmic} -->
+<!-- \end{algorithm} -->
 
 ## Analysis model
 
