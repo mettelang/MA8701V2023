@@ -27,8 +27,9 @@ Course homepage: <https://wiki.math.ntnu.no/ma8701/2023v/start>
 ```{r setup}
 #| include: true
 #| echo: false
-
+suppressPackageStartupMessages(library(MASS))
 suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(glmnet))
 knitr::opts_chunk$set(echo = FALSE, message=FALSE,warning = FALSE, error = FALSE)
 ```
 
@@ -312,6 +313,8 @@ What to do when both is needed, is not covered in this chapter. Nested cross-val
 * The CV estimate of the expected prediction error $\text{Err}=\text{E}_{\cal T} \text{E}_{X^0,Y^0}[L(Y^0,\hat{f}(X^0))\mid {\cal T}]$ is then 
 $$ \text{CV}(\hat{f})=\frac{1}{N}\sum_{i=1}^N L(y_i,\hat{f}^{-k(i)}(x_i))$$
 
+@casi page 218: "$\text{CV}(\hat{f})$ is estimating the average prediction error of the algorithm producing $\hat{f}$, not $\hat{f}$ itself".
+
 ---
 
 ## Formal set-up for model selection
@@ -329,10 +332,68 @@ Alternatively the _one-standard error rule_ can be used: choose the most parsimo
 
 ---
 
+
+## Pima indian example
+
+We will use the classical data set of _diabetes_ from a population of women of Pima Indian heritage in the US, available in the R `MASS` package. This version of the data has no missing values. The following information is available for each woman:
+
+* diabetes: `0`= not present, `1`= present
+* npreg: number of pregnancies
+* glu: plasma glucose concentration in an oral glucose tolerance test
+* bp: diastolic blood pressure (mmHg)
+* skin: triceps skin fold thickness (mm)
+* bmi: body mass index (weight in kg/(height in m)$^2$)
+* ped: diabetes pedigree function.
+* age: age in years
+
+We will use the default division into training and test in the MASS library, with 200 observations for training and 332 for testing.
+
+---
+
+```{r}
+#| echo: FALSE
+#| error: FALSE
+#| warning: FALSE
+
+Pima.tr$diabetes=as.numeric(Pima.tr$type)-1
+Pima.te$diabetes=as.numeric(Pima.te$type)-1
+train=Pima.tr[,c(1:7,9)]
+test=Pima.te[,c(1:7,9)]
+colnames(test)=colnames(Pima.te)[c(1:7,9)]
+
+# logistic lasso
+xs=model.matrix(~.-diabetes,data=train)[,-1] 
+xstest=model.matrix(~.-diabetes,data=test)[,-1] 
+fitlasso=glmnet(xs,train$diabetes,family=binomial(link="logit"))
+cvlasso=cv.glmnet(x=xs,y=train$diabetes,family="binomial")
+plot(cvlasso)
+```
+
+---
+
+## Group discussion
+
+The lasso logistic regression (to be studied in Part 2) was used to fit the data, and some loss function is plotted on the vertical axis (more in Part 2) and on the horisontal axis the loss for different fits for different choices of a complexity parameter is given. 10-fold crossvalidation is used. (Just assume that a generic prediction is used, this is not meant to be specific for the lasso.)
+
+* What are the red dots and how have they been calculated?
+* What are the the vertical bars sticking out of each red dot, and how have they been calculated? What do they picture?
+* What (your choice) is the optimal choice of the complexity parameter?
+
+---
+
 ## Choice of $K$
 
 * Popular choices are 5 and 10 based on observations in simulation studies- and arguments similar to a bias-variance trace off.
 * $K=N$ is called _leave-one-out_ cross-validation LOOCV, and gives the lowest bias for estimating the $\text{Err}$.
+
+---
+
+```{r}
+#| out.width: "100%"
+#| fig.align: "left"
+#| fig.show: "hold"
+include_graphics("ESLfig78.png")
+```
 
 ---
 
@@ -350,12 +411,6 @@ where we recognise the effective number of parameters $\text{trace}({\mathbf S})
 
 ---
 
-## What is estimated?
-
-@casi page 218: "$\text{CV}(\hat{f})$ is estimating the average prediction error of the algorithm producing $\hat{f}$, not $\hat{f}$ itself".
-
----
-
 
 ## The wrong and the right way to do cross-validation
 
@@ -363,9 +418,14 @@ In short: make sure that all part of the model fit process is "inside" the CV.
 
 See learning material from TMA4268: [Module 5: Resampling](https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample.html#the_right_and_the_wrong_way_to_do_cross-validation), and I also recommend to work on [Problem 3](https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample.html#problem_3:_selection_bias_and_the_%E2%80%9Cwrong_way_to_do_cv%E2%80%9D) with [solutions]()
 
+## Group discussion
+
+Can you give one example of a right way to do cross-valiation and also a wrong way? If you want you may used the Pima-indians as an example, but other examples may also be used.
+
 ---
 
 # Bootstrap methods
+
 (ESL Ch 7.11 - bootstrapping is known from TMA4268 and TMA4300, but not the special case of estimating $\text{Err}$). [Bootstrap in TMA4268: Module 5](https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample.html#the_bootstrap)
 
 **Notation:** ${\mathbf Z}=(z_1,\ldots,z_N)$ is the training set with $z_i=(x_i,y_i)$.
@@ -446,15 +506,22 @@ For details on this approach consult ESL page 252-253.
 
 ---
 
-# Conclusions: Model selection and assessment and future use
+# Conclusions
 
-**Group discussion:** Construct a "mind map" or "overview sheet" or "concept map" for the "Model assessment and selection" topics, and write down important take home messages!
+## Group discussion:
+
+Construct a "mind map" or "overview sheet" or "concept map" (mind map with verbs on arrows between entities) for the "Model assessment and selection" topics, and write down important take home messages!
+
+Some concept that could be in the map: $\text{Err}$,$\text{Err}_{\cal T}$,$\text{Err}_{\text{in}}$,$\widehat{\text{Err}}_{\text{in}}$,$\overline{\text{err}}$,$\omega$,$\text{Cov}(\hat{y}_i,y_i)$,$\text{trace}(S)$,df,$\text{CV}(\hat{f})$, bootstrap, $\widehat{\text{Err}}^{(1)}$, $0.632$, $0.368$, model assessment, model selection.
 
 ---
 
-<!-- * in a perfect world we would be rich on data and can divide available data into sets for training, validation and testing -->
-<!-- * cool covariance-result on expected optimism for training error related to in-sample prediction error (the covariance) - that is used for finding model selection criteria (but not for model assessment) -->
-<!-- * estimating expected prediction (test) error for a particular training set is not easy in general (if we only have this one training set), but cross-validation and bootstrapping may provide reasonable estimates of the expected test error $\text{Err}$. -->
+## Final remarks
+
+* In a perfect world we would be rich on data and can divide available data into sets for training, validation and testing
+* We have derived cool covariance-result on expected optimism for training error related to in-sample prediction error (the covariance) - that is used for finding model selection criteria (but not for model assessment). If we can´t calculate a formula for the covariance, bootstrapping can be used to do this (@casi Equation 12.64 on åage 224).
+* Estimating expected prediction (test) error for a particular training set is not easy in general (if we only have this one training set), but cross-validation and bootstrapping may provide reasonable estimates of the expected test error $\text{Err}$.
+* If resampling needed for model assessment: take average of many 10-fold CV $\text{Err}$ estimates? 
 
 # Exercises
 

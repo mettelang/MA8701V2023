@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-15">
+<meta name="dcterms.date" content="2023-01-17">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -97,13 +97,19 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#formal-set-up-for-model-assessment" id="toc-formal-set-up-for-model-assessment" class="nav-link" data-scroll-target="#formal-set-up-for-model-assessment">Formal set-up for model assessment</a></li>
   <li><a href="#formal-set-up-for-model-selection" id="toc-formal-set-up-for-model-selection" class="nav-link" data-scroll-target="#formal-set-up-for-model-selection">Formal set-up for model selection</a></li>
+  <li><a href="#pima-indian-example" id="toc-pima-indian-example" class="nav-link" data-scroll-target="#pima-indian-example">Pima indian example</a></li>
+  <li><a href="#group-discussion-3" id="toc-group-discussion-3" class="nav-link" data-scroll-target="#group-discussion-3">Group discussion</a></li>
   <li><a href="#choice-of-k" id="toc-choice-of-k" class="nav-link" data-scroll-target="#choice-of-k">Choice of <span class="math inline">\(K\)</span></a></li>
   <li><a href="#generalized-cross-validation-gcv" id="toc-generalized-cross-validation-gcv" class="nav-link" data-scroll-target="#generalized-cross-validation-gcv">Generalized cross-validation (GCV)</a></li>
-  <li><a href="#what-is-estimated" id="toc-what-is-estimated" class="nav-link" data-scroll-target="#what-is-estimated">What is estimated?</a></li>
   <li><a href="#the-wrong-and-the-right-way-to-do-cross-validation" id="toc-the-wrong-and-the-right-way-to-do-cross-validation" class="nav-link" data-scroll-target="#the-wrong-and-the-right-way-to-do-cross-validation">The wrong and the right way to do cross-validation</a></li>
+  <li><a href="#group-discussion-4" id="toc-group-discussion-4" class="nav-link" data-scroll-target="#group-discussion-4">Group discussion</a></li>
   </ul></li>
   <li><a href="#bootstrap-methods" id="toc-bootstrap-methods" class="nav-link" data-scroll-target="#bootstrap-methods">Bootstrap methods</a></li>
-  <li><a href="#conclusions-model-selection-and-assessment-and-future-use" id="toc-conclusions-model-selection-and-assessment-and-future-use" class="nav-link" data-scroll-target="#conclusions-model-selection-and-assessment-and-future-use">Conclusions: Model selection and assessment and future use</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a>
+  <ul class="collapse">
+  <li><a href="#group-discussion-5" id="toc-group-discussion-5" class="nav-link" data-scroll-target="#group-discussion-5">Group discussion:</a></li>
+  <li><a href="#final-remarks" id="toc-final-remarks" class="nav-link" data-scroll-target="#final-remarks">Final remarks</a></li>
+  </ul></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
   <ul class="collapse">
   <li><a href="#expected-training-and-test-mse-for-linear-regression" id="toc-expected-training-and-test-mse-for-linear-regression" class="nav-link" data-scroll-target="#expected-training-and-test-mse-for-linear-regression">Expected training and test MSE for linear regression</a></li>
@@ -144,7 +150,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 15, 2023</p>
+      <p class="date">January 17, 2023</p>
     </div>
   </div>
   
@@ -355,6 +361,7 @@ div.csl-indent {
 <li><p>Further, <span class="math inline">\(\hat{f}^{-k}(x)\)</span> is the fitted function, computed on the observations except the <span class="math inline">\(k\)</span>th fold (the observations from the <span class="math inline">\(k\)</span>th fold is removed).</p></li>
 <li><p>The CV estimate of the expected prediction error <span class="math inline">\(\text{Err}=\text{E}_{\cal T} \text{E}_{X^0,Y^0}[L(Y^0,\hat{f}(X^0))\mid {\cal T}]\)</span> is then <span class="math display">\[ \text{CV}(\hat{f})=\frac{1}{N}\sum_{i=1}^N L(y_i,\hat{f}^{-k(i)}(x_i))\]</span></p></li>
 </ul>
+<p><span class="citation" data-cites="casi">Efron and Hastie (<a href="#ref-casi" role="doc-biblioref">2016</a>)</span> page 218: “<span class="math inline">\(\text{CV}(\hat{f})\)</span> is estimating the average prediction error of the algorithm producing <span class="math inline">\(\hat{f}\)</span>, not <span class="math inline">\(\hat{f}\)</span> itself”.</p>
 <hr>
 </section>
 <section id="formal-set-up-for-model-selection" class="level2">
@@ -370,12 +377,54 @@ div.csl-indent {
 </ul>
 <hr>
 </section>
+<section id="pima-indian-example" class="level2">
+<h2 class="anchored" data-anchor-id="pima-indian-example">Pima indian example</h2>
+<p>We will use the classical data set of <em>diabetes</em> from a population of women of Pima Indian heritage in the US, available in the R <code>MASS</code> package. This version of the data has no missing values. The following information is available for each woman:</p>
+<ul>
+<li>diabetes: <code>0</code>= not present, <code>1</code>= present</li>
+<li>npreg: number of pregnancies</li>
+<li>glu: plasma glucose concentration in an oral glucose tolerance test</li>
+<li>bp: diastolic blood pressure (mmHg)</li>
+<li>skin: triceps skin fold thickness (mm)</li>
+<li>bmi: body mass index (weight in kg/(height in m)<span class="math inline">\(^2\)</span>)</li>
+<li>ped: diabetes pedigree function.</li>
+<li>age: age in years</li>
+</ul>
+<p>We will use the default division into training and test in the MASS library, with 200 observations for training and 332 for testing.</p>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="W2_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="group-discussion-3" class="level2">
+<h2 class="anchored" data-anchor-id="group-discussion-3">Group discussion</h2>
+<p>The lasso logistic regression (to be studied in Part 2) was used to fit the data, and some loss function is plotted on the vertical axis (more in Part 2) and on the horisontal axis the loss for different fits for different choices of a complexity parameter is given. 10-fold crossvalidation is used. (Just assume that a generic prediction is used, this is not meant to be specific for the lasso.)</p>
+<ul>
+<li>What are the red dots and how have they been calculated?</li>
+<li>What are the the vertical bars sticking out of each red dot, and how have they been calculated? What do they picture?</li>
+<li>What (your choice) is the optimal choice of the complexity parameter?</li>
+</ul>
+<hr>
+</section>
 <section id="choice-of-k" class="level2">
 <h2 class="anchored" data-anchor-id="choice-of-k">Choice of <span class="math inline">\(K\)</span></h2>
 <ul>
 <li>Popular choices are 5 and 10 based on observations in simulation studies- and arguments similar to a bias-variance trace off.</li>
 <li><span class="math inline">\(K=N\)</span> is called <em>leave-one-out</em> cross-validation LOOCV, and gives the lowest bias for estimating the <span class="math inline">\(\text{Err}\)</span>.</li>
 </ul>
+<hr>
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="ESLfig78.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
 <hr>
 </section>
 <section id="generalized-cross-validation-gcv" class="level2">
@@ -385,15 +434,14 @@ div.csl-indent {
 <p><span class="math display">\[ \text{GCV}(\hat{f})=\frac{1}{N}\sum_{i=1}^N [\frac{y_i-\hat{f}(x_i)}{1-\text{tr}({\mathbf S})/N}]^2\]</span> where we recognise the effective number of parameters <span class="math inline">\(\text{trace}({\mathbf S})\)</span>. In some settings the <span class="math inline">\(\text{trace}({\mathbf S})\)</span> is computed more easily than the individual elements <span class="math inline">\(S_{ii}\)</span>.</p>
 <hr>
 </section>
-<section id="what-is-estimated" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-estimated">What is estimated?</h2>
-<p><span class="citation" data-cites="casi">Efron and Hastie (<a href="#ref-casi" role="doc-biblioref">2016</a>)</span> page 218: “<span class="math inline">\(\text{CV}(\hat{f})\)</span> is estimating the average prediction error of the algorithm producing <span class="math inline">\(\hat{f}\)</span>, not <span class="math inline">\(\hat{f}\)</span> itself”.</p>
-<hr>
-</section>
 <section id="the-wrong-and-the-right-way-to-do-cross-validation" class="level2">
 <h2 class="anchored" data-anchor-id="the-wrong-and-the-right-way-to-do-cross-validation">The wrong and the right way to do cross-validation</h2>
 <p>In short: make sure that all part of the model fit process is “inside” the CV.</p>
 <p>See learning material from TMA4268: <a href="https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample.html#the_right_and_the_wrong_way_to_do_cross-validation">Module 5: Resampling</a>, and I also recommend to work on <a href="https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample.html#problem_3:_selection_bias_and_the_%E2%80%9Cwrong_way_to_do_cv%E2%80%9D">Problem 3</a> with <a href="">solutions</a></p>
+</section>
+<section id="group-discussion-4" class="level2">
+<h2 class="anchored" data-anchor-id="group-discussion-4">Group discussion</h2>
+<p>Can you give one example of a right way to do cross-valiation and also a wrong way? If you want you may used the Pima-indians as an example, but other examples may also be used.</p>
 <hr>
 </section>
 </section>
@@ -437,13 +485,23 @@ div.csl-indent {
 <p>For details on this approach consult ESL page 252-253.</p>
 <hr>
 </section>
-<section id="conclusions-model-selection-and-assessment-and-future-use" class="level1">
-<h1>Conclusions: Model selection and assessment and future use</h1>
-<p><strong>Group discussion:</strong> Construct a “mind map” or “overview sheet” or “concept map” for the “Model assessment and selection” topics, and write down important take home messages!</p>
+<section id="conclusions" class="level1">
+<h1>Conclusions</h1>
+<section id="group-discussion-5" class="level2">
+<h2 class="anchored" data-anchor-id="group-discussion-5">Group discussion:</h2>
+<p>Construct a “mind map” or “overview sheet” or “concept map” (mind map with verbs on arrows between entities) for the “Model assessment and selection” topics, and write down important take home messages!</p>
+<p>Some concept that could be in the map: <span class="math inline">\(\text{Err}\)</span>,<span class="math inline">\(\text{Err}_{\cal T}\)</span>,<span class="math inline">\(\text{Err}_{\text{in}}\)</span>,<span class="math inline">\(\widehat{\text{Err}}_{\text{in}}\)</span>,<span class="math inline">\(\overline{\text{err}}\)</span>,<span class="math inline">\(\omega\)</span>,<span class="math inline">\(\text{Cov}(\hat{y}_i,y_i)\)</span>,<span class="math inline">\(\text{trace}(S)\)</span>,df,<span class="math inline">\(\text{CV}(\hat{f})\)</span>, bootstrap, <span class="math inline">\(\widehat{\text{Err}}^{(1)}\)</span>, <span class="math inline">\(0.632\)</span>, <span class="math inline">\(0.368\)</span>, model assessment, model selection.</p>
 <hr>
-<!-- * in a perfect world we would be rich on data and can divide available data into sets for training, validation and testing -->
-<!-- * cool covariance-result on expected optimism for training error related to in-sample prediction error (the covariance) - that is used for finding model selection criteria (but not for model assessment) -->
-<!-- * estimating expected prediction (test) error for a particular training set is not easy in general (if we only have this one training set), but cross-validation and bootstrapping may provide reasonable estimates of the expected test error $\text{Err}$. -->
+</section>
+<section id="final-remarks" class="level2">
+<h2 class="anchored" data-anchor-id="final-remarks">Final remarks</h2>
+<ul>
+<li>In a perfect world we would be rich on data and can divide available data into sets for training, validation and testing</li>
+<li>We have derived cool covariance-result on expected optimism for training error related to in-sample prediction error (the covariance) - that is used for finding model selection criteria (but not for model assessment). If we can´t calculate a formula for the covariance, bootstrapping can be used to do this (<span class="citation" data-cites="casi">Efron and Hastie (<a href="#ref-casi" role="doc-biblioref">2016</a>)</span> Equation 12.64 on åage 224).</li>
+<li>Estimating expected prediction (test) error for a particular training set is not easy in general (if we only have this one training set), but cross-validation and bootstrapping may provide reasonable estimates of the expected test error <span class="math inline">\(\text{Err}\)</span>.</li>
+<li>If resampling needed for model assessment: take average of many 10-fold CV <span class="math inline">\(\text{Err}\)</span> estimates?</li>
+</ul>
+</section>
 </section>
 <section id="exercises" class="level1">
 <h1>Exercises</h1>
