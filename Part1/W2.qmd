@@ -346,7 +346,7 @@ We will use the classical data set of _diabetes_ from a population of women of P
 * ped: diabetes pedigree function.
 * age: age in years
 
-We will use the default division into training and test in the MASS library, with 200 observations for training and 332 for testing.
+We will use the default division into training and test in the MASS library, with 200 observations for training and 332 for testing. (We only use the training data here now.)
 
 ---
 
@@ -416,7 +416,7 @@ where we recognise the effective number of parameters $\text{trace}({\mathbf S})
 
 In short: make sure that all part of the model fit process is "inside" the CV.
 
-See learning material from TMA4268: [Module 5: Resampling](https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample.html#the_right_and_the_wrong_way_to_do_cross-validation), and I also recommend to work on [Problem 3](https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample.html#problem_3:_selection_bias_and_the_%E2%80%9Cwrong_way_to_do_cv%E2%80%9D) with [solutions]()
+See learning material from TMA4268: [Module 5: Resampling](https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample.html#the_right_and_the_wrong_way_to_do_cross-validation), and I also recommend to work on [Problem 3](https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample.html#problem_3:_selection_bias_and_the_%E2%80%9Cwrong_way_to_do_cv%E2%80%9D) with [solutions](https://www.math.ntnu.no/emner/TMA4268/2019v/5Resample/5Resample-sol.pdf)
 
 ## Group discussion
 

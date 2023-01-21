@@ -31,17 +31,33 @@ Reading list:
 
 # Missing data
 
-When performing data analysis we often encounter data sets where some observations have missing values. It is important to understand the underlying mechanism for the observations to be missing, so that we may treat the missing data appropriately.
+Many (most) statistical analysis methods (for example regression) require the data (for analysis) to be _complete_. That is, for all data record (observations, rows) all the variable under study must be _observed_. But, in the real world this is not the case - some variables are missing for some observations (records, rows). 
+
+---
+
+## What can we do?
+
+* delete all data records that are incomplete (have at least one missing value), and analyse these _complete cases_
+* use statistical methods that have built in mechanisms to handle  missing data (more about this in Part 3 - hint: trees)
+* fill in a missing value with a "representative" value to get complete data aka _single imputation_
+* as above, but make _m_ datasets and analyse them all and then combine the results
+* if the reason (mechanism) for the missing data is known, build a statistical model that takes this into account (will not be covered here).
+
+---
+
+It is important to understand the underlying mechanism for the observations to be missing, so that we may treat the missing data appropriately.
 
 If we do not treat missing data correctly, this may lead to 
+
 * wrong conclusions (the observed data might not be representative for the population under study), 
 * there is a loss of power for statistical tests (or length of CIs) so that conclusions are weaker than if the data were complete, and 
 * the statistical analyses may be complicated since standard methods (assuming no missing data) can´t be used.
 
-
 We first look at notation and then definitions of missing mechanisms.
 
 ## Notation
+
+We will use different letters for response and covariates, but often that is not done in other sources. By response we mean the response in the intended _analysis model_ and ditto for the covariates. (We will later also talk about an _imputation model_ but this is not connected to our notation here.)
 
 -   ${\mathbf y}$: response vector (no missing values)
 -   ${\mathbf X}$: the full covariate matrix
@@ -64,15 +80,18 @@ The missing data mechanism is characterized by the conditional distribution of $
 
 $$P({\mathbf R} \mid {\mathbf Z},\theta)=P({\mathbf R} \mid \theta)$$
 
--   All observations have the same probability of being missing, and
--   the missing mechanism is not related to the data (not to observed or missing data).
+* All observations have the same probability of being missing, and
+* the missing mechanism is not related to the data (not to observed or missing data).
 
 If observations with MCAR data are removed that should not bias the analyses (but the sample size will of cause be smaller), because the subset of complete observations should have the same distribution as the full data set. 
 
+---
+
 Examples:
 
--   measure weight, and the scales run out of battery
--   similar mechanism to taking a random sample
+* measure weight, and the scales run out of battery
+* similar mechanism to taking a random sample
+* a tube containing a blood sample of study subject is broken by accident and then the blood sample could not be analysed (a set of covariates are then missing) 
 
 ---
 
@@ -80,14 +99,17 @@ Examples:
 
 $$P({\mathbf R} \mid {\mathbf Z},\theta)=P({\mathbf R} \mid {\mathbf Z}_{\text obs},\theta)$$
 
-- The probability of an entry to be missing depends (possibly) on observed data, but not on unobserved data. 
-- Thus, all information about the missing data that we need to perform valid statistical analysis is found in the observed data (but maybe difficult to construct a model for this).
-- In a regression or classifiation setting this means that the missingness of a covariate may be dependent on the observed response. 
-- Remark: not dependent on what could have been observed (i.e. what is not observed).
+* The probability of an entry to be missing depends (possibly) on observed data, but not on unobserved data. 
+* Thus, all information about the missing data that we need to perform valid statistical analysis is found in the observed data (but maybe difficult to construct a model for this).
+* In a regression or classifiation setting this means that the missingness of a covariate may be dependent on the observed response. 
+* Remark: not dependent on what could have been observed (i.e. what is not observed).
 
-Example:
+---
 
-- measure weight, and the scales have different missing proportions when being on a hard or soft surface
+**Examples:**
+
+* measure weight, and the scales have different missing proportions when being on a hard or soft surface
+* we have a group of healthy and sick individuals (this is the reponse), and for a proportion of the sick individuals the result of a diagnostic test is missing but for the healthy individuals there are no missing values
 
 Most methods for handling missing data require the data to be MAR. If you know that the missingness is at least MAR, then there exists tests to check if the data also is MCAR.
 
@@ -99,18 +121,65 @@ We have MNAR if we don´t have MAR or MCAR.
 
 Then the missing mechanism could depend on what we could have measured (unobserved data) or other observed values (covariates or response that we are noe collecting). Statistical analyses can not be performed without modelling the underlying missing data mechanism.
 
-Examples:
+---
 
--   the scales give more often missing values for heavier objects than for lighter objects
--   a patient is too sick to perform some procedure that would show a high value of a measurement
+**Examples:**
+
+* the scales give more often missing values for heavier objects than for lighter objects
+* a patient is too sick to perform some procedure that would show a high value of a measurement
+* when asking a subject for his/her income missing data are more likely to occur when the income level is high
 
 ---
 
-### Group discussion
+## Group discussion
 
-Look at data to be used in the future - and say if MCAR, MNAR, MAR? Or come up with data where this is the case themselves?
-Suggest to create simulation experiments to check the invalidity or validity of complete case analysis under the three types of missingness?
+So far in your study/work/other - you might have analysed a data set (maybe on Kaggle or in a course). Think of one such data set. 
 
+* Did this data set have missing values? 
+* If yes, did you check if the observations were MCAR, MAR or MNAR?
+* What did you (or the teacher etc) do to handle the missing data?
+
+If no one in the group remembers - maybe look at the Titanic or air quality dataset?
+
+```{r}
+library(titanic)
+sum(titanic_train$Cabin=="")
+sum(titanic_train$Cabin!="")
+apply(is.na(titanic_train),2,sum)
+titanic_train
+```
+
+```{r}
+airquality
+```
+
+<!-- Suggest to create simulation experiments to check the invalidity or validity of complete case analysis under the three types of missingness? -->
+
+---
+
+Example from @VanBuuren2018 Chapter 2.2
+
+```{r}
+library(ggplot2)
+logistic <- function(x) exp(x) / (1 + exp(x))
+set.seed(80122)
+n <- 300
+y <- MASS::mvrnorm(n = n, mu = c(0, 0),
+                   Sigma = matrix(c(1, 0.5, 0.5, 1), nrow = 2))
+r2.mcar <- 1 - rbinom(n, 1, 0.5)
+r2.mar  <- 1 - rbinom(n, 1, logistic(y[, 1]))
+r2.mnar <- 1 - rbinom(n, 1, logistic(y[, 2]))
+
+mcarymis=y[r2.mcar==0,2]
+mcaryobs=y[r2.mcar==1,2]
+marymis=y[r2.mar==0,2]
+maryobs=y[r2.mar==1,2]
+mnarymis=y[r2.mnar==0,2]
+mnaryobs=y[r2.mnar==1,2]
+
+ds=data.frame(y=y[,2],r=r2.mar)
+ggplot(ds)+geom_boxplot(aes(y))+facet_wrap(~r)
+```
 
 # Popular solutions to missing covariates
 
