@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-18">
+<meta name="dcterms.date" content="2023-01-22">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -132,17 +132,62 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#missing-data" id="toc-missing-data" class="nav-link active" data-scroll-target="#missing-data">Missing data</a>
   <ul class="collapse">
-  <li><a href="#notation" id="toc-notation" class="nav-link" data-scroll-target="#notation">Notation</a></li>
-  <li><a href="#missing-mechanisms" id="toc-missing-mechanisms" class="nav-link" data-scroll-target="#missing-mechanisms">Missing mechanisms</a></li>
+  <li><a href="#what-can-we-do" id="toc-what-can-we-do" class="nav-link" data-scroll-target="#what-can-we-do">What can we do?</a></li>
+  <li><a href="#data-sets" id="toc-data-sets" class="nav-link" data-scroll-target="#data-sets">Data sets</a></li>
+  <li><a href="#group-discussion" id="toc-group-discussion" class="nav-link" data-scroll-target="#group-discussion">Group discussion</a></li>
   </ul></li>
-  <li><a href="#popular-solutions-to-missing-covariates" id="toc-popular-solutions-to-missing-covariates" class="nav-link" data-scroll-target="#popular-solutions-to-missing-covariates">Popular solutions to missing covariates</a></li>
+  <li><a href="#notation" id="toc-notation" class="nav-link" data-scroll-target="#notation">Notation</a></li>
+  <li><a href="#missing-mechanisms" id="toc-missing-mechanisms" class="nav-link" data-scroll-target="#missing-mechanisms">Missing mechanisms</a>
+  <ul class="collapse">
+  <li><a href="#missing-completely-at-random-mcar" id="toc-missing-completely-at-random-mcar" class="nav-link" data-scroll-target="#missing-completely-at-random-mcar">Missing completely at random (MCAR)</a></li>
+  <li><a href="#missing-at-random-mar" id="toc-missing-at-random-mar" class="nav-link" data-scroll-target="#missing-at-random-mar">Missing at random (MAR)</a></li>
+  <li><a href="#missing-not-at-random-mnar" id="toc-missing-not-at-random-mnar" class="nav-link" data-scroll-target="#missing-not-at-random-mnar">Missing not at random (MNAR)</a></li>
+  <li><a href="#group-discussion-1" id="toc-group-discussion-1" class="nav-link" data-scroll-target="#group-discussion-1">Group discussion</a></li>
+  <li><a href="#synthetic-example-with-missing-mechanisms" id="toc-synthetic-example-with-missing-mechanisms" class="nav-link" data-scroll-target="#synthetic-example-with-missing-mechanisms">Synthetic example with missing mechanisms</a></li>
+  </ul></li>
+  <li><a href="#popular-solutions-to-missing-data" id="toc-popular-solutions-to-missing-data" class="nav-link" data-scroll-target="#popular-solutions-to-missing-data">Popular solutions to missing data</a>
+  <ul class="collapse">
+  <li><a href="#use-an-analysis-method-that-handles-missing-data" id="toc-use-an-analysis-method-that-handles-missing-data" class="nav-link" data-scroll-target="#use-an-analysis-method-that-handles-missing-data">Use an analysis method that handles missing data</a></li>
+  <li><a href="#complete-case-analysis" id="toc-complete-case-analysis" class="nav-link" data-scroll-target="#complete-case-analysis">Complete case analysis</a></li>
+  <li><a href="#pairwise-deletion" id="toc-pairwise-deletion" class="nav-link" data-scroll-target="#pairwise-deletion">Pairwise deletion</a></li>
+  <li><a href="#indicator-variable-method" id="toc-indicator-variable-method" class="nav-link" data-scroll-target="#indicator-variable-method">Indicator variable method</a></li>
+  <li><a href="#single-imputation" id="toc-single-imputation" class="nav-link" data-scroll-target="#single-imputation">Single imputation</a></li>
+  <li><a href="#regression-imputation" id="toc-regression-imputation" class="nav-link" data-scroll-target="#regression-imputation">Regression imputation</a></li>
+  <li><a href="#stochastic-regression-imputation" id="toc-stochastic-regression-imputation" class="nav-link" data-scroll-target="#stochastic-regression-imputation">Stochastic regression imputation</a></li>
+  <li><a href="#likelihood-approaches" id="toc-likelihood-approaches" class="nav-link" data-scroll-target="#likelihood-approaches">Likelihood approaches</a></li>
+  <li><a href="#fully-bayesian-approaches" id="toc-fully-bayesian-approaches" class="nav-link" data-scroll-target="#fully-bayesian-approaches">Fully Bayesian approaches</a></li>
+  <li><a href="#group-discussion-2" id="toc-group-discussion-2" class="nav-link" data-scroll-target="#group-discussion-2">Group discussion</a></li>
+  </ul></li>
   <li><a href="#multiple-imputation" id="toc-multiple-imputation" class="nav-link" data-scroll-target="#multiple-imputation">Multiple imputation</a>
   <ul class="collapse">
-  <li><a href="#imputation-model" id="toc-imputation-model" class="nav-link" data-scroll-target="#imputation-model">Imputation model</a></li>
+  <li><a href="#short-historical-overview" id="toc-short-historical-overview" class="nav-link" data-scroll-target="#short-historical-overview">Short historical overview</a></li>
+  <li><a href="#overview-of-the-steps-of-the-method" id="toc-overview-of-the-steps-of-the-method" class="nav-link" data-scroll-target="#overview-of-the-steps-of-the-method">Overview of the steps of the method</a></li>
   <li><a href="#analysis-model" id="toc-analysis-model" class="nav-link" data-scroll-target="#analysis-model">Analysis model</a></li>
-  <li><a href="#rubins-rules" id="toc-rubins-rules" class="nav-link" data-scroll-target="#rubins-rules">Rubin´s rules</a></li>
+  </ul></li>
+  <li><a href="#rubins-rules" id="toc-rubins-rules" class="nav-link" data-scroll-target="#rubins-rules">Rubin’s rules</a>
+  <ul class="collapse">
+  <li><a href="#algorithmic-view" id="toc-algorithmic-view" class="nav-link" data-scroll-target="#algorithmic-view">Algorithmic view</a></li>
+  <li><a href="#bayesian-view" id="toc-bayesian-view" class="nav-link" data-scroll-target="#bayesian-view">Bayesian view</a></li>
+  </ul></li>
+  <li><a href="#imputation-model-in-multiple-imputation" id="toc-imputation-model-in-multiple-imputation" class="nav-link" data-scroll-target="#imputation-model-in-multiple-imputation">Imputation model in multiple imputation</a>
+  <ul class="collapse">
+  <li><a href="#joint-modelling" id="toc-joint-modelling" class="nav-link" data-scroll-target="#joint-modelling">Joint modelling</a></li>
+  <li><a href="#fsc-chained-equations" id="toc-fsc-chained-equations" class="nav-link" data-scroll-target="#fsc-chained-equations">FSC Chained equations</a></li>
+  <li><a href="#predictors-in-imputation-models" id="toc-predictors-in-imputation-models" class="nav-link" data-scroll-target="#predictors-in-imputation-models">Predictors in imputation models</a></li>
   <li><a href="#r-example" id="toc-r-example" class="nav-link" data-scroll-target="#r-example">R example</a></li>
   </ul></li>
+  <li><a href="#model-selection-when-using-multiple-imputation" id="toc-model-selection-when-using-multiple-imputation" class="nav-link" data-scroll-target="#model-selection-when-using-multiple-imputation">Model selection when using multiple imputation</a></li>
+  <li><a href="#model-evaluation-when-using-multiple-imputation" id="toc-model-evaluation-when-using-multiple-imputation" class="nav-link" data-scroll-target="#model-evaluation-when-using-multiple-imputation">Model evaluation when using multiple imputation</a></li>
+  <li><a href="#the-mice-r-package" id="toc-the-mice-r-package" class="nav-link" data-scroll-target="#the-mice-r-package">The mice R package</a></li>
+  <li><a href="#not-covered-well-enough" id="toc-not-covered-well-enough" class="nav-link" data-scroll-target="#not-covered-well-enough">Not covered well enough</a>
+  <ul class="collapse">
+  <li><a href="#ignorable-and-nonignorable" id="toc-ignorable-and-nonignorable" class="nav-link" data-scroll-target="#ignorable-and-nonignorable">Ignorable and nonignorable</a></li>
+  </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+  <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links">Links</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
 </div>
@@ -170,7 +215,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 18, 2023</p>
+      <p class="date">January 22, 2023</p>
     </div>
   </div>
   
@@ -180,19 +225,214 @@ div.csl-indent {
 
 </header>
 
+<div class="cell">
+
+</div>
 <p>Course homepage: <a href="https://wiki.math.ntnu.no/ma8701/2023v/start" class="uri">https://wiki.math.ntnu.no/ma8701/2023v/start</a></p>
 <p>Reading list:</p>
 <ul>
-<li>Handbook of missing data: Chapter</li>
-<li><span class="citation" data-cites="VanBuuren2008">(<a href="#ref-VanBuuren2008" role="doc-biblioref"><strong>VanBuuren2008?</strong></a>)</span> <a href="https://stefvanbuuren.name/fimd/">Flexible imputation of missing data”</a>)</li>
+<li>Handbook of missing data methodology: Chapter 12.1.2, 12.2, 12.3.3. Available for download (60 pages pr day) from Oria at NTNU (Choose EBSCOweb, then PDF full text and then just download chapter 12).</li>
+<li><a href="https://stefvanbuuren.name/fimd/">Flexible imputation of missing data”</a>): Chapters 1.1, 1.2, 1.3, 1.4, 2.2.4, 2.3.2 (similar to Handbook 12.2), 3.2.1, 3.2.2 (Algo 3.1), 3.4 (Algo 3.3), 4.5.1, 4.5.2.</li>
 </ul>
+<hr>
 <section id="missing-data" class="level1">
 <h1>Missing data</h1>
-<p>When performing data analysis we often encounter data sets where some observations have missing values. It is important to understand the underlying mechanism for the observations to be missing, so that we may treat the missing data appropriately.</p>
-<p>If we do not treat missing data correctly, this may lead to * wrong conclusions (the observed data might not be representative for the population under study), * there is a loss of power for statistical tests (or length of CIs) so that conclusions are weaker than if the data were complete, and * the statistical analyses may be complicated since standard methods (assuming no missing data) can´t be used.</p>
+<p>Many statistical analysis methods (for example regression) require the data (for analysis) to be <em>complete</em>. That is, for all data record (observations, rows) all the variable under study must be <em>observed</em>. But, in the real world this is not the case - some variables are missing for some observations (records, rows).</p>
+<p>What are reasons for data to be missing?</p>
+<hr>
+<p>Some reasons (not exhaustive):</p>
+<ul>
+<li>nonresponse,</li>
+<li>measurement error,</li>
+<li>data entry errors,</li>
+<li>data collection limitations,</li>
+<li>sensitive or private information,</li>
+<li>data cleaning.</li>
+</ul>
+<p>The missingness may be intentional (sampling) or unintentional (refusal, self-selection, skip questions, coding error).</p>
+<hr>
+<section id="what-can-we-do" class="level2">
+<h2 class="anchored" data-anchor-id="what-can-we-do">What can we do?</h2>
+<ul>
+<li>delete all data records that are incomplete (have at least one missing value), and analyse these <em>complete cases</em></li>
+<li>fill in a missing value with a “representative” value to get complete data aka <em>single imputation</em></li>
+<li>as above, but make <em>m</em> datasets and analyse them all and then combine the results</li>
+<li>use statistical methods that have built in mechanisms to handle missing data (more about this in Part 3 - hint: trees)</li>
+<li>likelihood-based methods, where the missing data are modelled inside the model (not covered here)</li>
+<li>if the reason (mechanism) for the missing data is known, build a statistical model that takes this into account (will not be covered here).</li>
+</ul>
+<hr>
+<p>It is important to understand the underlying mechanism for the observations to be missing, so that we may treat the missing data appropriately.</p>
+<p>If we do not treat missing data correctly, this may lead to</p>
+<ul>
+<li>wrong conclusions (the observed data might not be representative for the population under study),</li>
+<li>there is a loss of power for statistical tests (or length of CIs) so that conclusions are weaker than if the data were complete, and</li>
+<li>the statistical analyses may be complicated since standard methods (assuming no missing data) can´t be used.</li>
+</ul>
 <p>We first look at notation and then definitions of missing mechanisms.</p>
-<section id="notation" class="level2">
-<h2 class="anchored" data-anchor-id="notation">Notation</h2>
+<hr>
+</section>
+<section id="data-sets" class="level2">
+<h2 class="anchored" data-anchor-id="data-sets">Data sets</h2>
+<p>(Text provided by ChatGPT to “describe the NHANES data set in the mice R package.)</p>
+<section id="nhanes" class="level3">
+<h3 class="anchored" data-anchor-id="nhanes">NHANES</h3>
+<p>The NHANES (National Health and Nutrition Examination Survey) data set is a collection of health and nutrition information collected by the National Center for Health Statistics (NCHS) of the Centers for Disease Control and Prevention (CDC). It is a nationally representative sample of the non-institutionalized civilian population of the United States. The data set includes information on demographic characteristics, health status, and health behaviors, as well as laboratory test results.</p>
+<p>The data set is taken from Schafer, J.L. (1997). Analysis of Incomplete Multivariate Data. London: Chapman &amp; Hall. Table 6.14.</p>
+<ul>
+<li>nhanes/nhanes2: data frame with 25 observations of four variables (age (three age groups), bmi (kg/<span class="math inline">\(m^2\)</span>), hyp=hypertensive (1=no, 2=yes), chl=total serum cholesterol (mg/dL))</li>
+<li>nhanes/nhanes2: the same data sets, but in nhanes all variables are treated as numerical</li>
+</ul>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25  4</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="airquality" class="level3">
+<h3 class="anchored" data-anchor-id="airquality">Airquality</h3>
+<p>R base datasets. Daily air quality measurements in New York, May to September 1973.</p>
+<ul>
+<li>Ozone numeric Ozone (ppb)</li>
+<li>Solar.R numeric Solar R (lang)</li>
+<li>Wind numeric Wind (mph)</li>
+<li>Temp numeric Temperature (degrees F)</li>
+<li>Month numeric Month (1–12)</li>
+<li>Day numeric Day of month (1–31)</li>
+</ul>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 153   6</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="growth-of-dutch-boys" class="level3">
+<h3 class="anchored" data-anchor-id="growth-of-dutch-boys">Growth of Dutch boys</h3>
+<p>(mice R package)</p>
+<p>The data set of growth of 748 Dutch boys. Nine measurements</p>
+<ul>
+<li>age: decimal age (0-21 years)</li>
+<li>hgt: height (cm)</li>
+<li>wgt: weight (kg)</li>
+<li>bmi</li>
+<li>hc: head circumference (cm)</li>
+<li>gen: genital Tanner stage (G1-G5). Ordered factor</li>
+<li>phb: pubic hear (Tanner P1-P6). Ordered factor</li>
+<li>tv: testicular volume (ml)</li>
+<li>reg: region (north, east, west, south, city). Factor</li>
+</ul>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 748   9</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="pima-indians" class="level3">
+<h3 class="anchored" data-anchor-id="pima-indians">Pima indians</h3>
+<p>(MASS R package)</p>
+<p>We will use the classical data set of <em>diabetes</em> from a population of women of Pima Indian heritage in the US, available in the R <code>MASS</code> package. The following information is available for each woman:</p>
+<ul>
+<li>diabetes: <code>0</code>= not present, <code>1</code>= present (variable called type)</li>
+<li>npreg: number of pregnancies</li>
+<li>glu: plasma glucose concentration in an oral glucose tolerance test</li>
+<li>bp: diastolic blood pressure (mmHg)</li>
+<li>skin: triceps skin fold thickness (mm)</li>
+<li>bmi: body mass index (weight in kg/(height in m)<span class="math inline">\(^2\)</span>)</li>
+<li>ped: diabetes pedigree function.</li>
+<li>age: age in years</li>
+</ul>
+<p>We will look at a data set (Pima.tr2) with a randomly selected set of 200 subjects (Pima.tr), plus 100 subjects with missing values in the explanatory variables.</p>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 300   8</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="group-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="group-discussion">Group discussion</h2>
+<p>Make sure the three types of plots are understood!</p>
+<ul>
+<li>pairs plot</li>
+<li>number of missing values</li>
+<li>missing patterns</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="notation" class="level1">
+<h1>Notation</h1>
+<p>We will use different letters for response and covariates, but often that is not done in other sources. (We will assume that missing values are only present in the covariates and not the response.)</p>
+<p>By response we mean the response in the intended <em>analysis model</em> and ditto for the covariates. (We will later also talk about an <em>imputation model</em> but this is not connected to our notation here.)</p>
+<hr>
 <ul>
 <li><span class="math inline">\({\mathbf y}\)</span>: response vector (no missing values)</li>
 <li><span class="math inline">\({\mathbf X}\)</span>: the full covariate matrix</li>
@@ -201,127 +441,697 @@ div.csl-indent {
 <li><span class="math inline">\({\mathbf X}_{\text{mis}}\)</span>: the missing part of the covariate matrix</li>
 <li><span class="math inline">\({\mathbf Z}_{\text{obs}}=({\mathbf X}_{\text{obs}},{\mathbf y})\)</span>: the observed responses and covariates</li>
 <li><span class="math inline">\({\mathbf R}\)</span>: indicator matrix (0/1) for missingness/observability of <span class="math inline">\({\mathbf X}\)</span>, where <span class="math inline">\(1\)</span> denotes observed and <span class="math inline">\(0\)</span> denotes missing. (ELS 9.6 does the opposite, but that is not the common use.)</li>
-<li><span class="math inline">\(\theta\)</span>: some parameter in the distribution of <span class="math inline">\({\mathbf R}\)</span>.</li>
+<li><span class="math inline">\(\psi\)</span>: some parameter in the distribution of <span class="math inline">\({\mathbf R}\)</span>.</li>
 </ul>
 <p>We may use the indicator matrix together with the missing data vector and observed data vector to write out the full covariate matrix.</p>
-<p>The missing data mechanism is characterized by the conditional distribution of <span class="math inline">\({\mathbf R}\)</span>; <span class="math display">\[P({\mathbf R} \mid {\mathbf Z},\theta)\]</span></p>
+<p>The missing data mechanism is characterized by the conditional distribution of <span class="math inline">\({\mathbf R}\)</span>; <span class="math display">\[P({\mathbf R} \mid {\mathbf Z},\psi)\]</span></p>
 <hr>
 </section>
-<section id="missing-mechanisms" class="level2">
-<h2 class="anchored" data-anchor-id="missing-mechanisms">Missing mechanisms</h2>
-<section id="missing-completely-at-random-mcar" class="level3">
-<h3 class="anchored" data-anchor-id="missing-completely-at-random-mcar">Missing completely at random (MCAR)</h3>
-<p><span class="math display">\[P({\mathbf R} \mid {\mathbf Z},\theta)=P({\mathbf R} \mid \theta)\]</span></p>
+<section id="missing-mechanisms" class="level1">
+<h1>Missing mechanisms</h1>
+<section id="missing-completely-at-random-mcar" class="level2">
+<h2 class="anchored" data-anchor-id="missing-completely-at-random-mcar">Missing completely at random (MCAR)</h2>
+<p><span class="math display">\[P({\mathbf R} \mid {\mathbf Z},\psi)=P({\mathbf R} \mid \psi)\]</span></p>
 <ul>
 <li>All observations have the same probability of being missing, and</li>
 <li>the missing mechanism is not related to the data (not to observed or missing data).</li>
 </ul>
 <p>If observations with MCAR data are removed that should not bias the analyses (but the sample size will of cause be smaller), because the subset of complete observations should have the same distribution as the full data set.</p>
+<hr>
 <p>Examples:</p>
 <ul>
 <li>measure weight, and the scales run out of battery</li>
 <li>similar mechanism to taking a random sample</li>
+<li>a tube containing a blood sample of study subject is broken by accident and then the blood sample could not be analysed (a set of covariates are then missing)</li>
 </ul>
 <hr>
 </section>
-<section id="missing-at-random-mar" class="level3">
-<h3 class="anchored" data-anchor-id="missing-at-random-mar">Missing at random (MAR)</h3>
-<p><span class="math display">\[P({\mathbf R} \mid {\mathbf Z},\theta)=P({\mathbf R} \mid {\mathbf Z}_{\text obs},\theta)\]</span></p>
+<section id="missing-at-random-mar" class="level2">
+<h2 class="anchored" data-anchor-id="missing-at-random-mar">Missing at random (MAR)</h2>
+<p><span class="math display">\[P({\mathbf R} \mid {\mathbf Z},\psi)=P({\mathbf R} \mid {\mathbf Z}_{\text obs},\psi)\]</span></p>
 <ul>
 <li>The probability of an entry to be missing depends (possibly) on observed data, but not on unobserved data.</li>
 <li>Thus, all information about the missing data that we need to perform valid statistical analysis is found in the observed data (but maybe difficult to construct a model for this).</li>
 <li>In a regression or classifiation setting this means that the missingness of a covariate may be dependent on the observed response.</li>
 <li>Remark: not dependent on what could have been observed (i.e.&nbsp;what is not observed).</li>
 </ul>
-<p>Example:</p>
+<hr>
+<p><strong>Examples:</strong></p>
 <ul>
 <li>measure weight, and the scales have different missing proportions when being on a hard or soft surface</li>
+<li>we have a group of healthy and sick individuals (this is the reponse), and for a proportion of the sick individuals the result of a diagnostic test is missing but for the healthy individuals there are no missing values</li>
 </ul>
 <p>Most methods for handling missing data require the data to be MAR. If you know that the missingness is at least MAR, then there exists tests to check if the data also is MCAR.</p>
 <hr>
 </section>
-<section id="missing-not-at-random-mnar" class="level3">
-<h3 class="anchored" data-anchor-id="missing-not-at-random-mnar">Missing not at random (MNAR)</h3>
+<section id="missing-not-at-random-mnar" class="level2">
+<h2 class="anchored" data-anchor-id="missing-not-at-random-mnar">Missing not at random (MNAR)</h2>
 <p>We have MNAR if we don´t have MAR or MCAR.</p>
 <p>Then the missing mechanism could depend on what we could have measured (unobserved data) or other observed values (covariates or response that we are noe collecting). Statistical analyses can not be performed without modelling the underlying missing data mechanism.</p>
-<p>Examples:</p>
+<hr>
+<p><strong>Examples:</strong></p>
 <ul>
 <li>the scales give more often missing values for heavier objects than for lighter objects</li>
 <li>a patient is too sick to perform some procedure that would show a high value of a measurement</li>
+<li>when asking a subject for his/her income missing data are more likely to occur when the income level is high</li>
 </ul>
 <hr>
 </section>
-<section id="group-discussion" class="level3">
-<h3 class="anchored" data-anchor-id="group-discussion">Group discussion</h3>
-<p>Look at data to be used in the future - and say if MCAR, MNAR, MAR? Or come up with data where this is the case themselves? Suggest to create simulation experiments to check the invalidity or validity of complete case analysis under the three types of missingness?</p>
+<section id="group-discussion-1" class="level2">
+<h2 class="anchored" data-anchor-id="group-discussion-1">Group discussion</h2>
+<p>So far in your study/work/other - you might have analysed a data set (maybe on Kaggle or in a course). Think of one such data set.</p>
+<ul>
+<li>Did this data set have missing values?</li>
+<li>If yes, did you check if the observations were MCAR, MAR or MNAR?</li>
+<li>What did you (or the teacher etc) do to handle the missing data?</li>
+</ul>
+<p>If you have not analysed missing data, instead look at the synthetic generation of data with different missing mechanisms below!</p>
+<!-- Suggest to create simulation experiments to check the invalidity or validity of complete case analysis under the three types of missingness? -->
+<hr>
+</section>
+<section id="synthetic-example-with-missing-mechanisms" class="level2">
+<h2 class="anchored" data-anchor-id="synthetic-example-with-missing-mechanisms">Synthetic example with missing mechanisms</h2>
+<p>Example from <span class="citation" data-cites="VanBuuren2018">van Buuren (<a href="#ref-VanBuuren2018" role="doc-biblioref">2018</a>)</span> Chapter 2.2.</p>
+<p>A bivariate (0.5 correlation) normal response <span class="math inline">\((Y_1,Y_2)\)</span> is generated <span class="math inline">\(N=300\)</span>, and then data are removed from the second component <span class="math inline">\(Y_2\)</span>. This is done in three ways:</p>
+<ul>
+<li>MCAR: each observation <span class="math inline">\(Y_2\)</span> is missing with probability 0.5</li>
+<li>MAR: each observation <span class="math inline">\(Y_2\)</span> is missing with probability dependent on <span class="math inline">\(Y_1\)</span></li>
+<li>MNAR: each observation <span class="math inline">\(Y_2\)</span> is missing with probability dependent on <span class="math inline">\(Y_2\)</span>.</li>
+</ul>
+<p>The boxplots of observed and missing values are shown.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: true</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#|warnings: false</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#|error: false</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># code from https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>logistic <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">exp</span>(x) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(x))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">80122</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> n, <span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Sigma =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">1</span>), <span class="at">nrow =</span> <span class="dv">2</span>))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>r2.mcar <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>r2.mar  <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fu">logistic</span>(y[, <span class="dv">1</span>]))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>r2.mnar <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fu">logistic</span>(y[, <span class="dv">2</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: false</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#|warnings: false</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#|error: false</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># code from https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'lattice'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:ggmice':
+
+    bwplot, densityplot, stripplot, xyplot</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> y[, <span class="dv">1</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> y[, <span class="dv">2</span>]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>y3 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(y,y,y)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="fu">c</span>(r2.mcar,r2.mar,r2.mnar)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="fu">factor</span>(r2, <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Ymis"</span>,<span class="st">"Yobs"</span>))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>typ <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">1</span>,<span class="at">each=</span>n),<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"MNAR"</span>,<span class="st">"MAR"</span>,<span class="st">"MCAR"</span>))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y1=</span>y3[,<span class="dv">1</span>],<span class="at">y2=</span>y3[,<span class="dv">2</span>],<span class="at">r2=</span>r2,<span class="at">typ=</span>typ)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">trellis.par.set</span>(<span class="at">box.rectangle=</span><span class="fu">list</span>(<span class="at">col=</span><span class="fu">c</span>(<span class="fu">mdc</span>(<span class="dv">2</span>),<span class="fu">mdc</span>(<span class="dv">1</span>)),<span class="at">lwd=</span><span class="fl">1.2</span>))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">trellis.par.set</span>(<span class="at">box.umbrella=</span><span class="fu">list</span>(<span class="at">col=</span><span class="fu">c</span>(<span class="fu">mdc</span>(<span class="dv">2</span>),<span class="fu">mdc</span>(<span class="dv">1</span>)),<span class="at">lwd=</span><span class="fl">1.2</span>))</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">trellis.par.set</span>(<span class="at">plot.symbol=</span><span class="fu">list</span>(<span class="at">col=</span><span class="fu">mdc</span>(<span class="dv">3</span>),<span class="at">lwd=</span><span class="dv">1</span>))</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>tp <span class="ot">&lt;-</span> <span class="fu">bwplot</span>(r2<span class="sc">~</span>y2<span class="sc">|</span>typ, <span class="at">data=</span>d,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">horizontal=</span><span class="cn">TRUE</span>, <span class="at">layout=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">xlab=</span><span class="fu">expression</span>(Y[<span class="dv">2</span>]),</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">col=</span><span class="fu">c</span>(<span class="fu">mdc</span>(<span class="dv">2</span>),<span class="fu">mdc</span>(<span class="dv">1</span>)),<span class="at">strip=</span><span class="cn">FALSE</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>),</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">strip.left =</span> <span class="fu">strip.custom</span>(<span class="at">bg=</span><span class="st">"grey95"</span>))</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
 </section>
+<section id="popular-solutions-to-missing-data" class="level1">
+<h1>Popular solutions to missing data</h1>
+<!-- Here: If there are missing values in the responses, we start by removing observations with missing responses. -->
+<section id="use-an-analysis-method-that-handles-missing-data" class="level2">
+<h2 class="anchored" data-anchor-id="use-an-analysis-method-that-handles-missing-data">Use an analysis method that handles missing data</h2>
+<p>One such method is the CART classification and regression tree! How is it done? More in Part 3.</p>
+<hr>
 </section>
-<section id="popular-solutions-to-missing-covariates" class="level1">
-<h1>Popular solutions to missing covariates</h1>
-<p><span class="citation" data-cites="brandphd">(<a href="#ref-brandphd" role="doc-biblioref"><strong>brandphd?</strong></a>)</span></p>
-<p>SE info fra SL i slides og evt annet for å få ryggdekning for når metodene er gyldige.</p>
-<p><strong>Use an analysis method that handles missing data</strong>: such as trees! More in Part 3.</p>
-<p><strong>Complete case analysis:</strong> discard all observations containing missing values. This is also called “listwise deletion”. Wasteful, but will give valid inference for MCAR. If the missing is MAR a complete case analysis may lead to bias. In a regression setting if a missing covariate is dependent on the response, then parameter estimates may become biased.</p>
+<section id="complete-case-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="complete-case-analysis">Complete case analysis</h2>
+<p>Discard all observations containing missing values. This is also called “listwise deletion”.</p>
+<ul>
+<li>Wasteful, but will give valid inference for MCAR.</li>
+<li>If the missing is MAR a complete case analysis may lead to bias. In a regression setting if a missing covariate is dependent on the response, then parameter estimates may become biased.</li>
+</ul>
 <p>Let each variable have a probability for missing values of 0.05, then for 20 variables the probability of an observation to be complete is <span class="math inline">\((1 − 0.05)^20 = 0.36\)</span>, for 50 variables <span class="math inline">\(0.08\)</span>. Not many observations left with complete case analysis. Of cause some variables may have more missing than others, and removing those variables first may of cause lead to less observations that are incomplete</p>
-<p><strong>Pairwise deletion:</strong> for example when calculating a correlation matrix only complete pairs may enter in the calculation. This is also called “available-case analysis”. A covariance matrix constructed from pairwise deletion may not be positive definite.</p>
 <hr>
-<p><strong>Single imputation:</strong> here each missing value is imputed (filled in) once by some “estimate” and the data set is then complete and standard statistical methods may be used.</p>
+</section>
+<section id="pairwise-deletion" class="level2">
+<h2 class="anchored" data-anchor-id="pairwise-deletion">Pairwise deletion</h2>
+<p>For example when calculating a correlation matrix only complete pairs may enter in the calculation. This is also called “available-case analysis”. A covariance matrix constructed from pairwise deletion may not be positive definite.</p>
+<hr>
+</section>
+<section id="indicator-variable-method" class="level2">
+<h2 class="anchored" data-anchor-id="indicator-variable-method">Indicator variable method</h2>
+<p>Assume we have regression setting with missing values only in one of the covariates. The indicator method generates a new covariate as a missing indicator, and replaces the missing values in the original covariate with 0s.</p>
+<p><span class="citation" data-cites="VanBuuren2018">van Buuren (<a href="#ref-VanBuuren2018" role="doc-biblioref">2018</a>)</span> (Chapter 1.3.7) says that it can be shown that biased estimates of regression parameters can occur also under MCAR. However the method works in particular situation. Which situations this is I (Mette) have not looked into. Would be interesting to know.</p>
+<p>A version of this method is used in machine learning. If the covariate is a categorical covariate then an extra category is created for the missing data. Here more information would be of interest to include!</p>
+<hr>
+</section>
+<section id="single-imputation" class="level2">
+<h2 class="anchored" data-anchor-id="single-imputation">Single imputation</h2>
+<p>here each missing value is imputed (filled in) once by some “estimate” or “prediction” and the data set is then assumed to be complete and standard statistical methods are used.</p>
+<hr>
+<p><strong>Problems with single imputation:</strong> Standard errors may be underestimated giving too narrow CIs and too low <span class="math inline">\(p\)</span>-values. Why: the imputed data are treated as fixed (known) values.</p>
 <p>Versions of single imputation:</p>
-<p><strong>LOCF:</strong> Last observation carried forward. Time series etc. Not recommended, unless there is a reason to believe that nothing has changed.</p>
-<p><strong>Mean imputation:</strong> Replace the missing value with the mean of the covariate over all samples. Will decrease the variability in the data. “Common solution” within machine learning, but not so common in statistics. Will not give valid inference.</p>
-<p><strong>Problems with single imputation:</strong> Standard errors may be understimated giving too narrow CIs and too low <span class="math inline">\(p\)</span>-values. Why: the imputed data are treated as fixed (known) values.</p>
+<section id="locf" class="level3">
+<h3 class="anchored" data-anchor-id="locf">LOCF</h3>
+<p>Last observation carried forward. Time series etc. Not recommended, unless there is a reason to believe that nothing has changed.</p>
 <hr>
-<p><strong>Likelihood approaches:</strong></p>
-<p><strong>Bayesian approaches:</strong></p>
-<p><strong>Multiple imputation:</strong> Devise a method to construct the distribution of each covariate (that can be missing) based on other covariates (often a regression method). Sample multiple observation for each missing value, and get <span class="math inline">\(m\)</span> complete dataset. Analyse all <span class="math inline">\(m\)</span> dataset and weigh the results together. R: package <code>mice</code>. Will give powerful and valid inference for MAR and MCAR</p>
+</section>
+<section id="mean-imputation" class="level3">
+<h3 class="anchored" data-anchor-id="mean-imputation">Mean imputation</h3>
+<p>Replace the missing value with the mean of the covariate over all samples.</p>
+<p>This will decrease the variability in the data.</p>
+<p>“Common solution” within machine learning, but not so common in statistics. Will not give valid inference (but unbiased estimate for the mean).</p>
+<p>Example below (airquality data): Blue indicates the observed data, red indicates the imputed values.</p>
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># code from https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"mice"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"mi.hist.R"</span>) <span class="co">#downloaded from https://github.com/stefvanbuuren/fimdbook/blob/master/R/</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>imp <span class="ot">&lt;-</span> <span class="fu">mice</span>(airquality, <span class="at">method =</span> <span class="st">"mean"</span>, <span class="at">m =</span> <span class="dv">1</span>, <span class="at">maxit =</span> <span class="dv">1</span>,<span class="at">print=</span><span class="cn">FALSE</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>lwd <span class="ot">&lt;-</span> <span class="fl">0.6</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">complete</span>(imp)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>Yobs <span class="ot">&lt;-</span> airquality[,<span class="st">"Ozone"</span>]</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>Yimp <span class="ot">&lt;-</span> data[,<span class="st">"Ozone"</span>]</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mi.hist</span>(Yimp, Yobs,<span class="at">b=</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">20</span>,<span class="dv">200</span>,<span class="dv">10</span>),<span class="at">type=</span><span class="st">"continuous"</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">gray=</span>F,<span class="at">lwd =</span> lwd,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">obs.lwd=</span><span class="fl">1.5</span>, <span class="at">mis.lwd=</span><span class="fl">1.5</span>, <span class="at">imp.lwd=</span><span class="fl">1.5</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">obs.col=</span><span class="fu">mdc</span>(<span class="dv">4</span>), <span class="at">mis.col=</span><span class="fu">mdc</span>(<span class="dv">5</span>), <span class="at">imp.col=</span><span class="st">"transparent"</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">mlt=</span><span class="fl">0.08</span>,<span class="at">main=</span><span class="st">""</span>,<span class="at">xlab=</span><span class="st">"Ozone (ppb)"</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axes =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">lwd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(data[<span class="fu">cci</span>(imp),<span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>],<span class="at">col=</span><span class="fu">mdc</span>(<span class="dv">1</span>), <span class="at">lwd=</span><span class="fl">1.5</span>,<span class="at">ylab=</span><span class="st">"Ozone (ppb)"</span>,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Solar Radiation (lang)"</span>,<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>,<span class="dv">170</span>),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(data[<span class="fu">ici</span>(imp),<span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>],<span class="at">col=</span><span class="fu">mdc</span>(<span class="dv">2</span>),<span class="at">lwd=</span><span class="fl">1.5</span>,<span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">lwd =</span> lwd)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">lwd =</span> lwd, <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">lwd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<p><strong>Quality of mean imputation:</strong> mean unbiased under MCAR, and regression weights or correlations not. Standard errors too small.</p>
+<hr>
+</section>
+</section>
+<section id="regression-imputation" class="level2">
+<h2 class="anchored" data-anchor-id="regression-imputation">Regression imputation</h2>
+<p>Can we use the relationship between the variables to provide a more “sensible” value than the overall mean?</p>
+<p>We look at the pair of Solar (here assume to not have missing values) and Ozone (with missing values). We fit a simple linear regression with Solar as covariate and Ozone as response using only the complete cases.</p>
+<p>Then we turn to observations where Ozone is missing but Solar is observed, and use the regression model to predict Ozone as a function of Solar.</p>
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: false</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#|warnings: false</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#|error: false</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># code from https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Ozone <span class="sc">~</span> Solar.R, <span class="at">data =</span> airquality)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># by default complete case performed</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">ic</span>(airquality))</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># mice::ic=select the incomplete cases</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: false</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#|warnings: false</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#|error: false</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># code from https://github.com/stef</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">## ----plotregimp, duo = TRUE, echo=FALSE, fig.width=4.5, fig.height=2.25----</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>lwd <span class="ot">&lt;-</span> <span class="fl">0.6</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>Yobs <span class="ot">&lt;-</span> airquality[,<span class="st">"Ozone"</span>]</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>Yimp <span class="ot">&lt;-</span> Yobs</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>Yimp[<span class="fu">ici</span>(airquality)] <span class="ot">&lt;-</span> pred</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>ss <span class="ot">&lt;-</span> <span class="fu">cci</span>(airquality<span class="sc">$</span>Solar.R)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Ozone=</span>Yimp, <span class="at">Solar.R=</span>airquality<span class="sc">$</span>Solar.R)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mi.hist</span>(Yimp[ss], Yobs[ss],<span class="at">b=</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">20</span>,<span class="dv">200</span>,<span class="dv">10</span>),<span class="at">type=</span><span class="st">"continuous"</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">gray=</span>F, <span class="at">lwd =</span> lwd,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">obs.lwd=</span><span class="fl">1.5</span>, <span class="at">mis.lwd=</span><span class="fl">1.5</span>, <span class="at">imp.lwd=</span><span class="fl">1.5</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">obs.col=</span><span class="fu">mdc</span>(<span class="dv">4</span>),<span class="at">mis.col=</span><span class="fu">mdc</span>(<span class="dv">5</span>), <span class="at">imp.col=</span><span class="st">"transparent"</span>,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">mlt=</span><span class="fl">0.08</span>,<span class="at">main=</span><span class="st">""</span>,<span class="at">xlab=</span><span class="st">"Ozone (ppb)"</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">lwd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(data[<span class="fu">cci</span>(imp),<span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>],<span class="at">col=</span><span class="fu">mdc</span>(<span class="dv">1</span>),<span class="at">lwd=</span><span class="fl">1.5</span>,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">"Ozone (ppb)"</span>, <span class="at">xlab=</span><span class="st">"Solar Radiation (lang)"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>,<span class="dv">170</span>), <span class="at">axes =</span> <span class="cn">FALSE</span>,<span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(data[<span class="fu">ici</span>(imp),<span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>],<span class="at">col=</span><span class="fu">mdc</span>(<span class="dv">2</span>),<span class="at">lwd=</span><span class="fl">1.5</span>,<span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">lwd =</span> lwd)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">lwd =</span> lwd, <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">lwd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<p>Same plot is produced with the code below, but now using the built in R mice function with method=“norm.predict”.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: false</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#|eval: false</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#|warnings: false</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#|error: false</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># code from https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ----regimp2, eval = FALSE-----------------------------------------------</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> airquality[, <span class="fu">c</span>(<span class="st">"Ozone"</span>, <span class="st">"Solar.R"</span>)]</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>imp <span class="ot">&lt;-</span> <span class="fu">mice</span>(data, <span class="at">method =</span> <span class="st">"norm.predict"</span>, <span class="at">seed =</span> <span class="dv">1</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">m =</span> <span class="dv">1</span>, <span class="at">print =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">xyplot</span>(imp, Ozone <span class="sc">~</span> Solar.R,<span class="at">pch=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<p><strong>Quality of regression imputation:</strong> mean and regression weights are unbiased under MAR. Correlation is not. The imputed red dots have correlation 1 (linear relationship). Standard errors too small.</p>
+<hr>
+</section>
+<section id="stochastic-regression-imputation" class="level2">
+<h2 class="anchored" data-anchor-id="stochastic-regression-imputation">Stochastic regression imputation</h2>
+<p>This is very similar to the regression imputation, but i the prediction phase we do not predict the mean, but instead start with this predicted mean and then add a random draw from the residuals of the model fit.</p>
+<p>This may create observations outside the range of the data. See negatively predicted Ozone in the example below.</p>
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: false</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#|eval: true</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#|warnings: false</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#|error: false</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># code from https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="do">## ----sri-----------------------------------------------------------------</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> airquality[, <span class="fu">c</span>(<span class="st">"Ozone"</span>, <span class="st">"Solar.R"</span>)]</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>imp <span class="ot">&lt;-</span> <span class="fu">mice</span>(data, <span class="at">method =</span> <span class="st">"norm.nob"</span>, <span class="at">m =</span> <span class="dv">1</span>, <span class="at">maxit =</span> <span class="dv">1</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">seed =</span> <span class="dv">1</span>, <span class="at">print =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: false</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#|eval: true</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#|warnings: false</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#|error: false</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># code from https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ----plotsri, duo = TRUE, echo=FALSE, fig.width=4.5, fig.height=2.25-----</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>lwd <span class="ot">&lt;-</span> <span class="fl">0.6</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">complete</span>(imp)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>Yobs <span class="ot">&lt;-</span> airquality[, <span class="st">"Ozone"</span>]</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>Yimp <span class="ot">&lt;-</span> data[, <span class="st">"Ozone"</span>]</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mi.hist</span>(Yimp, Yobs,</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">b =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">40</span>, <span class="dv">200</span>, <span class="dv">10</span>), <span class="at">type =</span> <span class="st">"continuous"</span>,</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">gray =</span> <span class="cn">FALSE</span>, <span class="at">lwd =</span> lwd,</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">obs.lwd =</span> <span class="fl">1.5</span>, <span class="at">mis.lwd =</span> <span class="fl">1.5</span>, <span class="at">imp.lwd =</span> <span class="fl">1.5</span>,</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">obs.col =</span> <span class="fu">mdc</span>(<span class="dv">4</span>),<span class="at">mis.col =</span> <span class="fu">mdc</span>(<span class="dv">5</span>), <span class="at">imp.col =</span> <span class="st">"transparent"</span>,</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">mlt =</span> <span class="fl">0.08</span>, <span class="at">main =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"Ozone (ppb)"</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">lwd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(data[<span class="fu">cci</span>(imp), <span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>], <span class="at">col =</span> <span class="fu">mdc</span>(<span class="dv">1</span>),</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">ylab =</span> <span class="st">"Ozone (ppb)"</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Solar Radiation (lang)"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">170</span>),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">FALSE</span>,<span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(data[<span class="fu">ici</span>(imp), <span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>], <span class="at">col =</span> <span class="fu">mdc</span>(<span class="dv">2</span>), <span class="at">lwd =</span> <span class="fl">1.5</span>,<span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">lwd =</span> lwd)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">lwd =</span> lwd, <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">lwd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<p><strong>Quality of stochastic regression imputation:</strong> mean, regression weights and correlations are unbiased under MAR. Standard errors too small.</p>
+<hr>
+</section>
+<section id="likelihood-approaches" class="level2">
+<h2 class="anchored" data-anchor-id="likelihood-approaches">Likelihood approaches</h2>
+<p>(Not included in 2023)</p>
+<p>For example</p>
+<ul>
+<li>Bjørnland et al.&nbsp;Extreme phenotype sampling</li>
+<li>EM-algorithm from TMA4300</li>
+</ul>
+</section>
+<section id="fully-bayesian-approaches" class="level2">
+<h2 class="anchored" data-anchor-id="fully-bayesian-approaches">Fully Bayesian approaches</h2>
+<p>Sadly, not covered here.</p>
+<hr>
+</section>
+<section id="group-discussion-2" class="level2">
+<h2 class="anchored" data-anchor-id="group-discussion-2">Group discussion</h2>
+<p>Of the single imputation methods the stochastic regression imputation method appears to be the best. Do you see why? Would you think of possible improvements to this method?</p>
+<hr>
+</section>
 </section>
 <section id="multiple-imputation" class="level1">
 <h1>Multiple imputation</h1>
-<p><span class="citation" data-cites="lydersen_multippel">Lydersen (<a href="#ref-lydersen_multippel" role="doc-biblioref">2022</a>)</span> gives a nice overview for medical doctors - maybe a good place to start?</p>
-<section id="imputation-model" class="level2">
-<h2 class="anchored" data-anchor-id="imputation-model">Imputation model</h2>
-<!-- \begin{algorithm} -->
-<!-- \caption{MICE algorithm}\label{alg:mice} -->
-<!-- \begin{algorithmic}[1] -->
-<!-- \State Choose an univariate imputation model $P(Y_j^{\mathrm{mis}}\ | \ Y_j^{\mathrm{obs}}, Y_{-j})$ for each variable $Y_j$ where $j = 1, \dots, p$. -->
-<!-- \State For each iteration j, fill in initial imputations $\dot{Y_j}^0$ by random draws from $Y_j^{\mathrm{obs}}$ -->
-<!-- \State Repeat for $t = 1, \dots, T$ -->
-<!--     \Indent  -->
-<!--     \State Repeat for $j = 1, \dots, p$ -->
-<!--     \Indent -->
-<!--     \State Define $\dot{Y}_{-j}^t = (\dot{Y}_1^t, \dots, \dot{Y}_{j-1}^t,\dot{Y}_{j+1}^{t-1}, \dots, \dot{Y}_{p}^{t-1})$ as the complete data except $Y_j$ -->
-<!--     \State Draw $\dot{\gamma}_j^t \sim P(\gamma^t\ | \ Y_j^{\mathrm{obs}}, \dot{Y}_{-j}^t)$ -->
-<!--     \State Draw imputations $\dot{Y_j}^t \sim P(Y_j^{\mathrm{mis}} \ | \ Y_j^{\mathrm{obs}}, \dot{Y}_{-j}^t, \dot{\gamma}_j^t)$ -->
-<!--     \EndIndent -->
-<!--     \State End repeat j -->
-<!--     \EndIndent -->
-<!-- \State End repeat t -->
-<!-- \end{algorithmic} -->
-<!-- \end{algorithm} -->
+<section id="short-historical-overview" class="level2">
+<h2 class="anchored" data-anchor-id="short-historical-overview">Short historical overview</h2>
+<p>Historically multiple imputation dates back to Donald B. Rubin in the 1970´s. The idea is that multiple data set (multiple imputations) will reflect the uncertainty in the missing data. To construct the <span class="math inline">\(m\)</span> data sets theory from Bayesian statistics is used, but executed within the frequentist framework. Originally <span class="math inline">\(m=5\)</span> imputed data sets was the rule of thumb.</p>
+<p>The method did not become a standard tool until 2005 (according to <span class="citation" data-cites="VanBuuren2018">van Buuren (<a href="#ref-VanBuuren2018" role="doc-biblioref">2018</a>)</span>, 2.1.2), but now in 2023 it is widely used in statistics and has replaced version of single imputation. However, multiple imputation is not main stream in machine learning.</p>
+<hr>
+</section>
+<section id="overview-of-the-steps-of-the-method" class="level2">
+<h2 class="anchored" data-anchor-id="overview-of-the-steps-of-the-method">Overview of the steps of the method</h2>
+<ul>
+<li>Devise a method to construct the distribution of each covariate (that can be missing) based on other covariates (often a regression method). This is the Imputation model.</li>
+<li>Sample multiple observation for each missing value, and get <span class="math inline">\(m\)</span> complete dataset.</li>
+<li>Analyse all <span class="math inline">\(m\)</span> dataset as complete datasets with ordinary statistical methods (using the Analysis model)</li>
+<li>and weigh the results together using something called Rubin´s rules.</li>
+</ul>
+<p>The method gives powerful and valid inference for MAR and MCAR, and “solved” the problem with the “too small standard errors” for the single imputation methods.</p>
+<p><span class="citation" data-cites="lydersen_multippel">Lydersen (<a href="#ref-lydersen_multippel" role="doc-biblioref">2022</a>)</span> gives a nice overview for medical doctors.</p>
+<hr>
+<p>Schematic for multiple imputation from Marthe Bøe Ludvigsen project thesis.</p>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">include_graphics</span>(<span class="st">"MIflowMBL.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="MIflowMBL.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<p>We start with explaining the method for combining estimates with uncertainties from the <span class="math inline">\(m\)</span> complete data analyses (using the planned Analysis model), and wait til the end with the Imputation model!</p>
 </section>
 <section id="analysis-model" class="level2">
 <h2 class="anchored" data-anchor-id="analysis-model">Analysis model</h2>
+<section id="pima-indian-data" class="level3">
+<h3 class="anchored" data-anchor-id="pima-indian-data">Pima indian data</h3>
+<p>In the Pima indian data set the aim is to model the connection between the presence/absence of diabetes (binary response) and the other measured variable.</p>
+<p>This is the Analysis model for the Pima indian example.</p>
 </section>
-<section id="rubins-rules" class="level2">
-<h2 class="anchored" data-anchor-id="rubins-rules">Rubin´s rules</h2>
-<p>From the statistics A, B, C then standard errors, confidence intervals and <span class="math inline">\(p\)</span>-values may be found. The assumption used for statistical inference is that the distribution of A can be approximated by a multivariate normal distribution. Thus, the sample size needs to be sufficiently large.</p>
+<section id="other-examples" class="level3">
+<h3 class="anchored" data-anchor-id="other-examples">Other examples</h3>
+<p>In other cases we might have a linear regression model.</p>
+<p>In class we will look at an analysis by Marthe Bøe Ludvigsen for possible risk factors for predicting low and high levels of the suicial crisis syndrome. This is a collaboration with Terje Torgersen and Linde Melby at St Olavs Hospital/NTNU.</p>
+</section>
+</section>
+</section>
+<section id="rubins-rules" class="level1">
+<h1>Rubin’s rules</h1>
+<section id="algorithmic-view" class="level2">
+<h2 class="anchored" data-anchor-id="algorithmic-view">Algorithmic view</h2>
+<p>Fist we look at formulas for our quantities of interest, and next the Bayesian motivation for the formulas.</p>
+<section id="quantity-of-interest" class="level3">
+<h3 class="anchored" data-anchor-id="quantity-of-interest">Quantity of interest</h3>
+<p>We denote our quantity (parameter) of interest by <span class="math inline">\(\mathbf{Q}\)</span>, and assume this to be a <span class="math inline">\(k\times 1\)</span> column vector.</p>
+<p><strong>Example 1:</strong> Multiple linear regression</p>
+<p><span class="math display">\[\begin{align}
+\mathbf{Y} = \mathbf{X}{\boldsymbol \beta} + \boldsymbol{\varepsilon}
+\end{align}\]</span> where <span class="math inline">\(\boldsymbol{\varepsilon}\sim N(\mathbf{0},\sigma^2\mathbf{I})\)</span>.</p>
+<p>Here <span class="math inline">\(\mathbf{Q}=\boldsymbol{\beta}\)</span>.</p>
+<p><strong>Example 2:</strong> Logistic regression</p>
+<p>Again <span class="math inline">\(\mathbf{Q}=\boldsymbol{\beta}\)</span>.</p>
+<p><span class="math inline">\(\mathbf{Q}\)</span> can also be a vector of population means or population variances. It may not depend on a particular sample, so it cannot be a sample mean or a <span class="math inline">\(p\)</span>-value.</p>
+<hr>
+</section>
+<section id="estimator" class="level3">
+<h3 class="anchored" data-anchor-id="estimator">Estimator</h3>
+<p>If we have a complete data set - our imputed data set number <span class="math inline">\(l\)</span>. we might get <span class="math inline">\(\hat{\mathbf{Q}}_l\)</span> as our estimate. This takes into account the variablity in the complete data set.</p>
+<p><strong>Example 1:</strong> <span class="math inline">\(\hat{\boldsymbol{\beta}}=({\mathbf X}^T{\mathbf X})^{-1} {\mathbf X}^T {\mathbf Y}\)</span></p>
+<p><strong>Example 2:</strong> Maximizing the binary likelihood for the logistic regression (GLM with logit link) does not give a closed form solution, but a numerical value for <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> is found using Newton-Raphson.</p>
+<hr>
+<p>We also want to take into account the fact that we have <span class="math inline">\(m\)</span> complete data sets (multiple imputations). Let the pooled estimate be <span class="math display">\[ \overline{\mathbf{Q}}=\frac{1}{m}\sum_{l=1}^m \hat{\mathbf{Q}}_l\]</span></p>
+<p>This is based on each of the estimated <span class="math inline">\(\mathbf{Q}\)</span> in our <span class="math inline">\(m\)</span> imputed data set.</p>
+<p>Next: uncertainty in <span class="math inline">\(\hat{\mathbf{Q}}_l\)</span> and <span class="math inline">\(\overline{\mathbf{Q}}\)</span>.</p>
+<hr>
+</section>
+<section id="variance-estimator" class="level3">
+<h3 class="anchored" data-anchor-id="variance-estimator">Variance estimator</h3>
+<p>What is the variance of the new estimator <span class="math inline">\(\overline{\mathbf{Q}}\)</span>?</p>
+<p>Let <span class="math inline">\(\overline{\mathbf{U}}_l\)</span> be the estimated covariance of <span class="math inline">\(\hat{\mathbf{Q}}_l\)</span>.</p>
+<p><strong>Example 1:</strong> <span class="math inline">\(\widehat{\text{Cov}}(\hat{\boldsymbol{\beta}})=({\mathbf X}^T{\mathbf X})^{-1} \hat{\sigma}^2\)</span></p>
+<p><strong>Example 2:</strong> <span class="math inline">\(\widehat{\text{Cov}}(\hat{\boldsymbol{\beta}})\approx I^{-1}(\hat{\boldsymbol{\beta}})\)</span> the inverse of the estimated Fisher information matrix.</p>
+<hr>
+<ol type="1">
+<li><p>Within-imputation variance <span class="math display">\[\overline{\mathbf U}=\frac{1}{m}\sum_{l=1}^m \overline{\mathbf{U}}_l\]</span></p></li>
+<li><p>Between-imputation variance <span class="math display">\[\mathbf B=\frac{1}{m-1}\sum_{l=1}^m (\hat{\mathbf{Q}}_l-\overline{\mathbf{Q}})(\hat{\mathbf{Q}}_l-\overline{\mathbf{Q}})^T\]</span></p></li>
+</ol>
+<ul>
+<li><span class="math inline">\(\overline{\mathbf U}\)</span>: large if the number of observations <span class="math inline">\(N\)</span> is small</li>
+<li><span class="math inline">\({\mathbf B}\)</span>: large if many missing observations</li>
+</ul>
+<hr>
+<ol start="3" type="1">
+<li>Total variance of <span class="math inline">\(\overline{\mathbf{Q}}\)</span></li>
+</ol>
+<p><span class="math display">\[\mathbf{T}=\overline{\mathbf U}+\mathbf{B}+\frac{\mathbf{B}}{m}=\overline{\mathbf U}+(1+\frac{1}{m})\mathbf{B}\]</span></p>
+<ul>
+<li>First term: variance due to taking a sample and not examining the entire population (our conventional variance of estimator.</li>
+<li>Second term: extra variance due to missing values in the samples</li>
+<li>The last term is the simulation error: added because <span class="math inline">\(\overline{\mathbf{Q}}\)</span> is based on finite <span class="math inline">\(m\)</span></li>
+</ul>
+<hr>
+</section>
+<section id="variance-ratios" class="level3">
+<h3 class="anchored" data-anchor-id="variance-ratios">Variance ratios</h3>
+<p>for scalar <span class="math inline">\(Q\)</span> (for example one of the regression coefficients)</p>
+<p>Proportion of variation “attributable” to the missing data <span class="math display">\[ \lambda=\frac{B+B/m}{T}\]</span> Relative increase in variance due to missingness</p>
+<p><span class="math display">\[r=\frac{B+B/m}{\overline{U}}\]</span></p>
+<p>Relation:</p>
+<p><span class="math display">\[ r=\frac{\lambda}{1-\lambda}\]</span></p>
+<hr>
+</section>
+<section id="confidence-interval" class="level3">
+<h3 class="anchored" data-anchor-id="confidence-interval">Confidence interval</h3>
+<p>Common assumption: <span class="math inline">\(\overline{\mathbf{Q}}\)</span> is multivariate normal with mean <span class="math inline">\(\mathbf{Q}\)</span> and estimated covariance matrix <span class="math inline">\(\mathbf{T}\)</span>.</p>
+<p>We look at one component of <span class="math inline">\(\mathbf{Q}\)</span>, denoted <span class="math inline">\(Q\)</span> (maybe regression parameter for a specific covariate), antd <span class="math inline">\(T\)</span> is the appropriate component of the total variance estimate.</p>
+<p><span class="math inline">\((1-\alpha)100\%\)</span> confidence interval for <span class="math inline">\(Q\)</span>:</p>
+<p><span class="math display">\[\overline{Q} \pm t_{\nu,1-\alpha/2}\sqrt{T}\]</span></p>
+<p>where <span class="math inline">\(t_{\nu,1-\alpha/2}\)</span> is the value in the <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(\nu\)</span> degrees of freedom with area <span class="math inline">\(1-\alpha/2\)</span> to the left.</p>
+<p>What is <span class="math inline">\(\nu\)</span>?</p>
+<hr>
+</section>
+<section id="hypothesis-test" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-test">Hypothesis test</h3>
+<p>We want to test <span class="math inline">\(H_0: Q=Q_0\)</span> vs <span class="math inline">\(H_1: Q\neq Q_0\)</span>. The <span class="math inline">\(p\)</span>-value of the test can be calculated as <span class="math display">\[ P(F_{1,\nu} &gt; \frac{(\overline{Q}-Q_0)}{T})\]</span></p>
+<p>where <span class="math inline">\(F_{1,\nu}\)</span> is a random variable following a Fisher distribution with <span class="math inline">\(1\)</span> and <span class="math inline">\(\nu\)</span> degrees of freedom.</p>
+<hr>
+</section>
+<section id="degrees-of-freedom" class="level3">
+<h3 class="anchored" data-anchor-id="degrees-of-freedom">Degrees of freedom</h3>
+<p><span class="citation" data-cites="VanBuuren2018">van Buuren (<a href="#ref-VanBuuren2018" role="doc-biblioref">2018</a>)</span> Chapter 2.3.6 attributed this first solution to Rubind in 1987.</p>
+<p><span class="math display">\[\nu_{\text{old}}=(m-1)(1+\frac{1}{r^2})=\frac{m-1}{\lambda^2}\]</span></p>
+<p>If <span class="math inline">\(\lambda=1\)</span> then all variability is due to the missingness and then <span class="math inline">\(\nu_{\text{old}}=m-1\)</span>.</p>
+<p>If <span class="math inline">\(\lambda\rightarrow 0\)</span> then <span class="math inline">\(\nu_{\text{old}}\rightarrow \infty\)</span> (normal distribution instead of t, chisq instead of F).</p>
+<hr>
+<p><span class="citation" data-cites="VanBuuren2018">van Buuren (<a href="#ref-VanBuuren2018" role="doc-biblioref">2018</a>)</span> Chapter 2.3.6: A newer solution is due to Barnard and Rubin in 1999.</p>
+<p><span class="math display">\[\nu_{\text{com}}=n-k\]</span></p>
+<p><span class="math display">\[\nu_{\text{obs}}=\frac{\nu_{\text{com}}+1}{\nu_{\text{com}}+3} \nu_{\text{com}}(1-\lambda)\]</span> <span class="math display">\[\nu=\frac{\nu_{\text{old}}\nu_{\text{obs}}}{\nu_\text{old}+\nu_{\text{obs}}}\]</span></p>
+<hr>
+</section>
+<section id="rhanes-r-example" class="level3">
+<h3 class="anchored" data-anchor-id="rhanes-r-example">RHANES R-example</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>imp <span class="ot">&lt;-</span> <span class="fu">mice</span>(nhanes, <span class="at">print =</span> <span class="cn">FALSE</span>, <span class="at">m =</span> <span class="dv">10</span>, <span class="at">seed =</span> <span class="dv">24415</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">with</span>(imp, <span class="fu">lm</span>(bmi <span class="sc">~</span> age))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">pool</span>(fit)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>est</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Class: mipo    m = 10 
+         term  m  estimate      ubar         b        t dfcom       df
+1 (Intercept) 10 29.621111 3.4810048 1.4312926 5.055427    23 12.62920
+2         age 10 -1.802222 0.9257992 0.2759968 1.229396    23 14.42517
+        riv    lambda       fmi
+1 0.4522895 0.3114320 0.3995451
+2 0.3279291 0.2469478 0.3333805</code></pre>
+</div>
+</div>
+<p>Identify the the different estimates defined above!</p>
+<ul>
+<li>df is the <span class="math inline">\(\nu\)</span> above (Barnard-Rubin),</li>
+<li>while dfcom is the <span class="math inline">\(\nu_{\text{com}}\)</span>.</li>
+<li><span class="math inline">\(r\)</span>: proportion of variance to due to missingness<br>
+</li>
+<li><span class="math inline">\(\lambda\)</span>: fraction of missing information<br>
+</li>
+<li><span class="math inline">\(\gamma\)</span>: fraction of information about <span class="math inline">\(Q\)</span> due to missingness (not given formula)</li>
+</ul>
+<hr>
+</section>
+<section id="airquality-r-example" class="level3">
+<h3 class="anchored" data-anchor-id="airquality-r-example">Airquality R-example</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>imp <span class="ot">&lt;-</span> <span class="fu">mice</span>(airquality, <span class="at">print =</span> <span class="cn">FALSE</span>, <span class="at">m =</span> <span class="dv">10</span>, <span class="at">seed =</span> <span class="dv">24415</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">with</span>(imp, <span class="fu">lm</span>(Wind <span class="sc">~</span> Ozone))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">pool</span>(fit)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>est</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Class: mipo    m = 10 
+         term  m    estimate         ubar            b            t dfcom
+1 (Intercept) 10 12.59824641 1.520270e-01 2.593886e-02 1.805597e-01   151
+2       Ozone 10 -0.06245227 5.416219e-05 1.599145e-05 7.175278e-05   151
+        df       riv    lambda       fmi
+1 93.07909 0.1876821 0.1580238 0.1755506
+2 64.23966 0.3247762 0.2451555 0.2676079</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="dutch-boys-r-example" class="level3">
+<h3 class="anchored" data-anchor-id="dutch-boys-r-example">Dutch boys R-example</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggmice</span>(boys, <span class="fu">aes</span>(age, wgt)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W3_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>imp <span class="ot">&lt;-</span> <span class="fu">mice</span>(boys, <span class="at">print =</span> <span class="cn">FALSE</span>, <span class="at">m =</span> <span class="dv">10</span>, <span class="at">seed =</span> <span class="dv">24415</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">with</span>(imp, <span class="fu">lm</span>(wgt <span class="sc">~</span> age))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">pool</span>(fit)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>est</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Class: mipo    m = 10 
+         term  m estimate        ubar            b           t dfcom       df
+1 (Intercept) 10 4.275250 0.242037333 2.812862e-04 0.242346747   746 742.9581
+2         age 10 3.587684 0.001842701 5.689418e-06 0.001848959   746 740.7905
+          riv      lambda         fmi
+1 0.001278376 0.001276744 0.003954437
+2 0.003396298 0.003384802 0.006064630</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="pima-indians-r-example" class="level3">
+<h3 class="anchored" data-anchor-id="pima-indians-r-example">Pima indians R-example</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>imp <span class="ot">&lt;-</span> <span class="fu">mice</span>(Pima.tr2, <span class="at">print =</span> <span class="cn">FALSE</span>, <span class="at">m =</span> <span class="dv">10</span>, <span class="at">seed =</span> <span class="dv">24415</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">with</span>(imp, <span class="fu">glm</span>(type <span class="sc">~</span> bmi,<span class="at">family =</span> <span class="st">"binomial"</span>))</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">pool</span>(fit)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>est</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Class: mipo    m = 10 
+         term  m    estimate         ubar            b            t dfcom
+1 (Intercept) 10 -3.84045347 0.4798495316 6.914875e-03 0.4874558946   298
+2         bmi 10  0.09929536 0.0004251267 6.134841e-06 0.0004318751   298
+        df        riv     lambda        fmi
+1 289.1214 0.01585156 0.01560421 0.02234384
+2 289.1090 0.01587368 0.01562564 0.02236542</code></pre>
+</div>
+</div>
+<p>Identify the the different estimates defined above!</p>
+<p>df is the <span class="math inline">\(\nu\)</span> above (Barnard-Rubin), while dfcom is the <span class="math inline">\(\nu_{\text{com}}\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="bayesian-view" class="level2">
+<h2 class="anchored" data-anchor-id="bayesian-view">Bayesian view</h2>
+</section>
+</section>
+<section id="imputation-model-in-multiple-imputation" class="level1">
+<h1>Imputation model in multiple imputation</h1>
+<p>See <span class="citation" data-cites="missinghandbook2014">Molenberghs et al. (<a href="#ref-missinghandbook2014" role="doc-biblioref">2014</a>)</span> Section 12.3.1 for regression-based imputation (not to be covered here?).</p>
+<section id="joint-modelling" class="level2">
+<h2 class="anchored" data-anchor-id="joint-modelling">Joint modelling</h2>
+</section>
+<section id="fsc-chained-equations" class="level2">
+<h2 class="anchored" data-anchor-id="fsc-chained-equations">FSC Chained equations</h2>
+<section id="bayesian-linear-regression" class="level3">
+<h3 class="anchored" data-anchor-id="bayesian-linear-regression">Bayesian linear regression</h3>
+</section>
+<section id="algo" class="level3">
+<h3 class="anchored" data-anchor-id="algo">Algo</h3>
+<p>Slides pages 85+86 for difference between convergence and non-convergence</p>
+</section>
+</section>
+<section id="predictors-in-imputation-models" class="level2">
+<h2 class="anchored" data-anchor-id="predictors-in-imputation-models">Predictors in imputation models</h2>
+<ul>
+<li>Better with too many than to few</li>
+<li>Include the data analysis model response as covariate in the imputation models</li>
+</ul>
 </section>
 <section id="r-example" class="level2">
 <h2 class="anchored" data-anchor-id="r-example">R example</h2>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>imp <span class="ot">=</span> <span class="fu">mice</span>(nhanes, <span class="at">print =</span> <span class="cn">FALSE</span>, <span class="at">m =</span> <span class="dv">10</span>, <span class="at">seed =</span> <span class="dv">24415</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">=</span> <span class="fu">with</span>(imp, <span class="fu">lm</span>(bmi <span class="sc">~</span> age))</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of missing observations for our variables</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>imp<span class="sc">$</span>nmis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>imp <span class="ot">=</span> <span class="fu">mice</span>(nhanes, <span class="at">print =</span> <span class="cn">FALSE</span>, <span class="at">m =</span> <span class="dv">10</span>, <span class="at">seed =</span> <span class="dv">24415</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">=</span> <span class="fu">with</span>(imp, <span class="fu">lm</span>(bmi <span class="sc">~</span> age))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of missing observations for our variables</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>imp<span class="sc">$</span>nmis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>age bmi hyp chl 
@@ -329,8 +1139,8 @@ div.csl-indent {
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of mice results</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">pool</span>(fit))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of mice results</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">pool</span>(fit))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         term  estimate std.error statistic       df      p.value
@@ -341,38 +1151,93 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Trace line plot, can be used to check convergence</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Trace line plot, can be used to check convergence</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="W3_files/figure-html/mice%20plots-1.png" class="img-fluid" width="672"></p>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Density of observed and imputed data, observed in blue</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">densityplot</span>(imp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Density of observed and imputed data, observed in blue</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">densityplot</span>(imp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="W3_files/figure-html/mice%20plots-2.png" class="img-fluid" width="672"></p>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One dimensional scatter plots for observed and imputed data, observed in blue</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stripplot</span>(imp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One dimensional scatter plots for observed and imputed data, observed in blue</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stripplot</span>(imp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="W3_files/figure-html/mice%20plots-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<section id="references" class="level3">
-<h3 class="anchored" data-anchor-id="references">References</h3>
+</section>
+</section>
+<section id="model-selection-when-using-multiple-imputation" class="level1">
+<h1>Model selection when using multiple imputation</h1>
+<p>Count method combined with Wald test.</p>
+</section>
+<section id="model-evaluation-when-using-multiple-imputation" class="level1">
+<h1>Model evaluation when using multiple imputation</h1>
+<p>Test set imputed based on traning model. What about if Y in imputation model?</p>
+<p>Use of bootstrapping in combination with MI in Mark and Anne Laure.</p>
+</section>
+<section id="the-mice-r-package" class="level1">
+<h1>The mice R package</h1>
+<p><a href="https://github.com/amices/ggmice" class="uri">https://github.com/amices/ggmice</a></p>
+<p>Figure with the types of data.</p>
+<p>Plots for imputed data:</p>
+<ul>
+<li>one-dimensional scatter: stripplot</li>
+<li>box-and-whisker plot: bwplot</li>
+<li>densities: densityplot</li>
+<li>scatterplot: xyplot</li>
+</ul>
+</section>
+<section id="not-covered-well-enough" class="level1">
+<h1>Not covered well enough</h1>
+<p>(this semester - will improve)</p>
+<section id="ignorable-and-nonignorable" class="level2">
+<h2 class="anchored" data-anchor-id="ignorable-and-nonignorable">Ignorable and nonignorable</h2>
+<p>to which extent can we analyse the data without estimating the missingness paramterer <span class="math inline">\(\psi\)</span>? The parameter of interest in the analysis model is <span class="math inline">\(\theta\)</span>. When can we estimated <span class="math inline">\(\theta\)</span> without knowing <span class="math inline">\(\psi\)</span>? Little and Rubin: missing data mechanism is ignorable (for likelihood inference) if MAR and parameters <span class="math inline">\(\theta\)</span> and <span class="math inline">\(\psi\)</span> distinct. More strict for Baysian inference, then priors for the two must be independent.</p>
+<p>Further implications of nonignorability is that <span class="math inline">\(R\)</span> must be a part of the imputation model.</p>
+</section>
+</section>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
+<p>Missing…</p>
+<p>Maybe borrow an exercise from the Winnipeg lectures:</p>
+<p><a href="https://amices.org/Winnipeg/Practicals/Practical_I.html" class="uri">https://amices.org/Winnipeg/Practicals/Practical_I.html</a> <a href="https://amices.org/Winnipeg/Practicals/Practical_II.html" class="uri">https://amices.org/Winnipeg/Practicals/Practical_II.html</a> <a href="https://amices.org/Winnipeg/Practicals/Practical_III.html" class="uri">https://amices.org/Winnipeg/Practicals/Practical_III.html</a> <a href="https://amices.org/Winnipeg/Practicals/Practical_IV.html" class="uri">https://amices.org/Winnipeg/Practicals/Practical_IV.html</a></p>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/naniar/vignettes/naniar-visualisation.html" class="uri">https://cran.r-project.org/web/packages/naniar/vignettes/naniar-visualisation.html</a></li>
+<li><a href="https://github.com/stefvanbuuren/fimdbook" class="uri">https://github.com/stefvanbuuren/fimdbook</a></li>
+<li>R-analysis from the FIMD book: <a href="https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R" class="uri">https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R</a></li>
+<li>Slide set from Stef van Buuren (2017): <a href="https://amices.org/Winnipeg/Lectures/WinnipegHandout.pdf" class="uri">https://amices.org/Winnipeg/Lectures/WinnipegHandout.pdf</a> and <a href="https://amices.org/Winnipeg/" class="uri">https://amices.org/Winnipeg/</a></li>
+<li><a href="https://amices.org/" class="uri">https://amices.org/</a></li>
+</ul>
+</section>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-casi" class="csl-entry" role="doc-biblioentry">
+Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference - Algorithms, Evidence, and Data Science</em>. Cambridge University Press. <a href="https://hastie.su.domains/CASI/">https://hastie.su.domains/CASI/</a>.
+</div>
 <div id="ref-lydersen_multippel" class="csl-entry" role="doc-biblioentry">
 Lydersen, Stian. 2022. <span>“Multippel Imputering Av Manglende Data.”</span> <em>Tidsskrift for Den Norske Legeforening</em>. <a href="https://doi.org/10.4045/tidsskr.21.0772">https://doi.org/10.4045/tidsskr.21.0772</a>.
 </div>
+<div id="ref-missinghandbook2014" class="csl-entry" role="doc-biblioentry">
+Molenberghs, Geert, Garrett Fitzmaurice, Michael G. Kenward, Anastasios Tsiatis, and Geert Verbeke. 2014. <em>Handbook of <span>Missing</span> <span>Data</span> <span>Methodology</span></em>. Chapman &amp; <span>Hall</span>/<span>CRC</span> <span>Handbooks</span> of <span>Modern</span> <span>Statistical</span> <span>Methods</span>. Boca Raton: Chapman; Hall/CRC. <a href="https://search.ebscohost.com/login.aspx?direct=true&amp;db=nlebk&amp;AN=1499432&amp;site=ehost-live&amp;scope=site">https://search.ebscohost.com/login.aspx?direct=true&amp;db=nlebk&amp;AN=1499432&amp;site=ehost-live&amp;scope=site</a>.
 </div>
-</section>
-</section>
+<div id="ref-VanBuuren2018" class="csl-entry" role="doc-biblioentry">
+van Buuren, Stef. 2018. <em>Flexible Imputation of Missing Data. Second Edition.</em> Boca Raton, FL.: CRC Press.
+</div>
+</div>
 </section>
 
 </main>

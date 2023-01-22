@@ -4,6 +4,8 @@ subtitle: "Week 3 (L5+L6): Missing data"
 author: "Mette Langaas"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 bibliography: references.bib
+nocite: |
+  @casi, @esl, @VanBuuren2018 
 format: 
   html: 
     toc: true
@@ -20,27 +22,56 @@ format:
     navigation: frame
 ---
 
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+suppressPackageStartupMessages(library(mice))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(GGally))
+suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(naniar))
+suppressPackageStartupMessages(library(MASS))
+suppressPackageStartupMessages(library(ggmice))
+```
+
 Course homepage: <https://wiki.math.ntnu.no/ma8701/2023v/start>
 
 Reading list:
 
-* Handbook of missing data: Chapter
-* @VanBuuren2008 [Flexible imputation of missing data"](https://stefvanbuuren.name/fimd/))
+* Handbook of missing data methodology: Chapter 12.1.2, 12.2, 12.3.3. Available for download (60 pages pr day) from Oria at NTNU (Choose EBSCOweb, then PDF full text and then just download chapter 12).
+* [Flexible imputation of missing data"](https://stefvanbuuren.name/fimd/)): Chapters 1.1, 1.2, 1.3, 1.4, 2.2.4, 2.3.2 (similar to Handbook 12.2), 3.2.1, 3.2.2 (Algo 3.1), 3.4 (Algo 3.3), 4.5.1, 4.5.2.
 
-
+---
 
 # Missing data
 
-Many (most) statistical analysis methods (for example regression) require the data (for analysis) to be _complete_. That is, for all data record (observations, rows) all the variable under study must be _observed_. But, in the real world this is not the case - some variables are missing for some observations (records, rows). 
+Many statistical analysis methods (for example regression) require the data (for analysis) to be _complete_. That is, for all data record (observations, rows) all the variable under study must be _observed_. But, in the real world this is not the case - some variables are missing for some observations (records, rows). 
+
+What are reasons for data to be missing?
+
+---
+
+Some reasons (not exhaustive):
+
+* nonresponse,
+* measurement error, 
+* data entry errors, 
+* data collection limitations, 
+* sensitive or private information, 
+* data cleaning.
+
+The missingness may be intentional (sampling) or unintentional (refusal, self-selection, skip questions, coding error).
 
 ---
 
 ## What can we do?
 
 * delete all data records that are incomplete (have at least one missing value), and analyse these _complete cases_
-* use statistical methods that have built in mechanisms to handle  missing data (more about this in Part 3 - hint: trees)
 * fill in a missing value with a "representative" value to get complete data aka _single imputation_
 * as above, but make _m_ datasets and analyse them all and then combine the results
+* use statistical methods that have built in mechanisms to handle missing data (more about this in Part 3 - hint: trees)
+* likelihood-based methods, where the missing data are modelled inside the model (not covered here)
 * if the reason (mechanism) for the missing data is known, build a statistical model that takes this into account (will not be covered here).
 
 ---
@@ -55,9 +86,203 @@ If we do not treat missing data correctly, this may lead to
 
 We first look at notation and then definitions of missing mechanisms.
 
-## Notation
+---
 
-We will use different letters for response and covariates, but often that is not done in other sources. By response we mean the response in the intended _analysis model_ and ditto for the covariates. (We will later also talk about an _imputation model_ but this is not connected to our notation here.)
+## Data sets
+(Text provided by ChatGPT to "describe the NHANES data set in the mice R package.)
+
+### NHANES
+
+The NHANES (National Health and Nutrition Examination Survey) data set is a collection of health and nutrition information collected by the National Center for Health Statistics (NCHS) of the Centers for Disease Control and Prevention (CDC). It is a nationally representative sample of the non-institutionalized civilian population of the United States. The data set includes information on demographic characteristics, health status, and health behaviors, as well as laboratory test results.
+
+The data set is taken from Schafer, J.L. (1997). Analysis of Incomplete Multivariate Data. London: Chapman & Hall. Table 6.14.
+
+* nhanes/nhanes2: data frame with 25 observations of four variables (age (three age groups), bmi (kg/$m^2$), hyp=hypertensive (1=no, 2=yes), chl=total serum cholesterol (mg/dL))
+* nhanes/nhanes2: the same data sets, but in nhanes all variables are treated as numerical
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+ggpairs(nhanes2, panel = panel.smooth, main = "NHANES")
+```
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+hj=md.pattern(nhanes2)
+```
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+print(dim(nhanes2))
+gg_miss_var(nhanes2) + labs(y = "Number of missing data")+theme(text = element_text(size=23))+geom_hline(yintercept =10)
+```
+
+---
+
+### Airquality
+
+R base datasets. Daily air quality measurements in New York, May to September 1973.
+
+* Ozone	numeric	Ozone (ppb)
+*	Solar.R	numeric	Solar R (lang)
+*	Wind	numeric	Wind (mph)
+* Temp	numeric	Temperature (degrees F)
+* Month	numeric	Month (1--12)
+* Day	numeric	Day of month (1--31)
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+ggpairs(airquality, panel = panel.smooth, main = "airquality data")
+```
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+hj=md.pattern(airquality,plot=TRUE)
+```
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+print(dim(airquality))
+gg_miss_var(airquality) + labs(y = "Number of missing data")+theme(text = element_text(size=23))+geom_hline(yintercept =40)
+```
+
+---
+
+### Growth of Dutch boys
+(mice R package)
+
+The data set of growth of 748 Dutch boys. Nine measurements
+
+* age: decimal age (0-21 years)
+* hgt: height (cm)
+* wgt: weight (kg)
+* bmi
+* hc: head circumference (cm)
+* gen: genital Tanner stage (G1-G5). Ordered factor
+* phb: pubic hear (Tanner P1-P6). Ordered factor
+* tv: testicular volume (ml)
+* reg: region (north, east, west, south, city). Factor
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+ggpairs(mice::boys[,c(1:5,8,9)], panel = panel.smooth, main = "boys data")
+```
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+
+hj=md.pattern(boys,plot=TRUE)
+```
+
+---
+  
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+print(dim(boys))
+gg_miss_var(boys) + labs(y = "Number of missing data")+theme(text = element_text(size=23))
+#+geom_hline(yintercept =40)
+```
+
+---
+
+### Pima indians
+(MASS R package)
+
+We will use the classical data set of _diabetes_ from a population of women of Pima Indian heritage in the US, available in the R `MASS` package. The following information is available for each woman:
+
+* diabetes: `0`= not present, `1`= present (variable called type)
+* npreg: number of pregnancies
+* glu: plasma glucose concentration in an oral glucose tolerance test
+* bp: diastolic blood pressure (mmHg)
+* skin: triceps skin fold thickness (mm)
+* bmi: body mass index (weight in kg/(height in m)$^2$)
+* ped: diabetes pedigree function.
+* age: age in years
+
+We will look at a data set (Pima.tr2) with a randomly selected set of 200 subjects (Pima.tr), plus 100 subjects with missing values in the explanatory variables. 
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+ggpairs(MASS::Pima.tr2, panel = panel.smooth, main = "pima.tr2 data")
+```
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+
+hj=md.pattern(MASS::Pima.tr2,plot=TRUE)
+```
+
+---
+
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+print(dim(MASS::Pima.tr2))
+gg_miss_var(MASS::Pima.tr2) + labs(y = "Number of missing data")+theme(text = element_text(size=23))#+geom_hline(yintercept =40)
+```
+
+---
+
+## Group discussion
+
+Make sure the three types of plots are understood!
+
+* pairs plot
+* number of missing values
+* missing patterns
+
+---
+
+# Notation
+
+We will use different letters for response and covariates, but often that is not done in other sources.
+(We will assume that missing values are only present in the covariates and not the response.)
+
+By response we mean the response in the intended _analysis model_ and ditto for the covariates. (We will later also talk about an _imputation model_ but this is not connected to our notation here.)
+
+---
 
 -   ${\mathbf y}$: response vector (no missing values)
 -   ${\mathbf X}$: the full covariate matrix
@@ -66,19 +291,19 @@ We will use different letters for response and covariates, but often that is not
 -   ${\mathbf X}_{\text{mis}}$: the missing part of the covariate matrix
 -   ${\mathbf Z}_{\text{obs}}=({\mathbf X}_{\text{obs}},{\mathbf y})$: the observed responses and covariates
 -   ${\mathbf R}$: indicator matrix (0/1) for missingness/observability of ${\mathbf X}$, where $1$ denotes observed and $0$ denotes missing. (ELS 9.6 does the opposite, but that is not the common use.)
--   $\theta$: some parameter in the distribution of ${\mathbf R}$.
+-   $\psi$: some parameter in the distribution of ${\mathbf R}$.
 
 We may use the indicator matrix together with the missing data vector and observed data vector to write out the full covariate matrix.
 
-The missing data mechanism is characterized by the conditional distribution of ${\mathbf R}$; $$P({\mathbf R} \mid {\mathbf Z},\theta)$$
+The missing data mechanism is characterized by the conditional distribution of ${\mathbf R}$; $$P({\mathbf R} \mid {\mathbf Z},\psi)$$
 
 ---
 
-## Missing mechanisms
+# Missing mechanisms
 
-### Missing completely at random (MCAR)
+## Missing completely at random (MCAR)
 
-$$P({\mathbf R} \mid {\mathbf Z},\theta)=P({\mathbf R} \mid \theta)$$
+$$P({\mathbf R} \mid {\mathbf Z},\psi)=P({\mathbf R} \mid \psi)$$
 
 * All observations have the same probability of being missing, and
 * the missing mechanism is not related to the data (not to observed or missing data).
@@ -95,9 +320,9 @@ Examples:
 
 ---
 
-### Missing at random (MAR)
+## Missing at random (MAR)
 
-$$P({\mathbf R} \mid {\mathbf Z},\theta)=P({\mathbf R} \mid {\mathbf Z}_{\text obs},\theta)$$
+$$P({\mathbf R} \mid {\mathbf Z},\psi)=P({\mathbf R} \mid {\mathbf Z}_{\text obs},\psi)$$
 
 * The probability of an entry to be missing depends (possibly) on observed data, but not on unobserved data. 
 * Thus, all information about the missing data that we need to perform valid statistical analysis is found in the observed data (but maybe difficult to construct a model for this).
@@ -115,7 +340,7 @@ Most methods for handling missing data require the data to be MAR. If you know t
 
 ---
 
-### Missing not at random (MNAR)
+## Missing not at random (MNAR)
 
 We have MNAR if we don´t have MAR or MCAR.
 
@@ -139,28 +364,29 @@ So far in your study/work/other - you might have analysed a data set (maybe on K
 * If yes, did you check if the observations were MCAR, MAR or MNAR?
 * What did you (or the teacher etc) do to handle the missing data?
 
-If no one in the group remembers - maybe look at the Titanic or air quality dataset?
-
-```{r}
-library(titanic)
-sum(titanic_train$Cabin=="")
-sum(titanic_train$Cabin!="")
-apply(is.na(titanic_train),2,sum)
-titanic_train
-```
-
-```{r}
-airquality
-```
+If you have not analysed missing data, instead look at the synthetic generation of data with different missing mechanisms below!
 
 <!-- Suggest to create simulation experiments to check the invalidity or validity of complete case analysis under the three types of missingness? -->
 
 ---
 
-Example from @VanBuuren2018 Chapter 2.2
+## Synthetic example with missing mechanisms
+
+Example from @VanBuuren2018 Chapter 2.2. 
+
+A bivariate (0.5 correlation) normal response $(Y_1,Y_2)$ is generated $N=300$, and then data are removed from the second component $Y_2$. This is done in three ways:
+
+* MCAR: each observation $Y_2$ is missing with probability 0.5
+* MAR: each observation $Y_2$ is missing with probability dependent on $Y_1$
+* MNAR: each observation $Y_2$ is missing with probability dependent on $Y_2$.
+
+The boxplots of observed and missing values are shown. 
 
 ```{r}
-library(ggplot2)
+#|echo: true
+#|warnings: false
+#|error: false
+# code from https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R
 logistic <- function(x) exp(x) / (1 + exp(x))
 set.seed(80122)
 n <- 300
@@ -169,91 +395,576 @@ y <- MASS::mvrnorm(n = n, mu = c(0, 0),
 r2.mcar <- 1 - rbinom(n, 1, 0.5)
 r2.mar  <- 1 - rbinom(n, 1, logistic(y[, 1]))
 r2.mnar <- 1 - rbinom(n, 1, logistic(y[, 2]))
-
-mcarymis=y[r2.mcar==0,2]
-mcaryobs=y[r2.mcar==1,2]
-marymis=y[r2.mar==0,2]
-maryobs=y[r2.mar==1,2]
-mnarymis=y[r2.mnar==0,2]
-mnaryobs=y[r2.mnar==1,2]
-
-ds=data.frame(y=y[,2],r=r2.mar)
-ggplot(ds)+geom_boxplot(aes(y))+facet_wrap(~r)
 ```
 
-# Popular solutions to missing covariates
+---
 
-@brandphd
+```{r}
+#|echo: false
+#|warnings: false
+#|error: false
+# code from https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R
+library(lattice)
+y1 <- y[, 1]
+y2 <- y[, 2]
+y3 <- rbind(y,y,y)
+r2 <- c(r2.mcar,r2.mar,r2.mnar)
+r2 <- factor(r2, labels=c("Ymis","Yobs"))
+typ <- factor(rep(3:1,each=n),labels=c("MNAR","MAR","MCAR"))
+d <- data.frame(y1=y3[,1],y2=y3[,2],r2=r2,typ=typ)
+trellis.par.set(box.rectangle=list(col=c(mdc(2),mdc(1)),lwd=1.2))
+trellis.par.set(box.umbrella=list(col=c(mdc(2),mdc(1)),lwd=1.2))
+trellis.par.set(plot.symbol=list(col=mdc(3),lwd=1))
+tp <- bwplot(r2~y2|typ, data=d,
+             horizontal=TRUE, layout=c(1,3),
+             xlab=expression(Y[2]),
+             col=c(mdc(2),mdc(1)),strip=FALSE, xlim=c(-3,3),
+             strip.left = strip.custom(bg="grey95"))
+print(tp)
+```
 
-SE info fra SL i slides og evt annet for å få ryggdekning for når metodene er gyldige.
+# Popular solutions to missing data
 
-**Use an analysis method that handles missing data**: such as trees! More in Part 3.
 
-**Complete case analysis:** discard all observations containing missing values. This is also called "listwise deletion". Wasteful, but will give valid inference for MCAR. If the missing is MAR a complete case analysis may lead to bias. In a regression setting if a missing covariate is dependent on the response, then parameter estimates may become biased.
+<!-- Here: If there are missing values in the responses, we start by removing observations with missing responses. -->
+
+##  Use an analysis method that handles missing data
+
+One such method is the CART classification and regression tree! How is it done? More in Part 3.
+
+---
+
+## Complete case analysis
+
+Discard all observations containing missing values. This is also called "listwise deletion". 
+
+* Wasteful, but will give valid inference for MCAR. 
+* If the missing is MAR a complete case analysis may lead to bias. In a regression setting if a missing covariate is dependent on the response, then parameter estimates may become biased.
 
 Let each variable have a probability for missing values of 0.05, then for 20 variables the probability of an observation to be complete is $(1 − 0.05)^20 = 0.36$, for 50 variables $0.08$. Not many observations left with complete case analysis. Of cause some variables may have more missing than others, and removing those variables first may of cause lead to less observations that are incomplete
 
-**Pairwise deletion:** for example when calculating a correlation matrix only complete pairs may enter in the calculation. This is also called "available-case analysis". A covariance matrix constructed from pairwise deletion may not be positive definite.
+---
+
+## Pairwise deletion
+
+For example when calculating a correlation matrix only complete pairs may enter in the calculation. This is also called "available-case analysis". A covariance matrix constructed from pairwise deletion may not be positive definite.
 
 ---
 
-**Single imputation:** here each missing value is imputed (filled in) once by some "estimate" and the data set is then complete and standard statistical methods may be used.
+## Indicator variable method
+
+Assume we have regression setting with missing values only in one of the covariates. The indicator method generates a new covariate as a missing indicator, and replaces the missing values in the original covariate with 0s.
+
+@VanBuuren2018 (Chapter 1.3.7) says that it can be shown that biased estimates of regression parameters can occur also under MCAR. However the method works in particular situation. Which situations this is I (Mette) have not looked into. Would be interesting to know.
+
+A version of this method is used in machine learning. If the covariate is a categorical covariate then an extra category is created for the missing data. Here more information would be of interest to include!
+
+---
+
+## Single imputation
+
+here each missing value is imputed (filled in) once by some "estimate" or "prediction" and the data set is then assumed to be complete and standard statistical methods are used.
+
+---
+
+**Problems with single imputation:** Standard errors may be underestimated giving too narrow CIs and too low $p$-values. Why: the imputed data are treated as fixed (known) values. 
 
 Versions of single imputation:
 
-**LOCF:** Last observation carried forward. Time series etc. Not recommended, unless there is a reason to believe that nothing has changed.
+### LOCF
 
-**Mean imputation:** Replace the missing value with the mean of the covariate over all samples. Will decrease the variability in the data. "Common solution" within machine learning, but not so common in statistics. Will not give valid inference.
-
-**Problems with single imputation:** Standard errors may be understimated giving too narrow CIs and too low $p$-values. Why: the imputed data are treated as fixed (known) values. 
+Last observation carried forward. Time series etc. Not recommended, unless there is a reason to believe that nothing has changed.
 
 ---
 
-**Likelihood approaches:**
+### Mean imputation
 
-**Bayesian approaches:**
+Replace the missing value with the mean of the covariate over all samples. 
 
-**Multiple imputation:** Devise a method to construct the distribution of each covariate (that can be missing) based on other covariates (often a regression method). Sample multiple observation for each missing value, and get $m$ complete dataset. Analyse all $m$ dataset and weigh the results together. R: package `mice`. Will give powerful and valid inference for MAR and MCAR
+This will decrease the variability in the data. 
+
+"Common solution" within machine learning, but not so common in statistics. Will not give valid inference (but unbiased estimate for the mean).
+
+Example below (airquality data): Blue indicates the observed data, red indicates the imputed values.
+
+---
+
+```{r}
+# code from https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R
+library("mice")
+source("mi.hist.R") #downloaded from https://github.com/stefvanbuuren/fimdbook/blob/master/R/
+imp <- mice(airquality, method = "mean", m = 1, maxit = 1,print=FALSE)
+
+lwd <- 0.6
+data <- complete(imp)
+Yobs <- airquality[,"Ozone"]
+Yimp <- data[,"Ozone"]
+
+mi.hist(Yimp, Yobs,b=seq(-20,200,10),type="continuous",
+        gray=F,lwd = lwd,
+        obs.lwd=1.5, mis.lwd=1.5, imp.lwd=1.5,
+        obs.col=mdc(4), mis.col=mdc(5), imp.col="transparent",
+        mlt=0.08,main="",xlab="Ozone (ppb)",
+        axes = FALSE)
+box(lwd = 1)
+```
+
+---
+
+```{r}
+plot(data[cci(imp),2:1],col=mdc(1), lwd=1.5,ylab="Ozone (ppb)",
+     xlab="Solar Radiation (lang)",ylim=c(-10,170),
+     axes = FALSE, pch=20)
+points(data[ici(imp),2:1],col=mdc(2),lwd=1.5,pch=20)
+axis(1, lwd = lwd)
+axis(2, lwd = lwd, las = 1)
+box(lwd = 1)
+```
+
+---
+
+**Quality of mean imputation:** mean unbiased under MCAR, and regression weights or correlations not.
+Standard errors too small.
+
+---
+
+## Regression imputation
+
+Can we use the relationship between the variables to provide a more "sensible" value than the overall mean?
+
+We look at the pair of Solar (here assume to not have missing values) and Ozone (with missing values). We fit a simple linear regression with Solar as covariate and Ozone as response using only the complete cases.
+
+Then we turn to observations where Ozone is missing but Solar is observed, and use the regression model to predict Ozone as a function of Solar.
+
+---
+
+```{r}
+#|echo: false
+#|warnings: false
+#|error: false
+# code from https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R
+
+fit <- lm(Ozone ~ Solar.R, data = airquality)
+# by default complete case performed
+pred <- predict(fit, newdata = ic(airquality))
+# mice::ic=select the incomplete cases
+```
+
+```{r}
+#|echo: false
+#|warnings: false
+#|error: false
+# code from https://github.com/stef
+## ----plotregimp, duo = TRUE, echo=FALSE, fig.width=4.5, fig.height=2.25----
+lwd <- 0.6
+Yobs <- airquality[,"Ozone"]
+Yimp <- Yobs
+Yimp[ici(airquality)] <- pred
+ss <- cci(airquality$Solar.R)
+data <- data.frame(Ozone=Yimp, Solar.R=airquality$Solar.R)
+mi.hist(Yimp[ss], Yobs[ss],b=seq(-20,200,10),type="continuous",
+        gray=F, lwd = lwd,
+        obs.lwd=1.5, mis.lwd=1.5, imp.lwd=1.5,
+        obs.col=mdc(4),mis.col=mdc(5), imp.col="transparent",
+        mlt=0.08,main="",xlab="Ozone (ppb)", axes = FALSE)
+box(lwd = 1)
+```
+
+---
+
+```{r}
+plot(data[cci(imp),2:1],col=mdc(1),lwd=1.5,
+     ylab="Ozone (ppb)", xlab="Solar Radiation (lang)",
+     ylim=c(-10,170), axes = FALSE,pch=20)
+points(data[ici(imp),2:1],col=mdc(2),lwd=1.5,pch=20)
+axis(1, lwd = lwd)
+axis(2, lwd = lwd, las = 1)
+box(lwd = 1)
+```
+---
+
+Same plot is produced with the code below, but now using the built in R mice function with method="norm.predict".
+
+```{r}
+#|echo: false
+#|eval: false
+#|warnings: false
+#|error: false
+# code from https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R
+## ----regimp2, eval = FALSE-----------------------------------------------
+data <- airquality[, c("Ozone", "Solar.R")]
+imp <- mice(data, method = "norm.predict", seed = 1,
+           m = 1, print = FALSE)
+xyplot(imp, Ozone ~ Solar.R,pch=20)
+```
+
+---
+
+**Quality of regression imputation:** mean and regression weights are unbiased under MAR. Correlation is not. The imputed red dots have correlation 1 (linear relationship).
+Standard errors too small.
+
+---
+
+## Stochastic regression imputation
+
+This is very similar to the regression imputation, but i the prediction phase we do not predict the mean, but instead start with this predicted mean and then add a random draw from the residuals of the model fit. 
+
+This may create observations outside the range of the data. See negatively predicted Ozone in the example below.
+
+---
 
 
-# Multiple imputation
+```{r}
+#|echo: false
+#|eval: true
+#|warnings: false
+#|error: false
+# code from https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R
 
-@lydersen_multippel gives a nice overview for medical doctors - maybe a good place to start?
+## ----sri-----------------------------------------------------------------
+data <- airquality[, c("Ozone", "Solar.R")]
+imp <- mice(data, method = "norm.nob", m = 1, maxit = 1,
+            seed = 1, print = FALSE)
+```
+
+```{r}
+#|echo: false
+#|eval: true
+#|warnings: false
+#|error: false
+# code from https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R
+## ----plotsri, duo = TRUE, echo=FALSE, fig.width=4.5, fig.height=2.25-----
+lwd <- 0.6
+data <- complete(imp)
+Yobs <- airquality[, "Ozone"]
+Yimp <- data[, "Ozone"]
+mi.hist(Yimp, Yobs,
+        b = seq(-40, 200, 10), type = "continuous",
+        gray = FALSE, lwd = lwd,
+        obs.lwd = 1.5, mis.lwd = 1.5, imp.lwd = 1.5,
+        obs.col = mdc(4),mis.col = mdc(5), imp.col = "transparent",
+        mlt = 0.08, main = "", xlab = "Ozone (ppb)")
+box(lwd = 1)
+```
+
+---
+
+```{r}
+plot(data[cci(imp), 2:1], col = mdc(1),
+     lwd = 1.5, ylab = "Ozone (ppb)",
+     xlab = "Solar Radiation (lang)", ylim = c(-10, 170),
+     axes = FALSE,pch=20)
+points(data[ici(imp), 2:1], col = mdc(2), lwd = 1.5,pch=20)
+axis(1, lwd = lwd)
+axis(2, lwd = lwd, las = 1)
+box(lwd = 1)
+```
+
+---
+
+**Quality of stochastic regression imputation:** mean, regression weights and correlations are unbiased under MAR. Standard errors too small.
+
+---
+
+## Likelihood approaches
+(Not included in 2023)
+
+For example 
+
+* Bjørnland et al. Extreme phenotype sampling
+* EM-algorithm from TMA4300
 
 
-## Imputation model
+## Fully Bayesian approaches
 
-<!-- \begin{algorithm} -->
-<!-- \caption{MICE algorithm}\label{alg:mice} -->
-<!-- \begin{algorithmic}[1] -->
-<!-- \State Choose an univariate imputation model $P(Y_j^{\mathrm{mis}}\ | \ Y_j^{\mathrm{obs}}, Y_{-j})$ for each variable $Y_j$ where $j = 1, \dots, p$. -->
-<!-- \State For each iteration j, fill in initial imputations $\dot{Y_j}^0$ by random draws from $Y_j^{\mathrm{obs}}$ -->
-<!-- \State Repeat for $t = 1, \dots, T$ -->
-<!--     \Indent  -->
-<!--     \State Repeat for $j = 1, \dots, p$ -->
-<!--     \Indent -->
-<!--     \State Define $\dot{Y}_{-j}^t = (\dot{Y}_1^t, \dots, \dot{Y}_{j-1}^t,\dot{Y}_{j+1}^{t-1}, \dots, \dot{Y}_{p}^{t-1})$ as the complete data except $Y_j$ -->
-<!--     \State Draw $\dot{\gamma}_j^t \sim P(\gamma^t\ | \ Y_j^{\mathrm{obs}}, \dot{Y}_{-j}^t)$ -->
-<!--     \State Draw imputations $\dot{Y_j}^t \sim P(Y_j^{\mathrm{mis}} \ | \ Y_j^{\mathrm{obs}}, \dot{Y}_{-j}^t, \dot{\gamma}_j^t)$ -->
-<!--     \EndIndent -->
-<!--     \State End repeat j -->
-<!--     \EndIndent -->
-<!-- \State End repeat t -->
-<!-- \end{algorithmic} -->
-<!-- \end{algorithm} -->
+Sadly, not covered here.
+
+---
+
+## Group discussion
+
+Of the single imputation methods the stochastic regression imputation method appears to be the best. Do you see why? Would you think of possible improvements to this method?
+
+---
+
+# Multiple imputation 
+
+## Short historical overview
+
+Historically multiple imputation dates back to Donald B. Rubin in the 1970´s. The idea is that multiple data set (multiple imputations) will reflect the uncertainty in the missing data. To construct the $m$ data sets theory from Bayesian statistics is used, but executed within the frequentist framework. Originally $m=5$ imputed data sets was the rule of thumb.
+
+The method did not become a standard tool until 2005 (according to @VanBuuren2018, 2.1.2), but now in 2023 it is widely used in statistics and has replaced version of single imputation. However, multiple imputation is not main stream in machine learning. 
+
+---
+
+## Overview of the steps of the method
+
+* Devise a method to construct the distribution of each covariate (that can be missing) based on other covariates (often a regression method). This is the Imputation model. 
+* Sample multiple observation for each missing value, and get $m$ complete dataset. 
+* Analyse all $m$ dataset as complete datasets with ordinary statistical methods (using the Analysis model)
+* and weigh the results together using something called Rubin´s rules. 
+
+The method gives powerful and valid inference for MAR and MCAR, and "solved" the problem with the "too small standard errors" for the single imputation methods.
+
+@lydersen_multippel gives a nice overview for medical doctors.
+
+---
+
+Schematic for multiple imputation from Marthe Bøe Ludvigsen project thesis.
+
+```{r}
+#| out.width: "100%"
+#| fig.align: "center"
+#| fig.show: "hold"
+include_graphics("MIflowMBL.png")
+```
+
+---
+
+We start with explaining the method for combining estimates with uncertainties from the $m$ complete data analyses (using the planned Analysis model), and wait til the end with the Imputation model!
 
 ## Analysis model
 
-## Rubin´s rules
+### Pima indian data
 
-From the statistics A, B, C then standard errors, confidence intervals and $p$-values may be found. The assumption used for statistical inference is that the distribution of A can be approximated by a multivariate normal distribution. Thus, the sample size needs to be sufficiently large.
+In the Pima indian data set the aim is to model the connection between the presence/absence of diabetes (binary response) and the other measured variable. 
 
+This is the Analysis model for the Pima indian example.
+
+### Other examples
+
+In other cases we might have a linear regression model.
+
+In class we will look at an analysis by Marthe Bøe Ludvigsen for possible risk factors for predicting low and high levels of the suicial crisis syndrome. This is a collaboration with Terje Torgersen and Linde Melby at St Olavs Hospital/NTNU. 
+
+# Rubin's rules
+
+## Algorithmic view 
+
+Fist we look at formulas for our quantities of interest, and next the Bayesian motivation for the formulas.
+
+### Quantity of interest
+
+We denote our quantity (parameter) of interest by $\mathbf{Q}$, and assume this to be a $k\times 1$ column vector. 
+
+**Example 1:** Multiple linear regression  
+
+\begin{align}
+ \mathbf{Y} = \mathbf{X}{\boldsymbol \beta} + \boldsymbol{\varepsilon}
+\end{align}
+where $\boldsymbol{\varepsilon}\sim N(\mathbf{0},\sigma^2\mathbf{I})$.
+
+Here $\mathbf{Q}=\boldsymbol{\beta}$. 
+
+**Example 2:** Logistic regression
+
+Again $\mathbf{Q}=\boldsymbol{\beta}$. 
+
+
+$\mathbf{Q}$ can also be a vector of population means or population variances. It may not depend on a particular sample, so it cannot be a sample mean or a $p$-value.
+
+---
+
+### Estimator
+
+If we have a complete data set - our imputed data set number $l$. we might get $\hat{\mathbf{Q}}_l$ as our estimate. This takes into account the variablity in the complete data set.
+
+**Example 1:** $\hat{\boldsymbol{\beta}}=({\mathbf X}^T{\mathbf X})^{-1} {\mathbf X}^T {\mathbf Y}$
+
+**Example 2:** Maximizing the binary likelihood for the logistic regression (GLM with logit link) does not give a closed form solution, but a numerical value for $\hat{\boldsymbol{\beta}}$ is found using Newton-Raphson.
+
+
+---
+
+We also want to take into account the fact that we have $m$ complete data sets (multiple imputations). Let the pooled estimate be
+$$ \overline{\mathbf{Q}}=\frac{1}{m}\sum_{l=1}^m \hat{\mathbf{Q}}_l$$
+
+This is based on each of the estimated $\mathbf{Q}$ in our $m$ imputed data set.
+
+Next: uncertainty in $\hat{\mathbf{Q}}_l$ and $\overline{\mathbf{Q}}$.
+
+---
+
+### Variance estimator
+
+What is the variance of the new estimator $\overline{\mathbf{Q}}$?
+
+Let $\overline{\mathbf{U}}_l$ be the estimated covariance of $\hat{\mathbf{Q}}_l$.
+
+**Example 1:** $\widehat{\text{Cov}}(\hat{\boldsymbol{\beta}})=({\mathbf X}^T{\mathbf X})^{-1} \hat{\sigma}^2$
+
+**Example 2:** 
+$\widehat{\text{Cov}}(\hat{\boldsymbol{\beta}})\approx I^{-1}(\hat{\boldsymbol{\beta}})$
+the inverse of the estimated Fisher information matrix.
+
+---
+
+1) Within-imputation variance 
+$$\overline{\mathbf U}=\frac{1}{m}\sum_{l=1}^m \overline{\mathbf{U}}_l$$
+
+2) Between-imputation variance
+$$\mathbf B=\frac{1}{m-1}\sum_{l=1}^m (\hat{\mathbf{Q}}_l-\overline{\mathbf{Q}})(\hat{\mathbf{Q}}_l-\overline{\mathbf{Q}})^T$$
+
+* $\overline{\mathbf U}$: large if the number of observations $N$ is small
+* ${\mathbf B}$: large if many missing observations
+
+---
+
+3) Total variance of $\overline{\mathbf{Q}}$
+
+$$\mathbf{T}=\overline{\mathbf U}+\mathbf{B}+\frac{\mathbf{B}}{m}=\overline{\mathbf U}+(1+\frac{1}{m})\mathbf{B}$$
+
+* First term: variance due to taking a sample and not examining the entire population (our conventional variance of estimator.
+* Second term: extra variance due to missing values in the samples
+* The last term is the simulation error: added because $\overline{\mathbf{Q}}$ is based on finite $m$
+
+---
+
+### Variance ratios
+for scalar $Q$ (for example one of the regression coefficients)
+
+Proportion of variation "attributable" to the missing data
+$$ \lambda=\frac{B+B/m}{T}$$
+Relative increase in variance due to missingness
+
+$$r=\frac{B+B/m}{\overline{U}}$$
+
+Relation:
+
+$$ r=\frac{\lambda}{1-\lambda}$$
+
+---
+
+
+### Confidence interval
+
+Common assumption: $\overline{\mathbf{Q}}$ is multivariate normal with mean $\mathbf{Q}$ and estimated covariance matrix $\mathbf{T}$.
+
+
+We look at one component of $\mathbf{Q}$, denoted $Q$ (maybe regression parameter for a specific covariate), antd $T$ is the appropriate component of the total variance estimate.
+
+$(1-\alpha)100\%$ confidence interval for $Q$:
+
+$$\overline{Q} \pm t_{\nu,1-\alpha/2}\sqrt{T}$$
+
+where $t_{\nu,1-\alpha/2}$ is the value in the $t$-distribution with $\nu$ degrees of freedom with area $1-\alpha/2$ to the left.
+
+What is $\nu$?
+
+---
+
+### Hypothesis test
+
+We want to test $H_0: Q=Q_0$ vs $H_1: Q\neq Q_0$. The $p$-value of the test can be calculated as
+$$ P(F_{1,\nu} > \frac{(\overline{Q}-Q_0)}{T})$$
+
+where $F_{1,\nu}$ is a random variable following a Fisher distribution with $1$ and $\nu$ degrees of freedom.
+
+---
+
+### Degrees of freedom
+
+@VanBuuren2018 Chapter 2.3.6 attributed this first solution to Rubind in 1987.
+
+$$\nu_{\text{old}}=(m-1)(1+\frac{1}{r^2})=\frac{m-1}{\lambda^2}$$
+
+
+If $\lambda=1$ then all variability is due to the missingness and then $\nu_{\text{old}}=m-1$.
+
+
+If $\lambda\rightarrow 0$ then $\nu_{\text{old}}\rightarrow \infty$ (normal distribution instead of t, chisq instead of F).
+
+
+---
+
+@VanBuuren2018 Chapter 2.3.6: A newer solution is due to Barnard and Rubin in 1999. 
+
+$$\nu_{\text{com}}=n-k$$
+
+$$\nu_{\text{obs}}=\frac{\nu_{\text{com}}+1}{\nu_{\text{com}}+3} \nu_{\text{com}}(1-\lambda)$$
+$$\nu=\frac{\nu_{\text{old}}\nu_{\text{obs}}}{\nu_\text{old}+\nu_{\text{obs}}}$$
+---
+
+### RHANES R-example
+
+```{r}
+
+imp <- mice(nhanes, print = FALSE, m = 10, seed = 24415)
+fit <- with(imp, lm(bmi ~ age))
+est <- pool(fit)
+est
+```
+
+Identify the the different estimates defined above!
+
+* df is the $\nu$ above (Barnard-Rubin), 
+* while dfcom is the $\nu_{\text{com}}$.
+* $r$: proportion of variance to due to missingness  
+* $\lambda$: fraction of missing information  
+* $\gamma$: fraction of information about $Q$ due to missingness (not given formula)
+
+---
+
+### Airquality R-example
+
+```{r}
+imp <- mice(airquality, print = FALSE, m = 10, seed = 24415)
+fit <- with(imp, lm(Wind ~ Ozone))
+est <- pool(fit)
+est
+```
+
+---
+
+### Dutch boys R-example
+
+```{r}
+ggmice(boys, aes(age, wgt)) + geom_point()
+imp <- mice(boys, print = FALSE, m = 10, seed = 24415)
+fit <- with(imp, lm(wgt ~ age))
+est <- pool(fit)
+est
+```
+
+---
+
+### Pima indians R-example
+
+```{r}
+imp <- mice(Pima.tr2, print = FALSE, m = 10, seed = 24415)
+fit <- with(imp, glm(type ~ bmi,family = "binomial"))
+est <- pool(fit)
+est
+```
+
+Identify the the different estimates defined above!
+
+df is the $\nu$ above (Barnard-Rubin), while dfcom is the $\nu_{\text{com}}$.
+
+---
+
+## Bayesian view
+
+# Imputation model in multiple imputation
+
+See @missinghandbook2014 Section 12.3.1 for regression-based imputation (not to be covered here?).
+
+## Joint modelling
+
+## FSC Chained equations
+
+### Bayesian linear regression
+
+### Algo
+
+Slides pages 85+86 for difference between convergence and non-convergence
+
+## Predictors in imputation models
+
+* Better with too many than to few
+* Include the data analysis model response as covariate in the imputation models
 
 ## R example
-
-```{r mice import, output = FALSE}
-library(mice)
-```
 
 ```{r mice example}
 imp = mice(nhanes, print = FALSE, m = 10, seed = 24415)
@@ -273,7 +984,61 @@ densityplot(imp)
 stripplot(imp)
 ```
 
-### References
+# Model selection when using multiple imputation
+
+Count method combined with Wald test. 
+
+# Model evaluation when using multiple imputation
+
+Test set imputed based on traning model. 
+What about if Y in imputation model?
+
+Use of bootstrapping in combination with MI in Mark and Anne Laure.
+
+# The mice R package
+
+<https://github.com/amices/ggmice>
+
+Figure with the types of data.
+
+Plots for imputed data:
+
+* one-dimensional scatter: stripplot 
+* box-and-whisker plot: bwplot 
+* densities: densityplot 
+* scatterplot: xyplot
+
+
+# Not covered well enough
+(this semester - will improve)
+
+## Ignorable and nonignorable
+to which extent can we analyse the data without estimating the missingness paramterer $\psi$? The parameter of interest in the analysis model is $\theta$. When can we estimated $\theta$ without knowing $\psi$?
+Little and Rubin: missing data mechanism is ignorable (for likelihood inference) if MAR and parameters $\theta$ and $\psi$ distinct. More strict for Baysian inference, then priors for the two must be independent.
+
+Further implications of nonignorability is that $R$ must be a part of the imputation model. 
+
+
+# Exercises
+
+Missing...
+
+Maybe borrow an exercise from the Winnipeg lectures:
+
+<https://amices.org/Winnipeg/Practicals/Practical_I.html>
+<https://amices.org/Winnipeg/Practicals/Practical_II.html>
+<https://amices.org/Winnipeg/Practicals/Practical_III.html>
+<https://amices.org/Winnipeg/Practicals/Practical_IV.html>
+
+## Links
+
+* <https://cran.r-project.org/web/packages/naniar/vignettes/naniar-visualisation.html>
+* <https://github.com/stefvanbuuren/fimdbook>
+* R-analysis from the FIMD book: <https://github.com/stefvanbuuren/fimdbook/blob/master/R/fimd.R>
+* Slide set from Stef van Buuren (2017): <https://amices.org/Winnipeg/Lectures/WinnipegHandout.pdf> and <https://amices.org/Winnipeg/>
+* <https://amices.org/>
+
+# References
 
 ::: {#refs}
 :::

@@ -1,0 +1,47 @@
+
+```{r}
+#| eval: false
+#| echo: false
+#| warning: false
+
+library(datawizard)
+data(nhanes_sample)
+nhanes_sample
+
+```
+
+
+```{r}
+#|eval: false
+#|echo: false
+library(titanic)
+sum(titanic_train$Cabin=="")
+sum(titanic_train$Cabin!="")
+apply(is.na(titanic_train),2,sum)
+titanic_train
+```
+
+```{r}
+mcarymis=y[r2.mcar==0,2]
+mcaryobs=y[r2.mcar==1,2]
+marymis=y[r2.mar==0,2]
+maryobs=y[r2.mar==1,2]
+mnarymis=y[r2.mnar==0,2]
+mnaryobs=y[r2.mnar==1,2]
+
+ds=data.frame(y=y[,2],r=r2.mar)
+ggplot(ds)+geom_boxplot(aes(y))+facet_wrap(~r)
+```
+
+
+
+```{r}
+imp <- mice(airquality, seed = 1, m = 20, print = FALSE)
+fit <- with(imp, lm(Ozone ~ Wind + Temp + Solar.R))
+summary(pool(fit))
+```
+
+```{r}
+fit <- lm(Ozone ~ Wind + Temp + Solar.R, data = airquality)
+coef(summary(fit))
+```
