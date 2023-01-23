@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-22">
+<meta name="dcterms.date" content="2023-01-23">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -129,11 +129,17 @@ div.csl-indent {
   <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
-  <ul class="collapse">
+  <ul>
   <li><a href="#missing-data" id="toc-missing-data" class="nav-link active" data-scroll-target="#missing-data">Missing data</a>
   <ul class="collapse">
   <li><a href="#what-can-we-do" id="toc-what-can-we-do" class="nav-link" data-scroll-target="#what-can-we-do">What can we do?</a></li>
-  <li><a href="#data-sets" id="toc-data-sets" class="nav-link" data-scroll-target="#data-sets">Data sets</a></li>
+  <li><a href="#data-sets" id="toc-data-sets" class="nav-link" data-scroll-target="#data-sets">Data sets</a>
+  <ul class="collapse">
+  <li><a href="#nhanes" id="toc-nhanes" class="nav-link" data-scroll-target="#nhanes">NHANES</a></li>
+  <li><a href="#airquality" id="toc-airquality" class="nav-link" data-scroll-target="#airquality">Airquality</a></li>
+  <li><a href="#growth-of-dutch-boys" id="toc-growth-of-dutch-boys" class="nav-link" data-scroll-target="#growth-of-dutch-boys">Growth of Dutch boys</a></li>
+  <li><a href="#pima-indians" id="toc-pima-indians" class="nav-link" data-scroll-target="#pima-indians">Pima indians</a></li>
+  </ul></li>
   <li><a href="#group-discussion" id="toc-group-discussion" class="nav-link" data-scroll-target="#group-discussion">Group discussion</a></li>
   </ul></li>
   <li><a href="#notation" id="toc-notation" class="nav-link" data-scroll-target="#notation">Notation</a></li>
@@ -151,7 +157,11 @@ div.csl-indent {
   <li><a href="#complete-case-analysis" id="toc-complete-case-analysis" class="nav-link" data-scroll-target="#complete-case-analysis">Complete case analysis</a></li>
   <li><a href="#pairwise-deletion" id="toc-pairwise-deletion" class="nav-link" data-scroll-target="#pairwise-deletion">Pairwise deletion</a></li>
   <li><a href="#indicator-variable-method" id="toc-indicator-variable-method" class="nav-link" data-scroll-target="#indicator-variable-method">Indicator variable method</a></li>
-  <li><a href="#single-imputation" id="toc-single-imputation" class="nav-link" data-scroll-target="#single-imputation">Single imputation</a></li>
+  <li><a href="#single-imputation" id="toc-single-imputation" class="nav-link" data-scroll-target="#single-imputation">Single imputation</a>
+  <ul class="collapse">
+  <li><a href="#locf" id="toc-locf" class="nav-link" data-scroll-target="#locf">LOCF</a></li>
+  <li><a href="#mean-imputation" id="toc-mean-imputation" class="nav-link" data-scroll-target="#mean-imputation">Mean imputation</a></li>
+  </ul></li>
   <li><a href="#regression-imputation" id="toc-regression-imputation" class="nav-link" data-scroll-target="#regression-imputation">Regression imputation</a></li>
   <li><a href="#stochastic-regression-imputation" id="toc-stochastic-regression-imputation" class="nav-link" data-scroll-target="#stochastic-regression-imputation">Stochastic regression imputation</a></li>
   <li><a href="#likelihood-approaches" id="toc-likelihood-approaches" class="nav-link" data-scroll-target="#likelihood-approaches">Likelihood approaches</a></li>
@@ -162,18 +172,39 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#short-historical-overview" id="toc-short-historical-overview" class="nav-link" data-scroll-target="#short-historical-overview">Short historical overview</a></li>
   <li><a href="#overview-of-the-steps-of-the-method" id="toc-overview-of-the-steps-of-the-method" class="nav-link" data-scroll-target="#overview-of-the-steps-of-the-method">Overview of the steps of the method</a></li>
-  <li><a href="#analysis-model" id="toc-analysis-model" class="nav-link" data-scroll-target="#analysis-model">Analysis model</a></li>
+  <li><a href="#analysis-model" id="toc-analysis-model" class="nav-link" data-scroll-target="#analysis-model">Analysis model</a>
+  <ul class="collapse">
+  <li><a href="#pima-indian-data" id="toc-pima-indian-data" class="nav-link" data-scroll-target="#pima-indian-data">Pima indian data</a></li>
+  <li><a href="#other-examples" id="toc-other-examples" class="nav-link" data-scroll-target="#other-examples">Other examples</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#rubins-rules" id="toc-rubins-rules" class="nav-link" data-scroll-target="#rubins-rules">Rubin’s rules</a>
   <ul class="collapse">
-  <li><a href="#algorithmic-view" id="toc-algorithmic-view" class="nav-link" data-scroll-target="#algorithmic-view">Algorithmic view</a></li>
+  <li><a href="#algorithmic-view" id="toc-algorithmic-view" class="nav-link" data-scroll-target="#algorithmic-view">Algorithmic view</a>
+  <ul class="collapse">
+  <li><a href="#quantity-of-interest" id="toc-quantity-of-interest" class="nav-link" data-scroll-target="#quantity-of-interest">Quantity of interest</a></li>
+  <li><a href="#estimator" id="toc-estimator" class="nav-link" data-scroll-target="#estimator">Estimator</a></li>
+  <li><a href="#variance-estimator" id="toc-variance-estimator" class="nav-link" data-scroll-target="#variance-estimator">Variance estimator</a></li>
+  <li><a href="#variance-ratios" id="toc-variance-ratios" class="nav-link" data-scroll-target="#variance-ratios">Variance ratios</a></li>
+  <li><a href="#confidence-interval" id="toc-confidence-interval" class="nav-link" data-scroll-target="#confidence-interval">Confidence interval</a></li>
+  <li><a href="#hypothesis-test" id="toc-hypothesis-test" class="nav-link" data-scroll-target="#hypothesis-test">Hypothesis test</a></li>
+  <li><a href="#degrees-of-freedom" id="toc-degrees-of-freedom" class="nav-link" data-scroll-target="#degrees-of-freedom">Degrees of freedom</a></li>
+  <li><a href="#rhanes-r-example" id="toc-rhanes-r-example" class="nav-link" data-scroll-target="#rhanes-r-example">RHANES R-example</a></li>
+  <li><a href="#airquality-r-example" id="toc-airquality-r-example" class="nav-link" data-scroll-target="#airquality-r-example">Airquality R-example</a></li>
+  <li><a href="#dutch-boys-r-example" id="toc-dutch-boys-r-example" class="nav-link" data-scroll-target="#dutch-boys-r-example">Dutch boys R-example</a></li>
+  <li><a href="#pima-indians-r-example" id="toc-pima-indians-r-example" class="nav-link" data-scroll-target="#pima-indians-r-example">Pima indians R-example</a></li>
+  </ul></li>
   <li><a href="#bayesian-view" id="toc-bayesian-view" class="nav-link" data-scroll-target="#bayesian-view">Bayesian view</a></li>
   </ul></li>
   <li><a href="#imputation-model-in-multiple-imputation" id="toc-imputation-model-in-multiple-imputation" class="nav-link" data-scroll-target="#imputation-model-in-multiple-imputation">Imputation model in multiple imputation</a>
   <ul class="collapse">
   <li><a href="#joint-modelling" id="toc-joint-modelling" class="nav-link" data-scroll-target="#joint-modelling">Joint modelling</a></li>
-  <li><a href="#fsc-chained-equations" id="toc-fsc-chained-equations" class="nav-link" data-scroll-target="#fsc-chained-equations">FSC Chained equations</a></li>
+  <li><a href="#fully-conditional-specification" id="toc-fully-conditional-specification" class="nav-link" data-scroll-target="#fully-conditional-specification">Fully conditional specification</a>
+  <ul class="collapse">
+  <li><a href="#bayesian-linear-regression" id="toc-bayesian-linear-regression" class="nav-link" data-scroll-target="#bayesian-linear-regression">Bayesian linear regression</a></li>
+  <li><a href="#algo" id="toc-algo" class="nav-link" data-scroll-target="#algo">Algo</a></li>
   <li><a href="#predictors-in-imputation-models" id="toc-predictors-in-imputation-models" class="nav-link" data-scroll-target="#predictors-in-imputation-models">Predictors in imputation models</a></li>
+  </ul></li>
   <li><a href="#r-example" id="toc-r-example" class="nav-link" data-scroll-target="#r-example">R example</a></li>
   </ul></li>
   <li><a href="#model-selection-when-using-multiple-imputation" id="toc-model-selection-when-using-multiple-imputation" class="nav-link" data-scroll-target="#model-selection-when-using-multiple-imputation">Model selection when using multiple imputation</a></li>
@@ -215,7 +246,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 22, 2023</p>
+      <p class="date">January 23, 2023</p>
     </div>
   </div>
   
@@ -231,8 +262,8 @@ div.csl-indent {
 <p>Course homepage: <a href="https://wiki.math.ntnu.no/ma8701/2023v/start" class="uri">https://wiki.math.ntnu.no/ma8701/2023v/start</a></p>
 <p>Reading list:</p>
 <ul>
-<li>Handbook of missing data methodology: Chapter 12.1.2, 12.2, 12.3.3. Available for download (60 pages pr day) from Oria at NTNU (Choose EBSCOweb, then PDF full text and then just download chapter 12).</li>
-<li><a href="https://stefvanbuuren.name/fimd/">Flexible imputation of missing data”</a>): Chapters 1.1, 1.2, 1.3, 1.4, 2.2.4, 2.3.2 (similar to Handbook 12.2), 3.2.1, 3.2.2 (Algo 3.1), 3.4 (Algo 3.3), 4.5.1, 4.5.2.</li>
+<li>Handbook of missing data methodology: Chapter 12.1.2, 12.2, 12.3.3. Available for download (60 pages pr day) from Oria at NTNU (Choose EBSCOweb, then PDF full text and then just download chapter 12). <span class="citation" data-cites="missinghandbook2014">Molenberghs et al. (<a href="#ref-missinghandbook2014" role="doc-biblioref">2014</a>)</span></li>
+<li><a href="https://stefvanbuuren.name/fimd/">Flexible imputation of missing data</a>: Chapters 1.1, 1.2, 1.3, 1.4, 2.2.4, 2.3.2 (similar to Handbook 12.2), 3.2.1, 3.2.2 (Algo 3.1), 3.4 (Algo 3.3), 4.5.1, 4.5.2. <span class="citation" data-cites="VanBuuren2018">van Buuren (<a href="#ref-VanBuuren2018" role="doc-biblioref">2018</a>)</span></li>
 </ul>
 <hr>
 <section id="missing-data" class="level1">
@@ -830,8 +861,8 @@ Attaching package: 'lattice'</code></pre>
 <p>(Not included in 2023)</p>
 <p>For example</p>
 <ul>
-<li>Bjørnland et al.&nbsp;Extreme phenotype sampling</li>
-<li>EM-algorithm from TMA4300</li>
+<li><a href="https://onlinelibrary.wiley.com/doi/10.1002/sim.7914">Bjørnland et al.&nbsp;(2018) Powerful extreme phenotype sampling designs and score tests for genetic association studies</a></li>
+<li>EM-algorithm from TMA4300 Computational statistics</li>
 </ul>
 </section>
 <section id="fully-bayesian-approaches" class="level2">
@@ -1098,6 +1129,7 @@ Attaching package: 'lattice'</code></pre>
 </section>
 <section id="bayesian-view" class="level2">
 <h2 class="anchored" data-anchor-id="bayesian-view">Bayesian view</h2>
+<p>Presented in writing in class, see <a href="https://www.math.ntnu.no/emner/MA8701/2023v/MA8701V2023/Part1/L6beamer20230127.pdf">classnotes lecture 6</a></p>
 </section>
 </section>
 <section id="imputation-model-in-multiple-imputation" class="level1">
@@ -1106,8 +1138,9 @@ Attaching package: 'lattice'</code></pre>
 <section id="joint-modelling" class="level2">
 <h2 class="anchored" data-anchor-id="joint-modelling">Joint modelling</h2>
 </section>
-<section id="fsc-chained-equations" class="level2">
-<h2 class="anchored" data-anchor-id="fsc-chained-equations">FSC Chained equations</h2>
+<section id="fully-conditional-specification" class="level2">
+<h2 class="anchored" data-anchor-id="fully-conditional-specification">Fully conditional specification</h2>
+<p>aka Chained equations</p>
 <section id="bayesian-linear-regression" class="level3">
 <h3 class="anchored" data-anchor-id="bayesian-linear-regression">Bayesian linear regression</h3>
 </section>
@@ -1115,13 +1148,13 @@ Attaching package: 'lattice'</code></pre>
 <h3 class="anchored" data-anchor-id="algo">Algo</h3>
 <p>Slides pages 85+86 for difference between convergence and non-convergence</p>
 </section>
-</section>
-<section id="predictors-in-imputation-models" class="level2">
-<h2 class="anchored" data-anchor-id="predictors-in-imputation-models">Predictors in imputation models</h2>
+<section id="predictors-in-imputation-models" class="level3">
+<h3 class="anchored" data-anchor-id="predictors-in-imputation-models">Predictors in imputation models</h3>
 <ul>
 <li>Better with too many than to few</li>
 <li>Include the data analysis model response as covariate in the imputation models</li>
 </ul>
+</section>
 </section>
 <section id="r-example" class="level2">
 <h2 class="anchored" data-anchor-id="r-example">R example</h2>

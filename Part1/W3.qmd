@@ -11,7 +11,7 @@ format:
     toc: true
     code-fold: true
     toc-location: left
-    toc-depth: 2
+    toc-depth: 3
   pdf:
     toc: true
     number-sections: true
@@ -39,8 +39,8 @@ Course homepage: <https://wiki.math.ntnu.no/ma8701/2023v/start>
 
 Reading list:
 
-* Handbook of missing data methodology: Chapter 12.1.2, 12.2, 12.3.3. Available for download (60 pages pr day) from Oria at NTNU (Choose EBSCOweb, then PDF full text and then just download chapter 12).
-* [Flexible imputation of missing data"](https://stefvanbuuren.name/fimd/)): Chapters 1.1, 1.2, 1.3, 1.4, 2.2.4, 2.3.2 (similar to Handbook 12.2), 3.2.1, 3.2.2 (Algo 3.1), 3.4 (Algo 3.3), 4.5.1, 4.5.2.
+* Handbook of missing data methodology: Chapter 12.1.2, 12.2, 12.3.3. Available for download (60 pages pr day) from Oria at NTNU (Choose EBSCOweb, then PDF full text and then just download chapter 12). @missinghandbook2014
+* [Flexible imputation of missing data](https://stefvanbuuren.name/fimd/): Chapters 1.1, 1.2, 1.3, 1.4, 2.2.4, 2.3.2 (similar to Handbook 12.2), 3.2.1, 3.2.2 (Algo 3.1), 3.4 (Algo 3.3), 4.5.1, 4.5.2. @VanBuuren2018
 
 ---
 
@@ -191,6 +191,7 @@ The data set of growth of 748 Dutch boys. Nine measurements
 #| eval: true
 #| echo: false
 #| warning: false
+#| error: false
 ggpairs(mice::boys[,c(1:5,8,9)], panel = panel.smooth, main = "boys data")
 ```
 
@@ -424,7 +425,6 @@ print(tp)
 ```
 
 # Popular solutions to missing data
-
 
 <!-- Here: If there are missing values in the responses, we start by removing observations with missing responses. -->
 
@@ -671,8 +671,8 @@ box(lwd = 1)
 
 For example 
 
-* Bjørnland et al. Extreme phenotype sampling
-* EM-algorithm from TMA4300
+* [Bjørnland et al. (2018) Powerful extreme phenotype sampling designs and score tests for genetic association studies](https://onlinelibrary.wiley.com/doi/10.1002/sim.7914)
+* EM-algorithm from TMA4300 Computational statistics
 
 
 ## Fully Bayesian approaches
@@ -945,13 +945,16 @@ df is the $\nu$ above (Barnard-Rubin), while dfcom is the $\nu_{\text{com}}$.
 
 ## Bayesian view
 
+Presented in writing in class, see [classnotes lecture 6](https://www.math.ntnu.no/emner/MA8701/2023v/MA8701V2023/Part1/L6beamer20230127.pdf)
+
 # Imputation model in multiple imputation
 
 See @missinghandbook2014 Section 12.3.1 for regression-based imputation (not to be covered here?).
 
 ## Joint modelling
 
-## FSC Chained equations
+## Fully conditional specification
+aka Chained equations
 
 ### Bayesian linear regression
 
@@ -959,7 +962,7 @@ See @missinghandbook2014 Section 12.3.1 for regression-based imputation (not to 
 
 Slides pages 85+86 for difference between convergence and non-convergence
 
-## Predictors in imputation models
+### Predictors in imputation models
 
 * Better with too many than to few
 * Include the data analysis model response as covariate in the imputation models
