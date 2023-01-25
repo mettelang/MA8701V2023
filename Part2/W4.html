@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mette Langaas">
+<meta name="dcterms.date" content="2023-01-23">
+
+<title>MA8701 Advanced methods in statistical inference and learning</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="W4_files/libs/clipboard/clipboard.min.js"></script>
+<script src="W4_files/libs/quarto-html/quarto.js"></script>
+<script src="W4_files/libs/quarto-html/popper.min.js"></script>
+<script src="W4_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="W4_files/libs/quarto-html/anchor.min.js"></script>
+<link href="W4_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="W4_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="W4_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="W4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="W4_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#shrinkage" id="toc-shrinkage" class="nav-link active" data-scroll-target="#shrinkage">Shrinkage</a>
+  <ul class="collapse">
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  <li><a href="#what-is-in-a-name" id="toc-what-is-in-a-name" class="nav-link" data-scroll-target="#what-is-in-a-name">What is in a name?</a></li>
+  </ul></li>
+  <li><a href="#linear-models" id="toc-linear-models" class="nav-link" data-scroll-target="#linear-models">Linear models</a>
+  <ul class="collapse">
+  <li><a href="#set-up" id="toc-set-up" class="nav-link" data-scroll-target="#set-up">Set-up</a></li>
+  <li><a href="#linear-regression-model" id="toc-linear-regression-model" class="nav-link" data-scroll-target="#linear-regression-model">Linear regression model</a></li>
+  <li><a href="#covariates" id="toc-covariates" class="nav-link" data-scroll-target="#covariates">Covariates</a></li>
+  <li><a href="#the-classical-linear-model-and-least-squares-estimation" id="toc-the-classical-linear-model-and-least-squares-estimation" class="nav-link" data-scroll-target="#the-classical-linear-model-and-least-squares-estimation">The classical linear model and least squares estimation</a>
+  <ul class="collapse">
+  <li><a href="#first-version" id="toc-first-version" class="nav-link" data-scroll-target="#first-version">First version</a></li>
+  <li><a href="#second-version" id="toc-second-version" class="nav-link" data-scroll-target="#second-version">Second version</a></li>
+  </ul></li>
+  <li><a href="#properties-of-estimators" id="toc-properties-of-estimators" class="nav-link" data-scroll-target="#properties-of-estimators">Properties of estimators</a></li>
+  <li><a href="#the-gauss-markov-theorem" id="toc-the-gauss-markov-theorem" class="nav-link" data-scroll-target="#the-gauss-markov-theorem">The Gauss-Markov theorem</a></li>
+  <li><a href="#comparing-variances-of-estimators" id="toc-comparing-variances-of-estimators" class="nav-link" data-scroll-target="#comparing-variances-of-estimators">Comparing variances of estimators</a>
+  <ul class="collapse">
+  <li><a href="#why-is-this-correct" id="toc-why-is-this-correct" class="nav-link" data-scroll-target="#why-is-this-correct">Why is this correct?</a></li>
+  </ul></li>
+  <li><a href="#mean-squared-error" id="toc-mean-squared-error" class="nav-link" data-scroll-target="#mean-squared-error">Mean squared error</a></li>
+  <li><a href="#preparing-for-shrinkage" id="toc-preparing-for-shrinkage" class="nav-link" data-scroll-target="#preparing-for-shrinkage">Preparing for shrinkage</a>
+  <ul class="collapse">
+  <li><a href="#standarization-of-covariates" id="toc-standarization-of-covariates" class="nav-link" data-scroll-target="#standarization-of-covariates">Standarization of covariates</a></li>
+  <li><a href="#centering-covariates-and-response" id="toc-centering-covariates-and-response" class="nav-link" data-scroll-target="#centering-covariates-and-response">Centering covariates and response</a></li>
+  </ul></li>
+  <li><a href="#gasoline-data" id="toc-gasoline-data" class="nav-link" data-scroll-target="#gasoline-data">Gasoline data</a></li>
+  </ul></li>
+  <li><a href="#ridge-regression" id="toc-ridge-regression" class="nav-link" data-scroll-target="#ridge-regression">Ridge regression</a>
+  <ul class="collapse">
+  <li><a href="#minimization-problem" id="toc-minimization-problem" class="nav-link" data-scroll-target="#minimization-problem">Minimization problem</a>
+  <ul class="collapse">
+  <li><a href="#budget-version" id="toc-budget-version" class="nav-link" data-scroll-target="#budget-version">Budget version</a></li>
+  <li><a href="#penalty-version" id="toc-penalty-version" class="nav-link" data-scroll-target="#penalty-version">Penalty version</a></li>
+  </ul></li>
+  <li><a href="#parameter-estimation" id="toc-parameter-estimation" class="nav-link" data-scroll-target="#parameter-estimation">Parameter estimation</a>
+  <ul class="collapse">
+  <li><a href="#gasoline-continued" id="toc-gasoline-continued" class="nav-link" data-scroll-target="#gasoline-continued">Gasoline continued</a></li>
+  </ul></li>
+  <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection">Model selection</a>
+  <ul class="collapse">
+  <li><a href="#gasoline-continued-1" id="toc-gasoline-continued-1" class="nav-link" data-scroll-target="#gasoline-continued-1">Gasoline continued</a></li>
+  </ul></li>
+  <li><a href="#properties-of-the-ridge-estimator" id="toc-properties-of-the-ridge-estimator" class="nav-link" data-scroll-target="#properties-of-the-ridge-estimator">Properties of the ridge estimator</a>
+  <ul class="collapse">
+  <li><a href="#mean" id="toc-mean" class="nav-link" data-scroll-target="#mean">Mean</a></li>
+  <li><a href="#covariance" id="toc-covariance" class="nav-link" data-scroll-target="#covariance">Covariance</a></li>
+  <li><a href="#distribution" id="toc-distribution" class="nav-link" data-scroll-target="#distribution">Distribution</a></li>
+  </ul></li>
+  <li><a href="#is-ridge-better-than-ls" id="toc-is-ridge-better-than-ls" class="nav-link" data-scroll-target="#is-ridge-better-than-ls">Is ridge “better than” LS?</a></li>
+  <li><a href="#insight-based-on-svd" id="toc-insight-based-on-svd" class="nav-link" data-scroll-target="#insight-based-on-svd">Insight based on SVD</a>
+  <ul class="collapse">
+  <li><a href="#singular-value-decomposition-svd" id="toc-singular-value-decomposition-svd" class="nav-link" data-scroll-target="#singular-value-decomposition-svd">Singular value decomposition (SVD)</a></li>
+  <li><a href="#the-effective-degrees-of-freedom" id="toc-the-effective-degrees-of-freedom" class="nav-link" data-scroll-target="#the-effective-degrees-of-freedom">The effective degrees of freedom</a></li>
+  </ul></li>
+  <li><a href="#finally" id="toc-finally" class="nav-link" data-scroll-target="#finally">Finally</a></li>
+  </ul></li>
+  <li><a href="#lasso" id="toc-lasso" class="nav-link" data-scroll-target="#lasso">Lasso</a>
+  <ul class="collapse">
+  <li><a href="#minimization-problem-1" id="toc-minimization-problem-1" class="nav-link" data-scroll-target="#minimization-problem-1">Minimization problem</a>
+  <ul class="collapse">
+  <li><a href="#budget-version-1" id="toc-budget-version-1" class="nav-link" data-scroll-target="#budget-version-1">Budget version</a></li>
+  <li><a href="#penalty-version-1" id="toc-penalty-version-1" class="nav-link" data-scroll-target="#penalty-version-1">Penalty version</a></li>
+  </ul></li>
+  <li><a href="#small-notational-difference-in-the-two-textbooks" id="toc-small-notational-difference-in-the-two-textbooks" class="nav-link" data-scroll-target="#small-notational-difference-in-the-two-textbooks">Small notational difference in the two textbooks</a></li>
+  <li><a href="#parameter-estimation-1" id="toc-parameter-estimation-1" class="nav-link" data-scroll-target="#parameter-estimation-1">Parameter estimation</a>
+  <ul class="collapse">
+  <li><a href="#conditions-for-a-solution-to-the-penalty-version" id="toc-conditions-for-a-solution-to-the-penalty-version" class="nav-link" data-scroll-target="#conditions-for-a-solution-to-the-penalty-version">Conditions for a solution to the penalty version</a></li>
+  <li><a href="#orthogonal-covariates" id="toc-orthogonal-covariates" class="nav-link" data-scroll-target="#orthogonal-covariates">Orthogonal covariates</a></li>
+  </ul></li>
+  <li><a href="#gasoline-continued-2" id="toc-gasoline-continued-2" class="nav-link" data-scroll-target="#gasoline-continued-2">Gasoline continued</a></li>
+  <li><a href="#degrees-of-freedom" id="toc-degrees-of-freedom" class="nav-link" data-scroll-target="#degrees-of-freedom">Degrees of freedom</a></li>
+  <li><a href="#finally-1" id="toc-finally-1" class="nav-link" data-scroll-target="#finally-1">Finally</a></li>
+  </ul></li>
+  <li><a href="#software" id="toc-software" class="nav-link" data-scroll-target="#software">Software</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+  <li><a href="#gauss-markov-theorem" id="toc-gauss-markov-theorem" class="nav-link" data-scroll-target="#gauss-markov-theorem">Gauss-Markov theorem</a></li>
+  <li><a href="#variance-of-ridge-compared-to-ls" id="toc-variance-of-ridge-compared-to-ls" class="nav-link" data-scroll-target="#variance-of-ridge-compared-to-ls">Variance of ridge compared to LS</a></li>
+  <li><a href="#ridge-regression-1" id="toc-ridge-regression-1" class="nav-link" data-scroll-target="#ridge-regression-1">Ridge regression</a>
+  <ul class="collapse">
+  <li><a href="#a" id="toc-a" class="nav-link" data-scroll-target="#a">a)</a></li>
+  <li><a href="#b" id="toc-b" class="nav-link" data-scroll-target="#b">b)</a></li>
+  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">c)</a></li>
+  </ul></li>
+  <li><a href="#lasso-estimator-for-orthogonal-covariates" id="toc-lasso-estimator-for-orthogonal-covariates" class="nav-link" data-scroll-target="#lasso-estimator-for-orthogonal-covariates">Lasso estimator for orthogonal covariates</a></li>
+  </ul></li>
+  <li><a href="#solutions-to-exercises" id="toc-solutions-to-exercises" class="nav-link" data-scroll-target="#solutions-to-exercises">Solutions to exercises</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">MA8701 Advanced methods in statistical inference and learning</h1>
+<p class="subtitle lead">Week 4 (L7+L8): Shrinkage - ridge and lasso in the linear model</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mette Langaas </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 23, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<section id="shrinkage" class="level1">
+<h1>Shrinkage</h1>
+<section id="literature" class="level2">
+<h2 class="anchored" data-anchor-id="literature">Literature</h2>
+<ul>
+<li><p>[ELS] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. <a href="https://web.stanford.edu/~hastie/Papers/ESLII.pdf">Ebook</a>. Chapter 3.2 and 3.4.1-3.4.3.</p></li>
+<li><p>[HTW] Hastie, Tibshirani, Wainwrigh: “Statistical Learning with Sparsity: The Lasso and Generalizations”. CRC press. <a href="https://trevorhastie.github.io/">Ebook</a>. Chapter 1, 2.1-2.3,2.5.</p></li>
+</ul>
+<p>and for the interested student</p>
+<ul>
+<li><a href="https://arxiv.org/pdf/1509.09169.pdf">Wessel N. van Wieringen: Lecture notes on ridge regression</a> (We will refer to this note as WNvW below.)</li>
+</ul>
+<p>Some figures are taken from An Introduction to Statistical Learning, with applications in R (Springer, 2013) with permission from the authors: G. James, D. Witten, T. Hastie and R. Tibshirani.</p>
+<hr>
+</section>
+<section id="what-is-in-a-name" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-in-a-name">What is in a name?</h2>
+<p>This part of the course could have been called:</p>
+<ul>
+<li>“Regularized linear and generalized linear models”</li>
+<li>“Penalized maximum likelihood estimation”</li>
+<li>and also “Sparse models”,</li>
+</ul>
+<p>but it is called “Shrinkage and regularizataion in LM and GLM”.</p>
+<p>Focus is on generalized linear models, but we will also consider shrinkage in the next parts of this course (then for “more complex” method).</p>
+<p><strong>Question:</strong> in linear models (linear regression, generalized linear regression) we mainly work with methods where parameter estimates are unbiased - but might have high variance and not give very good prediction performance overall. Can we use penalization (shrinkage) to produce parameter estimates with some bias but less variance, so that the prediction performance is improved?</p>
+<hr>
+<p>We will look at different ways of penalization (which produces shrunken estimators) - mainly what is called ridge and lasso methods.</p>
+<p>Ridge is not a sparse method, but lasso is. In sparse statistical models a <em>small number of covariates</em> play an important role.</p>
+<p>HTW (page 2): <em>Bet on sparsity principle: Use a procedure that does well in sparse problems, since no procedure does well in dense problems.</em></p>
+<p>Shrinkage (penalization, regularization) methods are especially suitable in situations where we have multi-collinearity and/or more covariates than observations <span class="math inline">\(N&lt;&lt;p\)</span>. Two examples are</p>
+<ul>
+<li>in medicine with genetic data, where the number of patient samples is less than the number of genetic markers studied,</li>
+<li>in analysis of text (more to come in L3)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="linear-models" class="level1">
+<h1>Linear models</h1>
+<p>(ELS 3.2, HTW Ch 2.1)</p>
+<p>We will only consider linear models now, and move to generalized linear models next week.</p>
+<section id="set-up" class="level2">
+<h2 class="anchored" data-anchor-id="set-up">Set-up</h2>
+<p>Random response <span class="math inline">\(Y\)</span> and <span class="math inline">\(p\)</span>-dimensional (random) covariates <span class="math inline">\(X\)</span>.</p>
+<p>Training data: <span class="math inline">\(N\)</span> (independent) observations: <span class="math inline">\((y_i,x_i)\)</span>, where <span class="math inline">\(x_i\)</span> is a column vector with <span class="math inline">\(p\)</span> covariates (features).</p>
+<hr>
+</section>
+<section id="linear-regression-model" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression-model">Linear regression model</h2>
+<p>(ELS 3.2)</p>
+<p>Additive noise model <span class="math display">\[ Y=f(X)+\varepsilon\]</span> with <span class="math inline">\(\text{E}(\varepsilon)=0\)</span> and <span class="math inline">\(\text{Var}(\varepsilon)=\sigma^2\)</span>.</p>
+<p>With squared loss, we remember that the optimal <span class="math inline">\(f(X)=\text{E}(Y \mid X)\)</span>.</p>
+<p>Linear regression model - we assumes that <span class="math display">\[f(X)=\beta_0+\sum_{j=1}^p X_{j}\beta_j \]</span> is linear in <span class="math inline">\(X\)</span>, or that is a good approximation.</p>
+<p>The unknown parameters are the regression coefficients <span class="math inline">\(\beta_0,\ldots,\beta_p\)</span> and the error variance <span class="math inline">\(\sigma^2_{\varepsilon}\)</span>.</p>
+<p>From TMA4267 we know that if <span class="math inline">\((X,Y)\)</span> is jointly multivariate normal, then the conditional distribution of <span class="math inline">\(Y\mid X\)</span> has mean that is linear in <span class="math inline">\(X\)</span> and variance that is independent of <span class="math inline">\(X\)</span>. Brush-up: See classnotes <a href="https://www.math.ntnu.no/emner/TMA4267/2017v/TMA4267V2017Part2.pdf">page 8</a>.</p>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./ILS34.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p></p><figcaption class="figure-caption">Figure from An Introduction to Statistical Learning, with applications in R (Springer, 2013) with permission from the authors: G. James, D. Witten, T. Hastie and R. Tibshirani.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="covariates" class="level2">
+<h2 class="anchored" data-anchor-id="covariates">Covariates</h2>
+<p>The covariates <span class="math inline">\(X\)</span> can be both quantitative or qualitative, be made of basis expansions or interactions - and more. For qualitative covariates often a dummy variable coding is used. Brush-up: See <a href="https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html#categorical_covariates_-_dummy_and_effect_coding">TMA4315 GLM Module 2</a>.</p>
+<p>For now we don´t say so much more, but later we want the covariates to be standardized and the reponse to be centered.</p>
+<hr>
+</section>
+<section id="the-classical-linear-model-and-least-squares-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="the-classical-linear-model-and-least-squares-estimation">The classical linear model and least squares estimation</h2>
+<section id="first-version" class="level3">
+<h3 class="anchored" data-anchor-id="first-version">First version</h3>
+<p>For the classical linear model we assume</p>
+<p><span class="math display">\[ Y_i=\beta_0+\sum_{j=1}^p X_{j}\beta_j+\varepsilon_i\]</span> with <span class="math inline">\(\text{E}(\varepsilon_i)=0\)</span> and <span class="math inline">\(\text{Var}(\varepsilon_)=\sigma^2_{\varepsilon}\)</span>, and independence of errors <span class="math inline">\(\varepsilon_j,\varepsilon_i\)</span>.</p>
+<p>Regression parameters <span class="math inline">\(\beta=(\beta_0,\beta_1,\ldots,\beta_p)\in \Re^{(p+1)}\)</span>.</p>
+<p>We will use the word <em>linear predictor</em> <span class="math inline">\(\eta(x_i)=\beta_0+\sum_{j=1}^p x_{ij}\beta_j\)</span>, for the linear combination in the parameters <span class="math inline">\(\beta\)</span>.</p>
+<p>The least squares estimator for the parameters <span class="math inline">\(\beta\)</span> is found by minimizing the squared-error loss:</p>
+<p><span class="math display">\[ \text{minimize}_{\beta} \{ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j)^2\}\]</span></p>
+<hr>
+</section>
+<section id="second-version" class="level3">
+<h3 class="anchored" data-anchor-id="second-version">Second version</h3>
+<p>This can also be written with vectors and matrices for the <span class="math inline">\(i=1,\ldots,N\)</span> observations.</p>
+<p><span class="math display">\[{\bf Y=X \boldsymbol{\beta}}+{\bf\varepsilon}\]</span> where <span class="math inline">\({\bf Y}\)</span> is a <span class="math inline">\(N \times 1\)</span> random column vector, <span class="math inline">\({\bf X}\)</span> a <span class="math inline">\(N \times (p+1)\)</span> design matrix with row for observations and columns for covariates, and <span class="math inline">\({\bf{\varepsilon}}\)</span> <span class="math inline">\(N \times 1\)</span> random column vector</p>
+<p>The assumptions for the classical linear model is:</p>
+<ol type="1">
+<li><p><span class="math inline">\(\text{E}(\bf{\varepsilon})=\bf{0}\)</span>.</p></li>
+<li><p><span class="math inline">\(\text{Cov}(\varepsilon)=\text{E}(\varepsilon \varepsilon^T)=\sigma^2\bf{I}\)</span>.</p></li>
+<li><p>The design matrix has full rank, <span class="math inline">\(\text{rank}({\bf X})=(p+1)\)</span>.</p></li>
+</ol>
+<hr>
+<p>The classical <em>normal</em> linear regression model is obtained if additionally</p>
+<ol start="4" type="1">
+<li><span class="math inline">\(\varepsilon\sim N_n(\bf{0},\sigma^2\bf{I})\)</span> holds.</li>
+</ol>
+<p>For random covariates these assumptions are to be understood conditionally on <span class="math inline">\(\bf{X}\)</span>.</p>
+<p>For derivation of the least squares estimator <span class="math inline">\(\hat{\beta}\)</span> see <a href="https://www.math.ntnu.no/emner/TMA4268/2019v/3LinReg/3LinReg.html#parameter_estimation">TMA4268 Module 3</a> and links therein.</p>
+<p>The same results are found using likelihood theory, if we assume that <span class="math inline">\(Y\sim N\)</span>. See <a href="https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html#likelihood_theory_(from_b4)">TMA4315 GLM Module 2</a>. Both methods are written out in <a href="https://www.math.ntnu.no/emner/TMA4268/2018v/notes/LeastSquaresMLR.pdf">these class notes from TMA4267/8</a>.</p>
+<hr>
+<p>The squared error loss to be minimized can be written <span class="math display">\[({\bf Y}-{\bf X}{{\beta}})^T({\bf Y}-{\bf X}{{\beta}})\]</span> Differensiation with respect to the unknown parameter vector, and equating to zero leads to the <em>normal equations</em>.</p>
+<p><span class="math display">\[ {\bf X}^T{\bf X}{\beta}= {\bf X}^T {\bf Y}\]</span> To give <span class="math display">\[ \hat{\beta}_{\text LS}=({\bf X}^T{\bf X})^{-1} {\bf X}^T {\bf Y}\]</span></p>
+<hr>
+</section>
+</section>
+<section id="properties-of-estimators" class="level2">
+<h2 class="anchored" data-anchor-id="properties-of-estimators">Properties of estimators</h2>
+<p>If we only assume a classical linear model, the mean and covariance of <span class="math inline">\(\hat{\beta}\)</span> is <span class="math inline">\(\text{E}(\hat{\beta}_{\text LS})=\beta\)</span> and <span class="math inline">\(\text{Cov}(\hat{\beta}_{\text LS})=\sigma^2({\bf X}^T{\bf X})^{-1}\)</span>.</p>
+<p>For the classical normal linear model:</p>
+<ul>
+<li><p>Least squares and maximum likelihood estimator for <span class="math inline">\({\bf \beta}\)</span>: [ _{LS}=({}<sup>T{})</sup>{-1} {}^T {}] with <span class="math inline">\(\hat{\beta}_{\text LS}\sim N_{p}(\beta,\sigma^2({\bf X}^T{\bf X})^{-1})\)</span>.</p></li>
+<li><p>Restricted maximum likelihood estimator for <span class="math inline">\({\bf \sigma}^2\)</span>: [ ^2=({}-{}<em>{LS})^T({}-{}</em>{LS})=] with <span class="math inline">\(\frac{(n-p)\hat{\sigma}^2}{\sigma^2} \sim \chi^2_{n-p}\)</span>.</p></li>
+<li><p>Statistic for inference about <span class="math inline">\(\beta_j\)</span>, <span class="math inline">\(c_{jj}\)</span> is diagonal element <span class="math inline">\(j\)</span> of <span class="math inline">\(({\bf X}^T{\bf X})^{-1}\)</span>. [ T_j=t_{n-p-1}]</p></li>
+</ul>
+<hr>
+</section>
+<section id="the-gauss-markov-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="the-gauss-markov-theorem">The Gauss-Markov theorem</h2>
+<p>(ELS 3.2.2)</p>
+<p>The Gauss-Markov theorem is the famous result stating: <em>the least squares estimators for the regression parameters <span class="math inline">\(\beta\)</span> have the smallest variance among all linear unbiased estimators</em>.</p>
+<p>For simplicity, we look at a linear combination of the parameters, <span class="math inline">\(\theta=a^T \beta\)</span>, with estimator <span class="math inline">\(\hat{\theta}=a^T \hat{\beta}=a^T ({\bf X}^T{\bf X})^{-1} {\bf X}^T {\bf Y}\)</span>. Observe that the estimator is linear in the response <span class="math inline">\({\bf Y}\)</span>.</p>
+<p>Q: why is a linear combination of interest? What about a prediction of the response at covariate <span class="math inline">\(x_0\)</span>? It would be <span class="math inline">\(f(x_0)=x_0^T \beta\)</span>, a linear combination of the <span class="math inline">\(\beta\)</span> elements.</p>
+<hr>
+<p>If we assume that the linear model is correct, then <span class="math inline">\(\hat{\theta}\)</span> is an unbiased estimator of <span class="math inline">\(\theta\)</span>, because <span class="math inline">\(\text{E}(a^T \hat{\beta})=a^T \text{E}(\hat{\beta})=a^T\beta=\theta\)</span>.</p>
+<p>According to the Gauss-Markov theorem: if we have another estimator <span class="math inline">\(\tilde{\theta}=c^T{\bf Y}\)</span> that is unbiased for <span class="math inline">\(\theta\)</span> then it must have a larger variance than the LS-estimator:</p>
+<p><span class="math display">\[\text{Var}(\hat{\theta})=\text{Var}(a^T \hat{\beta})\le \text{Var}(c^T{\bf Y})=\text{Var}(\tilde{\theta})\]</span></p>
+<hr>
+<p>In Exercise ELS 3.3a we prove the Gauss-Markov theorem based on this set-up (least squares estimator of a linear combination <span class="math inline">\(a^T\beta\)</span>).</p>
+<p>Proof for the full parameter vector <span class="math inline">\(\beta\)</span> (not only the scalar linear combination), requires a bit more work (it is ELS exercise 3.3b if you want to try).</p>
+<hr>
+</section>
+<section id="comparing-variances-of-estimators" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-variances-of-estimators">Comparing variances of estimators</h2>
+<p>It is not hard to check that an estimator (for example <span class="math inline">\(p\times 1\)</span> column vector) is unbiased (in each element).</p>
+<p>But, what does it mean to compare the variance (covariance matrix) of two estimators of dimension <span class="math inline">\(p \times 1\)</span>?</p>
+<hr>
+<p>In statistics a “common” strategy is to consider all possible linear combinations of the elements of the parameter vector, and check that the variance of estimator <span class="math inline">\(\hat{\beta}\)</span> is smaller (or equal to) the variance of another estimator <span class="math inline">\(\tilde{\beta}\)</span>.</p>
+<hr>
+<p>This is achieved by looking at the difference between the covariance matrices <span class="math inline">\(\text{Cov}(\tilde{\beta})-\text{Cov}(\hat{\beta})\)</span>. If the difference is a positive semi-definite matrix, then every linear combination of <span class="math inline">\(\hat{\beta}\)</span> will have a variance that is smaller or equal to the variance of the corresponding linear combination for <span class="math inline">\(\tilde{\beta}\)</span>.</p>
+<hr>
+<section id="why-is-this-correct" class="level3">
+<h3 class="anchored" data-anchor-id="why-is-this-correct">Why is this correct?</h3>
+<p>Assume we want to see if <span class="math inline">\(\text{Var}(c^T\tilde{\beta})\ge \text{Var}(c^T\hat{\beta})\)</span> for any (nonzero) vector <span class="math inline">\(c\)</span>.</p>
+<p>We know that <span class="math inline">\(\text{Var}(c^T\hat{\beta})=c^T \text{Cov}(\hat{\beta})c\)</span> and <span class="math inline">\(\text{Var}(c^T\tilde{\beta})=c^T \text{Cov}(\tilde{\beta})c\)</span>.</p>
+<p>We then consider <span class="math display">\[\text{Var}(c^T\tilde{\beta})- \text{Var}(c^T\hat{\beta})=c^T(\text{Cov}(\tilde{\beta})-\text{Cov}(\hat{\beta}))c\]</span></p>
+<hr>
+<p>If <span class="math inline">\(\text{Cov}(\tilde{\beta})-\text{Cov}(\hat{\beta})\)</span> is positive semi-definite then the variance difference will be equal or greater than 0 - by the definition of a positive semi-definite matrix.</p>
+<p>This is also referred to as: The variance of <span class="math inline">\(\tilde{\beta}\)</span> exceeds <em>in a positive definite ordering sense</em> that of <span class="math inline">\(\hat{\beta}\)</span>, and written <span class="math inline">\(\text{Var}(\tilde{\beta}) \succeq \text{Var}(\hat{\beta})\)</span>. (Remark: here both <span class="math inline">\(\text{Var}\)</span> and <span class="math inline">\(\text{Cov}\)</span> is used as notation for the variance-covariance matrix.)</p>
+<hr>
+</section>
+</section>
+<section id="mean-squared-error" class="level2">
+<h2 class="anchored" data-anchor-id="mean-squared-error">Mean squared error</h2>
+<p>We want to study the mean squared error for the (scalar) estimator <span class="math inline">\(\tilde{\theta}\)</span>.</p>
+<p>From the previous section we know that <span class="math inline">\(\tilde{\theta}\)</span> could for example be the prediction at at covariate <span class="math inline">\(x_0\)</span>? It would be <span class="math inline">\(\tilde{\theta}=f(x_0)=x_0^T \beta\)</span>, and then <span class="math inline">\(\text{MSE}(\tilde{\theta})\)</span> would be an interesting quantity.</p>
+<p><span class="math display">\[\text{MSE}(\tilde{\theta})= \text{E}[(\tilde{\theta}-\theta)^2]=\text{Var}(\tilde{\theta})+[\text{E}(\tilde{\theta})-\theta]^2\]</span></p>
+<p>The last transition: add and subtract <span class="math inline">\(\text{E}(\tilde{\theta})\)</span>.</p>
+<p>The first term is the variance, and the second the squared bias. (There is no irredusible error since we are not considering a new observation, but we may of cause do that and add the irreducible error.)</p>
+<hr>
+<p>We know that for unbiased estimators (bias equal to <span class="math inline">\(0\)</span>), the MSE will be the smallest for the LS-estimator. This means that if we want to try to get a lower MSE we can´t do that with an unbiased estimator!</p>
+<p>This is a bit unusual to many of us, since we from our first course in statistics have been told about the glory of unbiased estimators!</p>
+<hr>
+<p>But, if we shrink some of the regression coefficients towards 0, or set them equal to 0, then we get a <em>biased estimate</em> for the regression parameters. Biased estimates are the core of this part of the course. We may want to pay the price of a biased estimate with the gain of decreased variance, so that the MSE for might get lower than for the LS-estimate.</p>
+<hr>
+<!-- ## Multiple regression from orthogonalized covariates -->
+<!-- (ELS 3.2.3) -->
+<!-- <https://cran.r-project.org/web/packages/matlib/vignettes/gramreg.html> -->
+<!-- <https://mertricks.com/2016/08/07/the-magic-behind-the-linear-methods-for-regression-part-1/> -->
+</section>
+<section id="preparing-for-shrinkage" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-for-shrinkage">Preparing for shrinkage</h2>
+<section id="standarization-of-covariates" class="level3">
+<h3 class="anchored" data-anchor-id="standarization-of-covariates">Standarization of covariates</h3>
+<p>For shrinkage methods it is common to <em>standardize</em> the covariates, where standardize means that</p>
+<ul>
+<li>the covariates are first centered, that is <span class="math inline">\(\frac{1}{N}\sum_{i=1}^N x_{ij}=0\)</span> for all <span class="math inline">\(j=1,\ldots, p\)</span>,</li>
+<li>and then scaled to unit variance, that is <span class="math inline">\(\frac{1}{N}\sum_{i=1}^N x^2_{ij}=1\)</span>.</li>
+</ul>
+<p>This is done in practice by first subtracting the mean and then dividing by the standard deviation. The standarization is only needed if the covariates are of different units or scales, because for shrinkage we will (for some of the method) penalize the optimization with the same penalty for all covariates.</p>
+<hr>
+</section>
+<section id="centering-covariates-and-response" class="level3">
+<h3 class="anchored" data-anchor-id="centering-covariates-and-response">Centering covariates and response</h3>
+<p>The intercept term <span class="math inline">\(\beta_0\)</span> will not be the aim for shrinkage in shrinkage methods.</p>
+<p>To make the presentation of the shrinkage methods easier to explain and write down, HTW use the common trick to center all covariates <em>and</em> the response.</p>
+<p>By centering the covariates and the response we may imagine moving the centroide of the data to the origin, where we do not need an intercept to capture the best linear regression hyperplane.</p>
+<p>When both covariates and responses are centred the LS estimate for the intercept <span class="math inline">\(\beta_0\)</span> will be <span class="math inline">\(\hat{\beta}_0=0\)</span>.</p>
+<p>If interpretation is to be done for uncentred data we may calculate the estimated <span class="math inline">\(\beta_0\)</span> for uncentered data from the estimated regression coefficients and the mean of the original covariates and respons.</p>
+<p>When covariates and responses are centred HTW remove <span class="math inline">\(\beta_0\)</span> from the regression model for the shrinkage methods. We will also do that.</p>
+<hr>
+<p><strong>Group discussion:</strong></p>
+<ol type="1">
+<li><p>Why is the LS estimate <span class="math inline">\(\hat{\beta}_0=0\)</span> for centred covariates and centred response in the multiple linear regression model?</p></li>
+<li><p>Explain what is done in the analysis of the Gasoline data directly below.</p></li>
+</ol>
+<p>Choose yourself if you want to focus 1 or 2.</p>
+<hr>
+</section>
+</section>
+<section id="gasoline-data" class="level2">
+<h2 class="anchored" data-anchor-id="gasoline-data">Gasoline data</h2>
+<p>Consider the multiple linear regression model, with response vector <span class="math inline">\(\bf{Y}\)</span> of dimension <span class="math inline">\((N \times 1)\)</span> and <span class="math inline">\(p\)</span> covariates and intercept in <span class="math inline">\(\bf{X}\)</span> <span class="math inline">\((N \times p+1)\)</span>.</p>
+<p><span class="math display">\[\begin{align}
+\bf{Y} = \bf{X}\bf{\beta} + \bf{\varepsilon}
+\end{align}\]</span> where <span class="math inline">\(\bf{\varepsilon}\sim N(\bf{0},\sigma^2\bf{I})\)</span>.</p>
+<p>When gasoline is pumped into the tank of a car, vapors are vented into the atmosphere. An experiment was conducted to determine whether <span class="math inline">\(Y\)</span>, the amount of vapor, can be predicted using the following four variables based on initial conditions of the tank and the dispensed gasoline:</p>
+<ul>
+<li><code>TankTemp</code> tank temperature (F)</li>
+<li><code>GasTemp</code> gasoline temperature (F)</li>
+<li><code>TankPres</code> vapor pressure in tank (psi)</li>
+<li><code>GasPres</code> vapor pressure of gasoline (psi)</li>
+</ul>
+<p>The data set is called <code>sniffer.dat</code>.</p>
+<p>We start by standardizing the covariates (make the mean 0 and the variance 1), we also center the response. From the scatter plots of the response and the covariates - would you think an MLR is suitable?</p>
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"./sniffer.dat"</span>,<span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">apply</span>(ds[,<span class="sc">-</span><span class="dv">5</span>],<span class="dv">2</span>,scale)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> ds[,<span class="dv">5</span>]<span class="sc">-</span><span class="fu">mean</span>(ds[,<span class="dv">5</span>])</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">dim</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 32  4</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dss<span class="ot">=</span><span class="fu">data.frame</span>(y,x)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(dss)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W4_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Calculate the estimated covariance matrix of the standardized covariates. Do you see a potential problem here?</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(dss)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 y  TankTemp   GasTemp  TankPres   GasPres
+y        87.790323 7.7399536 8.5202970 8.1505120 8.6325694
+TankTemp  7.739954 1.0000000 0.7742909 0.9554116 0.9337690
+GasTemp   8.520297 0.7742909 1.0000000 0.7815286 0.8374639
+TankPres  8.150512 0.9554116 0.7815286 1.0000000 0.9850748
+GasPres   8.632569 0.9337690 0.8374639 0.9850748 1.0000000</code></pre>
+</div>
+</div>
+<hr>
+<p>We have fitted a MLR with all four covariates. Explain what you see.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>full <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>.,dss)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ ., data = dss)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-5.586 -1.221 -0.118  1.320  5.106 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)  3.233e-16  4.826e-01   0.000  1.00000   
+TankTemp    -5.582e-01  1.768e+00  -0.316  0.75461   
+GasTemp      3.395e+00  1.065e+00   3.187  0.00362 **
+TankPres    -6.274e+00  4.140e+00  -1.515  0.14132   
+GasPres      1.249e+01  3.859e+00   3.237  0.00319 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.73 on 27 degrees of freedom
+Multiple R-squared:  0.9261,    Adjusted R-squared:  0.9151 
+F-statistic: 84.54 on 4 and 27 DF,  p-value: 7.249e-15</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  2.5 %     97.5 %
+(Intercept)  -0.9902125  0.9902125
+TankTemp     -4.1852036  3.0688444
+GasTemp       1.2093630  5.5812551
+TankPres    -14.7689131  2.2214176
+GasPres       4.5730466 20.4078380</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(full, <span class="fu">aes</span>(.fitted, .stdresid)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">pch =</span> <span class="dv">21</span>) <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="fl">0.5</span>, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"loess"</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted values"</span>, <span class="at">y =</span> <span class="st">"Standardized residuals"</span>, </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Fitted values vs standardized residuals"</span>, <span class="at">subtitle =</span> <span class="fu">deparse</span>(full<span class="sc">$</span>call))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W4_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(full, <span class="fu">aes</span>(<span class="at">sample =</span> .stdresid)) <span class="sc">+</span> <span class="fu">stat_qq</span>(<span class="at">pch =</span> <span class="dv">19</span>) <span class="sc">+</span> <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Theoretical quantiles"</span>, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Standardized residuals"</span>, <span class="at">title =</span> <span class="st">"Normal Q-Q"</span>, <span class="at">subtitle =</span> <span class="fu">deparse</span>(full<span class="sc">$</span>call))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W4_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ad.test</span>(<span class="fu">rstudent</span>(full))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Anderson-Darling normality test
+
+data:  rstudent(full)
+A = 0.3588, p-value = 0.43</code></pre>
+</div>
+</div>
+<hr>
+<p>Perform best subset selection using Mallows <span class="math inline">\(C_p\)</span> (equivalent to AIC) to choose the best model.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>bests <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(x,y)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sumbests <span class="ot">&lt;-</span> <span class="fu">summary</span>(bests)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sumbests)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Subset selection object
+4 Variables  (and intercept)
+         Forced in Forced out
+TankTemp     FALSE      FALSE
+GasTemp      FALSE      FALSE
+TankPres     FALSE      FALSE
+GasPres      FALSE      FALSE
+1 subsets of each size up to 4
+Selection Algorithm: exhaustive
+         TankTemp GasTemp TankPres GasPres
+1  ( 1 ) " "      " "     " "      "*"    
+2  ( 1 ) " "      "*"     " "      "*"    
+3  ( 1 ) " "      "*"     "*"      "*"    
+4  ( 1 ) "*"      "*"     "*"      "*"    </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which.min</span>(sumbests<span class="sc">$</span>cp) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+<hr>
+<p>Model after best subset selection.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>red <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>GasTemp<span class="sc">+</span>TankPres<span class="sc">+</span>GasPres,<span class="at">data=</span>dss)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(red)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ GasTemp + TankPres + GasPres, data = dss)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.6198 -1.2934 -0.0496  1.4858  4.9131 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)  8.390e-16  4.748e-01   0.000  1.00000   
+GasTemp      3.290e+00  9.951e-01   3.306  0.00260 **
+TankPres    -7.099e+00  3.159e+00  -2.247  0.03272 * 
+GasPres      1.287e+01  3.607e+00   3.568  0.00132 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.686 on 28 degrees of freedom
+Multiple R-squared:  0.9258,    Adjusted R-squared:  0.9178 
+F-statistic: 116.4 on 3 and 28 DF,  p-value: 6.427e-16</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(red)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  2.5 %     97.5 %
+(Intercept)  -0.9725378  0.9725378
+GasTemp       1.2513019  5.3281126
+TankPres    -13.5706954 -0.6270544
+GasPres       5.4823283 20.2586338</code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="ridge-regression" class="level1">
+<h1>Ridge regression</h1>
+<p>(ELS 3.4.1)</p>
+<p>Ridge regression is also called “Tikhonov regularization”.</p>
+<p>We consider the classical linear model set-up, as for the LS estimation, but now we look at shrinking the coefficients towards 0 to construct biased estimators - and then “hope” that this also has made the variances decrease.</p>
+<p>We will not shrink the intercept <span class="math inline">\(\beta_0\)</span>, because then the this will depend on the origin of the response.</p>
+<p>The ridge solution is dependent on the scaling of the covariates, and usually we work with standardized covariates and also with centered response.</p>
+<hr>
+<section id="minimization-problem" class="level2">
+<h2 class="anchored" data-anchor-id="minimization-problem">Minimization problem</h2>
+<section id="budget-version" class="level3">
+<h3 class="anchored" data-anchor-id="budget-version">Budget version</h3>
+<p>We want to constrain the size of the estimated regression parameters, so we give the sum of squared regression coefficients a budget <span class="math inline">\(t\)</span>.</p>
+<p>Minimize the squared error loss</p>
+<p><span class="math display">\[ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 \]</span> subject to <span class="math inline">\(\sum_{j=1}^p \beta_j^2 \le t\)</span>. The solution is called <span class="math inline">\(\hat{\beta}_{\text{ridge}}\)</span>.</p>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./ILS67ridge.png" class="img-fluid figure-img" style="width:40.0%"></p>
+<p></p><figcaption class="figure-caption">Figure from An Introduction to Statistical Learning, with applications in R (Springer, 2013) with permission from the authors: G. James, D. Witten, T. Hastie and R. Tibshirani.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="penalty-version" class="level3">
+<h3 class="anchored" data-anchor-id="penalty-version">Penalty version</h3>
+<!-- $\frac{1}{2N}$ or not? -->
+<p><span class="math display">\[ \hat{\beta}_{\text{ridge}}= \text{argmin}_{\beta}[\sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \beta_j^2]\]</span> where <span class="math inline">\(\lambda \ge 0\)</span> is a complexity (regularization, penalty) parameter controlling the amount of shrinkage.</p>
+<ul>
+<li>The larger <span class="math inline">\(\lambda\)</span> the greater the amount of shrinkage</li>
+<li>The shrinkage is towards 0</li>
+</ul>
+<p>This version of the problem is also called the Lagrangian form.</p>
+<p>The budget and penalty minimization problems are equivalent ways to write the ridge regression and there is a one-to-one correspondence between the budget <span class="math inline">\(t\)</span> and the penalty <span class="math inline">\(\lambda\)</span>.</p>
+<!-- (Where to read about Lagrangian duality?) -->
+<!-- (Exercise 3.5: reparameterize covariates using centering) -->
+<hr>
+</section>
+</section>
+<section id="parameter-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="parameter-estimation">Parameter estimation</h2>
+<p>As explained, centred covariates and responses are used - and the intercept term is removed from the model. Then NOW <span class="math inline">\({\bf X}\)</span> does not include a column with 1s and has dimension <span class="math inline">\(N \times p\)</span>.</p>
+<p>Penalty criterion to minimize</p>
+<p><span class="math display">\[ ({\bf y}-{\bf X}\beta)^T ({\bf y}-{\bf X}\beta)+ \lambda \beta^T \beta \]</span> This can be rewritten as</p>
+<p><span class="math display">\[ {\bf y}^T{\bf y}-2{\bf y}^T{\bf X}\beta+\beta^T({\bf X}^T{\bf X}+\lambda {\bf I})\beta\]</span></p>
+<hr>
+<p>Proceeding along the lines as done with the LS estimation, we get the (new) normal equations</p>
+<p><span class="math display">\[ ({\bf X}^T{\bf X}+\lambda {\bf I})\beta= {\bf X}^T {\bf Y}\]</span></p>
+<p>and the estimator:</p>
+<p><span class="math display">\[ \hat{\beta}_{\text{ridge}}=({\bf X}^T{\bf X}+\lambda {\bf I})^{-1} {\bf X}^T {\bf Y}\]</span></p>
+<hr>
+<p>Observe that the solution adds a positive constant <span class="math inline">\(\lambda\)</span> to the diagonal of <span class="math inline">\({\bf X}^T{\bf X}\)</span>, so that even if <span class="math inline">\({\bf X}^T{\bf X}\)</span> does not have full rank then the problem is non-singular and we can invert <span class="math inline">\(({\bf X}^T{\bf X}+\lambda {\bf I})\)</span>.</p>
+<p>When ridge regression was introduced in statistics in the 1970s this (avoiding non-singuarlity) was the motivation.</p>
+<p>When <span class="math inline">\(N&lt;p\)</span> then the design matrix will have rank less than the number of covariates, and the LS estimate does not exist.</p>
+<p>The case when two or more covariates are perfectly linearly dependent is called <em>super-collinearity</em> (accoring to WNvN).</p>
+<hr>
+<!-- ### Orthogonal covariates -->
+<!-- We study the special case with orthogonal covariates for LS and ridge. -->
+<!-- In the special case that the columns of the design matrix are orthogonal the ridge estimates are  -->
+<!-- $$ \hat{\beta}_{\text{ridge}}=\frac{1}{1+\lambda} \hat{\beta}$$ -->
+<!-- that is, a scaled version of the LS estimates. -->
+<hr>
+<section id="gasoline-continued" class="level3">
+<h3 class="anchored" data-anchor-id="gasoline-continued">Gasoline continued</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>start<span class="ot">=</span><span class="fu">glmnet</span>(<span class="at">x=</span>x,<span class="at">y=</span>y,<span class="at">alpha=</span><span class="dv">0</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>autolambda<span class="ot">=</span>start<span class="sc">$</span>lambda <span class="co"># automatic choice of lambda had smallest lambda 0.96 - but I added more small values to also be able to see that LS-solution is for lambda=0</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>newlambda<span class="ot">=</span><span class="fu">c</span>(autolambda,<span class="fl">0.5</span>,<span class="fl">0.3</span>,<span class="fl">0.2</span>,<span class="fl">0.1</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>fit.ridge<span class="ot">=</span><span class="fu">glmnet</span>(x,y,<span class="at">alpha=</span><span class="dv">0</span>,<span class="at">lambda=</span>newlambda)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit.ridge,<span class="at">xvar=</span><span class="st">"lambda"</span>,<span class="at">label=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W4_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#plot(fit.ridge,xvar="norm",label=TRUE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+</section>
+</section>
+<section id="model-selection" class="level2">
+<h2 class="anchored" data-anchor-id="model-selection">Model selection</h2>
+<p>To choose the optimal penalty parameter <span class="math inline">\(\lambda\)</span> cross-validation is the default method in use. ELS recommends to either</p>
+<ul>
+<li>choose the <span class="math inline">\(\lambda\)</span> corresponding to the smallest CV error</li>
+<li>or first find the <span class="math inline">\(\lambda\)</span> with the smallest CV-error, and then record the estimated standard error of the CV-error at this value, and then choose the largest <span class="math inline">\(\lambda\)</span> such that the CV error is still within one standard error of the minimum. We choose the largest because we want the less flexible model.</li>
+</ul>
+<p>The R package <code>glmnet</code> (by Hastie et al) has default <span class="math inline">\(K=10\)</span> fold cross-validation with the function <code>cv.glmnet</code> where <code>alpha=0</code> gives the ridge penalty.</p>
+<hr>
+<section id="gasoline-continued-1" class="level3">
+<h3 class="anchored" data-anchor-id="gasoline-continued-1">Gasoline continued</h3>
+<p>Explain what you see!</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>cv.ridge<span class="ot">=</span><span class="fu">cv.glmnet</span>(x,y,<span class="at">alpha=</span><span class="dv">0</span>,<span class="at">lambda=</span>newlambda)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"The lamda giving the smallest CV error"</span>,cv.ridge<span class="sc">$</span>lambda.min))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "The lamda giving the smallest CV error 0.1"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"The 1sd err method lambda"</span>,cv.ridge<span class="sc">$</span>lambda<span class="fl">.1</span>se))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "The 1sd err method lambda 2.59474341839969"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv.ridge)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W4_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use 1sd error rule default</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit.ridge,<span class="at">xvar=</span><span class="st">"lambda"</span>,<span class="at">label=</span><span class="cn">TRUE</span>);</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fu">log</span>(cv.ridge<span class="sc">$</span>lambda<span class="fl">.1</span>se));</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="W4_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(cv.ridge)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>5 x 1 sparse Matrix of class "dgCMatrix"
+                       s1
+(Intercept) -2.205724e-15
+TankTemp     8.374088e-01
+GasTemp      3.432180e+00
+TankPres     1.610137e+00
+GasPres      2.645772e+00</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>full<span class="sc">$</span>coeff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  (Intercept)      TankTemp       GasTemp      TankPres       GasPres 
+ 3.232869e-16 -5.581796e-01  3.395309e+00 -6.273748e+00  1.249044e+01 </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>red<span class="sc">$</span>coeff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  (Intercept)       GasTemp      TankPres       GasPres 
+ 8.390059e-16  3.289707e+00 -7.098875e+00  1.287048e+01 </code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="properties-of-the-ridge-estimator" class="level2">
+<h2 class="anchored" data-anchor-id="properties-of-the-ridge-estimator">Properties of the ridge estimator</h2>
+<section id="mean" class="level3">
+<h3 class="anchored" data-anchor-id="mean">Mean</h3>
+<p>Derive the mean of the ridge estimator.</p>
+<p>What happens if:</p>
+<ul>
+<li><span class="math inline">\(\lambda \rightarrow 0\)</span></li>
+<li><span class="math inline">\(\lambda \rightarrow \infty\)</span></li>
+</ul>
+<p><a href="https://www.math.ntnu.no/emner/TMA4268/Exam/V2019e.pdf">Exam problem 12 (TMA4268, 2019)</a> with <a href="https://www.math.ntnu.no/emner/TMA4268/Exam/e2019sol.html">solutions</a> Alternatively: <a href="https://arxiv.org/pdf/1509.09169.pdf">Wessel N. van Wieringen: Lecture notes on ridge regression, section 1.4</a></p>
+<hr>
+</section>
+<section id="covariance" class="level3">
+<h3 class="anchored" data-anchor-id="covariance">Covariance</h3>
+<p>Derive the covariance of the ridge estimator.</p>
+<p>What happens if:</p>
+<ul>
+<li><span class="math inline">\(\lambda \rightarrow 0\)</span></li>
+<li><span class="math inline">\(\lambda \rightarrow \infty\)</span></li>
+</ul>
+<p>(in our centered model without intercept)</p>
+<p>Same resources as above.</p>
+<hr>
+</section>
+<section id="distribution" class="level3">
+<h3 class="anchored" data-anchor-id="distribution">Distribution</h3>
+<p>For the normal linear model</p>
+<p><span class="math display">\[\hat{\beta}(\lambda)_{\text{ridge}} \sim N \{ (\mathbf{X}^T \mathbf{X} + \lambda \mathbf{I}_{p})^{-1} \mathbf{X}^T \mathbf{X} \, \beta,\]</span> <span class="math display">\[\sigma^2 ( \mathbf{X}^T \mathbf{X} + \lambda \mathbf{I}_{p} )^{-1}  \mathbf{X}^T \mathbf{X} ( \mathbf{X}^T \mathbf{X} + \lambda \mathbf{I}_{p} )^{-1}  \}.
+\]</span></p>
+<hr>
+</section>
+</section>
+<section id="is-ridge-better-than-ls" class="level2">
+<h2 class="anchored" data-anchor-id="is-ridge-better-than-ls">Is ridge “better than” LS?</h2>
+<ul>
+<li><p>We may prove that the variance of the ridge estimator is smaller or equal the variance of the LS estimator. See exercise “Variance of ridge compared to LS”, where we need to look at differences of covariance matrices and check for positive semi-definite matrix.</p></li>
+<li><p>In addition it is possible to prove that given a suitable choice for <span class="math inline">\(\lambda\)</span> the ridge regression estimator may outperform the LS estimator in terms of the MSE. See WNvW Section 1.4.3 for the full derivation.</p></li>
+<li><p>The optimal choice of <span class="math inline">\(\lambda\)</span> depends both the true regression parameters and the error variance. This means that the penalty parameter should be chosen in a <em>data-driven</em> fashion.</p></li>
+</ul>
+<hr>
+</section>
+<section id="insight-based-on-svd" class="level2">
+<h2 class="anchored" data-anchor-id="insight-based-on-svd">Insight based on SVD</h2>
+<section id="singular-value-decomposition-svd" class="level3">
+<h3 class="anchored" data-anchor-id="singular-value-decomposition-svd">Singular value decomposition (SVD)</h3>
+<p>Let <span class="math inline">\({\bf X}\)</span> be a <span class="math inline">\(N \times p\)</span> matrix.</p>
+<p>SVD is a decomposition of a matrix <span class="math inline">\({\bf X}\)</span> into a product of three matrices <span class="math display">\[{\bf X}={\bf U}{\bf D}{\bf V}^T.\]</span> <span class="math inline">\({\bf D}\)</span> is an <span class="math inline">\((N \times p)\)</span>-dimensional block matrix. Its upper left block is a <span class="math inline">\((\mbox{rank}(\mathbf{X}) \times \mbox{rank}(\mathbf{X}))\)</span>-dimensional digonal matrix with the singular values on the diagonal. The remaining blocks, zero if <span class="math inline">\(p=N\)</span>. The singular values are equal <span class="math inline">\(\sqrt{\mathrm{eigenvalues}({\bf X}{\bf X}^T})=\sqrt{\mathrm{eigenvalues}({\bf X}^T{\bf X})}\)</span>.</p>
+<p><span class="math inline">\(\mathbf{U}\)</span> is an <span class="math inline">\((n \times n)\)</span>-dimensional matrix with columns containing the left singular vectors (denoted <span class="math inline">\(\mathbf{u}_i\)</span>), that is, the eigenvectors of <span class="math inline">\({\bf X}{\bf X}^T\)</span></p>
+<p><span class="math inline">\(\mathbf{V}\)</span> is a <span class="math inline">\((p \times p)\)</span>-dimensional matrix with columns containing the right singular vectors (denoted <span class="math inline">\(\mathbf{v}_i\)</span>), that is, the eigenvectors of <span class="math inline">\({\bf X}^T{\bf X}\)</span>.</p>
+<p>The columns of <span class="math inline">\(\mathbf{U}\)</span> and <span class="math inline">\(\mathbf{V}\)</span> are orthogonal: <span class="math inline">\(\mathbf{U}^{\top} \mathbf{U} = \mathbf{I}_{N} = \mathbf{U}\mathbf{U}^T\)</span> and <span class="math inline">\(\mathbf{V}^T \mathbf{V}= \mathbf{I}_{p} = \mathbf{V}\mathbf{V}^T\)</span>.</p>
+<hr>
+<p>Following the derivation of WNvW page 11-12:</p>
+<ul>
+<li>If <span class="math inline">\(n&gt;p\)</span> and the rank of <span class="math inline">\({\bf X}\)</span> is <span class="math inline">\(p\)</span>, then the LS estimator <span class="math inline">\(\hat{\beta}_{\text{LS}}\)</span> can be written</li>
+</ul>
+<p><span class="math display">\[\hat{\beta}_{\text{LS}}= \mathbf{V}(\mathbf{D}^T \mathbf{D})^{-1} \mathbf{D}^T \mathbf{U}^T \mathbf{Y}\]</span></p>
+<ul>
+<li>The ridge estimator <span class="math inline">\(\hat{\beta}_{\text{ridge}}\)</span></li>
+</ul>
+<p><span class="math display">\[ \hat{\beta}_{\text{ridge}}=\mathbf{V} (\mathbf{D}^T \mathbf{D} + \lambda \mathbf{I})^{-1}  \mathbf{D}^T \mathbf{U}^T \mathbf{Y}\]</span></p>
+<ul>
+<li>The principal component regression based on the first <span class="math inline">\(k\)</span> principal components</li>
+</ul>
+<p><span class="math display">\[ \hat{\beta}_{\text{PCR}} = \mathbf{V}_{k} (\mathbf{I}_{kp} \mathbf{D}^T \mathbf{D}\mathbf{I}_{pk})^{-1} \mathbf{I}_{kp} \mathbf{D}^T \mathbf{U}^T \mathbf{Y}\]</span></p>
+<p>here <span class="math inline">\(\mathbf{V}_{k}\)</span> contains the first <span class="math inline">\(k\)</span> right singular vectors as columns, and <span class="math inline">\({\bf I}_{kp}\)</span> is obtained by <span class="math inline">\({\bf I}_p\)</span> by removing the last <span class="math inline">\(p-k\)</span> columns.</p>
+<hr>
+<p>Connection to principal component analysis: The estimated covariance matrix for centred covariates is <span class="math inline">\(\frac{1}{N}{\bf X}^T{\bf X}\)</span>. The eigenvalues of <span class="math inline">\({\bf X}^T{\bf X}\)</span> are the squared singular values, <span class="math inline">\(d^2_j\)</span>. The small singular values <span class="math inline">\(d_j\)</span> correspond to directions in the column space of <span class="math inline">\({\bf X}\)</span> with small variance, which will be the direction for the last principal components.</p>
+<p>The ridge penalties shrinks the direction with the small singular values the most. Principal components thresholds coefficients in the direction with singular values of <span class="math inline">\({\bf X}\)</span>, while ridge regression shrinks the coefficients in these directions.</p>
+<hr>
+<p>Alternatively, it is possible to consider the prediction</p>
+<p><span class="math display">\[\hat{y}_{\text{LS}}={\bf X}\hat{\beta}_{\text LS}= \cdots = {\bf U}{\bf U}^T {\bf y}\]</span></p>
+<p><span class="math display">\[\hat{y}_{\text{ridge}}={\bf X}\hat{\beta}_{\text ridge}= \cdots =
+{\bf U}{\bf D}^2({\bf D}^2+\lambda {\bf I}_p)^{-1}{\bf U}^T {\bf y}=
+\sum_{j=1}^p {\bf u}_j \frac{d_j^2}{d_j^2+\lambda}{\bf u}_j^T {\bf y}\]</span></p>
+<p><strong>Group discussion:</strong> What can we conclude from this about what the <span class="math inline">\(\lambda\)</span> does with each covariate direction?</p>
+<!-- The eigenvalues of ${\bf X}^T{\bf X}$ and ${\bf X}{\bf X}^T$ are identical, since -->
+<!-- \begin{align*} -->
+<!--         {\bf X}^T{\bf X} \mathbf{e} &= \lambda \mathbf{e} \\ -->
+<!--         {\bf X}{\bf X}^T{\bf X} \mathbf{e} &= \lambda {\bf X}\mathbf{e}\\ -->
+<!--         {\bf X}{\bf X}^T\mathbf{e}^* &= \lambda \mathbf{e}^*. -->
+<!-- \end{align*} -->
+<!-- The eigenvectors of ${\bf X}{\bf X}^T$ equals ${\bf X} \mathbf{e}$ where $\mathbf{e}$ are the eigenvectors of ${\bf X}^T{\bf X}$. -->
+<!-- For a column centred matrix ${\bf X}$, we estimate the covariance matrix by -->
+<!-- $(N-1)\mathbf{S}={\bf X}^T{\bf X}$.  -->
+<!-- --- -->
+<hr>
+</section>
+<section id="the-effective-degrees-of-freedom" class="level3">
+<h3 class="anchored" data-anchor-id="the-effective-degrees-of-freedom">The effective degrees of freedom</h3>
+<p>In ELS Ch 7.6 we defined the effective number of parameters (here now referred to as the <em>effective degrees of freedom</em>) for a linear smoother <span class="math inline">\(\hat{\bf y}={\bf Sy}\)</span> as</p>
+<p><span class="math display">\[\text{df}({\bf S})=\text{trace}({\bf S})\]</span></p>
+<p>For ridge regression our linear smoother is <span class="math display">\[{\bf H}_{\lambda}={\bf X}({\bf X}^T{\bf X}+ \lambda {\bf I})^{-1}{\bf X}^T\]</span></p>
+<hr>
+<p><span class="math inline">\(\text{df}(\lambda)=\text{tr}({\bf H}_{\lambda})=\text{tr}({\bf X}({\bf X}^T{\bf X}+ \lambda {\bf I})^{-1}{\bf X}^T)=\cdots=\sum_{j=1}^p \frac{d_j^2}{d_j^2+\lambda}\)</span></p>
+<ul>
+<li><span class="math inline">\(\lambda=0\)</span> gives <span class="math inline">\(\text{df}(\lambda)=p\)</span></li>
+<li><span class="math inline">\(\lambda \rightarrow \infty\)</span> gives <span class="math inline">\(\text{df}(\lambda)\rightarrow 0\)</span></li>
+</ul>
+<p>The <span class="math inline">\(\text{df}(\lambda)\)</span> is sometimes plotted instead of <span class="math inline">\(\lambda\)</span> on the horisontal axis when model complexity is chosen.</p>
+<hr>
+</section>
+</section>
+<section id="finally" class="level2">
+<h2 class="anchored" data-anchor-id="finally">Finally</h2>
+<ul>
+<li>When is ridge preferred to LS? When the LS estimates have high variance and many predictors are truly non-zero.</li>
+<li>Ridge is computationally fast.</li>
+<li>Ridge is not very easy to interpret, because all <span class="math inline">\(p\)</span> predictor are included in the final model.</li>
+</ul>
+</section>
+</section>
+<section id="lasso" class="level1">
+<h1>Lasso</h1>
+<p>(ELS 3.4.2)</p>
+<p>Now we will do what looks at first sight as a small change - we will use a budget on the absolute value insted of squared value - moving from the <span class="math inline">\(L_2\)</span> to the <span class="math inline">\(L_1\)</span> norm. But, this will have a large impact on the parameter estimates - both shrinking - and performing model selection (by shrinking all the way down to 0).</p>
+<p>Again, we will not shrink the intercept <span class="math inline">\(\beta_0\)</span>, because then the this will depend on the origin of the response, and we will work with standardized covariates and centered response.</p>
+<hr>
+<section id="minimization-problem-1" class="level2">
+<h2 class="anchored" data-anchor-id="minimization-problem-1">Minimization problem</h2>
+<section id="budget-version-1" class="level3">
+<h3 class="anchored" data-anchor-id="budget-version-1">Budget version</h3>
+<p>We want to constrain the size of the estimated regression parameters, so we give the sum of squared regression coefficients a budget <span class="math inline">\(t\)</span>.</p>
+<p>Minimize the squared error loss</p>
+<p><span class="math display">\[ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 \]</span> subject to <span class="math inline">\(\sum_{j=1}^p \lvert \beta_j\rvert \le t\)</span>. The solution is called <span class="math inline">\(\hat{\beta}_{\text{lasso}}\)</span>.</p>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="./ILS67lasso.png" class="img-fluid" width="569"></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="penalty-version-1" class="level3">
+<h3 class="anchored" data-anchor-id="penalty-version-1">Penalty version</h3>
+<!-- $\frac{1}{2N}$ or not? -->
+<p><span class="math display">\[ \hat{\beta}_{\text{lasso}}= \text{argmin}_{\beta} [\sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \lvert \beta_j\rvert ] \]</span> again, <span class="math inline">\(\lambda \ge 0\)</span> is a complexity (regularization, penalty) parameter controlling the amount of shrinkage.</p>
+<ul>
+<li>The larger <span class="math inline">\(\lambda\)</span> the greater the amount of shrinkage</li>
+<li>The shrinkage is towards 0</li>
+</ul>
+<p>This version of the problem is also called the Lagrangian form.</p>
+<p>The budget and penalty minimization problems are equivalent ways to write the ridge regression and there is a one-to-one correspondence between the budget <span class="math inline">\(t\)</span> and the penalty <span class="math inline">\(\lambda\)</span>.</p>
+<!-- (Where to read about Lagrangian duality?) -->
+<!-- (Exercise 3.5: reparameterize covariates using centering) -->
+<hr>
+</section>
+</section>
+<section id="small-notational-difference-in-the-two-textbooks" class="level2">
+<h2 class="anchored" data-anchor-id="small-notational-difference-in-the-two-textbooks">Small notational difference in the two textbooks</h2>
+<p>In HTW an extra <span class="math inline">\(\frac{1}{2N}\)</span> factor is added to the squared error for the ridge and the lasso, which is just for ease of interpretation of a future shrinkage parameter to be included (to make that shrinkage parameter comparable across different sample sizes in the use of cross-validation). The factor does not influence the solution of the minimization of the squared-error loss we consider now.</p>
+<hr>
+</section>
+<section id="parameter-estimation-1" class="level2">
+<h2 class="anchored" data-anchor-id="parameter-estimation-1">Parameter estimation</h2>
+<ul>
+<li><p>As explained, centred covariates and responses are used - and the intercept term is removed from the model. Then <span class="math inline">\({\bf X}\)</span> does not include a column with 1s and has dimension <span class="math inline">\(N \times p\)</span>.</p></li>
+<li><p>The use of the absolute value in the penalty term makes the solution in general non-linear in <span class="math inline">\(y_i\)</span>, and no closed form solution.</p></li>
+<li><p>If we make the budget <span class="math inline">\(t\)</span> sufficiently small some of the coefficients will be exactly zero.</p></li>
+<li><p>If <span class="math inline">\(t\)</span> is chosen larger than <span class="math inline">\(t_0=\sum_{j=1}^p \lvert \hat{\beta}_{{\text {LS}},j} \rvert\)</span> the lasso estimates equal the LS estimates.</p></li>
+<li><p>The nature of the shrinkage is complex, and will be studied later.</p></li>
+</ul>
+<p>In L3 we will look into estimation algorithms for the lasso.</p>
+<hr>
+<section id="conditions-for-a-solution-to-the-penalty-version" class="level3">
+<h3 class="anchored" data-anchor-id="conditions-for-a-solution-to-the-penalty-version">Conditions for a solution to the penalty version</h3>
+<p>(HTW page 9)</p>
+<p>The details are found in HTW Chapter 5 (not on our reading list), but the student familiar with convex analysis, dual problems and Karush-Kuhn-Tucker (KKT) conditions might find Chapter 5 of interest.</p>
+<p>Convex analysis theory: necessary and sufficient conditions for a solution to the lasso penalty problem is</p>
+<p><span class="math display">\[ \frac{1}{N}\langle {\bf x}_j,{\bf y}-{\bf X}\beta \rangle+\lambda s_j=0 \mbox{ for } j=1,\ldots,p\]</span></p>
+<p>where <span class="math inline">\(\langle a,b \rangle=a^T b\)</span> denotes the inner product. Each <span class="math inline">\(s_j\)</span> is an unknow quantity, equal to</p>
+<ul>
+<li><span class="math inline">\(\text{sign}(\beta_j)\)</span> if <span class="math inline">\(\beta_j\neq 0\)</span></li>
+<li>some value in <span class="math inline">\([-1,1]\)</span> otherwise (socalled <em>subgradient</em> of the absolute value function).</li>
+</ul>
+<p>We may solve this problem in <span class="math inline">\((\hat{\beta},\hat{s})\)</span>, instead of the penalty version.</p>
+<hr>
+</section>
+<section id="orthogonal-covariates" class="level3">
+<h3 class="anchored" data-anchor-id="orthogonal-covariates">Orthogonal covariates</h3>
+<p>This case - explicit solution! New word: soft thresholding”.</p>
+<p>Will be written out in class - see <a href="">classnotes L8</a></p>
+<div class="cell">
+
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./ILS610.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p></p><figcaption class="figure-caption">Figure from An Introduction to Statistical Learning, with applications in R (Springer, 2013) with permission from the authors: G. James, D. Witten, T. Hastie and R. Tibshirani.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="gasoline-continued-2" class="level2">
+<h2 class="anchored" data-anchor-id="gasoline-continued-2">Gasoline continued</h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="W4_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="W4_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="W4_files/figure-html/unnamed-chunk-15-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5 x 1 sparse Matrix of class "dgCMatrix"
+                       s1
+(Intercept) -1.487848e-15
+TankTemp     .           
+GasTemp      3.660973e+00
+TankPres     .           
+GasPres      4.342993e+00</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="degrees-of-freedom" class="level2">
+<h2 class="anchored" data-anchor-id="degrees-of-freedom">Degrees of freedom</h2>
+<p>(HTW 2.5)</p>
+<p>In ELS Ch 7.6 we defined the effective number of parameters (here now referred to as the <em>effective degrees of freedom</em>) for a linear smoother, and used that for the ridge regression. However, the lasso is not a linear smoother (it is nonlinear in the reponses <span class="math inline">\(y_i\)</span>).</p>
+<p>The lasso is an adaptive fitting procedure, and if our final model has <span class="math inline">\(k\)</span> covariates that is different from zero, we would not think that the effective degrees of freedom for the lasso is then <span class="math inline">\(k\)</span>. However, it turns out that it is correct to <em>count</em> the number of degrees of freedom by the number of nonzero coefficients.</p>
+<p>In ELS Ch 7.6 we also defined the degrees of freedom using the covariance generalization: <span class="math display">\[\text{df}(\hat{{\bf y}})=\frac{\sum_{i=1}^N \text{Cov}(\hat{y}_i,y_i)}{\sigma_{\varepsilon}^2}\]</span></p>
+<p>where the covariance is taken over the reponse variables, while the covariates are kept fixed (this formula was developed in connection to the in-sample prediction error).</p>
+<hr>
+<p>It has been shown (HTW refer to this at “somewhat miraculously) that with a fixed penalty parameter <span class="math inline">\(\lambda\)</span> the number of non-zero coefficients <span class="math inline">\(k_{\lambda}\)</span> is an <em>unbiased estimate</em> for the degrees of freedom.</p>
+<p>This is explained by considering that the lasso does not only select predictors (selecting predictors will give an inflated degrees of freedom) - but also shrinks the coefficients relative to the LS estimates. These two forces kind of cancel out.</p>
+<p>HTW (page 19): a general proof is difficult, but for an orthogonal design using the fact that the lasso estimates are soft-thresholded versions f the univariate regression coefficients for the othogonal design.</p>
+<hr>
+</section>
+<section id="finally-1" class="level2">
+<h2 class="anchored" data-anchor-id="finally-1">Finally</h2>
+<ul>
+<li>When is ridge preferred to LS? When the LS estimates have high variance and many predictors are truly non-zero.</li>
+<li>Ridge is computationally fast.</li>
+<li>Ridge is not very easy to interpret, because all <span class="math inline">\(p\)</span> predictor are included in the final model.</li>
+</ul>
+<p>Neigher ridge or lasso dominates the other in all situations.</p>
+</section>
+</section>
+<section id="software" class="level1">
+<h1>Software</h1>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="logo.png" class="img-fluid" width="98"></p>
+</div>
+</div>
+<p>We will use the <code>glmnet</code> implementation for R:</p>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/glmnet/index.html">R glmnet on CRAN</a> with <a href="http://www.stanford.edu/~hastie/glmnet">resources</a>.
+<ul>
+<li><a href="https://glmnet.stanford.edu/articles/glmnet.html">Getting started</a></li>
+<li><a href="https://glmnet.stanford.edu/articles/glmnetFamily.html">GLM with glmnet</a></li>
+</ul></li>
+</ul>
+<p>For Python there are different options.</p>
+<ul>
+<li><a href="https://web.stanford.edu/~hastie/glmnet_python/">Python glmnet</a> is recommended by Hastie et al.</li>
+<li><a href="https://scikit-learn.org/stable/modules/linear_model.html#ridge-regression-and-classification">scikit-learn</a> (seems to mostly be for regression? is there lasso for classification here?)</li>
+</ul>
+</section>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
+<section id="gauss-markov-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="gauss-markov-theorem">Gauss-Markov theorem</h2>
+<p>The LS is unbiased with the smallest variance among linear predictors: ELS exercise 3.3a</p>
+</section>
+<section id="variance-of-ridge-compared-to-ls" class="level2">
+<h2 class="anchored" data-anchor-id="variance-of-ridge-compared-to-ls">Variance of ridge compared to LS</h2>
+<p>Consider a classical linear model with regression parameters <span class="math inline">\(\beta\)</span>. Let <span class="math inline">\(\hat{\beta}\)</span> be the LS estimator for <span class="math inline">\(\beta\)</span> and let <span class="math inline">\(\tilde{\beta}\)</span> be the ridge regression estimator for <span class="math inline">\(\beta\)</span>. Show that <span class="math inline">\(\text{Var}(\hat{\beta}) \ge \text{Var}(\tilde{\beta})\)</span>.</p>
+<!-- Smart rewrite: $w_{\lambda}=({\bf X}^T{\bf X}+\lambda {\bf I}_p)^{-1}{\bf X}^T{\bf X}$, and -->
+<!-- $\hat{\beta}_{\text{ridge}}=w_{\lambda}\hat{\beta}_{\text{LS}}$ -->
+<hr>
+</section>
+<section id="ridge-regression-1" class="level2">
+<h2 class="anchored" data-anchor-id="ridge-regression-1">Ridge regression</h2>
+<p>This problem is taken, with permission from Wessel van Wieringen, from a course in High-dimensional data analysis at Vrije University of Amsterdam.</p>
+<section id="a" class="level3">
+<h3 class="anchored" data-anchor-id="a">a)</h3>
+<p>Find the ridge regression solution for the data below for a general value of <span class="math inline">\(\lambda\)</span> and for the simple linear regression model <span class="math inline">\(Y = \beta_0 + \beta_1 X + \varepsilon\)</span> (only apply the ridge penalty to the slope parameter, not to the intercept). Show that when <span class="math inline">\(\lambda\)</span> is chosen as 4, the ridge solution fit is <span class="math inline">\(\hat{Y} = 40 + 1.75 X\)</span>.</p>
+<p>Data: <span class="math inline">\(\mathbf{X}^T = (X_1, X_2, \ldots, X_{8})^T = (-2, -1, -1, -1, 0, 1, 2, 2)^T\)</span>, and <span class="math inline">\(\mathbf{Y}^T = (Y_1, Y_2, \ldots, Y_{8})^T = (35, 40, 36, 38, 40, 43, 45, 43)^T\)</span>.</p>
+<div class="cell">
+
+</div>
+</section>
+<section id="b" class="level3">
+<h3 class="anchored" data-anchor-id="b">b)</h3>
+<p>The coefficients <span class="math inline">\(\beta\)</span> of a linear regression model, <span class="math inline">\(\mathbf{Y} = \mathbf{X} \beta + \varepsilon\)</span>, are estimated by <span class="math inline">\(\hat{\beta} = (\mathbf{X}^\mathrm{T} \mathbf{X})^{-1} \mathbf{X}^\mathrm{T} \mathbf{Y}\)</span>. The associated fitted values then given by <span class="math inline">\(\hat{\mathbf{Y}} = \mathbf{X} \, \hat{\beta} = \mathbf{X} (\mathbf{X}^\mathrm{T} \mathbf{X})^{-1} \mathbf{X}^\mathrm{T} \mathbf{Y} = \mathbf{H} \mathbf{Y}\)</span>, where <span class="math inline">\(\mathbf{H} = \mathbf{X} (\mathbf{X}^\mathrm{T} \mathbf{X})^{-1} \mathbf{X}^\mathrm{T}\)</span>. The matrix <span class="math inline">\(\mathbf{H}\)</span> is a projection matrix and satisfies <span class="math inline">\(\mathbf{H} = \mathbf{H}^ 2\)</span>. Hence, linear regression projects the response <span class="math inline">\(\mathbf{Y}\)</span> onto the vector space spanned by the columns of <span class="math inline">\(\mathbf{X}\)</span>. Consequently, the residuals <span class="math inline">\(\hat{\varepsilon}\)</span> and <span class="math inline">\(\hat{\mathbf{Y}}\)</span> are orthogonal.</p>
+<p>Next, consider the ridge estimator of the regression coefficients: <span class="math inline">\(\hat{\beta}(\lambda) = (\mathbf{X}^\mathrm{T} \mathbf{X} + \lambda \mathbf{I}_{p})^{-1} \mathbf{X}^\mathrm{T} \mathbf{Y}\)</span>. Let <span class="math inline">\(\hat{\mathbf{Y}}(\lambda) = \mathbf{X} \hat{\beta}(\lambda)\)</span> be the vector of associated fitted values.</p>
+<p>Show that the matrix <span class="math inline">\(\mathbf{Q} = \mathbf{X} (\mathbf{X}^\mathrm{T} \mathbf{X} + \lambda \mathbf{I}_{p})^{-1} \mathbf{X}^{\mathrm{T}}\)</span>, associated with ridge regression, is not a projection matrix (for any <span class="math inline">\(\lambda &gt; 0\)</span>). Hint: a projection matrix is idempotent (commonly used in TMA4267).</p>
+</section>
+<section id="c" class="level3">
+<h3 class="anchored" data-anchor-id="c">c)</h3>
+<p>Show that the ridge fit <span class="math inline">\(\hat{\mathbf{Y}}(\lambda)\)</span> is not orthogonal to the associated ridge residuals <span class="math inline">\(\hat{\varepsilon}(\lambda)\)</span> (for any <span class="math inline">\(\lambda &gt; 0\)</span>).</p>
+</section>
+</section>
+<section id="lasso-estimator-for-orthogonal-covariates" class="level2">
+<h2 class="anchored" data-anchor-id="lasso-estimator-for-orthogonal-covariates">Lasso estimator for orthogonal covariates</h2>
+<p>(started on in class - but added separately here, is also found as part of ELS Ex 3.16)</p>
+<p>Derive the lasso estimator for <span class="math inline">\(\beta\)</span> in the case where the covariates are othogonal (and centred and scaled, and response centered so we have no <span class="math inline">\(\beta_0\)</span>).</p>
+</section>
+</section>
+<section id="solutions-to-exercises" class="level1">
+<h1>Solutions to exercises</h1>
+<p>Please try yourself first, or take a small peek - and try some more - before fully reading the solutions. Report errors or improvements to <a href="mailto:Mette.Langaas@ntnu.no" class="email">Mette.Langaas@ntnu.no</a>.</p>
+<ul>
+<li><p><a href="https://github.com/mettelang/MA8701V2021/blob/main/Part1/ELSe33a.pdf">Gauss-Markov theorem 3.3a</a></p></li>
+<li><p><a href="https://arxiv.org/pdf/1509.09169.pdf">Variance of ridge compared to LS: page 11-12 on note by Wessel N. van Wieringen</a> and <a href="https://github.com/mettelang/MA8701V2021/blob/main/Part1/LSvsRRvar.pdf">Mettes notes</a></p></li>
+<li><p><a href="http://htmlpreview.github.com/?https://github.com/mettelang/MA8701V2021/blob/main/Part1/L2exRR1.html">Ridge regression</a></p></li>
+<li><p><a href="https://github.com/mettelang/MA8701V2021/blob/main/Part1/L2lassoorth.pdf">Lasso regression with ortonormal covariates</a></p></li>
+</ul>
+</section>
+<section id="resources" class="level1">
+<h1>Resources</h1>
+<!-- * Very low level regression introduction in Norwegian, made for year 2 bachelor engineering students. -->
+<!--     + [Multippel lineær regresjon: introduksjon (14:07)](https://ntnu.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=b2bb21a5-9a09-4ac7-aa25-ac5801055d5e) -->
+<!--     + [Multippel lineær regresjon: analyse av et datasett, inkludert forklaring av dummyvariabelkoding (15:20 min)](https://ntnu.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=417d27bc-33c2-4cab-8a73-ac5801405bff) -->
+<ul>
+<li><p>Videos in statistics learning with Rob Tibshirani and Daniela Witten, made for the Introduction to statistical learning Springer textbook.</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=cSKzqb0EKS0">Ridge</a></li>
+<li><a href="https://www.youtube.com/watch?v=A5I1G1MfUmA">Lasso</a></li>
+<li><a href="https://www.youtube.com/watch?v=xMKVUstjXBE">Selecting tuning parameter</a></li>
+</ul></li>
+<li><p>Video from webinar with Trevor Hastie on <a href="http://youtu.be/BU2gjoLPfDc">glmnet from 2019</a></p></li>
+<li><p><a href="https://arxiv.org/pdf/1509.09169.pdf">Lecture notes on ridge regression: Wessel N. van Wieringen</a></p></li>
+</ul>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-casi" class="csl-entry" role="doc-biblioentry">
+Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference - Algorithms, Evidence, and Data Science</em>. Cambridge University Press. <a href="https://hastie.su.domains/CASI/">https://hastie.su.domains/CASI/</a>.
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
