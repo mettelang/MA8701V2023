@@ -44,6 +44,8 @@ Reading list:
 * Handbook of missing data methodology: Chapter 12.1.2, 12.2, 12.3.3. Available for download (60 pages pr day) from Oria at NTNU (Choose EBSCOweb, then PDF full text and then just download chapter 12). @missinghandbook2014
 * [Flexible imputation of missing data](https://stefvanbuuren.name/fimd/): Chapters 1.1, 1.2, 1.3, 1.4, 2.2.4, 2.3.2 (similar to Handbook 12.2), 3.2.1, 3.2.2 (Algo 3.1), 3.4 (Algo 3.3), 4.5.1, 4.5.2. @VanBuuren2018
 
+[Graphical overview of the topics covered in W3](https://github.com/mettelang/MA8701V2023/blob/main/Part1/W3overview.pdf)
+
 ---
 
 # Missing data
@@ -947,7 +949,7 @@ df is the $\nu$ above (Barnard-Rubin), while dfcom is the $\nu_{\text{com}}$.
 
 ## Bayesian view
 
-Presented in writing in class, see [classnotes lecture 6](https://www.math.ntnu.no/emner/MA8701/2023v/MA8701V2023/Part1/L6beamer20230127.pdf)
+Presented in writing in class, see [classnotes lecture 6](https://github.com/mettelang/MA8701V2023/blob/main/Part1/L6beamer20230127.pdf)
 
 ---
 
@@ -977,9 +979,9 @@ The setting here is that
 * We now assume a multiple linear regression model with the covariate with missing values as the response, 
 * and other covariates and the analysis model response as covariates in this imputation model
 
-[Note on these three methods](https://www.math.ntnu.no/emner/MA8701/2023v/MA8701V2023/Part1/Imp3methLM.pdf).
+[Note on these three methods](https://github.com/mettelang/MA8701V2023/blob/main/Part1/Imp3methLM.pdf).
 
-For the Bayesian part, [the Wikipedia entry for Bayesian linear regression](https://en.wikipedia.org/wiki/Bayesian_linear_regression) is useful reading!
+For the Bayesian part, [the Wikipedia entry for Bayesian linear regression](https://en.wikipedia.org/wiki/Bayesian_linear_regression) is useful reading, and we will also look into this in Part 2 on ridge regression (L7).
 
 ---
 
@@ -991,17 +993,19 @@ For the Bayesian part, [the Wikipedia entry for Bayesian linear regression](http
 
 (@VanBuuren2018 Chapter 3.4)
 
-An hot deck method is a method where values are imputed based on existing values in the data set, by matching the missing observation with each of the observed observation.
+An hot deck method is a method where values are imputed based on existing values in the data set, by matching the missing observation with each of the observed observations (individuals).
 
 Above (in the notes) we have considered the Bayesian linear regression and the "starting point" of the algorithm is that we have estimated the multiple linear regression coefficient $\hat{\phi}$ and drawn $\dot \phi$ from the posterior distribution.
 
+---
+
 Algorithm 3.3 in @VanBuuren2018 Section 3.4.2, copied from [github Rmd file](https://github.com/stefvanbuuren/fimdbook/blob/master/Rmd/04-multivariate-missing.Rmd):
 
-1. Calculate $\dot\beta$ and $\hat\beta$ by Steps 1-8 of 
+1. Calculate $\dot\phi$ and $\hat\phi$ by Steps 1-8 of 
    Algorithm 3.1.
    
 2. Calculate 
-   $\dot\eta(i,j)=|X_i^\mathrm{obs}\hat\beta-X_j^\mathrm{mis}\dot\beta|$ 
+   $\dot\eta(i,j)=|X_i^\mathrm{obs}\hat\phi-X_j^\mathrm{mis}\dot\phi|$ 
    with $i=1,\dots,n_1$ and $j=1,\dots,n_0$.
    
 3. Construct $n_0$ sets $Z_j$, each containing $d$ candidate donors, 
@@ -1046,6 +1050,8 @@ levelplot(r~var+rec|as.factor(pat), data=mdpat3,
 ```
 
 
+---
+
 For univariate missing pattern, we already have a solution above @sec-mlrimp, and this solution can be made more flexible with other regression types. 
 
 For monotone patterns, see @missinghandbook2014 Section 12.3.1 for regression-based imputation - which can be seen as using the univariate missing pattern solution in sequence.
@@ -1073,6 +1079,8 @@ See @missinghandbook2014 Chapter 14.
 
 Also this type of solution is for general missing patterns, and when missing data are MAR.
 
+---
+
 ### Notation
 
 We here need (even one more) new notation.
@@ -1098,6 +1106,8 @@ The following algorithm is presented in @missinghandbook2014 Figure 13.3 and @Va
 2. For each $j$, fill in starting imputations $\dot Y_j^0$ by random 
    draws from $Y_j^\mathrm{obs}$.
 
+---
+
 3. Repeat for $t = 1,\dots,M$.
 
 4. Repeat for $j = 1,\dots,p$.
@@ -1119,6 +1129,8 @@ The number of iterations $t$ is recommended to be 5 to 10. However, convergence 
 Maybe this is not very clear from the algoritm, but this is a Markov Chain Monte Carlo method, and in particular it is a Gibbs sampler (if the conditional distribution together form a joint distribution). The algorithm must then be able to converge to a stationary distribution for us to use the results. Please refer to TMA4300 Computation statistics for detail on MCMC. 
 
 In the R mice package the $m$ multiple imputation data sets (streams) are run in parallell - that is the MICE algorithm listed above is run $m$ times simultaneously and convergence can be monitored for each and all streams together. In convergece plots then the $m$ streams are plotted together for each of the $t$ iterations. 
+
+---
 
 The algorithm can run into problems if the variables in the imputation model are highly correlated, when the missing rate is high and when there are constraints on the imputation model. 
 
@@ -1218,23 +1230,26 @@ Will address this to some extent in Part 2 and 3. Here are some elements to cons
 
 * Model selection can be done in the statistical analysis in the MI-loop, and there is a count method combined with Wald test that can be used to make a consensus model from the potentially $m$ different MI-models. This is of cause dependent on that we have a parametric model as an analysis model. Done in case study presented in class (not in notes).
 * If the analysis model is not a parametric model, maybe a tree or neural net or ensemble, what do we then do with Rubin's rules? It is possible to use them on the predictions or on the ROC-AUC. But, is that useful to do on a "training set"?
+
+---
+
 * For model assessment we may use a separate test set. This test set will have missing data, and the missing data model can be used to impute $m$ test sets. These test sets can then be run through the fitted final model (from the traning set) and Rubin's rules can be used to give results on the test data. Note: role of analysis model response in test set imputed models. 
-* Modelassessement without a test set may be done using an outer bootstrap loop around the MI-loop. Then the .632+ boostrap estimator is preferred in @BootMIWahl2016. For this publication a model selection step was not present - only model assessment. 
+* Model assessement without a test set may be done using an outer bootstrap loop around the MI-loop. Then the .632+ boostrap estimator is preferred in @BootMIWahl2016. For this publication a model selection step was not present - only model assessment. 
 * Other methods than regression type may be used for imputation, and SuperMICE is using an ensemble machine larning (we will cover the autoML aka SuperLearner i Part 3). See @supermice2021.
 
-# The mice R package
+<!-- # The mice R package -->
 
-<https://github.com/amices/ggmice>
+<!-- <https://github.com/amices/ggmice> -->
 
-Plots for imputed data:
+<!-- Plots for imputed data: -->
 
-* one-dimensional scatter: stripplot 
-* box-and-whisker plot: bwplot 
-* densities: densityplot 
-* scatterplot: xyplot
+<!-- * one-dimensional scatter: stripplot  -->
+<!-- * box-and-whisker plot: bwplot  -->
+<!-- * densities: densityplot  -->
+<!-- * scatterplot: xyplot -->
 
 
-# Not covered well enough
+# Not covered 
 (this semester - will improve)
 
 ## Ignorable and nonignorable
