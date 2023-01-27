@@ -1262,7 +1262,7 @@ Further implications of nonignorability is that $R$ must be a part of the imputa
 
 Missing... but this will be explored in the Data analysis project!
 
-Maybe borrow an exercise from the Winnipeg lectures:
+Maybe you want to look at the exercise from the van Buuren Winnipeg lectures:
 
 <https://amices.org/Winnipeg/Practicals/Practical_I.html>
 <https://amices.org/Winnipeg/Practicals/Practical_II.html>

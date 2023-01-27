@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-25">
+<meta name="dcterms.date" content="2023-01-27">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -217,16 +217,15 @@ div.csl-indent {
   </ul></li>
   </ul></li>
   <li><a href="#model-selection-and-assessment-when-using-multiple-imputation" id="toc-model-selection-and-assessment-when-using-multiple-imputation" class="nav-link" data-scroll-target="#model-selection-and-assessment-when-using-multiple-imputation"><span class="toc-section-number">7</span>  Model selection and assessment when using multiple imputation</a></li>
-  <li><a href="#the-mice-r-package" id="toc-the-mice-r-package" class="nav-link" data-scroll-target="#the-mice-r-package"><span class="toc-section-number">8</span>  The mice R package</a></li>
-  <li><a href="#not-covered-well-enough" id="toc-not-covered-well-enough" class="nav-link" data-scroll-target="#not-covered-well-enough"><span class="toc-section-number">9</span>  Not covered well enough</a>
+  <li><a href="#not-covered" id="toc-not-covered" class="nav-link" data-scroll-target="#not-covered"><span class="toc-section-number">8</span>  Not covered</a>
   <ul class="collapse">
-  <li><a href="#ignorable-and-nonignorable" id="toc-ignorable-and-nonignorable" class="nav-link" data-scroll-target="#ignorable-and-nonignorable"><span class="toc-section-number">9.1</span>  Ignorable and nonignorable</a></li>
+  <li><a href="#ignorable-and-nonignorable" id="toc-ignorable-and-nonignorable" class="nav-link" data-scroll-target="#ignorable-and-nonignorable"><span class="toc-section-number">8.1</span>  Ignorable and nonignorable</a></li>
   </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">10</span>  Exercises</a>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">9</span>  Exercises</a>
   <ul class="collapse">
-  <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links"><span class="toc-section-number">10.1</span>  Links</a></li>
+  <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links"><span class="toc-section-number">9.1</span>  Links</a></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="toc-section-number">11</span>  References</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="toc-section-number">10</span>  References</a></li>
   </ul>
 </nav>
 </div>
@@ -254,7 +253,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 25, 2023</p>
+      <p class="date">January 27, 2023</p>
     </div>
   </div>
   
@@ -273,6 +272,7 @@ div.csl-indent {
 <li>Handbook of missing data methodology: Chapter 12.1.2, 12.2, 12.3.3. Available for download (60 pages pr day) from Oria at NTNU (Choose EBSCOweb, then PDF full text and then just download chapter 12). <span class="citation" data-cites="missinghandbook2014">Molenberghs et al. (<a href="#ref-missinghandbook2014" role="doc-biblioref">2014</a>)</span></li>
 <li><a href="https://stefvanbuuren.name/fimd/">Flexible imputation of missing data</a>: Chapters 1.1, 1.2, 1.3, 1.4, 2.2.4, 2.3.2 (similar to Handbook 12.2), 3.2.1, 3.2.2 (Algo 3.1), 3.4 (Algo 3.3), 4.5.1, 4.5.2. <span class="citation" data-cites="VanBuuren2018">van Buuren (<a href="#ref-VanBuuren2018" role="doc-biblioref">2018</a>)</span></li>
 </ul>
+<p><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/W3overview.pdf">Graphical overview of the topics covered in W3</a></p>
 <hr>
 <section id="missing-data" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Missing data</h1>
@@ -1125,7 +1125,7 @@ div.csl-indent {
 </section>
 <section id="bayesian-view" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="bayesian-view"><span class="header-section-number">5.2</span> Bayesian view</h2>
-<p>Presented in writing in class, see <a href="https://www.math.ntnu.no/emner/MA8701/2023v/MA8701V2023/Part1/L6beamer20230127.pdf">classnotes lecture 6</a></p>
+<p>Presented in writing in class, see <a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/L6beamer20230127.pdf">classnotes lecture 6</a></p>
 <hr>
 </section>
 <section id="what-can-rubins-rules-be-used-on" class="level2" data-number="5.3">
@@ -1153,8 +1153,8 @@ div.csl-indent {
 <li>We now assume a multiple linear regression model with the covariate with missing values as the response,</li>
 <li>and other covariates and the analysis model response as covariates in this imputation model</li>
 </ul>
-<p><a href="https://www.math.ntnu.no/emner/MA8701/2023v/MA8701V2023/Part1/Imp3methLM.pdf">Note on these three methods</a>.</p>
-<p>For the Bayesian part, <a href="https://en.wikipedia.org/wiki/Bayesian_linear_regression">the Wikipedia entry for Bayesian linear regression</a> is useful reading!</p>
+<p><a href="https://github.com/mettelang/MA8701V2023/blob/main/Part1/Imp3methLM.pdf">Note on these three methods</a>.</p>
+<p>For the Bayesian part, <a href="https://en.wikipedia.org/wiki/Bayesian_linear_regression">the Wikipedia entry for Bayesian linear regression</a> is useful reading, and we will also look into this in Part 2 on ridge regression (L7).</p>
 <hr>
 <p><strong>Summary:</strong> if the imputation model is a multiple linear regression model, and all covariates in the model are known (only missing values in the covariate that we make our target response), we know how to draw new observations to impute the missing values - and we may construct many imputed data sets.</p>
 <hr>
@@ -1162,12 +1162,13 @@ div.csl-indent {
 <section id="predictive-mean-matching" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="predictive-mean-matching"><span class="header-section-number">6.2</span> Predictive mean matching</h2>
 <p>(<span class="citation" data-cites="VanBuuren2018">van Buuren (<a href="#ref-VanBuuren2018" role="doc-biblioref">2018</a>)</span> Chapter 3.4)</p>
-<p>An hot deck method is a method where values are imputed based on existing values in the data set, by matching the missing observation with each of the observed observation.</p>
+<p>An hot deck method is a method where values are imputed based on existing values in the data set, by matching the missing observation with each of the observed observations (individuals).</p>
 <p>Above (in the notes) we have considered the Bayesian linear regression and the “starting point” of the algorithm is that we have estimated the multiple linear regression coefficient <span class="math inline">\(\hat{\phi}\)</span> and drawn <span class="math inline">\(\dot \phi\)</span> from the posterior distribution.</p>
+<hr>
 <p>Algorithm 3.3 in <span class="citation" data-cites="VanBuuren2018">van Buuren (<a href="#ref-VanBuuren2018" role="doc-biblioref">2018</a>)</span> Section 3.4.2, copied from <a href="https://github.com/stefvanbuuren/fimdbook/blob/master/Rmd/04-multivariate-missing.Rmd">github Rmd file</a>:</p>
 <ol type="1">
-<li><p>Calculate <span class="math inline">\(\dot\beta\)</span> and <span class="math inline">\(\hat\beta\)</span> by Steps 1-8 of Algorithm 3.1.</p></li>
-<li><p>Calculate <span class="math inline">\(\dot\eta(i,j)=|X_i^\mathrm{obs}\hat\beta-X_j^\mathrm{mis}\dot\beta|\)</span> with <span class="math inline">\(i=1,\dots,n_1\)</span> and <span class="math inline">\(j=1,\dots,n_0\)</span>.</p></li>
+<li><p>Calculate <span class="math inline">\(\dot\phi\)</span> and <span class="math inline">\(\hat\phi\)</span> by Steps 1-8 of Algorithm 3.1.</p></li>
+<li><p>Calculate <span class="math inline">\(\dot\eta(i,j)=|X_i^\mathrm{obs}\hat\phi-X_j^\mathrm{mis}\dot\phi|\)</span> with <span class="math inline">\(i=1,\dots,n_1\)</span> and <span class="math inline">\(j=1,\dots,n_0\)</span>.</p></li>
 <li><p>Construct <span class="math inline">\(n_0\)</span> sets <span class="math inline">\(Z_j\)</span>, each containing <span class="math inline">\(d\)</span> candidate donors, from <span class="math inline">\(Y_\mathrm{obs}\)</span> such that <span class="math inline">\(\sum_d\dot\eta(i,j)\)</span> is minimum for all <span class="math inline">\(j=1,\dots,n_0\)</span>. Break ties randomly.</p></li>
 <li><p>Draw one donor <span class="math inline">\(i_j\)</span> from <span class="math inline">\(Z_j\)</span> randomly for <span class="math inline">\(j=1,\dots,n_0\)</span>.</p></li>
 <li><p>Calculate imputations <span class="math inline">\(\dot y_j = y_{i_j}\)</span> for <span class="math inline">\(j=1,\dots,n_0\)</span>.</p></li>
@@ -1210,6 +1211,7 @@ div.csl-indent {
 <p><img src="W3_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<hr>
 <p>For univariate missing pattern, we already have a solution above <a href="#sec-mlrimp">Section&nbsp;6.1</a>, and this solution can be made more flexible with other regression types.</p>
 <p>For monotone patterns, see <span class="citation" data-cites="missinghandbook2014">Molenberghs et al. (<a href="#ref-missinghandbook2014" role="doc-biblioref">2014</a>)</span> Section 12.3.1 for regression-based imputation - which can be seen as using the univariate missing pattern solution in sequence.</p>
 <hr>
@@ -1228,6 +1230,7 @@ div.csl-indent {
 <p>(also called chained equations, sequantial regression multivariate imputation)</p>
 <p><span class="citation" data-cites="VanBuuren2018">van Buuren (<a href="#ref-VanBuuren2018" role="doc-biblioref">2018</a>)</span> Sections 4.5.1 and 4.5.2 and <span class="citation" data-cites="missinghandbook2014">Molenberghs et al. (<a href="#ref-missinghandbook2014" role="doc-biblioref">2014</a>)</span> Chapter 13.</p>
 <p>Also this type of solution is for general missing patterns, and when missing data are MAR.</p>
+<hr>
 <section id="notation-1" class="level3" data-number="6.5.1">
 <h3 data-number="6.5.1" class="anchored" data-anchor-id="notation-1"><span class="header-section-number">6.5.1</span> Notation</h3>
 <p>We here need (even one more) new notation.</p>
@@ -1248,6 +1251,9 @@ div.csl-indent {
 <ol type="1">
 <li><p>Specify an imputation model <span class="math inline">\(P(Y_j^\mathrm{m}|Y_j^\mathrm{obs}, Y_{-j}, R)\)</span> for variable <span class="math inline">\(Y_j\)</span> with <span class="math inline">\(j=1,\dots,p\)</span>.</p></li>
 <li><p>For each <span class="math inline">\(j\)</span>, fill in starting imputations <span class="math inline">\(\dot Y_j^0\)</span> by random draws from <span class="math inline">\(Y_j^\mathrm{obs}\)</span>.</p></li>
+</ol>
+<hr>
+<ol start="3" type="1">
 <li><p>Repeat for <span class="math inline">\(t = 1,\dots,M\)</span>.</p></li>
 <li><p>Repeat for <span class="math inline">\(j = 1,\dots,p\)</span>.</p></li>
 <li><p>Define <span class="math inline">\(\dot Y_{-j}^t = (\dot Y_1^t,\dots,\dot Y_{j-1}^t,\dot Y_{j+1}^{t-1},\dots,\dot Y_p^{t-1})\)</span> as the currently complete data except <span class="math inline">\(Y_j\)</span>.</p></li>
@@ -1260,6 +1266,7 @@ div.csl-indent {
 <p>The number of iterations <span class="math inline">\(t\)</span> is recommended to be 5 to 10. However, convergence of the algorithm can only be seen when it has been achieved, so more iterations may be needed.</p>
 <p>Maybe this is not very clear from the algoritm, but this is a Markov Chain Monte Carlo method, and in particular it is a Gibbs sampler (if the conditional distribution together form a joint distribution). The algorithm must then be able to converge to a stationary distribution for us to use the results. Please refer to TMA4300 Computation statistics for detail on MCMC.</p>
 <p>In the R mice package the <span class="math inline">\(m\)</span> multiple imputation data sets (streams) are run in parallell - that is the MICE algorithm listed above is run <span class="math inline">\(m\)</span> times simultaneously and convergence can be monitored for each and all streams together. In convergece plots then the <span class="math inline">\(m\)</span> streams are plotted together for each of the <span class="math inline">\(t\)</span> iterations.</p>
+<hr>
 <p>The algorithm can run into problems if the variables in the imputation model are highly correlated, when the missing rate is high and when there are constraints on the imputation model.</p>
 <p>See slides pages 85+86 of <a href="https://amices.org/Winnipeg/Lectures/Winnipeg.pdf">MICE course</a> for difference between convergence and non-convergence of the MICE algorithm.</p>
 <hr>
@@ -1501,38 +1508,37 @@ type      1   1  1    1   1   1   1    0</code></pre>
 <ul>
 <li>Model selection can be done in the statistical analysis in the MI-loop, and there is a count method combined with Wald test that can be used to make a consensus model from the potentially <span class="math inline">\(m\)</span> different MI-models. This is of cause dependent on that we have a parametric model as an analysis model. Done in case study presented in class (not in notes).</li>
 <li>If the analysis model is not a parametric model, maybe a tree or neural net or ensemble, what do we then do with Rubin’s rules? It is possible to use them on the predictions or on the ROC-AUC. But, is that useful to do on a “training set”?</li>
+</ul>
+<hr>
+<ul>
 <li>For model assessment we may use a separate test set. This test set will have missing data, and the missing data model can be used to impute <span class="math inline">\(m\)</span> test sets. These test sets can then be run through the fitted final model (from the traning set) and Rubin’s rules can be used to give results on the test data. Note: role of analysis model response in test set imputed models.</li>
-<li>Modelassessement without a test set may be done using an outer bootstrap loop around the MI-loop. Then the .632+ boostrap estimator is preferred in <span class="citation" data-cites="BootMIWahl2016">Wahl et al. (<a href="#ref-BootMIWahl2016" role="doc-biblioref">2016</a>)</span>. For this publication a model selection step was not present - only model assessment.</li>
+<li>Model assessement without a test set may be done using an outer bootstrap loop around the MI-loop. Then the .632+ boostrap estimator is preferred in <span class="citation" data-cites="BootMIWahl2016">Wahl et al. (<a href="#ref-BootMIWahl2016" role="doc-biblioref">2016</a>)</span>. For this publication a model selection step was not present - only model assessment.</li>
 <li>Other methods than regression type may be used for imputation, and SuperMICE is using an ensemble machine larning (we will cover the autoML aka SuperLearner i Part 3). See <span class="citation" data-cites="supermice2021">Laqueur, Shev, and Kagawa (<a href="#ref-supermice2021" role="doc-biblioref">2021</a>)</span>.</li>
 </ul>
+<!-- # The mice R package -->
+<!-- <https://github.com/amices/ggmice> -->
+<!-- Plots for imputed data: -->
+<!-- * one-dimensional scatter: stripplot  -->
+<!-- * box-and-whisker plot: bwplot  -->
+<!-- * densities: densityplot  -->
+<!-- * scatterplot: xyplot -->
 </section>
-<section id="the-mice-r-package" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> The mice R package</h1>
-<p><a href="https://github.com/amices/ggmice" class="uri">https://github.com/amices/ggmice</a></p>
-<p>Plots for imputed data:</p>
-<ul>
-<li>one-dimensional scatter: stripplot</li>
-<li>box-and-whisker plot: bwplot</li>
-<li>densities: densityplot</li>
-<li>scatterplot: xyplot</li>
-</ul>
-</section>
-<section id="not-covered-well-enough" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Not covered well enough</h1>
+<section id="not-covered" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Not covered</h1>
 <p>(this semester - will improve)</p>
-<section id="ignorable-and-nonignorable" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="ignorable-and-nonignorable"><span class="header-section-number">9.1</span> Ignorable and nonignorable</h2>
+<section id="ignorable-and-nonignorable" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="ignorable-and-nonignorable"><span class="header-section-number">8.1</span> Ignorable and nonignorable</h2>
 <p>to which extent can we analyse the data without estimating the missingness paramterer <span class="math inline">\(\psi\)</span>? The parameter of interest in the analysis model is <span class="math inline">\(\theta\)</span>. When can we estimated <span class="math inline">\(\theta\)</span> without knowing <span class="math inline">\(\psi\)</span>? Little and Rubin: missing data mechanism is ignorable (for likelihood inference) if MAR and parameters <span class="math inline">\(\theta\)</span> and <span class="math inline">\(\psi\)</span> distinct. More strict for Baysian inference, then priors for the two must be independent.</p>
 <p>Further implications of nonignorability is that <span class="math inline">\(R\)</span> must be a part of the imputation model.</p>
 </section>
 </section>
-<section id="exercises" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> Exercises</h1>
+<section id="exercises" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Exercises</h1>
 <p>Missing… but this will be explored in the Data analysis project!</p>
-<p>Maybe borrow an exercise from the Winnipeg lectures:</p>
+<p>Maybe you want to look at the exercise from the van Buuren Winnipeg lectures:</p>
 <p><a href="https://amices.org/Winnipeg/Practicals/Practical_I.html" class="uri">https://amices.org/Winnipeg/Practicals/Practical_I.html</a> <a href="https://amices.org/Winnipeg/Practicals/Practical_II.html" class="uri">https://amices.org/Winnipeg/Practicals/Practical_II.html</a> <a href="https://amices.org/Winnipeg/Practicals/Practical_III.html" class="uri">https://amices.org/Winnipeg/Practicals/Practical_III.html</a> <a href="https://amices.org/Winnipeg/Practicals/Practical_IV.html" class="uri">https://amices.org/Winnipeg/Practicals/Practical_IV.html</a></p>
-<section id="links" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="links"><span class="header-section-number">10.1</span> Links</h2>
+<section id="links" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="links"><span class="header-section-number">9.1</span> Links</h2>
 <ul>
 <li><a href="https://cran.r-project.org/web/packages/naniar/vignettes/naniar-visualisation.html" class="uri">https://cran.r-project.org/web/packages/naniar/vignettes/naniar-visualisation.html</a></li>
 <li><a href="https://github.com/stefvanbuuren/fimdbook" class="uri">https://github.com/stefvanbuuren/fimdbook</a></li>
@@ -1542,8 +1548,8 @@ type      1   1  1    1   1   1   1    0</code></pre>
 </ul>
 </section>
 </section>
-<section id="references" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> References</h1>
+<section id="references" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-casi" class="csl-entry" role="doc-biblioentry">
 Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference - Algorithms, Evidence, and Data Science</em>. Cambridge University Press. <a href="https://hastie.su.domains/CASI/">https://hastie.su.domains/CASI/</a>.
