@@ -1,0 +1,1764 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={MA8701 Advanced methods in statistical inference and learning},
+  pdfauthor={Mette Langaas},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{MA8701 Advanced methods in statistical inference and learning}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Lecture 7: Shrinkage. Ridge regression}
+\author{Mette Langaas}
+\date{1/29/23}
+
+\begin{document}
+\maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, enhanced, sharp corners, borderline west={3pt}{0pt}{shadecolor}, breakable, frame hidden, interior hidden]}{\end{tcolorbox}}\fi
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\hypertarget{shrinkage-and-regularization}{%
+\section{Shrinkage and
+regularization}\label{shrinkage-and-regularization}}
+
+\hypertarget{literature-l7}{%
+\subsection{Literature L7}\label{literature-l7}}
+
+On the reading list:
+
+\begin{itemize}
+\item
+  {[}ELS{]} The Elements of Statistical Learning: Data Mining,
+  Inference, and Prediction, Second Edition (Springer Series in
+  Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome
+  Friedman.
+  \href{https://web.stanford.edu/~hastie/Papers/ESLII.pdf}{Ebook}.
+  Chapter 3.2.2
+\item
+  {[}HTW{]} Hastie, Tibshirani, Wainwrigh: ``Statistical Learning with
+  Sparsity: The Lasso and Generalizations''. CRC press.
+  \href{https://trevorhastie.github.io/}{Ebook}. Chapter 2.1.
+\end{itemize}
+
+Strongly supporting literature
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://arxiv.org/pdf/1509.09169v7.pdf}{Wessel N. van Wieringen:
+  Lecture notes on ridge regression} Chapter 1. (We will refer to this
+  note as WNvW below.)
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{why-this-title}{%
+\subsection{Why this title?}\label{why-this-title}}
+
+Part 2 of the course is called \textbf{Shrinkage and regularization for
+linear and generalized linear models}.
+
+This part of the course could also have been called:
+
+\begin{itemize}
+\tightlist
+\item
+  ``Penalized maximum likelihood estimation''
+\item
+  ``Sparse models'',
+\item
+  ``Model selection and shrinkage''
+\end{itemize}
+
+Focus in this part is on generalized linear models, but we will also
+consider shrinkage later in this course (then for ``more complex''
+method).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Central question:}
+
+In linear models (linear regression, generalized linear regression) we
+mainly work with methods where parameter estimates are unbiased - but
+might have high variance and not give very good prediction performance
+overall.
+
+Can we use penalization (shrinkage) to produce parameter estimates with
+some bias but less variance, so that the prediction performance is
+improved?
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+We will look at different ways of penalization (which produces shrunken
+estimators) - mainly what is called ridge and lasso methods.
+
+Ridge is not a sparse method, but lasso is. In sparse statistical models
+a \emph{small number of covariates} play an important role.
+
+HTW (page 2): \emph{Bet on sparsity principle: Use a procedure that does
+well in sparse problems, since no procedure does well in dense
+problems.}
+
+Shrinkage (penalization, regularization) methods are especially suitable
+in situations where we have multi-collinearity and/or more covariates
+than observations \(N<<p\). The latter may occur in medicine with
+genetic data, where the number of patient samples is less than the
+number of genetic markers studied.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{linear-models}{%
+\section{Linear models}\label{linear-models}}
+
+(ELS 3.2.1-3.2.2, HTW Ch 2.1)
+
+Note: ELS 3.2.1 should be known from before and is therefore not on the
+reading list. This introduction is also partly covered in the exercises
+in L1.
+
+We will only consider linear models now, and move to generalized linear
+models next week.
+
+\hypertarget{set-up}{%
+\subsection{Set-up}\label{set-up}}
+
+Random response \(Y\) and \(p\)-dimensional (random) covariates \(X\).
+
+Training data: \(N\) (independent) observations: \((y_i,x_i)\), where
+\(x_i\) is a column vector with \(p\) covariates (features).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{linear-regression-model}{%
+\subsection{Linear regression model}\label{linear-regression-model}}
+
+(ELS 3.2)
+
+Additive noise model \[ Y=f(X)+\varepsilon\] with
+\(\text{E}(\varepsilon)=0\) and \(\text{Var}(\varepsilon)=\sigma^2\).
+
+With squared loss, we remember that the optimal
+\(f(X)=\text{E}(Y \mid X)\).
+
+Linear regression model - we assumes that
+\[f(X)=\beta_0+\sum_{j=1}^p X_{j}\beta_j \] is linear in \(X\), or that
+is a good approximation.
+
+The unknown parameters are the regression coefficients
+\(\beta_0,\ldots,\beta_p\) and the error variance
+\(\sigma^2_{\varepsilon}\).
+
+From TMA4267 we know that if \((X,Y)\) is jointly multivariate normal,
+then the conditional distribution of \(Y\mid X\) has mean that is linear
+in \(X\) and variance that is independent of \(X\). Brush-up: See
+classnotes
+\href{https://www.math.ntnu.no/emner/TMA4267/2017v/TMA4267V2017Part2.pdf}{page
+8}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\textwidth,height=\textheight]{./ILS34.png}
+
+}
+
+\caption{Figure from An Introduction to Statistical Learning, with
+applications in R (Springer, 2013) with permission from the authors: G.
+James, D. Witten, T. Hastie and R. Tibshirani.}
+
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{covariates}{%
+\subsection{Covariates}\label{covariates}}
+
+The covariates \(X\) can be both quantitative or qualitative, be made of
+basis expansions or interactions - and more. For qualitative covariates
+often a dummy variable coding is used. Brush-up: See
+\href{https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html\#categorical_covariates_-_dummy_and_effect_coding}{TMA4315
+GLM Module 2}.
+
+For now we don´t say so much more, but later we want the covariates to
+be standardized and the response to be centered.
+
+\href{https://ntnu.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=417d27bc-33c2-4cab-8a73-ac5801405bff}{Simple
+video introduction to categorical covariates in introductory statistical
+course for bachelor engineers (in Norwegian)}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{the-classical-linear-model-and-least-squares-estimation}{%
+\subsection{The classical linear model and least squares
+estimation}\label{the-classical-linear-model-and-least-squares-estimation}}
+
+\hypertarget{first-version}{%
+\subsubsection{First version}\label{first-version}}
+
+For the classical linear model we assume
+
+\[ Y_i=\beta_0+\sum_{j=1}^p X_{j}\beta_j+\varepsilon_i\] with
+\(\text{E}(\varepsilon_i)=0\) and
+\(\text{Var}(\varepsilon_)=\sigma^2_{\varepsilon}\), and independence of
+errors \(\varepsilon_j,\varepsilon_i\).
+
+Regression parameters
+\(\beta=(\beta_0,\beta_1,\ldots,\beta_p)\in \Re^{(p+1)}\).
+
+We will use the word \emph{linear predictor}
+\(\eta(x_i)=\beta_0+\sum_{j=1}^p x_{ij}\beta_j\), for the linear
+combination in the parameters \(\beta\).
+
+The least squares estimator for the parameters \(\beta\) is found by
+minimizing the squared-error loss:
+
+\[ \text{minimize}_{\beta} \{ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j)^2\}\]
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{second-version}{%
+\subsubsection{Second version}\label{second-version}}
+
+This can also be written with vectors and matrices for the
+\(i=1,\ldots,N\) observations.
+
+\[{\mathbf Y=X \boldsymbol{\beta}}+{\mathbf\varepsilon}\] where
+\({\mathbf Y}\) is a \(N \times 1\) random column vector,
+\({\mathbf X}\) a \(N \times (p+1)\) design matrix with row for
+observations and columns for covariates, and \({\mathbf{\varepsilon}}\)
+\(N \times 1\) random column vector
+
+The assumptions for the classical linear model is:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \(\text{E}(\mathbf{\varepsilon})=\mathbf{0}\).
+\item
+  \(\text{Cov}(\varepsilon)=\text{E}(\varepsilon \varepsilon^T)=\sigma^2\mathbf{I}\).
+\item
+  The design matrix has full rank, \(\text{rank}({\mathbf X})=(p+1)\).
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+The classical \emph{normal} linear regression model is obtained if
+additionally
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  \(\varepsilon\sim N_n(\mathbf{0},\sigma^2\mathbf{I})\) holds.
+\end{enumerate}
+
+For random covariates these assumptions are to be understood
+conditionally on \(\mathbf{X}\).
+
+For derivation of the least squares estimator \(\hat{\beta}\) see
+\href{https://www.math.ntnu.no/emner/TMA4268/2019v/3LinReg/3LinReg.html\#parameter_estimation}{TMA4268
+Module 3} and links therein.
+
+The same results are found using likelihood theory, if we assume that
+\(Y\sim N\). See
+\href{https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html\#likelihood_theory_(from_b4)}{TMA4315
+GLM Module 2}. Both methods are written out in
+\href{https://www.math.ntnu.no/emner/TMA4268/2018v/notes/LeastSquaresMLR.pdf}{these
+class notes from TMA4267/8}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+The squared error loss to be minimized can be written
+\[({\mathbf Y}-{\mathbf X}{{\beta}})^T({\mathbf Y}-{\mathbf X}{{\beta}})\]
+Differensiation with respect to the unknown parameter vector, and
+equating to zero leads to the \emph{normal equations}.
+
+\[{\mathbf X}^T{\mathbf X}{\beta}= {\mathbf X}^T {\mathbf Y}\]
+
+To give
+\[\hat{\beta}_{\text{LS}}=({\mathbf X}^T{\mathbf X})^{-1} {\mathbf X}^T {\mathbf Y}\]
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{properties-of-estimators}{%
+\subsection{Properties of estimators}\label{properties-of-estimators}}
+
+If we only assume a classical linear model, the mean and covariance of
+\(\hat{\beta}\) is \(\text{E}(\hat{\beta}_{\text LS})=\beta\) and
+\(\text{Cov}(\hat{\beta}_{\text LS})=\sigma^2({\mathbf X}^T{\mathbf X})^{-1}\).
+
+For the classical normal linear model:
+
+\begin{itemize}
+\item
+  Least squares and maximum likelihood estimator for
+  \({\mathbf \beta}\):
+  \[\hat{\beta}_{\text LS}=({\mathbf X}^T{\mathbf X})^{-1} {\mathbf X}^T {\mathbf Y}\]
+  with
+  \(\hat{\beta}_{\text LS}\sim N_{p}(\beta,\sigma^2({\mathbf X}^T{\mathbf X})^{-1})\).
+\item
+  Restricted maximum likelihood estimator for \({\mathbf \sigma}^2\):
+  \[\hat{\sigma}^2=\frac{1}{n-p}({\mathbf Y}-{\mathbf X}\hat{\beta}_{\text LS})^T({\mathbf Y}-{\mathbf X}\hat{\beta}_{\text LS})=\frac{\text{SSE}}{n-p}\]
+  with \(\frac{(n-p)\hat{\sigma}^2}{\sigma^2} \sim \chi^2_{n-p}\).
+\item
+  Statistic for inference about \(\beta_j\), \(c_{jj}\) is diagonal
+  element \(j\) of \(({\mathbf X}^T{\mathbf X})^{-1}\).
+  \[T_j=\frac{\hat{\beta}_{\text LS,j}-\beta_j}{\sqrt{c_{jj}}\hat{\sigma}}\sim t_{n-p-1}\]
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{the-gauss-markov-theorem}{%
+\subsection{The Gauss-Markov theorem}\label{the-gauss-markov-theorem}}
+
+(ELS 3.2.2)
+
+The Gauss-Markov theorem is the famous result stating: \emph{the least
+squares estimators for the regression parameters \(\beta\) have the
+smallest variance among all linear unbiased estimators}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+For simplicity, we look at a linear combination of the parameters,
+\(\theta=a^T \beta\), with estimator
+\(\hat{\theta}=a^T \hat{\beta}=a^T ({\mathbf X}^T{\mathbf X})^{-1} {\mathbf X}^T {\mathbf Y}\).
+Observe that the estimator is linear in the response \({\mathbf Y}\).
+
+Q: why is a linear combination of interest? What about a prediction of
+the response at covariate \(x_0\)? It would be \(f(x_0)=x_0^T \beta\), a
+linear combination of the \(\beta\) elements.
+
+If we assume that the linear model is correct, then \(\hat{\theta}\) is
+an unbiased estimator of \(\theta\), because
+\(\text{E}(a^T \hat{\beta})=a^T \text{E}(\hat{\beta})=a^T\beta=\theta\).
+
+According to the Gauss-Markov theorem: if we have another estimator
+\(\tilde{\theta}=c^T{\mathbf Y}\) that is unbiased for \(\theta\) then
+it must have a larger variance than the LS-estimator:
+
+\[\text{Var}(\hat{\theta})=\text{Var}(a^T \hat{\beta})\le \text{Var}(c^T{\mathbf Y})=\text{Var}(\tilde{\theta})\]
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+In Exercise ELS 3.3a we prove the Gauss-Markov theorem based on this
+set-up (least squares estimator of a linear combination \(a^T\beta\)).
+
+Proof for the full parameter vector \(\beta\) (not only the scalar
+linear combination), requires a bit more work, because we then will
+compare two covariance matrices.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{comparing-variances-of-estimators}{%
+\subsubsection{Comparing variances of
+estimators}\label{comparing-variances-of-estimators}}
+
+It is not hard to check that an estimator (for example \(p\times 1\)
+column vector) is unbiased (in each element).
+
+But, what does it mean to compare the variance (covariance matrix) of
+two estimators of dimension \(p \times 1\)?
+
+In statistics a ``common'' strategy is to consider all possible linear
+combinations of the elements of the parameter vector, and check that the
+variance of estimator \(\hat{\beta}\) is smaller (or equal to) the
+variance of another estimator \(\tilde{\beta}\).
+
+This is achieved by looking at the difference between the covariance
+matrices \(\text{Cov}(\tilde{\beta})-\text{Cov}(\hat{\beta})\). If the
+difference is a positive semi-definite matrix, then every linear
+combination of \(\hat{\beta}\) will have a variance that is smaller or
+equal to the variance of the corresponding linear combination for
+\(\tilde{\beta}\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{why-is-this-correct}{%
+\subsubsection{Why is this correct?}\label{why-is-this-correct}}
+
+Assume we want to see if
+\(\text{Var}(c^T\tilde{\beta})\ge \text{Var}(c^T\hat{\beta})\) for any
+(nonzero) vector \(c\).
+
+We know that \(\text{Var}(c^T\hat{\beta})=c^T \text{Cov}(\hat{\beta})c\)
+and \(\text{Var}(c^T\tilde{\beta})=c^T \text{Cov}(\tilde{\beta})c\).
+
+We then consider
+\[\text{Var}(c^T\tilde{\beta})- \text{Var}(c^T\hat{\beta})=c^T(\text{Cov}(\tilde{\beta})-\text{Cov}(\hat{\beta}))c\]
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+If \(\text{Cov}(\tilde{\beta})-\text{Cov}(\hat{\beta})\) is positive
+semi-definite then the variance difference will be equal or greater than
+0 - by the definition of a positive semi-definite matrix.
+
+This is also referred to as: The variance of \(\tilde{\beta}\) exceeds
+\emph{in a positive definite ordering sense} that of \(\hat{\beta}\),
+and written
+\(\text{Var}(\tilde{\beta}) \succeq \text{Var}(\hat{\beta})\). (Remark:
+here both \(\text{Var}\) and \(\text{Cov}\) is used as notation for the
+variance-covariance matrix.)
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+When is a matrix \(C\) positive definite?
+
+The matrix \(C\) is positive definite if the real number \(z^T C z\) is
+positive for every nonzero real column vector \(z\).
+
+Harville (1997)
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{mean-squared-error}{%
+\subsection{Mean squared error}\label{mean-squared-error}}
+
+We want to study the mean squared error for the (scalar) estimator
+\(\tilde{\theta}\).
+
+From the previous section we know that \(\tilde{\theta}\) could for
+example be the prediction at at covariate \(x_0\)? It would be
+\(\tilde{\theta}=f(x_0)=x_0^T \beta\), and then
+\(\text{MSE}(\tilde{\theta})\) would be an interesting quantity.
+
+\[\text{MSE}(\tilde{\theta})= \text{E}[(\tilde{\theta}-\theta)^2]=\text{Var}(\tilde{\theta})+[\text{E}(\tilde{\theta})-\theta]^2\]
+
+The last transition: add and subtract \(\text{E}(\tilde{\theta})\).
+
+The first term is the variance, and the second the squared bias. (There
+is no irreducible error since we are not considering a new observation,
+but we may of cause do that and add the irreducible error.)
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+We know that for unbiased estimators (bias equal to \(0\)), the MSE will
+be the smallest for the LS-estimator. This means that if we want to try
+to get a lower MSE we can´t do that with an unbiased estimator!
+
+This is a bit unusual to many of us, since we from our first course in
+statistics have been told about the glory of unbiased estimators!
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+But, if we shrink some of the regression coefficients towards 0, or set
+them equal to 0, then we get a \emph{biased estimate} for the regression
+parameters. Biased estimates are the core of this part of the course. We
+may want to pay the price of a biased estimate with the gain of
+decreased variance, so that the MSE for might get lower than for the
+LS-estimate.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{preparing-for-shrinkage}{%
+\subsection{Preparing for shrinkage}\label{preparing-for-shrinkage}}
+
+\hypertarget{standarization-of-covariates}{%
+\subsubsection{Standarization of
+covariates}\label{standarization-of-covariates}}
+
+For shrinkage methods it is common to \emph{standardize} the covariates,
+where standardize means that
+
+\begin{itemize}
+\tightlist
+\item
+  the covariates are first centered, that is
+  \(\frac{1}{N}\sum_{i=1}^N x_{ij}=0\) for all \(j=1,\ldots, p\),
+\item
+  and then scaled to unit variance, that is
+  \(\frac{1}{N}\sum_{i=1}^N x^2_{ij}=1\).
+\end{itemize}
+
+This is done in practice by first subtracting the mean and then dividing
+by the standard deviation. The standarization is only needed if the
+covariates are of different units or scales, because for shrinkage we
+will (for some of the method) penalize the optimization with the same
+penalty for all covariates.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{centering-covariates-and-response}{%
+\subsubsection{Centering covariates and
+response}\label{centering-covariates-and-response}}
+
+The intercept term \(\beta_0\) will not be the aim for shrinkage in
+shrinkage methods.
+
+To make the presentation of the shrinkage methods easier to explain and
+write down, HTW use the common trick to center all covariates \emph{and}
+the response.
+
+By centering the covariates and the response we may imagine moving the
+centroide of the data to the origin, where we do not need an intercept
+to capture the best linear regression hyperplane.
+
+When both covariates and responses are centered the LS estimate for the
+intercept \(\beta_0\) will be \(\hat{\beta}_0=0\).
+
+If interpretation is to be done for uncentered data we may calculate the
+estimated \(\beta_0\) for uncentered data from the estimated regression
+coefficients and the mean of the original covariates and response.
+
+When covariates and responses are centered HTW remove \(\beta_0\) from
+the regression model for the shrinkage methods. We will also do that.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{group-discussion}{%
+\subsection{Group discussion}\label{group-discussion}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  Why is the LS estimate equal to \(\hat{\beta}_0=0\) for centered
+  covariates and centered response in the multiple linear regression
+  model?
+\item
+  Explain what is done in the analysis of the Gasoline data directly
+  below.
+\end{enumerate}
+
+Choose yourself if you want to focus mainly on 1 or 2.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{gasoline-data}{%
+\subsection{Gasoline data}\label{gasoline-data}}
+
+Consider the multiple linear regression model, with response vector
+\(\mathbf{Y}\) of dimension \((N \times 1)\) and \(p\) covariates and
+intercept in \(\mathbf{X}\) \((N \times p+1)\).
+
+\begin{align}
+ \mathbf{Y} = \mathbf{X}\mathbf{\beta} + \mathbf{\varepsilon}
+\end{align} where
+\(\mathbf{\varepsilon}\sim N(\mathbf{0},\sigma^2\mathbf{I})\).
+
+When gasoline is pumped into the tank of a car, vapors are vented into
+the atmosphere. An experiment was conducted to determine whether \(Y\),
+the amount of vapor, can be predicted using the following four variables
+based on initial conditions of the tank and the dispensed gasoline:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{TankTemp} tank temperature (F)
+\item
+  \texttt{GasTemp} gasoline temperature (F)
+\item
+  \texttt{TankPres} vapor pressure in tank (psi)
+\item
+  \texttt{GasPres} vapor pressure of gasoline (psi)
+\end{itemize}
+
+The data set is called \texttt{sniffer.dat}.
+
+We start by standardizing the covariates (make the mean 0 and the
+variance 1), we also center the response. From the scatter plots of the
+response and the covariates - would you think an MLR is suitable?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ds }\OtherTok{\textless{}{-}} \FunctionTok{read.table}\NormalTok{(}\StringTok{"./sniffer.dat"}\NormalTok{,}\AttributeTok{header=}\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(ds[,}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{],}\DecValTok{2}\NormalTok{,scale)}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ ds[,}\DecValTok{5}\NormalTok{]}\SpecialCharTok{{-}}\FunctionTok{mean}\NormalTok{(ds[,}\DecValTok{5}\NormalTok{])}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{dim}\NormalTok{(x))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 32  4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dss}\OtherTok{=}\FunctionTok{data.frame}\NormalTok{(y,x)}
+\FunctionTok{ggpairs}\NormalTok{(dss)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{L7_files/figure-pdf/unnamed-chunk-4-1.pdf}
+
+}
+
+\end{figure}
+
+Calculate the estimated covariance matrix of the standardized
+covariates. Do you see a potential problem here?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cov}\NormalTok{(dss)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                 y  TankTemp   GasTemp  TankPres   GasPres
+y        87.790323 7.7399536 8.5202970 8.1505120 8.6325694
+TankTemp  7.739954 1.0000000 0.7742909 0.9554116 0.9337690
+GasTemp   8.520297 0.7742909 1.0000000 0.7815286 0.8374639
+TankPres  8.150512 0.9554116 0.7815286 1.0000000 0.9850748
+GasPres   8.632569 0.9337690 0.8374639 0.9850748 1.0000000
+\end{verbatim}
+
+We have fitted a MLR with all four covariates. Explain what you see.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{full }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(y}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,dss)}
+\FunctionTok{summary}\NormalTok{(full)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = y ~ ., data = dss)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-5.586 -1.221 -0.118  1.320  5.106 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)   
+(Intercept)  3.233e-16  4.826e-01   0.000  1.00000   
+TankTemp    -5.582e-01  1.768e+00  -0.316  0.75461   
+GasTemp      3.395e+00  1.065e+00   3.187  0.00362 **
+TankPres    -6.274e+00  4.140e+00  -1.515  0.14132   
+GasPres      1.249e+01  3.859e+00   3.237  0.00319 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.73 on 27 degrees of freedom
+Multiple R-squared:  0.9261,    Adjusted R-squared:  0.9151 
+F-statistic: 84.54 on 4 and 27 DF,  p-value: 7.249e-15
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{confint}\NormalTok{(full)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                  2.5 %     97.5 %
+(Intercept)  -0.9902125  0.9902125
+TankTemp     -4.1852036  3.0688444
+GasTemp       1.2093630  5.5812551
+TankPres    -14.7689131  2.2214176
+GasPres       4.5730466 20.4078380
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(full, }\FunctionTok{aes}\NormalTok{(.fitted, .stdresid)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{pch =} \DecValTok{21}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }
+    \AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.5}\NormalTok{, }
+    \AttributeTok{method =} \StringTok{"loess"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Fitted values"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Standardized residuals"}\NormalTok{, }
+    \AttributeTok{title =} \StringTok{"Fitted values vs standardized residuals"}\NormalTok{, }\AttributeTok{subtitle =} \FunctionTok{deparse}\NormalTok{(full}\SpecialCharTok{$}\NormalTok{call))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{L7_files/figure-pdf/unnamed-chunk-6-1.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(full, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{sample =}\NormalTok{ .stdresid)) }\SpecialCharTok{+} \FunctionTok{stat\_qq}\NormalTok{(}\AttributeTok{pch =} \DecValTok{19}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{intercept =} \DecValTok{0}\NormalTok{, }
+    \AttributeTok{slope =} \DecValTok{1}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dotted"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Theoretical quantiles"}\NormalTok{, }
+    \AttributeTok{y =} \StringTok{"Standardized residuals"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Normal Q{-}Q"}\NormalTok{, }\AttributeTok{subtitle =} \FunctionTok{deparse}\NormalTok{(full}\SpecialCharTok{$}\NormalTok{call))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{L7_files/figure-pdf/unnamed-chunk-6-2.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ad.test}\NormalTok{(}\FunctionTok{rstudent}\NormalTok{(full))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+    Anderson-Darling normality test
+
+data:  rstudent(full)
+A = 0.3588, p-value = 0.43
+\end{verbatim}
+
+Perform best subset selection using Mallows \(C_p\) (equivalent to AIC)
+to choose the best model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bests }\OtherTok{\textless{}{-}} \FunctionTok{regsubsets}\NormalTok{(x,y)}
+\NormalTok{sumbests }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(bests)}
+\FunctionTok{print}\NormalTok{(sumbests)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Subset selection object
+4 Variables  (and intercept)
+         Forced in Forced out
+TankTemp     FALSE      FALSE
+GasTemp      FALSE      FALSE
+TankPres     FALSE      FALSE
+GasPres      FALSE      FALSE
+1 subsets of each size up to 4
+Selection Algorithm: exhaustive
+         TankTemp GasTemp TankPres GasPres
+1  ( 1 ) " "      " "     " "      "*"    
+2  ( 1 ) " "      "*"     " "      "*"    
+3  ( 1 ) " "      "*"     "*"      "*"    
+4  ( 1 ) "*"      "*"     "*"      "*"    
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{which.min}\NormalTok{(sumbests}\SpecialCharTok{$}\NormalTok{cp) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 3
+\end{verbatim}
+
+Model after best subset selection.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{red }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(y}\SpecialCharTok{\textasciitilde{}}\NormalTok{GasTemp}\SpecialCharTok{+}\NormalTok{TankPres}\SpecialCharTok{+}\NormalTok{GasPres,}\AttributeTok{data=}\NormalTok{dss)}
+\FunctionTok{summary}\NormalTok{(red)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = y ~ GasTemp + TankPres + GasPres, data = dss)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.6198 -1.2934 -0.0496  1.4858  4.9131 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)   
+(Intercept)  8.390e-16  4.748e-01   0.000  1.00000   
+GasTemp      3.290e+00  9.951e-01   3.306  0.00260 **
+TankPres    -7.099e+00  3.159e+00  -2.247  0.03272 * 
+GasPres      1.287e+01  3.607e+00   3.568  0.00132 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.686 on 28 degrees of freedom
+Multiple R-squared:  0.9258,    Adjusted R-squared:  0.9178 
+F-statistic: 116.4 on 3 and 28 DF,  p-value: 6.427e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{confint}\NormalTok{(red)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                  2.5 %     97.5 %
+(Intercept)  -0.9725378  0.9725378
+GasTemp       1.2513019  5.3281126
+TankPres    -13.5706954 -0.6270544
+GasPres       5.4823283 20.2586338
+\end{verbatim}
+
+\hypertarget{ridge-regression}{%
+\section{Ridge regression}\label{ridge-regression}}
+
+(ELS 3.4.1)
+
+Ridge regression is also called ``Tikhonov regularization''.
+
+We consider the classical linear model set-up, as for the LS estimation,
+but now we look at shrinking the coefficients towards 0 to construct
+biased estimators - and then ``hope'' that this also has made the
+variances decrease.
+
+We will not shrink the intercept \(\beta_0\), because then the this will
+depend on the origin of the response.
+
+The ridge solution is dependent on the scaling of the covariates, and
+usually we work with standardized covariates and also with centered
+response.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{minimization-problem}{%
+\subsection{Minimization problem}\label{minimization-problem}}
+
+\hypertarget{budget-version}{%
+\subsubsection{Budget version}\label{budget-version}}
+
+We want to constrain the size of the estimated regression parameters, so
+we give the sum of squared regression coefficients a budget \(t\).
+
+Minimize the squared error loss
+
+\[ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 \] subject
+to \(\sum_{j=1}^p \beta_j^2 \le t\). The solution is called
+\(\hat{\beta}_{\text{ridge}}\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.4\textwidth,height=\textheight]{./ILS67ridge.png}
+
+}
+
+\caption{Figure from An Introduction to Statistical Learning, with
+applications in R (Springer, 2013) with permission from the authors: G.
+James, D. Witten, T. Hastie and R. Tibshirani.}
+
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\textwidth,height=\textheight]{./WNvWFig14.jpg}
+
+}
+
+\caption{Figure from Wessel N. van Wieringen: Lecture notes on ridge
+regression, Figure 1.4 lower left panel. CC-BY-NC-SA}
+
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{penalty-version}{%
+\subsubsection{Penalty version}\label{penalty-version}}
+
+\[ \hat{\beta}_{\text{ridge}}= \text{argmin}_{\beta}[\sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \beta_j^2]\]
+where \(\lambda \ge 0\) is a complexity (regularization, penalty)
+parameter controlling the amount of shrinkage.
+
+\begin{itemize}
+\tightlist
+\item
+  The larger \(\lambda\) the greater the amount of shrinkage
+\item
+  The shrinkage is towards 0
+\end{itemize}
+
+This version of the problem is also called the Lagrangian form.
+
+The budget and penalty minimization problems are equivalent ways to
+write the ridge regression and there is a one-to-one correspondence
+between the budget \(t\) and the penalty \(\lambda\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{parameter-estimation}{%
+\subsection{Parameter estimation}\label{parameter-estimation}}
+
+As explained, centred covariates and responses are used - and the
+intercept term is removed from the model. Then NOW \({\mathbf X}\) does
+not include a column with 1s and has dimension \(N \times p\).
+
+Penalty criterion to minimize
+
+\[ ({\mathbf y}-{\mathbf X}\beta)^T ({\mathbf y}-{\mathbf X}\beta)+ \lambda \beta^T \beta \]
+This can be rewritten as
+
+\[ {\mathbf y}^T{\mathbf y}-2{\mathbf y}^T{\mathbf X}\beta+\beta^T({\mathbf X}^T{\mathbf X}+\lambda {\mathbf I})\beta\]
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Proceeding along the lines as done with the LS estimation, we get the
+(new) normal equations
+
+\[ ({\mathbf X}^T{\mathbf X}+\lambda {\mathbf I})\beta= {\mathbf X}^T {\mathbf Y}\]
+See
+\href{https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html}{``Repetition:
+rules for derivatives with respect to vector''}
+
+The estimator:
+
+\[ \hat{\beta}_{\text{ridge}}=({\mathbf X}^T{\mathbf X}+\lambda {\mathbf I})^{-1} {\mathbf X}^T {\mathbf Y}\]
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Observe that the solution adds a positive constant \(\lambda\) to the
+diagonal of \({\mathbf X}^T{\mathbf X}\), so that even if
+\({\mathbf X}^T{\mathbf X}\) does not have full rank then the problem is
+non-singular and we can invert
+\(({\mathbf X}^T{\mathbf X}+\lambda {\mathbf I})\).
+
+When ridge regression was introduced in statistics in the 1970s this
+(avoiding non-singuarlity) was the motivation.
+
+When \(N<p\) then the design matrix will have rank less than the number
+of covariates, and the LS estimate does not exist.
+
+The case when two or more covariates are perfectly linearly dependent is
+called \emph{super-collinearity} (accoring to WNvN).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{properties-of-the-ridge-estimator}{%
+\subsection{Properties of the ridge
+estimator}\label{properties-of-the-ridge-estimator}}
+
+\begin{figure}
+
+\begin{minipage}[t]{0.50\linewidth}
+
+{\centering 
+
+\raisebox{-\height}{
+
+\includegraphics{./WNvWEx13.jpg}
+
+}
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}[t]{0.50\linewidth}
+
+{\centering 
+
+\raisebox{-\height}{
+
+\includegraphics{./WNvWFig11.jpg}
+
+}
+
+}
+
+\end{minipage}%
+
+\end{figure}
+
+Figures from Wessel N. van Wieringen: Lecture notes on ridge regression,
+Example 1.3 and Figure 1.1 on super-collinearity. CC-BY-NC-SA
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{mean}{%
+\subsubsection{Mean}\label{mean}}
+
+Derive the mean of the ridge estimator.
+
+What happens if:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\lambda \rightarrow 0\)
+\item
+  \(\lambda \rightarrow \infty\)
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\href{https://www.math.ntnu.no/emner/TMA4268/Exam/V2019e.pdf}{Exam
+problem 12 (TMA4268, 2019)} with
+\href{https://www.math.ntnu.no/emner/TMA4268/Exam/e2019sol.html}{solutions}
+Alternatively: \href{https://arxiv.org/pdf/1509.09169.pdf}{Wessel N. van
+Wieringen: Lecture notes on ridge regression, section 1.4}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{covariance}{%
+\subsubsection{Covariance}\label{covariance}}
+
+Derive the covariance of the ridge estimator.
+
+What happens if:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\lambda \rightarrow 0\)
+\item
+  \(\lambda \rightarrow \infty\)
+\end{itemize}
+
+(in our centered model without intercept)
+
+Same resources as above.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{distribution}{%
+\subsubsection{Distribution}\label{distribution}}
+
+For the normal linear model
+
+\[\hat{\beta}(\lambda)_{\text{ridge}} \sim N \{ (\mathbf{X}^T \mathbf{X} + \lambda \mathbf{I}_{p})^{-1} \mathbf{X}^T \mathbf{X} \, \beta,\]
+\[\sigma^2 ( \mathbf{X}^T \mathbf{X} + \lambda \mathbf{I}_{p} )^{-1}  \mathbf{X}^T \mathbf{X} ( \mathbf{X}^T \mathbf{X} + \lambda \mathbf{I}_{p} )^{-1}  \}.\]
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{is-ridge-better-than-ls}{%
+\subsection{Is ridge ``better than''
+LS?}\label{is-ridge-better-than-ls}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  We may prove that the variance of the ridge estimator is smaller or
+  equal the variance of the LS estimator. See exercise ``Variance of
+  ridge compared to LS'', where we need to look at differences of
+  covariance matrices and check for positive semi-definite matrix.
+\item
+  In addition it is possible to prove that given a suitable choice for
+  \(\lambda\) the ridge regression estimator may outperform the LS
+  estimator in terms of the MSE. See WNvW Section 1.4.3 for the full
+  derivation.
+\item
+  The optimal choice of \(\lambda\) depends both the true regression
+  parameters and the error variance. This means that the penalty
+  parameter should be chosen in a \emph{data-driven} fashion.
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\textwidth,height=\textheight]{./WNvWFig13.jpg}
+
+}
+
+\caption{Figures from Wessel N. van Wieringen: Lecture notes on ridge
+regression CC-BY-NC-SA}
+
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{model-selection}{%
+\subsection{Model selection}\label{model-selection}}
+
+To choose the optimal penalty parameter \(\lambda\) cross-validation is
+the default method in use. ELS recommends to either
+
+\begin{itemize}
+\tightlist
+\item
+  choose the \(\lambda\) corresponding to the smallest CV error
+\item
+  or first find the \(\lambda\) with the smallest CV-error, and then
+  record the estimated standard error of the CV-error at this value, and
+  then choose the largest \(\lambda\) such that the CV error is still
+  within one standard error of the minimum. We choose the largest
+  because we want the less flexible model.
+\end{itemize}
+
+The R package \texttt{glmnet} (by Hastie et al) has default \(K=10\)
+fold cross-validation with the function \texttt{cv.glmnet} where
+\texttt{alpha=0} gives the ridge penalty.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{gasoline-continued}{%
+\subsubsection{Gasoline continued}\label{gasoline-continued}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{start}\OtherTok{=}\FunctionTok{glmnet}\NormalTok{(}\AttributeTok{x=}\NormalTok{x,}\AttributeTok{y=}\NormalTok{y,}\AttributeTok{alpha=}\DecValTok{0}\NormalTok{)}
+\NormalTok{autolambda}\OtherTok{=}\NormalTok{start}\SpecialCharTok{$}\NormalTok{lambda }\CommentTok{\# automatic choice of lambda had smallest lambda 0.96 {-} but I added more small values to also be able to see that LS{-}solution is for lambda=0}
+\NormalTok{newlambda}\OtherTok{=}\FunctionTok{c}\NormalTok{(autolambda,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.3}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\FloatTok{0.1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\NormalTok{fit.ridge}\OtherTok{=}\FunctionTok{glmnet}\NormalTok{(x,y,}\AttributeTok{alpha=}\DecValTok{0}\NormalTok{,}\AttributeTok{lambda=}\NormalTok{newlambda)}
+\FunctionTok{plot}\NormalTok{(fit.ridge,}\AttributeTok{xvar=}\StringTok{"lambda"}\NormalTok{,}\AttributeTok{label=}\ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{L7_files/figure-pdf/unnamed-chunk-13-1.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#plot(fit.ridge,xvar="norm",label=TRUE)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{group-discussion-1}{%
+\subsection{Group discussion}\label{group-discussion-1}}
+
+Explain what you see!
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cv.ridge}\OtherTok{=}\FunctionTok{cv.glmnet}\NormalTok{(x,y,}\AttributeTok{alpha=}\DecValTok{0}\NormalTok{,}\AttributeTok{lambda=}\NormalTok{newlambda)}
+\FunctionTok{print}\NormalTok{(cv.ridge)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:  cv.glmnet(x = x, y = y, lambda = newlambda, alpha = 0) 
+
+Measure: Mean-Squared Error 
+
+    Lambda Index Measure    SE Nonzero
+min  0.100   104   8.683 2.414       4
+1se  2.364    89  10.994 3.279       4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#print(paste("The lamda giving the smallest CV error",cv.ridge$lambda.min))}
+\CommentTok{\#print(paste("The 1se method lambda",cv.ridge$lambda.1se))}
+
+\FunctionTok{plot}\NormalTok{(cv.ridge)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{L7_files/figure-pdf/unnamed-chunk-14-1.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# use 1se error rule default}
+\FunctionTok{plot}\NormalTok{(fit.ridge,}\AttributeTok{xvar=}\StringTok{"lambda"}\NormalTok{,}\AttributeTok{label=}\ConstantTok{TRUE}\NormalTok{);}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\FunctionTok{log}\NormalTok{(cv.ridge}\SpecialCharTok{$}\NormalTok{lambda}\FloatTok{.1}\NormalTok{se));}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{L7_files/figure-pdf/unnamed-chunk-14-2.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\StringTok{"Ridge 1 se method coeff"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Ridge 1 se method coeff"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{coef}\NormalTok{(fit.ridge,}\AttributeTok{s=}\NormalTok{cv.ridge}\SpecialCharTok{$}\NormalTok{lambda}\FloatTok{.1}\NormalTok{se)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+5 x 1 sparse Matrix of class "dgCMatrix"
+                       s1
+(Intercept) -2.218340e-15
+TankTemp     7.718545e-01
+GasTemp      3.508794e+00
+TankPres     1.597280e+00
+GasPres      2.706142e+00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\StringTok{"LS full model coeff"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "LS full model coeff"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{full}\SpecialCharTok{$}\NormalTok{coeff}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  (Intercept)      TankTemp       GasTemp      TankPres       GasPres 
+ 3.232869e-16 -5.581796e-01  3.395309e+00 -6.273748e+00  1.249044e+01 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\StringTok{"Mallows Cp reduced model coeff"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Mallows Cp reduced model coeff"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{red}\SpecialCharTok{$}\NormalTok{coeff}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  (Intercept)       GasTemp      TankPres       GasPres 
+ 8.390059e-16  3.289707e+00 -7.098875e+00  1.287048e+01 
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{insight-based-on-svd}{%
+\subsection{Insight based on SVD}\label{insight-based-on-svd}}
+
+(ELS 3.4.1)
+
+\hypertarget{singular-value-decomposition-svd}{%
+\subsubsection{Singular value decomposition
+(SVD)}\label{singular-value-decomposition-svd}}
+
+Let \({\mathbf X}\) be a \(N \times p\) matrix.
+
+SVD is a decomposition of a matrix \({\mathbf X}\) into a product of
+three matrices \[{\mathbf X}={\mathbf U}{\mathbf D}{\mathbf V}^T.\]
+\({\mathbf D}\) is an \((p \times p)\)-dimensional block matrix, with
+singular values on the diagonal, ordered such that
+\(d_1 \ge d_2 \ge \ldots d_p \ge 0\). The singular values \(d_j\) are
+equal
+\(\sqrt{\mathrm{eigenvalues}({\mathbf X}{\mathbf X}^T})=\sqrt{\mathrm{eigenvalues}({\mathbf X}^T{\mathbf X})}\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+The eigenvalues of \({\mathbf X}^T{\mathbf X}\) and
+\({\mathbf X}{\mathbf X}^T\) are identical, since \begin{align*}
+        {\mathbf X}^T{\mathbf X} \mathbf{e} &= \lambda \mathbf{e} \\
+        {\mathbf X}{\mathbf X}^T{\mathbf X} \mathbf{e} &= \lambda {\mathbf X}\mathbf{e}\\
+        {\mathbf X}{\mathbf X}^T\mathbf{e}^* &= \lambda \mathbf{e}^*.
+\end{align*}
+
+The eigenvectors of \({\mathbf X}{\mathbf X}^T\) equals
+\({\mathbf X} \mathbf{e}\) where \(\mathbf{e}\) are the eigenvectors of
+\({\mathbf X}^T{\mathbf X}\).
+
+For a column centred matrix \({\mathbf X}\), we estimate the covariance
+matrix by \((N-1)\mathbf{S}={\mathbf X}^T{\mathbf X}\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\(\mathbf{U}\) is an \((N \times p)\)-dimensional matrix with columns
+containing the left singular vectors (denoted \(\mathbf{u}_j\)), that
+is, the eigenvectors of \({\mathbf X}{\mathbf X}^T\)
+
+\(\mathbf{V}\) is a \((p \times p)\)-dimensional matrix with columns
+containing the right singular vectors (denoted \(\mathbf{v}_i\)), that
+is, the eigenvectors of \({\mathbf X}^T{\mathbf X}\).
+
+The columns of \(\mathbf{U}\) and \(\mathbf{V}\) are orthogonal:
+\(\mathbf{U}^{\top} \mathbf{U} = \mathbf{I}_{N} = \mathbf{U}\mathbf{U}^T\)
+and
+\(\mathbf{V}^T \mathbf{V}= \mathbf{I}_{p} = \mathbf{V}\mathbf{V}^T\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\[\hat{y}_{\text{LS}}={\mathbf X}\hat{\beta}_{\text LS}= {\mathbf U}{\mathbf U}^T {\mathbf y}=\sum_{j=1}^p {\mathbf u}_j ({\mathbf u}_j^T {\mathbf y})\]
+\[\hat{y}_{\text{ridge}}={\mathbf X}\hat{\beta}_{\text ridge}=
+{\mathbf U}{\mathbf D}^2({\mathbf D}^2+\lambda {\mathbf I}_p)^{-1}{\mathbf U}^T {\mathbf y}=
+\sum_{j=1}^p {\mathbf u}_j (\frac{d_j^2}{d_j^2+\lambda})({\mathbf u}_j^T {\mathbf y})\]
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{group-discussion-2}{%
+\subsection{Group discussion}\label{group-discussion-2}}
+
+How can you interpret this result?
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{the-effective-degrees-of-freedom}{%
+\subsection{The effective degrees of
+freedom}\label{the-effective-degrees-of-freedom}}
+
+In ELS Ch 7.6 we defined the effective number of parameters (here now
+referred to as the \emph{effective degrees of freedom}) for a linear
+smoother \(\hat{\mathbf y}={\mathbf Sy}\) as
+
+\[\text{df}({\mathbf S})=\text{trace}({\mathbf S})\]
+
+For ridge regression our linear smoother is
+\[{\mathbf H}_{\lambda}={\mathbf X}({\mathbf X}^T{\mathbf X}+ \lambda {\mathbf I})^{-1}{\mathbf X}^T\]
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\(\text{df}(\lambda)=\text{tr}({\mathbf H}_{\lambda})=\text{tr}({\mathbf X}({\mathbf X}^T{\mathbf X}+ \lambda {\mathbf I})^{-1}{\mathbf X}^T)=\cdots=\sum_{j=1}^p \frac{d_j^2}{d_j^2+\lambda}\)
+
+\begin{itemize}
+\tightlist
+\item
+  \(\lambda=0\) gives \(\text{df}(\lambda)=p\)
+\item
+  \(\lambda \rightarrow \infty\) gives
+  \(\text{df}(\lambda)\rightarrow 0\)
+\end{itemize}
+
+The \(\text{df}(\lambda)\) is sometimes plotted instead of \(\lambda\)
+on the horisontal axis when model complexity is chosen.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{finally}{%
+\subsection{Finally}\label{finally}}
+
+\begin{itemize}
+\tightlist
+\item
+  When is ridge preferred to LS? When the LS estimates have high
+  variance and many predictors are truly non-zero.
+\item
+  Ridge is computationally fast.
+\item
+  Ridge is not very easy to interpret, because all \(p\) predictor are
+  included in the final model.
+\end{itemize}
+
+\hypertarget{software}{%
+\section{Software}\label{software}}
+
+\includegraphics[width=0.66in,height=\textheight]{logo.png}
+
+We will use the \texttt{glmnet} implementation for R:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://cran.r-project.org/web/packages/glmnet/index.html}{R
+  glmnet on CRAN} with
+  \href{http://www.stanford.edu/~hastie/glmnet}{resources}.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://glmnet.stanford.edu/articles/glmnet.html}{Getting
+    started}
+  \item
+    \href{https://glmnet.stanford.edu/articles/glmnetFamily.html}{GLM
+    with glmnet}
+  \end{itemize}
+\end{itemize}
+
+For Python there are different options.
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://web.stanford.edu/~hastie/glmnet_python/}{Python glmnet}
+  is recommended by Hastie et al.
+\item
+  \href{https://scikit-learn.org/stable/modules/linear_model.html\#ridge-regression-and-classification}{scikit-learn}
+  (seems to mostly be for regression? is there lasso for classification
+  here?)
+\end{itemize}
+
+\hypertarget{exercises}{%
+\section{Exercises}\label{exercises}}
+
+\hypertarget{gauss-markov-theorem}{%
+\subsection{Gauss-Markov theorem}\label{gauss-markov-theorem}}
+
+The LS is unbiased with the smallest variance among linear predictors:
+ELS exercise 3.3a
+
+\hypertarget{variance-of-ridge-compared-to-ls}{%
+\subsection{Variance of ridge compared to
+LS}\label{variance-of-ridge-compared-to-ls}}
+
+Consider a classical linear model with regression parameters \(\beta\).
+Let \(\hat{\beta}\) be the LS estimator for \(\beta\) and let
+\(\tilde{\beta}\) be the ridge regression estimator for \(\beta\). Show
+that the variance of \(\tilde{\beta}\) exceeds \emph{in a positive
+definite ordering sense} that of \(\hat{\beta}\), and written
+\(\text{Var}(\tilde{\beta}) \succeq \text{Var}(\hat{\beta})\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{ridge-regression-1}{%
+\subsection{Ridge regression}\label{ridge-regression-1}}
+
+This problem is taken, with permission from Wessel van Wieringen, from a
+course in High-dimensional data analysis at Vrije University of
+Amsterdam.
+
+\hypertarget{a}{%
+\subsubsection{a)}\label{a}}
+
+Find the ridge regression solution for the data below for a general
+value of \(\lambda\) and for the simple linear regression model
+\(Y = \beta_0 + \beta_1 X + \varepsilon\) (only apply the ridge penalty
+to the slope parameter, not to the intercept). Show that when
+\(\lambda\) is chosen as 4, the ridge solution fit is
+\(\hat{Y} = 40 + 1.75 X\).
+
+Data:
+\(\mathbf{X}^T = (X_1, X_2, \ldots, X_{8})^T = (-2, -1, -1, -1, 0, 1, 2, 2)^T\),
+and
+\(\mathbf{Y}^T = (Y_1, Y_2, \ldots, Y_{8})^T = (35, 40, 36, 38, 40, 43, 45, 43)^T\).
+
+\hypertarget{b}{%
+\subsubsection{b)}\label{b}}
+
+The coefficients \(\beta\) of a linear regression model,
+\(\mathbf{Y} = \mathbf{X} \beta + \varepsilon\), are estimated by
+\(\hat{\beta} = (\mathbf{X}^\mathrm{T} \mathbf{X})^{-1} \mathbf{X}^\mathrm{T} \mathbf{Y}\).
+The associated fitted values then given by
+\(\hat{\mathbf{Y}} = \mathbf{X} \, \hat{\beta} = \mathbf{X} (\mathbf{X}^\mathrm{T} \mathbf{X})^{-1} \mathbf{X}^\mathrm{T} \mathbf{Y} = \mathbf{H} \mathbf{Y}\),
+where
+\(\mathbf{H} = \mathbf{X} (\mathbf{X}^\mathrm{T} \mathbf{X})^{-1} \mathbf{X}^\mathrm{T}\).
+The matrix \(\mathbf{H}\) is a projection matrix and satisfies
+\(\mathbf{H} = \mathbf{H}^ 2\). Hence, linear regression projects the
+response \(\mathbf{Y}\) onto the vector space spanned by the columns of
+\(\mathbf{X}\). Consequently, the residuals \(\hat{\varepsilon}\) and
+\(\hat{\mathbf{Y}}\) are orthogonal.
+
+Next, consider the ridge estimator of the regression coefficients:
+\(\hat{\beta}(\lambda) = (\mathbf{X}^\mathrm{T} \mathbf{X} + \lambda \mathbf{I}_{p})^{-1} \mathbf{X}^\mathrm{T} \mathbf{Y}\).
+Let \(\hat{\mathbf{Y}}(\lambda) = \mathbf{X} \hat{\beta}(\lambda)\) be
+the vector of associated fitted values.
+
+Show that the matrix
+\(\mathbf{Q} = \mathbf{X} (\mathbf{X}^\mathrm{T} \mathbf{X} + \lambda \mathbf{I}_{p})^{-1} \mathbf{X}^{\mathrm{T}}\),
+associated with ridge regression, is not a projection matrix (for any
+\(\lambda > 0\)). Hint: a projection matrix is idempotent (commonly used
+in TMA4267).
+
+\hypertarget{c}{%
+\subsubsection{c)}\label{c}}
+
+Show that the ridge fit \(\hat{\mathbf{Y}}(\lambda)\) is not orthogonal
+to the associated ridge residuals \(\hat{\varepsilon}(\lambda)\) (for
+any \(\lambda > 0\)).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{orthonormal-design-matrix}{%
+\subsection{Orthonormal design matrix}\label{orthonormal-design-matrix}}
+
+Assume that the design matrix \(\mathbf{X}\) is ortonormal, that is,
+\(\mathbf{X}^T\mathbf{X}=\mathbf{I}_{pp}=(\mathbf{X}^T\mathbf{X})^{-1}\).
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\item
+  Derive the relationship between the least squares and the ridge
+  regression estimator.
+\item
+  Derive the relationship between the covariance matrices for the two
+  estimators.
+\item
+  Derive the MSE for each of the two estimators. Which value of the
+  penalty parameter \(\lambda\) gives the minimum value of the MSE for
+  the ridge regression estimator?
+\end{enumerate}
+
+\hypertarget{solutions-to-exercises}{%
+\section{Solutions to exercises}\label{solutions-to-exercises}}
+
+Please try yourself first, or take a small peek - and try some more -
+before fully reading the solutions. Report errors or improvements to
+\href{mailto:Mette.Langaas@ntnu.no}{\nolinkurl{Mette.Langaas@ntnu.no}}.
+
+\begin{itemize}
+\item
+  \href{./ELSe33a.pdf}{Gauss-Markov theorem 3.3a}
+\item
+  \href{https://arxiv.org/pdf/1509.09169.pdf}{Variance of ridge compared
+  to LS: page 11-12 on note by Wessel N. van Wieringen} and
+  \href{./LSvsRRvar.pdf}{Mettes notes}
+\item
+  \href{./L2exRR1.pdf}{Ridge regression}
+\item
+  \href{./LSRRortho.pdf}{Orthonormal design matrix}
+\end{itemize}
+
+\hypertarget{resources}{%
+\section{Resources}\label{resources}}
+
+\begin{itemize}
+\item
+  Videos in statistics learning with Rob Tibshirani and Daniela Witten,
+  made for the Introduction to statistical learning Springer textbook.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://www.youtube.com/watch?v=cSKzqb0EKS0}{Ridge}
+  \item
+    \href{https://www.youtube.com/watch?v=xMKVUstjXBE}{Selecting tuning
+    parameter}
+  \end{itemize}
+\item
+  Video from webinar with Trevor Hastie on
+  \href{http://youtu.be/BU2gjoLPfDc}{glmnet from 2019}
+\item
+  \href{https://arxiv.org/pdf/1509.09169v7.pdf}{Lecture notes on ridge
+  regression: Wessel N. van Wieringen}
+\end{itemize}
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-Harville1997}{}}%
+Harville, David A. 1997. \emph{Matrix Algebra from a Statistician's
+Perspective}. Springer.
+
+\leavevmode\vadjust pre{\hypertarget{ref-ESL}{}}%
+Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. \emph{The
+Elements of Statistical Learning: Data Mining, Inference, and
+Prediction}. Vol. 2. Springer series in statistics New York.
+\href{https://hastie.su.domains/ElemStatLearn}{hastie.su.domains/ElemStatLearn}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-WNvW}{}}%
+Wieringen, Wessel N. van. 2020. {``Lecture Notes on Ridge Regression.''}
+\url{https://arxiv.org/pdf/1509.09169.pdf}.
+
+\end{CSLReferences}
+
+
+
+\end{document}

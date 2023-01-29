@@ -3,19 +3,19 @@ title: "MA8701 Advanced methods in statistical inference and learning"
 author: "Mette Langaas IMF/NTNU"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: 2
+  ioslides_presentation: default
+  beamer_presentation:
+    slide_level: 1
+    keep_tex: yes
   html_document:
     toc: yes
     toc_float: yes
     code_download: yes
     toc_depth: 3
-  ioslides_presentation: default
-  beamer_presentation:
-    slide_level: 1
-    keep_tex: yes
-  pdf_document:
-    toc: yes
-    toc_depth: 2
-subtitle: 'L2: Solutions to Exercise on Ridge Regression'
+subtitle: 'Solutions to Exercise on Ridge Regression'
 ---
 
 ```{r setup, include=TRUE,echo=FALSE}
