@@ -215,11 +215,11 @@
 \makeatother
 \subtitle{Lecture 7: Shrinkage. Ridge regression}
 \author{Mette Langaas}
-\date{1/29/23}
+\date{1/30/23}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, enhanced, sharp corners, borderline west={3pt}{0pt}{shadecolor}, breakable, frame hidden, interior hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, frame hidden, interior hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -243,7 +243,7 @@ On the reading list:
   Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome
   Friedman.
   \href{https://web.stanford.edu/~hastie/Papers/ESLII.pdf}{Ebook}.
-  Chapter 3.2.2
+  Chapter 3.2.2, 3.4.1.
 \item
   {[}HTW{]} Hastie, Tibshirani, Wainwrigh: ``Statistical Learning with
   Sparsity: The Lasso and Generalizations''. CRC press.
@@ -433,18 +433,18 @@ minimizing the squared-error loss:
 This can also be written with vectors and matrices for the
 \(i=1,\ldots,N\) observations.
 
-\[{\mathbf Y=X \boldsymbol{\beta}}+{\mathbf\varepsilon}\] where
+\[{\mathbf Y=X \boldsymbol{\beta}}+{\boldsymbol\varepsilon}\] where
 \({\mathbf Y}\) is a \(N \times 1\) random column vector,
 \({\mathbf X}\) a \(N \times (p+1)\) design matrix with row for
-observations and columns for covariates, and \({\mathbf{\varepsilon}}\)
-\(N \times 1\) random column vector
+observations and columns for covariates, and
+\({\boldsymbol{\varepsilon}}\) \(N \times 1\) random column vector
 
 The assumptions for the classical linear model is:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  \(\text{E}(\mathbf{\varepsilon})=\mathbf{0}\).
+  \(\text{E}(\boldsymbol{\varepsilon})=\mathbf{0}\).
 \item
   \(\text{Cov}(\varepsilon)=\text{E}(\varepsilon \varepsilon^T)=\sigma^2\mathbf{I}\).
 \item
@@ -741,10 +741,8 @@ Consider the multiple linear regression model, with response vector
 \(\mathbf{Y}\) of dimension \((N \times 1)\) and \(p\) covariates and
 intercept in \(\mathbf{X}\) \((N \times p+1)\).
 
-\begin{align}
- \mathbf{Y} = \mathbf{X}\mathbf{\beta} + \mathbf{\varepsilon}
-\end{align} where
-\(\mathbf{\varepsilon}\sim N(\mathbf{0},\sigma^2\mathbf{I})\).
+\[\mathbf{Y} = \mathbf{X}\mathbf{\beta} + \boldsymbol{\varepsilon}\]
+where \(\boldsymbol{\varepsilon}\sim N(\mathbf{0},\sigma^2\mathbf{I})\).
 
 When gasoline is pumped into the tank of a car, vapors are vented into
 the atmosphere. An experiment was conducted to determine whether \(Y\),
@@ -1337,8 +1335,8 @@ Call:  cv.glmnet(x = x, y = y, lambda = newlambda, alpha = 0)
 Measure: Mean-Squared Error 
 
     Lambda Index Measure    SE Nonzero
-min  0.100   104   8.683 2.414       4
-1se  2.364    89  10.994 3.279       4
+min  0.100   104   9.186 1.916       4
+1se  1.485    94  11.030 2.734       4
 \end{verbatim}
 
 \begin{Shaded}
@@ -1393,11 +1391,11 @@ min  0.100   104   8.683 2.414       4
 \begin{verbatim}
 5 x 1 sparse Matrix of class "dgCMatrix"
                        s1
-(Intercept) -2.218340e-15
-TankTemp     7.718545e-01
-GasTemp      3.508794e+00
-TankPres     1.597280e+00
-GasPres      2.706142e+00
+(Intercept) -2.276090e-15
+TankTemp     3.963082e-01
+GasTemp      3.854824e+00
+TankPres     1.506207e+00
+GasPres      3.058130e+00
 \end{verbatim}
 
 \begin{Shaded}

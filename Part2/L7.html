@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-29">
+<meta name="dcterms.date" content="2023-01-30">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -231,7 +231,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 29, 2023</p>
+      <p class="date">January 30, 2023</p>
     </div>
   </div>
   
@@ -253,7 +253,7 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="literature-l7">Literature L7</h2>
 <p>On the reading list:</p>
 <ul>
-<li><p>[ELS] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. <a href="https://web.stanford.edu/~hastie/Papers/ESLII.pdf">Ebook</a>. Chapter 3.2.2</p></li>
+<li><p>[ELS] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. <a href="https://web.stanford.edu/~hastie/Papers/ESLII.pdf">Ebook</a>. Chapter 3.2.2, 3.4.1.</p></li>
 <li><p>[HTW] Hastie, Tibshirani, Wainwrigh: “Statistical Learning with Sparsity: The Lasso and Generalizations”. CRC press. <a href="https://trevorhastie.github.io/">Ebook</a>. Chapter 2.1.</p></li>
 </ul>
 <p>Strongly supporting literature</p>
@@ -339,10 +339,10 @@ div.csl-indent {
 <section id="second-version" class="level3">
 <h3 class="anchored" data-anchor-id="second-version">Second version</h3>
 <p>This can also be written with vectors and matrices for the <span class="math inline">\(i=1,\ldots,N\)</span> observations.</p>
-<p><span class="math display">\[{\mathbf Y=X \boldsymbol{\beta}}+{\mathbf\varepsilon}\]</span> where <span class="math inline">\({\mathbf Y}\)</span> is a <span class="math inline">\(N \times 1\)</span> random column vector, <span class="math inline">\({\mathbf X}\)</span> a <span class="math inline">\(N \times (p+1)\)</span> design matrix with row for observations and columns for covariates, and <span class="math inline">\({\mathbf{\varepsilon}}\)</span> <span class="math inline">\(N \times 1\)</span> random column vector</p>
+<p><span class="math display">\[{\mathbf Y=X \boldsymbol{\beta}}+{\boldsymbol\varepsilon}\]</span> where <span class="math inline">\({\mathbf Y}\)</span> is a <span class="math inline">\(N \times 1\)</span> random column vector, <span class="math inline">\({\mathbf X}\)</span> a <span class="math inline">\(N \times (p+1)\)</span> design matrix with row for observations and columns for covariates, and <span class="math inline">\({\boldsymbol{\varepsilon}}\)</span> <span class="math inline">\(N \times 1\)</span> random column vector</p>
 <p>The assumptions for the classical linear model is:</p>
 <ol type="1">
-<li><p><span class="math inline">\(\text{E}(\mathbf{\varepsilon})=\mathbf{0}\)</span>.</p></li>
+<li><p><span class="math inline">\(\text{E}(\boldsymbol{\varepsilon})=\mathbf{0}\)</span>.</p></li>
 <li><p><span class="math inline">\(\text{Cov}(\varepsilon)=\text{E}(\varepsilon \varepsilon^T)=\sigma^2\mathbf{I}\)</span>.</p></li>
 <li><p>The design matrix has full rank, <span class="math inline">\(\text{rank}({\mathbf X})=(p+1)\)</span>.</p></li>
 </ol>
@@ -462,9 +462,7 @@ div.csl-indent {
 <section id="gasoline-data" class="level2">
 <h2 class="anchored" data-anchor-id="gasoline-data">Gasoline data</h2>
 <p>Consider the multiple linear regression model, with response vector <span class="math inline">\(\mathbf{Y}\)</span> of dimension <span class="math inline">\((N \times 1)\)</span> and <span class="math inline">\(p\)</span> covariates and intercept in <span class="math inline">\(\mathbf{X}\)</span> <span class="math inline">\((N \times p+1)\)</span>.</p>
-<p><span class="math display">\[\begin{align}
-\mathbf{Y} = \mathbf{X}\mathbf{\beta} + \mathbf{\varepsilon}
-\end{align}\]</span> where <span class="math inline">\(\mathbf{\varepsilon}\sim N(\mathbf{0},\sigma^2\mathbf{I})\)</span>.</p>
+<p><span class="math display">\[\mathbf{Y} = \mathbf{X}\mathbf{\beta} + \boldsymbol{\varepsilon}\]</span> where <span class="math inline">\(\boldsymbol{\varepsilon}\sim N(\mathbf{0},\sigma^2\mathbf{I})\)</span>.</p>
 <p>When gasoline is pumped into the tank of a car, vapors are vented into the atmosphere. An experiment was conducted to determine whether <span class="math inline">\(Y\)</span>, the amount of vapor, can be predicted using the following four variables based on initial conditions of the tank and the dispensed gasoline:</p>
 <ul>
 <li><code>TankTemp</code> tank temperature (F)</li>
@@ -850,8 +848,8 @@ Call:  cv.glmnet(x = x, y = y, lambda = newlambda, alpha = 0)
 Measure: Mean-Squared Error 
 
     Lambda Index Measure    SE Nonzero
-min  0.100   104   10.32 2.931       4
-1se  4.976    81   12.98 2.740       4</code></pre>
+min  0.100   104   10.26 2.557       4
+1se  3.765    84   12.80 2.667       4</code></pre>
 </div>
 <details>
 <summary>Code</summary>
@@ -886,11 +884,11 @@ min  0.100   104   10.32 2.931       4
 <div class="cell-output cell-output-stdout">
 <pre><code>5 x 1 sparse Matrix of class "dgCMatrix"
                        s1
-(Intercept) -2.097194e-15
-TankTemp     1.181294e+00
-GasTemp      2.863238e+00
-TankPres     1.651347e+00
-GasPres      2.276497e+00</code></pre>
+(Intercept) -2.149839e-15
+TankTemp     1.060017e+00
+GasTemp      3.111680e+00
+TankPres     1.645594e+00
+GasPres      2.425640e+00</code></pre>
 </div>
 <details>
 <summary>Code</summary>

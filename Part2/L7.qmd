@@ -60,7 +60,7 @@ include_graphics("../overviewv2.png")
 
 On the reading list:
 
-* [ELS] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. [Ebook](https://web.stanford.edu/~hastie/Papers/ESLII.pdf). Chapter 3.2.2
+* [ELS] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. [Ebook](https://web.stanford.edu/~hastie/Papers/ESLII.pdf). Chapter 3.2.2, 3.4.1.
 
 * [HTW] Hastie, Tibshirani, Wainwrigh: "Statistical Learning with Sparsity: The Lasso and Generalizations". CRC press. [Ebook](https://trevorhastie.github.io/). Chapter 2.1.
 
@@ -182,12 +182,12 @@ $$ \text{minimize}_{\beta} \{ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta
 
 This can also be written with vectors and matrices for the $i=1,\ldots,N$ observations.
 
-$${\mathbf Y=X \boldsymbol{\beta}}+{\mathbf\varepsilon}$$
-where ${\mathbf Y}$ is a $N \times 1$ random column vector, ${\mathbf X}$ a $N \times (p+1)$ design matrix with row for observations and columns for covariates, and ${\mathbf{\varepsilon}}$ $N \times 1$ random column vector
+$${\mathbf Y=X \boldsymbol{\beta}}+{\boldsymbol\varepsilon}$$
+where ${\mathbf Y}$ is a $N \times 1$ random column vector, ${\mathbf X}$ a $N \times (p+1)$ design matrix with row for observations and columns for covariates, and ${\boldsymbol{\varepsilon}}$ $N \times 1$ random column vector
 
 The assumptions for the classical linear model is:
 
-1. $\text{E}(\mathbf{\varepsilon})=\mathbf{0}$.
+1. $\text{E}(\boldsymbol{\varepsilon})=\mathbf{0}$.
 
 2. $\text{Cov}(\varepsilon)=\text{E}(\varepsilon \varepsilon^T)=\sigma^2\mathbf{I}$.
 
@@ -380,10 +380,8 @@ Choose yourself if you want to focus mainly on 1 or 2.
 Consider the multiple linear regression model, with response vector
 $\mathbf{Y}$ of dimension $(N \times 1)$ and $p$ covariates and intercept in $\mathbf{X}$ $(N \times p+1)$.
 
-\begin{align}
- \mathbf{Y} = \mathbf{X}\mathbf{\beta} + \mathbf{\varepsilon}
-\end{align}
-where $\mathbf{\varepsilon}\sim N(\mathbf{0},\sigma^2\mathbf{I})$.
+$$\mathbf{Y} = \mathbf{X}\mathbf{\beta} + \boldsymbol{\varepsilon}$$
+where $\boldsymbol{\varepsilon}\sim N(\mathbf{0},\sigma^2\mathbf{I})$.
 
 When gasoline is pumped into the tank of a car, vapors are vented into the atmosphere. An experiment was conducted to determine whether $Y$, the amount of vapor, can be predicted using the following four variables based on initial conditions of the tank and the dispensed gasoline:
 
