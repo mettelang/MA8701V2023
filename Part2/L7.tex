@@ -215,11 +215,11 @@
 \makeatother
 \subtitle{Lecture 7: Shrinkage. Ridge regression}
 \author{Mette Langaas}
-\date{1/30/23}
+\date{2/2/23}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, frame hidden, interior hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, enhanced, breakable, sharp corners, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -238,7 +238,7 @@ On the reading list:
 
 \begin{itemize}
 \item
-  {[}ELS{]} The Elements of Statistical Learning: Data Mining,
+  {[}ESL{]} The Elements of Statistical Learning: Data Mining,
   Inference, and Prediction, Second Edition (Springer Series in
   Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome
   Friedman.
@@ -247,7 +247,8 @@ On the reading list:
 \item
   {[}HTW{]} Hastie, Tibshirani, Wainwrigh: ``Statistical Learning with
   Sparsity: The Lasso and Generalizations''. CRC press.
-  \href{https://trevorhastie.github.io/}{Ebook}. Chapter 2.1.
+  \href{https://hastie.su.domains/StatLearnSparsity/}{Ebook}. Chapter
+  2.1.
 \end{itemize}
 
 Strongly supporting literature
@@ -266,7 +267,7 @@ Strongly supporting literature
 \subsection{Why this title?}\label{why-this-title}}
 
 Part 2 of the course is called \textbf{Shrinkage and regularization for
-linear and generalized linear models}.
+linear and generalized linear modESL}.
 
 This part of the course could also have been called:
 
@@ -732,6 +733,9 @@ the regression model for the shrinkage methods. We will also do that.
 
 Choose yourself if you want to focus mainly on 1 or 2.
 
+\href{./proofbetahatv2.png}{One version of a solution to 1} (another
+version in class notes L2 in 2021)
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{gasoline-data}{%
@@ -995,7 +999,7 @@ GasPres       5.4823283 20.2586338
 \hypertarget{ridge-regression}{%
 \section{Ridge regression}\label{ridge-regression}}
 
-(ELS 3.4.1)
+(ESL 3.4.1)
 
 Ridge regression is also called ``Tikhonov regularization''.
 
@@ -1265,7 +1269,7 @@ regression CC-BY-NC-SA}
 \subsection{Model selection}\label{model-selection}}
 
 To choose the optimal penalty parameter \(\lambda\) cross-validation is
-the default method in use. ELS recommends to either
+the default method in use. ESL recommends to either
 
 \begin{itemize}
 \tightlist
@@ -1335,8 +1339,8 @@ Call:  cv.glmnet(x = x, y = y, lambda = newlambda, alpha = 0)
 Measure: Mean-Squared Error 
 
     Lambda Index Measure    SE Nonzero
-min  0.100   104   9.186 1.916       4
-1se  1.485    94  11.030 2.734       4
+min   0.10   104   8.838 2.426       4
+1se   1.63    93  11.169 2.751       4
 \end{verbatim}
 
 \begin{Shaded}
@@ -1391,11 +1395,11 @@ min  0.100   104   9.186 1.916       4
 \begin{verbatim}
 5 x 1 sparse Matrix of class "dgCMatrix"
                        s1
-(Intercept) -2.276090e-15
-TankTemp     3.963082e-01
-GasTemp      3.854824e+00
-TankPres     1.506207e+00
-GasPres      3.058130e+00
+(Intercept) -2.264606e-15
+TankTemp     4.770041e-01
+GasTemp      3.791008e+00
+TankPres     1.527068e+00
+GasPres      2.981251e+00
 \end{verbatim}
 
 \begin{Shaded}
@@ -1445,7 +1449,7 @@ GasPres      3.058130e+00
 \hypertarget{insight-based-on-svd}{%
 \subsection{Insight based on SVD}\label{insight-based-on-svd}}
 
-(ELS 3.4.1)
+(ESL 3.4.1)
 
 \hypertarget{singular-value-decomposition-svd}{%
 \subsubsection{Singular value decomposition
@@ -1512,7 +1516,7 @@ How can you interpret this result?
 \subsection{The effective degrees of
 freedom}\label{the-effective-degrees-of-freedom}}
 
-In ELS Ch 7.6 we defined the effective number of parameters (here now
+In ESL Ch 7.6 we defined the effective number of parameters (here now
 referred to as the \emph{effective degrees of freedom}) for a linear
 smoother \(\hat{\mathbf y}={\mathbf Sy}\) as
 
@@ -1599,7 +1603,7 @@ For Python there are different options.
 \subsection{Gauss-Markov theorem}\label{gauss-markov-theorem}}
 
 The LS is unbiased with the smallest variance among linear predictors:
-ELS exercise 3.3a
+ESL exercise 3.3a
 
 \hypertarget{variance-of-ridge-compared-to-ls}{%
 \subsection{Variance of ridge compared to
@@ -1701,7 +1705,7 @@ before fully reading the solutions. Report errors or improvements to
 
 \begin{itemize}
 \item
-  \href{./ELSe33a.pdf}{Gauss-Markov theorem 3.3a}
+  \href{./ESLe33a.pdf}{Gauss-Markov theorem 3.3a}
 \item
   \href{https://arxiv.org/pdf/1509.09169.pdf}{Variance of ridge compared
   to LS: page 11-12 on note by Wessel N. van Wieringen} and
@@ -1709,8 +1713,10 @@ before fully reading the solutions. Report errors or improvements to
 \item
   \href{./L2exRR1.pdf}{Ridge regression}
 \item
-  \href{./LSRRortho.pdf}{Orthonormal design matrix}
+  \href{./L7ExRidgeOrth.pdf}{Orthonormal design matrix}
 \end{itemize}
+
+\includegraphics{L7_files/figure-pdf/unnamed-chunk-17-1.pdf}
 
 \hypertarget{resources}{%
 \section{Resources}\label{resources}}

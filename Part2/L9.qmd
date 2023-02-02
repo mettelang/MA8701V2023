@@ -1,0 +1,107 @@
+---
+title: "MA8701 Advanced methods in statistical inference and learning"
+subtitle: "L9: Lasso-variants for the linear model"
+author: "Mette Langaas"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+bibliography: ../Part1/references.bib
+nocite: |
+  @casi, @esl
+format: 
+  html: 
+    toc: true
+    code-fold: true
+    toc-location: left
+    toc-depth: 3
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+  beamer:
+    incremental: false
+    aspectratio: 43
+    navigation: frame
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+suppressPackageStartupMessages(library(knitr))
+knitr::opts_chunk$set(echo = FALSE, message=FALSE,warning = FALSE, error = FALSE)
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(reticulate))
+#reticulate::use_python("/usr/bin/python3",required=TRUE)
+suppressPackageStartupMessages(library(ggpubr))
+suppressPackageStartupMessages(library(cowplot))
+suppressPackageStartupMessages(library(magick))
+suppressPackageStartupMessages(library(pheatmap))
+suppressPackageStartupMessages(library(GGally))
+suppressPackageStartupMessages(library(bestglm))
+suppressPackageStartupMessages(library(glmnet))
+suppressPackageStartupMessages(library(nortest))
+```
+
+
+
+# q-generalized constraint regions
+
+```{r}
+#| fig.cap: "Figure 2.6 from @HTW"
+#| out.width: "80%"
+include_graphics("./HTWFig26.jpg")
+```
+
+# Elastic net
+
+# Bridge 
+
+## Bridge vs elastic net
+
+```{r}
+#| fig.cap: "Figure 3.13 from @ESL"
+#| out.width: "80%"
+include_graphics("./ESLFig313.jpg")
+```
+
+# Generalizations of the lasso penalty
+
+## Reading list
+
+(HTW 4.1-4.3, 4.5-4.6: NB only from a practical point of view)
+
+## Goal for this part
+
+The main goal of this part is to 
+
+* know about these special versions of the lasso, and 
+* to see which practical data situation these can be smart to use. 
+
+Maybe one of these is suitable for the Data analysis project?
+
+Theoretical properties and algorithmic details are not on the reading list. 
+
+---
+
+See [slides from guest lecturer Benjamin Dunn](https://github.com/mettelang/MA8701V2021/blob/main/Part1/LassoandfriendsBenDunn.pdf)
+
+---
+
+## Group activity
+
+(choose one variant to work with)
+
+For the lasso variants 
+
+* the elastic net [HTW 4.2]
+* the group lasso [HTW 4.3]
+* the fused lasso [HTW 4.5]
+<!-- * the bridge regression [ELS equation 3.53, page 72] -->
+
+write down 
+
+* which variation on the classic lasso penalty is used (write down the penalty part of the minimization problem)
+* make a drawing of the penalty (comparable to the sphere for ridge and the diamond for lasso)
+* in which practical data analysis situation is this variation used (e.g. when many correlated variables are present, when the covariates have a natural group structure, ...)
+* are there any algorithmic challenges?
+* anything else you found interesting?
+

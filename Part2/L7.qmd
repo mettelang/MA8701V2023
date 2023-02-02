@@ -60,9 +60,9 @@ include_graphics("../overviewv2.png")
 
 On the reading list:
 
-* [ELS] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. [Ebook](https://web.stanford.edu/~hastie/Papers/ESLII.pdf). Chapter 3.2.2, 3.4.1.
+* [ESL] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. [Ebook](https://web.stanford.edu/~hastie/Papers/ESLII.pdf). Chapter 3.2.2, 3.4.1.
 
-* [HTW] Hastie, Tibshirani, Wainwrigh: "Statistical Learning with Sparsity: The Lasso and Generalizations". CRC press. [Ebook](https://trevorhastie.github.io/). Chapter 2.1.
+* [HTW] Hastie, Tibshirani, Wainwrigh: "Statistical Learning with Sparsity: The Lasso and Generalizations". CRC press. [Ebook](https://hastie.su.domains/StatLearnSparsity/). Chapter 2.1.
 
 Strongly supporting literature
 
@@ -74,7 +74,7 @@ Strongly supporting literature
 
 ## Why this title?
 
-Part 2 of the course is called **Shrinkage and regularization for linear and generalized linear models**.
+Part 2 of the course is called **Shrinkage and regularization for linear and generalized linear modESL**.
 
 This part of the course could also have been called:
 
@@ -373,6 +373,9 @@ When covariates and responses are centered HTW remove $\beta_0$ from the regress
 
 Choose yourself if you want to focus mainly on 1 or 2.
 
+[One version of a solution to 1](./proofbetahatv2.png)
+(another version in class notes L2 in 2021)
+
 ---
 
 ## Gasoline data
@@ -453,7 +456,7 @@ confint(red)
 
 
 # Ridge regression
-(ELS 3.4.1)
+(ESL 3.4.1)
 
 Ridge regression is also called "Tikhonov regularization".
 
@@ -641,7 +644,7 @@ include_graphics("./WNvWFig13.jpg")
 
 ## Model selection
 
-To choose the optimal penalty parameter $\lambda$ cross-validation is the default method in use. ELS recommends to either 
+To choose the optimal penalty parameter $\lambda$ cross-validation is the default method in use. ESL recommends to either 
 
 * choose the $\lambda$ corresponding to the smallest CV error
 * or first find the $\lambda$ with the smallest CV-error, and then record the estimated standard error of the CV-error at this value, and then choose the largest $\lambda$ such that the CV error is still within one standard error of the minimum. We choose the largest because we want the less flexible model.
@@ -693,7 +696,7 @@ red$coeff
 ---
 
 ## Insight based on SVD
-(ELS 3.4.1)
+(ESL 3.4.1)
 
 ### Singular value decomposition (SVD)
 
@@ -744,7 +747,7 @@ How can you interpret this result?
 
 ## The effective degrees of freedom
 
-In  ELS Ch 7.6 we defined the effective number of parameters (here now referred to as the _effective degrees of freedom_) for a linear smoother $\hat{\mathbf y}={\mathbf Sy}$ as
+In  ESL Ch 7.6 we defined the effective number of parameters (here now referred to as the _effective degrees of freedom_) for a linear smoother $\hat{\mathbf y}={\mathbf Sy}$ as
 
 $$\text{df}({\mathbf S})=\text{trace}({\mathbf S})$$
 
@@ -803,7 +806,7 @@ For Python there are different options.
 
 ## Gauss-Markov theorem
 
-The LS is unbiased with the smallest variance among linear predictors: ELS exercise 3.3a
+The LS is unbiased with the smallest variance among linear predictors: ESL exercise 3.3a
 
 ## Variance of ridge compared to LS
 
@@ -866,12 +869,23 @@ c) Derive the MSE for each of the two estimators. Which value of the penalty par
 
 Please try yourself first, or take a small peek - and try some more - before fully reading the solutions. Report errors or improvements to <Mette.Langaas@ntnu.no>. 
 
-* [Gauss-Markov theorem 3.3a](./ELSe33a.pdf)
+* [Gauss-Markov theorem 3.3a](./ESLe33a.pdf)
 * [Variance of ridge compared to LS: page 11-12 on note by Wessel N. van Wieringen ](https://arxiv.org/pdf/1509.09169.pdf) and [Mettes notes](./LSvsRRvar.pdf) 
 
 * [Ridge regression](./L2exRR1.pdf)
 
-* [Orthonormal design matrix](./LSRRortho.pdf)
+* [Orthonormal design matrix](./L7ExRidgeOrth.pdf)
+
+```{r}
+btb=1
+sigma=1
+p=6
+lam=seq(0,10,length=100)
+mse=btb*lam^2/(1+lam)^2+p*(sigma^2)/(1+lam)^2
+plot(lam,mse,type="l")
+abline(h=p*sigma^2,col=2)
+#abline(v=2*sigma^2/btb)
+````
 
 # Resources
 

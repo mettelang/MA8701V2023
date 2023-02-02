@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-30">
+<meta name="dcterms.date" content="2023-02-02">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -231,7 +231,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 30, 2023</p>
+      <p class="date">February 2, 2023</p>
     </div>
   </div>
   
@@ -253,8 +253,8 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="literature-l7">Literature L7</h2>
 <p>On the reading list:</p>
 <ul>
-<li><p>[ELS] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. <a href="https://web.stanford.edu/~hastie/Papers/ESLII.pdf">Ebook</a>. Chapter 3.2.2, 3.4.1.</p></li>
-<li><p>[HTW] Hastie, Tibshirani, Wainwrigh: “Statistical Learning with Sparsity: The Lasso and Generalizations”. CRC press. <a href="https://trevorhastie.github.io/">Ebook</a>. Chapter 2.1.</p></li>
+<li><p>[ESL] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. <a href="https://web.stanford.edu/~hastie/Papers/ESLII.pdf">Ebook</a>. Chapter 3.2.2, 3.4.1.</p></li>
+<li><p>[HTW] Hastie, Tibshirani, Wainwrigh: “Statistical Learning with Sparsity: The Lasso and Generalizations”. CRC press. <a href="https://hastie.su.domains/StatLearnSparsity/">Ebook</a>. Chapter 2.1.</p></li>
 </ul>
 <p>Strongly supporting literature</p>
 <ul>
@@ -265,7 +265,7 @@ div.csl-indent {
 </section>
 <section id="why-this-title" class="level2">
 <h2 class="anchored" data-anchor-id="why-this-title">Why this title?</h2>
-<p>Part 2 of the course is called <strong>Shrinkage and regularization for linear and generalized linear models</strong>.</p>
+<p>Part 2 of the course is called <strong>Shrinkage and regularization for linear and generalized linear modESL</strong>.</p>
 <p>This part of the course could also have been called:</p>
 <ul>
 <li>“Penalized maximum likelihood estimation”</li>
@@ -457,6 +457,7 @@ div.csl-indent {
 <li><p>Explain what is done in the analysis of the Gasoline data directly below.</p></li>
 </ol>
 <p>Choose yourself if you want to focus mainly on 1 or 2.</p>
+<p><a href="./proofbetahatv2.png">One version of a solution to 1</a> (another version in class notes L2 in 2021)</p>
 <hr>
 </section>
 <section id="gasoline-data" class="level2">
@@ -657,7 +658,7 @@ GasPres       5.4823283 20.2586338</code></pre>
 </section>
 <section id="ridge-regression" class="level1">
 <h1>Ridge regression</h1>
-<p>(ELS 3.4.1)</p>
+<p>(ESL 3.4.1)</p>
 <p>Ridge regression is also called “Tikhonov regularization”.</p>
 <p>We consider the classical linear model set-up, as for the LS estimation, but now we look at shrinking the coefficients towards 0 to construct biased estimators - and then “hope” that this also has made the variances decrease.</p>
 <p>We will not shrink the intercept <span class="math inline">\(\beta_0\)</span>, because then the this will depend on the origin of the response.</p>
@@ -802,7 +803,7 @@ GasPres       5.4823283 20.2586338</code></pre>
 </section>
 <section id="model-selection" class="level2">
 <h2 class="anchored" data-anchor-id="model-selection">Model selection</h2>
-<p>To choose the optimal penalty parameter <span class="math inline">\(\lambda\)</span> cross-validation is the default method in use. ELS recommends to either</p>
+<p>To choose the optimal penalty parameter <span class="math inline">\(\lambda\)</span> cross-validation is the default method in use. ESL recommends to either</p>
 <ul>
 <li>choose the <span class="math inline">\(\lambda\)</span> corresponding to the smallest CV error</li>
 <li>or first find the <span class="math inline">\(\lambda\)</span> with the smallest CV-error, and then record the estimated standard error of the CV-error at this value, and then choose the largest <span class="math inline">\(\lambda\)</span> such that the CV error is still within one standard error of the minimum. We choose the largest because we want the less flexible model.</li>
@@ -848,8 +849,8 @@ Call:  cv.glmnet(x = x, y = y, lambda = newlambda, alpha = 0)
 Measure: Mean-Squared Error 
 
     Lambda Index Measure    SE Nonzero
-min  0.100   104   10.26 2.557       4
-1se  3.765    84   12.80 2.667       4</code></pre>
+min   0.10   104   11.01 3.197       4
+1se   3.43    85   14.14 4.268       4</code></pre>
 </div>
 <details>
 <summary>Code</summary>
@@ -884,11 +885,11 @@ min  0.100   104   10.26 2.557       4
 <div class="cell-output cell-output-stdout">
 <pre><code>5 x 1 sparse Matrix of class "dgCMatrix"
                        s1
-(Intercept) -2.149839e-15
-TankTemp     1.060017e+00
-GasTemp      3.111680e+00
-TankPres     1.645594e+00
-GasPres      2.425640e+00</code></pre>
+(Intercept) -2.165201e-15
+TankTemp     1.010525e+00
+GasTemp      3.193569e+00
+TankPres     1.639813e+00
+GasPres      2.477606e+00</code></pre>
 </div>
 <details>
 <summary>Code</summary>
@@ -925,7 +926,7 @@ GasPres      2.425640e+00</code></pre>
 </section>
 <section id="insight-based-on-svd" class="level2">
 <h2 class="anchored" data-anchor-id="insight-based-on-svd">Insight based on SVD</h2>
-<p>(ELS 3.4.1)</p>
+<p>(ESL 3.4.1)</p>
 <section id="singular-value-decomposition-svd" class="level3">
 <h3 class="anchored" data-anchor-id="singular-value-decomposition-svd">Singular value decomposition (SVD)</h3>
 <p>Let <span class="math inline">\({\mathbf X}\)</span> be a <span class="math inline">\(N \times p\)</span> matrix.</p>
@@ -956,7 +957,7 @@ GasPres      2.425640e+00</code></pre>
 </section>
 <section id="the-effective-degrees-of-freedom" class="level2">
 <h2 class="anchored" data-anchor-id="the-effective-degrees-of-freedom">The effective degrees of freedom</h2>
-<p>In ELS Ch 7.6 we defined the effective number of parameters (here now referred to as the <em>effective degrees of freedom</em>) for a linear smoother <span class="math inline">\(\hat{\mathbf y}={\mathbf Sy}\)</span> as</p>
+<p>In ESL Ch 7.6 we defined the effective number of parameters (here now referred to as the <em>effective degrees of freedom</em>) for a linear smoother <span class="math inline">\(\hat{\mathbf y}={\mathbf Sy}\)</span> as</p>
 <p><span class="math display">\[\text{df}({\mathbf S})=\text{trace}({\mathbf S})\]</span></p>
 <p>For ridge regression our linear smoother is <span class="math display">\[{\mathbf H}_{\lambda}={\mathbf X}({\mathbf X}^T{\mathbf X}+ \lambda {\mathbf I})^{-1}{\mathbf X}^T\]</span></p>
 <hr>
@@ -1007,7 +1008,7 @@ GasPres      2.425640e+00</code></pre>
 <h1>Exercises</h1>
 <section id="gauss-markov-theorem" class="level2">
 <h2 class="anchored" data-anchor-id="gauss-markov-theorem">Gauss-Markov theorem</h2>
-<p>The LS is unbiased with the smallest variance among linear predictors: ELS exercise 3.3a</p>
+<p>The LS is unbiased with the smallest variance among linear predictors: ESL exercise 3.3a</p>
 </section>
 <section id="variance-of-ridge-compared-to-ls" class="level2">
 <h2 class="anchored" data-anchor-id="variance-of-ridge-compared-to-ls">Variance of ridge compared to LS</h2>
@@ -1051,11 +1052,16 @@ GasPres      2.425640e+00</code></pre>
 <h1>Solutions to exercises</h1>
 <p>Please try yourself first, or take a small peek - and try some more - before fully reading the solutions. Report errors or improvements to <a href="mailto:Mette.Langaas@ntnu.no" class="email">Mette.Langaas@ntnu.no</a>.</p>
 <ul>
-<li><p><a href="./ELSe33a.pdf">Gauss-Markov theorem 3.3a</a></p></li>
+<li><p><a href="./ESLe33a.pdf">Gauss-Markov theorem 3.3a</a></p></li>
 <li><p><a href="https://arxiv.org/pdf/1509.09169.pdf">Variance of ridge compared to LS: page 11-12 on note by Wessel N. van Wieringen</a> and <a href="./LSvsRRvar.pdf">Mettes notes</a></p></li>
 <li><p><a href="./L2exRR1.pdf">Ridge regression</a></p></li>
-<li><p><a href="./LSRRortho.pdf">Orthonormal design matrix</a></p></li>
+<li><p><a href="./L7ExRidgeOrth.pdf">Orthonormal design matrix</a></p></li>
 </ul>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L7_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
 <section id="resources" class="level1">
 <h1>Resources</h1>
