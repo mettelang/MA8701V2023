@@ -480,6 +480,7 @@ include_graphics("./WNvWFig63.jpg")
 include_graphics("./WNvWFig64.jpg")
 ```
 
+This figure is for an orthogonal design matrix.
 
 ---
 
