@@ -642,7 +642,7 @@ include_graphics("./WNvWFig13.jpg")
 
 ---
 
-## Model selection
+## Hyperparameter tuning
 
 To choose the optimal penalty parameter $\lambda$ cross-validation is the default method in use. ESL recommends to either 
 
@@ -766,6 +766,15 @@ The $\text{df}(\lambda)$ is sometimes plotted instead of $\lambda$ on the horiso
 
 ---
 
+## Missing from presentation (to be added)
+
+In L9 we will "need" to know that the solution to the ridge regression can be found by an extended response vector and covariance matrix followed by ordinary least squares.
+
+Then the response is augmented by a 0-vector of length $p$ and the covariance matrix by a $p \times p$ matrix with $\sqrt{\lambda}$ on the diagonal (else 0)$. 
+
+That should have been included.
+
+Also we did not say that the ridge penalty is the squared $L_2$ loss. Remember that it is squared. 
 
 <!-- ### Exercise: orthogonal covariates -->
 

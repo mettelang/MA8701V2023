@@ -353,11 +353,6 @@ $$ f(\beta)=g(\beta)+\sum_{j=1}^p h_j(\beta_j)$$
 $g$ differentiable and convex, $h$ univariate and convex.
 It is found that the (cyclic) coordinate descent algorithm is _guaranteed to converge_ to the global minimizer. 
 
-<!-- Forward stepwise regression:  -->
-
-<!-- * build a model sequentially by adding one variable at a time.  -->
-<!-- * At each step the best variable to include in the active set is identified and -->
-<!-- * then the LS-fit is (re)computed for all the active variables. -->
 
 
 ---

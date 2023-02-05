@@ -1,6 +1,6 @@
 ---
 title: "MA8701 Advanced methods in statistical inference and learning"
-subtitle: "L9: Lasso-variants for the linear model"
+subtitle: "L10: Shrinkage methods for the GLM"
 author: "Mette Langaas"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 bibliography: ../Part1/references.bib
@@ -46,7 +46,8 @@ suppressPackageStartupMessages(library(nortest))
 
 ## Literature
 
-* [HTW] Hastie, Tibshirani, Wainwrigh: "Statistical Learning with Sparsity: The Lasso and Generalizations". CRC press. [Ebook](https://hastie.su.domains/StatLearnSparsity/). Chapter 4.1-4.3,4.6
+* [HTW] Hastie, Tibshirani, Wainwrigh: "Statistical Learning with Sparsity: The Lasso and Generalizations". CRC press. [Ebook](https://hastie.su.domains/StatLearnSparsity/). Chapter 3.2,3.7
+
 
 and for the interested student
 
@@ -54,6 +55,55 @@ and for the interested student
 * [CASI] @casi Chapter 16 (lasso in general)
 
 ---
+
+# Multiple imputation combined with shrinkage methods
+
+## First case
+
+Assume that the aim is prediction, and only this is studied for model assessment (no need for hypothesis tests or confidence intervals for regression parameters).
+
+Further assume that there is enough data to set aside a test set for model assessment, maybe 20-80 split.
+
+How is it now possible to combine multiple imputation and lasso/ridge type methods on the training set?
+
+"Tja" - if Rubins rules could be used on the predictions on the test set?
+
+---
+
+## Second case
+
+Assume that the aim is model selection (find the important covariates) and that inference about the fitted coefficients is of interest.
+
+We will in W6 learn how to used bootstrapping to provide a confidence interval for the regression coefficients, such that there needs to be a bootstrap loop.
+
+How can now multiple imputation, lasso/ridge type method (which need bootsrapping) be combined?
+
+---
+
+## Short review of a few solution
+
+Warning: this is an area of research with few good solutions! Aka _"a fertile ground for further research"_
+
+@ZhaoLong2017: "Variable selection in the presence of missing data: imputation-based methods" lists three stragegies. (NB: here model assessment is not discussed, only model selection)
+
+1) Apply existing variable selection methods to each imputed dataset and then combine variable selection results across all imputed datasets.
+
+This is similar to what I presented for the suicide crisis syndrome data set, and is presented in @vanBuuren Section 5.4 Stepwise model selection, in particular 5.4.2 for the D1 method that is implemented in the MICE R package. 
+
+It is not clear how this should be done if the model selection method is a lasso variant. Could the penalty parameter be decided using Rubins rules and then used to fit lasso on each data set again and would then the same model be selected for each imputed data set? 
+
+2) Apply existing variable selection methods to stacked imputed datasets.
+
+3) Combine resampling techniques (such as bootstrap) with imputation
+
+## MI and model assessment
+
+If ridge regression is used, then the same active set is used for each of the imputed data sets, and in addition we know that the parameter estimates are normally distributed (however biased). This means that model selection is not performed (except for hyperparameter tuning which is done using cross-validation for data set). Is it wise to use Rubin´s rules for the ridge regression coefficients when these are biased?
+
+
+When searching for literature: some may use ridge/lasso for the imputation model in the multiple imputation, but we are interested in using ridge/lasso as the analysis model
+
+
 
 ## Goal 
 
@@ -79,13 +129,13 @@ We have seen that the ridge regression shrinks the regression coefficients (as c
 
 # The $l_q$  regression
 
-$$ \text{minimize}_{\beta_0,\beta} \{ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \lvert \beta_j\rvert^q \}, q\ge 0$$
+$$ \text{minimize}_{\beta_0,\beta} \{ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \lvert \beta_j\rvert^q \}, q\le 0$$
 
 * $q=0$: best subset regression
 * $q=1$: lasso
 * $q=2$: ridge
 
-Remark: $l_q$ is the but penalty of the form $\lvert \beta_j\rvert^q$. Note that $l_2$ is thus the squared $L_2$ norm (squared Euclidean norm).
+Remark: $l_q$ is the but penalty of the form $\lvert \beta_j\rvert^q$. Note that $l^2$ is thus the squared $L_2$ norm (squared Euclidean norm).
 
 ---
 
@@ -112,11 +162,11 @@ include_graphics("./HTWFig412.png")
 ---
 
 ## Bridge regression
-<!-- Origin of method: @FrankFriedman1993 Fant det ikke i den artikkelen men de snakket om å finne q-->
+Origin of method: @FrankFriedman1993
 
-This is $l_q$ but with $q>1$.
+This is $L^q$ but with $q>1$.
 
-$$ \text{minimize}_{\beta_0,\beta} \{ \frac{1}{2}\sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \lvert \beta_j\rvert^q \}, q\ge 0$$
+$$ \text{minimize}_{\beta_0,\beta} \{ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \lvert \beta_j\rvert^q \}, q\le 0$$
 
 # Elastic net
 (HTW 4.2)
@@ -271,7 +321,7 @@ Consider data simulated with the following setting:
 
 ## Group discussion: Exam 2019 Problem 1c (STK-IN4300, UiO)
 
-Briefly explain _elastic net_ and _bridge regression_ and explain why despite the corresponding constraints are almost indistinguishable in Figure 3.13 of @ESL, they provide, in general, quite different models.
+Briefly explain _elastic net_ and _bridge regression_ and explain why despite the corresponding constraints are almoust indistinguishable in Figure 3.13 of @ESL, they provide, in general, quite different models.
 
 
 ```{r}

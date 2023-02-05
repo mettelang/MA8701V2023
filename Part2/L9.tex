@@ -1,0 +1,1054 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={MA8701 Advanced methods in statistical inference and learning},
+  pdfauthor={Mette Langaas},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{MA8701 Advanced methods in statistical inference and learning}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{L9: Lasso-variants for the linear model}
+\author{Mette Langaas}
+\date{2/5/23}
+
+\begin{document}
+\maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, enhanced, frame hidden, breakable, sharp corners]}{\end{tcolorbox}}\fi
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\hypertarget{before-we-begin}{%
+\section{Before we begin}\label{before-we-begin}}
+
+\hypertarget{literature}{%
+\subsection{Literature}\label{literature}}
+
+\begin{itemize}
+\tightlist
+\item
+  {[}HTW{]} Hastie, Tibshirani, Wainwrigh: ``Statistical Learning with
+  Sparsity: The Lasso and Generalizations''. CRC press.
+  \href{https://hastie.su.domains/StatLearnSparsity/}{Ebook}. Chapter
+  4.1-4.3,4.6
+\end{itemize}
+
+and for the interested student
+
+\begin{itemize}
+\tightlist
+\item
+  {[}WNvW{]} \href{https://arxiv.org/pdf/1509.09169v7.pdf}{Wessel N. van
+  Wieringen: Lecture notes on ridge regression} Chapter 6.6
+\item
+  {[}CASI{]} Efron and Hastie (2016) Chapter 16 (lasso in general)
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{goal}{%
+\subsection{Goal}\label{goal}}
+
+The main goal of this part is to
+
+\begin{itemize}
+\tightlist
+\item
+  know about these special versions of the lasso (also in combination
+  with the ridge), and
+\item
+  to see which practical data situation these can be smart to use.
+\end{itemize}
+
+Maybe one of these is suitable for the Data analysis project?
+
+Theoretical properties and algorithmic details are not on the reading
+list.
+
+\hypertarget{lasso-and-ridge}{%
+\section{Lasso and ridge}\label{lasso-and-ridge}}
+
+We have seen that the ridge regression shrinks the regression
+coefficients (as compared to the least squares solution), while the
+lasso regression both shrinks and sets some coefficients to zero (model
+selection).
+
+\hypertarget{why-do-we-need-lasso-variants}{%
+\subsection{Why do we need lasso
+variants}\label{why-do-we-need-lasso-variants}}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  empirically lasso sometimes does not perform well for highly
+  correlated variables
+\item
+  in some situations we would like a group of covariates to either be in
+  or out of the model ``together'', for example a dummy variable coded
+  factor
+\end{itemize}
+
+\hypertarget{the-l_q-regression}{%
+\section{\texorpdfstring{The \(l_q\)
+regression}{The l\_q regression}}\label{the-l_q-regression}}
+
+\[ \text{minimize}_{\beta_0,\beta} \{ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \lvert \beta_j\rvert^q \}, q\ge 0\]
+
+\begin{itemize}
+\tightlist
+\item
+  \(q=0\): best subset regression
+\item
+  \(q=1\): lasso
+\item
+  \(q=2\): ridge
+\end{itemize}
+
+Remark: \(l_q\) is the but penalty of the form
+\(\lvert \beta_j\rvert^q\). Note that \(l_2\) is thus the squared
+\(L_2\) norm (squared Euclidean norm).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Properties
+
+\begin{itemize}
+\tightlist
+\item
+  \(0 \le q \le 1\): not differentiable
+\item
+  \(1<q<2\): in between lasso and ridge, but differentiable (and no
+  variable selection property)
+\item
+  \(q\) can be estimated from data, but according to Hastie, Tibshirani,
+  and Friedman (2009) this is ``not worth the effort for the extra
+  variance incurred''
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\textwidth,height=\textheight]{./ESLFig312.jpg}
+
+}
+
+\caption{Figure 3.12 from Hastie, Tibshirani, and Friedman (2009)}
+
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\textwidth,height=\textheight]{./HTWFig412.png}
+
+}
+
+\caption{Figure 4.12 from Hastie, Tibshirani, and Wainwright (2015)}
+
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{bridge-regression}{%
+\subsection{Bridge regression}\label{bridge-regression}}
+
+This is \(l_q\) but with \(q>1\).
+
+\[ \text{minimize}_{\beta_0,\beta} \{ \frac{1}{2}\sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \lvert \beta_j\rvert^q \}, q\ge 0\]
+
+\hypertarget{elastic-net}{%
+\section{Elastic net}\label{elastic-net}}
+
+(HTW 4.2) Origin of method: Zou and Hastie (2005)
+
+\begin{itemize}
+\tightlist
+\item
+  Compromise between the ridge and lasso penalty.
+\item
+  Lasso gives sparsity but does not handle correlated variables well.
+\item
+  Ridge handles correlated variables well, but is not sparse.
+\end{itemize}
+
+Solution: \emph{elastic net} which handles'' coefficients of correlated
+features together (similar values or all zero).
+
+The penalty used is now weighted sum of the ridge and the lasso penalty.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{minimization-problem}{%
+\subsection{Minimization problem}\label{minimization-problem}}
+
+\[ \text{minimize}_{\beta_,\beta} \{ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p (\frac{1}{2}(1-\alpha) \beta_j^2+\alpha \lvert \beta_j\rvert )\}\]
+
+again, \(\lambda \ge 0\) is a complexity (regularization, penalty)
+parameter controlling the amount of shrinkage together with
+\(\alpha \in [0,1]\) that ``balance'' out the penalty between the
+squared and absolute penalty.
+
+\begin{itemize}
+\tightlist
+\item
+  \(\alpha=1\): lasso only
+\item
+  \(\alpha=0\): ridge only
+\end{itemize}
+
+The problem is strictly convex if \(\lambda>0\) and \(\alpha<1\) which
+gives uniqueness for the elastic net coefficients for this case.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\textwidth,height=\textheight]{./HTWFig42.png}
+
+}
+
+\caption{Figure 4.2 from Hastie, Tibshirani, and Wainwright (2015)}
+
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+What is the elastic net parameter constraint region? Why will this give
+a variable selection property?
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\textwidth,height=\textheight]{./WNvWFig611.jpg}
+
+}
+
+\caption{Figure 6.11 from Wieringen (2021)}
+
+\end{figure}
+
+Slightly different parametrization in Wieringen (2021), with
+\(\lambda_1=\lambda\alpha\) and \(\lambda_2=\lambda(1-\alpha)\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+The figure to the right shows potential problems in selecting the best
+hyperparameters. Observe that several combination of the two
+hyperparameters are equally good.
+
+This is the reason for the parameterization with \(\alpha\) as a mixing
+parameter, where the \(\alpha\) is assumed to be set by the user, while
+the \(\lambda\) is found using cross-validation.
+
+However, of cause \(\alpha\) is a tuning parameter and need to be set.
+See for example the
+\href{https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/3026839}{Master
+thesis of Lene Omdal Tillerli Chapter 3.5 and 5.3} for different
+cross-validation strategies for selecting the two hyperparameters.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{parameter-estimation}{%
+\subsection{Parameter estimation}\label{parameter-estimation}}
+
+The \emph{glmnet}-R package is constructed around the elastic net. Here
+the cyclic coordinate descent algorithm is used, and compared to the
+pseudo-algorithm we devised in class in L8, for the step with the update
+of \(\beta_j\) the soft-threshold solution is slightly modified to (HTW
+Equation 4.4)
+
+\[\hat{\beta}_j=\frac{1}{\sum_{i=1}^N x_{ij}^2+\lambda (1-\alpha)} S_{\lambda \alpha}(\sum_{i=1}^N r_{ij}x_{ij})\]
+
+where (as in L8) the soft thresholding operator is
+\(S_{\mu}(z)=sign(z)(\lvert z \rvert -\mu)_{+}\) and the partial
+residual (as in L8) is
+\(r_{ij}=y_i-\beta_0-\sum_{k\neq j} x_{ik}\hat{\beta}_k\) (in L8 we used
+\(\tilde{y}\) and not \(r\)).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Why do you think this can be solved in such a similar way as for the
+lasso?
+
+There is a ``data augmentation trick'' where we can add \(p\) 0-reponses
+with covariates \(\sqrt{\lambda (1-\alpha)} \boldsymbol I_{pp}\) to
+perform a ridge regression (Wieringen (2021) 6.8.1).
+
+Details are found in the article in the Journal on Statistical Software
+on the glmnet Friedman, Hastie, and Tibshirani (2010).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{example}{%
+\subsection{Example}\label{example}}
+
+This example is shown in Figure 4.2 in HTW and reproduced with the R
+code below.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{8701}\NormalTok{)}
+\NormalTok{N}\OtherTok{=}\DecValTok{100}
+\NormalTok{z1}\OtherTok{=}\FunctionTok{rnorm}\NormalTok{(N,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{); z2}\OtherTok{=}\FunctionTok{rnorm}\NormalTok{(N,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{eps}\OtherTok{=}\FunctionTok{rnorm}\NormalTok{(N,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+
+\NormalTok{y}\OtherTok{=}\DecValTok{3}\SpecialCharTok{*}\NormalTok{z1}\FloatTok{{-}1.5}\SpecialCharTok{*}\NormalTok{z2}\SpecialCharTok{+}\DecValTok{2}\SpecialCharTok{*}\NormalTok{eps}
+
+\NormalTok{add}\OtherTok{=}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(N}\SpecialCharTok{*}\DecValTok{6}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}\AttributeTok{ncol=}\DecValTok{6}\NormalTok{)}
+\NormalTok{x1}\OtherTok{=}\NormalTok{z1}\SpecialCharTok{+}\NormalTok{add[,}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\DecValTok{5}\NormalTok{; x2}\OtherTok{=}\NormalTok{z1}\SpecialCharTok{+}\NormalTok{add[,}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}\DecValTok{5}\NormalTok{; x3}\OtherTok{=}\NormalTok{z1}\SpecialCharTok{+}\NormalTok{add[,}\DecValTok{3}\NormalTok{]}\SpecialCharTok{/}\DecValTok{5}
+\NormalTok{x4}\OtherTok{=}\NormalTok{z2}\SpecialCharTok{+}\NormalTok{add[,}\DecValTok{4}\NormalTok{]}\SpecialCharTok{/}\DecValTok{5}\NormalTok{; x5}\OtherTok{=}\NormalTok{z2}\SpecialCharTok{+}\NormalTok{add[,}\DecValTok{5}\NormalTok{]}\SpecialCharTok{/}\DecValTok{5}\NormalTok{; x6}\OtherTok{=}\NormalTok{z2}\SpecialCharTok{+}\NormalTok{add[,}\DecValTok{6}\NormalTok{]}\SpecialCharTok{/}\DecValTok{5}
+
+\NormalTok{x}\OtherTok{=}\FunctionTok{as.matrix}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x1=}\NormalTok{x1,}\AttributeTok{x2=}\NormalTok{x2,}\AttributeTok{x3=}\NormalTok{x3,}\AttributeTok{x4=}\NormalTok{x4,}\AttributeTok{x5=}\NormalTok{x5,}\AttributeTok{x6=}\NormalTok{x6))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\includegraphics{L9_files/figure-pdf/unnamed-chunk-7-1.pdf}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\includegraphics{L9_files/figure-pdf/unnamed-chunk-8-1.pdf}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{exam-2020-problem-1-stk-in4300-uio}{%
+\subsection{Exam 2020 Problem 1 (STK-IN4300,
+UiO)}\label{exam-2020-problem-1-stk-in4300-uio}}
+
+Consider data simulated with the following setting:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\beta_i \sim N(0,2), i=1,\ldots,p\)
+\item
+  \(X \sim N_p(\boldsymbol 0,\boldsymbol \Sigma)\) where
+  (i)\(N_p(\cdot,\cdot)\) denotes a \(p\)-dimensional multivariate
+  Gaussian distribution; (ii) \(\boldsymbol{0}\) is a \(p\)-dimensional
+  vector of \(0\); (iii) \(\boldsymbol \Sigma\) is a \(p \times p\)
+  matrix with diagonal elements equal to \(1\) and all other elements
+  equal to \(0.9\);
+\item
+  \(y = X \beta + \varepsilon\), with
+  \(\beta = (\beta_1,\ldots, \beta_p)^T\) and
+  \(\varepsilon \sim N(0, 1)\).
+\end{itemize}
+
+\textbf{a)} If you were forced to choose between ridge regression and
+lasso, which one would you have used to predict y on a test set
+generated with the same setting? Why?
+
+\textbf{b)} Would your choice have been the same if you ignored the ﬁrst
+information on \(\beta\) ? Why?
+
+\textbf{c)} Do you think that elastic net could have been a better
+choice in the situation of point (b)? Why?
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{group-discussion-exam-2019-problem-1c-stk-in4300-uio}{%
+\subsection{Group discussion: Exam 2019 Problem 1c (STK-IN4300,
+UiO)}\label{group-discussion-exam-2019-problem-1c-stk-in4300-uio}}
+
+Briefly explain \emph{elastic net} and \emph{bridge regression} and
+explain why despite the corresponding constraints are almost
+indistinguishable in Figure 3.13 of Hastie, Tibshirani, and Friedman
+(2009), they provide, in general, quite different models.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\textwidth,height=\textheight]{./ESLFig313.jpg}
+
+}
+
+\caption{Figure 3.13 from Hastie, Tibshirani, and Friedman (2009)}
+
+\end{figure}
+
+\hypertarget{group-lasso}{%
+\section{Group lasso}\label{group-lasso}}
+
+(HTW Section 4.3.1)
+
+Now we aim at fixing the following problem with the lasso: if we have a
+factor and have used dummy variable coding, then the lasso may only
+choose to select some of the dummy variables to be in the model, and the
+lasso solution also is dependent on how the dummy variable encoding is
+done (choosing different contrasts will produce different solutions).
+Other application might have groups of genes in pathways, where those
+can be handled together.
+
+The solution is to use a penalty that can be seen kind of intermediate
+to \(L_1\) and squared \(L_2\):
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Assume we have \(J\) groups and \(p_j\) covariates for each group.
+Further \(Z_j\in \Re^{p_j}\) is the covariates for group \(j\). Further
+let \(\theta_j \in \Re^{p_j}\) be the regression coefficients for group
+\(j\).
+
+\[\text{minimize}_{\theta_0,\theta} \{ 
+\sum_{i=1}^N (y_i-\theta_0-\sum_{j=1}^J z_{ij}\theta_j )^2 
++ \lambda \sum_{j=1}^J \lvert\lvert \theta_j{\rvert \rvert}_2\}\]
+
+where \(\lvert\lvert \theta_j{\rvert \rvert}_2\) is the Euclidean norm
+of the vector \(\theta_j\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{what-does-this-new-unsquared-l_2-penalty-do}{%
+\subsection{\texorpdfstring{What does this new (unsquared) \(L_2\)
+penalty
+do?}{What does this new (unsquared) L\_2 penalty do?}}\label{what-does-this-new-unsquared-l_2-penalty-do}}
+
+\begin{itemize}
+\tightlist
+\item
+  All groups with one variable ends up with lasso \(L_1\) penalty
+  because: when \(p_j=1\) then
+  \(\lvert\lvert \theta_j{\rvert \rvert}_2=\lvert \theta_j{\rvert}\),
+  and thus the \(L_1\) lasso penalty is used for singelton groups.
+\item
+  All groups with more than two variables end up with the square root of
+  the ridge penalty. since the penalty is
+  \(\sqrt{\sum_{j \in J}\beta_{j}^2}\) for all elements of this group
+  \(J\).
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\textwidth,height=\textheight]{./HTWFig43.png}
+
+}
+
+\caption{Figure 4.3 from Hastie, Tibshirani, and Wainwright (2015)}
+
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Observe that the penalty is the same for all groups, independent of the
+group size- but it is common to also include the group size in the
+penalty (HTW does not, WNvW does).
+
+HTW Exercise 4.4: the penalty term ensures that the coefficients in a
+group sum to zero given that there is an intercept term in the model.
+
+Comment: some results are for orthogonal design matrices for a group.
+But, this will only happen if we have a balanced design, with the same
+number of observations for each level of a categorical variable group.
+This is very seldom the case in observational data, but in Design of
+Experiments this may happen for example in \(2^k\) designs.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{parameter-estimation-1}{%
+\subsection{Parameter estimation}\label{parameter-estimation-1}}
+
+The coordinate descent algorithm may be modified to a block coordinate
+descent version. The step to update \(\hat{\theta}_j\) in the coordinate
+descent cyclic algorithm is
+
+\[\hat{\theta}_j=({\boldsymbol Z}_j^T{\boldsymbol Z}_j+
+\frac{\lambda}{\lvert\lvert \hat{\theta}_j{\rvert \rvert}_2}{\boldsymbol I})^{-1}{\boldsymbol Z}_j^T{\boldsymbol r}_j\]
+where as earlier \({\boldsymbol r}_j\) is a partial residual.
+
+If the designmatrix \({\boldsymbol Z}_j\) is ortogonal this is
+simplified to \[\hat{\theta}_j=(1
+\frac{\lambda}{\lvert \lvert {\boldsymbol Z}_j^T{\boldsymbol r}_j \rvert \rvert})_{+}{\boldsymbol Z}_j^T{\boldsymbol r}_j\]
+
+For non-ortogonal design matrices iterative methods are used.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{sparse-group-lasso}{%
+\subsection{Sparse group lasso}\label{sparse-group-lasso}}
+
+(HTW Section 4.3.2, WNvW Section 6.8.3)
+
+The group lasso (with the Euclidean penalty) is now joined by the
+\(L_1\) penalty. This is kind of similar to the elastic net now the
+squared \(L_2\) penalty is replaced by \(L_2\) penalty.
+
+\[\text{minimize}_{\theta_0,\theta} \{ \sum_{i=1}^N (y_i-\theta_0-\sum_{j=1}^J z_{ij}\theta_j )^2 + \lambda \sum_{j=1}^J [(1-\alpha) \lvert \lvert \theta_j {\rvert \rvert}_2 + \alpha \lvert\lvert \theta_j{\rvert \rvert}_1]\}\]
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\textwidth,height=\textheight]{./HTWFig45.png}
+
+}
+
+\caption{Figure 4.5 from Hastie, Tibshirani, and Wainwright (2015)}
+
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{parameter-estimation-2}{%
+\subsubsection{Parameter estimation}\label{parameter-estimation-2}}
+
+Again, a version of cyclic block-wise coordinate descent can be used.
+
+The case when \(\boldsymbol Z_j\) is not orthogonal requires more work
+than for orthonal versions.
+
+Again, as for the elastic net, tuning the two hyperparametres may have
+several values being equally good.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{group-discussion-exam-2019-problem-1b-stk-in4300-uio}{%
+\subsection{Group discussion: Exam 2019 Problem 1b (STK-IN4300,
+UiO)}\label{group-discussion-exam-2019-problem-1b-stk-in4300-uio}}
+
+Consider the following version of the sparse group lasso:
+
+\[\text{minimize}_{\beta_0,\beta} \{ \lvert \lvert y-\beta_0 \overrightarrow{1}-\sum_{l=1}^L X_{l}\beta_l {\rvert \rvert}^2_2 + (1-\alpha)\lambda \sum_{l=1}^L\sqrt{p_l}\lvert \lvert \beta_j {\rvert \rvert}_2 + \alpha \lambda \lvert\lvert \beta{\rvert \rvert}_1\}\]
+where \(\overrightarrow{1}\) denotes an \(N\)-dimensional vector of 1s,
+\(\lambda \ge0\) and \(0\ge \alpha \ge 1\). Answer the following
+questions:
+
+\begin{itemize}
+\tightlist
+\item
+  Why does \(\beta_0\) only appear in the first term?
+\item
+  What happens when \(\alpha=0\) and \(\alpha=1\), respectively?
+\item
+  Briefly describe the concept of ``bet on sparsity''.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{overlap-group-lasso}{%
+\subsection{Overlap group lasso}\label{overlap-group-lasso}}
+
+(HTW Section 4.3.3)
+
+This is an extension to allow for a covariate to belong to more than one
+group.
+
+The overlap group lasso ``replicates a variable'' in whatever group it
+is a member of, and then fits the group lasso to the problem.
+
+The overlap group lasso can be used to ensure that interactions between
+covariates are only part of the model if the main effects of the
+covariates are in the model. See example HTW 4.3 for details.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\textwidth,height=\textheight]{./HTWFig46.png}
+
+}
+
+\caption{Figure 4.6 from Hastie, Tibshirani, and Wainwright (2015)}
+
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{non-convex-penalties}{%
+\section{Non-convex penalties}\label{non-convex-penalties}}
+
+(HTW Section 4.5, WNvW Section 6.9)
+
+We have looked at the \(l^q\) penalty formula in the start of L9:
+
+\[ \text{minimize}_{\beta_0,\beta} \{ \sum_{i=1}^N (y_i-\beta_0+\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \lvert \beta_j\rvert^q \}, q\le 0\]
+Observe that if \(0\le q \le 1\) is non-convex.
+
+For \(l^0\) we aim for best subset selection and need to investigate
+\(2^p\) possible models. This is not easy for \(p>40\).
+
+The Smoothly Clipped Absolute Deviation SCAD method is an alternative to
+the \(l^q\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{adaptive-lasso}{%
+\subsection{Adaptive lasso}\label{adaptive-lasso}}
+
+(HTW Section 4.6, WNvW Section 6.8.4)
+
+Origin: Zou (2006)
+
+The aim is to fit models that are even sparser than the lasso. The
+method uses a so-called \emph{pilot estimate} \(\tilde{\beta}\):
+
+\[ \text{minimize}_{\beta_0,\beta} \{ \sum_{i=1}^N (y_i-\beta_0+\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p w_j \lvert \beta_j\rvert \}\]
+where \(w_j=1/{\lvert \tilde{\beta}_j}\rvert ^{\nu}\) includes the pilot
+estimated, and given this pilot estimate the criterion i convex in
+\(\beta\). The value of \(\nu\) makes this an approximation to the
+\(l^q\) penalty where \(q=1-\nu\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Since the pilot estimate needs to be found first, this can be seen as a
+two-step procedure.
+
+If \(p<N\) then the least squares estimator can be used as the pilot
+estimate, and for larger \(p\) the ridge or lasso estimate may be used.
+
+If \(\tilde{\beta_j}=0\) then the penalty of the \(j\)th element of the
+coefficient vector is infinity and the adaptive lasso estimate for the
+coeffisient will be zero.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+For the orthogonal design, the adaptive lasso can be written as:
+
+\[\hat{\beta}(\lambda)=sign(\hat{\beta}_{{\text LS},j})(\lvert \hat{\beta}_{{\text LS},j}\rvert -\frac{\lambda}{2 \hat{\beta}_{{\text LS},j}} )_{+}\]
+Compare this with the lasso, the difference is the last denominator.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Unlike the lasso (according to Zou (2006)) the adaptive lasso is found
+to fulfill the \emph{oracle property}.
+
+According to Zou (2006), for an oracle procedure \(\delta\) then
+\(\beta(\delta)\) has the following properties:
+
+\begin{itemize}
+\tightlist
+\item
+  It identifies the right (correct) subset model,
+  \(\{j: \beta_j \neq0\}={\cal A}\)
+\item
+  ``Has the optimal estimation rate''
+  \(\sqrt{N}(\hat{\beta}(\delta)_{\cal A}-\beta^*_{\cal A})\rightarrow_d N(\boldsymbol 0,\boldsymbol \Sigma)\)
+\end{itemize}
+
+If stepwise selection is used to find the active set, it can be trapped
+in local minima.
+
+The continuous shrinkage property of the lasso is know to improve the
+prediction accuracy of the method (bias-variance trade-off).
+
+The adaptive lasso can be estimated using the LARS algorithm of Efron et
+al (2004) (not covered in this course, but presented in Hastie,
+Tibshirani, and Friedman (2009) Section 3.4.4).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{back-to-forward-stepwise-model-selection}{%
+\subsection{Back to forward stepwise model
+selection}\label{back-to-forward-stepwise-model-selection}}
+
+If the aim is to minimize the squared loss with the \(l^0\) penalty, the
+\emph{forward stepwise model} method for model selection is efficent and
+``hard to beat''.
+
+The forward stepwise model selection is a greedy algorithm.
+
+\begin{itemize}
+\tightlist
+\item
+  build a model sequentially by adding one variable at a time.
+\item
+  At each step the best variable to include in the active set is
+  identified and
+\item
+  then the LS-fit is (re)computed for all the active variables.
+\end{itemize}
+
+This is an algorithm and not an optimization problem, and the
+theoretical properties of the algorithm ``are less well understood''
+(HTW page 86).
+
+\hypertarget{a-never-ending-story}{%
+\section{A never ending story?}\label{a-never-ending-story}}
+
+There seems to always be something that can be improved upon, and there
+are several lasso variantes that we have not discussed.
+
+Other variants include
+
+\begin{itemize}
+\tightlist
+\item
+  The fused lasso (HTW Section 4.5)
+\item
+  The random lasso
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{group-discussion}{%
+\subsection{Group discussion}\label{group-discussion}}
+
+Choose one of the lasso/ridge variants we have covered in L8-L9 and
+write down:
+
+\begin{itemize}
+\tightlist
+\item
+  which variation on the classic lasso penalty is used (write down the
+  penalty part of the minimization problem)
+\item
+  make a drawing of the penalty (comparable to the sphere for ridge and
+  the diamond for lasso)
+\item
+  in which practical data analysis situation is this variation used
+  (e.g.~when many correlated variables are present, when the covariates
+  have a natural group structure, \ldots)
+\item
+  how can the parameter estimates be found?
+\item
+  anything else you found interesting?
+\end{itemize}
+
+\hypertarget{solutions}{%
+\section{Solutions}\label{solutions}}
+
+\hypertarget{exam-uio-stk-in4300-2019-problem-1bc}{%
+\subsection{Exam UiO STK-IN4300 2019 Problem
+1bc}\label{exam-uio-stk-in4300-2019-problem-1bc}}
+
+(stolen from the webpages at UiO)
+
+\textbf{b)}
+
+\begin{itemize}
+\tightlist
+\item
+  Because the intercept is excluded from the penalization, as it makes
+  no sense to shrink it toward 0.
+\item
+  One obtains the group lasso and the ordinary lasso, respectively.
+\item
+  It is preferable to use a procedure which assumes a sparse truth over
+  one that does not, because the former performs better if the problem
+  is actually sparse, while both procedures tend to perform badly for a
+  dense problem.
+\end{itemize}
+
+\textbf{c)} Bridge regression is a penalize regression approach which
+uses a penalty of the form \(\sum_{j=1}^p \lvert \beta_j\rvert^q\) where
+\(p\) is the number of explanatory variables and \(\beta_j\) the
+regression coeﬃcients. When \(1 \le q \le 2\), the penalty can be seen
+as a compromise between the lasso \(q=1\) and the ridge \(q=2\)
+penalties.
+
+Similarly, elastic net is also a compromise between lasso and ridge
+regression: in this case, a mixture of \(L_1\) and \(L_2\) penalties is
+used, with a hyperparameter controlling the ratio between the two
+penalties. The resulting methods is supposed to enclose the advantages
+of both penalties (mainly, variable selection and a better handling of
+correlation, respectively).
+
+The difference in the models that one obtains by applying bridge
+regression and elastic net is related to the form of the constraints:
+while similar, that of elastic net has non-differentiable corners that
+lead to sparser models, as some regression coeﬃcients are forced to be
+exactly 0.
+
+\hypertarget{exam-uio-stk-in4300-2020-problem-1}{%
+\subsection{Exam UiO STK-IN4300 2020 Problem
+1}\label{exam-uio-stk-in4300-2020-problem-1}}
+
+(stolen from the webpages at UiO)
+
+\textbf{a) } Ridge regression, because it performs better in the case of
+many variables with small effect (which can be seen from
+\(\beta \sim N(0,2)\)) and if there is a strong correlation among the
+variables (\(\rho=0.9\)).
+
+\textbf{b)} Without knowing that there are many variables with small
+effect (i.e., we miss the information on the \(\beta\)s), it is safer to
+use lasso ``betting on sparsity'': if there are only a few variables
+with a large ffect, it may strongly outperform ridge; if the situation
+is similar to the one at point (a), it will not perform much worse than
+ridge regression.
+
+NOTE: if there was good reasoning behind the choice of ridge regression,
+the answer was considered correct. Example of good reasoning: Despite
+the fact that I do not know the effect of the variables, which would let
+me choose lasso, I prefer to use ridge because I want my model to handle
+the correlation in a better way, and, anyway, part of the effect of a
+few potential strong variables is shared with all the variables due to
+correlation.
+
+\textbf{c)} Yes, it would allow having a sparse model due to the \(L_1\)
+penalty, with a better handling of the correlation among variables
+thanks to the \(L_2\) penalty.
+
+\hypertarget{resources}{%
+\section{Resources}\label{resources}}
+
+\begin{itemize}
+\tightlist
+\item
+  Video from webinar with Trevor Hastie on
+  \href{http://youtu.be/BU2gjoLPfDc}{glmnet from 2019}
+\item
+  See
+  \href{https://github.com/mettelang/MA8701V2021/blob/main/Part1/LassoandfriendsBenDunn.pdf}{slides
+  from guest lecturer Benjamin Dunn in 2021}
+\end{itemize}
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-casi}{}}%
+Efron, Bradley, and Trevor Hastie. 2016. \emph{Computer Age Statistical
+Inference - Algorithms, Evidence, and Data Science}. Cambridge
+University Press. \url{https://hastie.su.domains/CASI/}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-JSSglmnet}{}}%
+Friedman, Jerome H., Trevor Hastie, and Rob Tibshirani. 2010.
+{``Regularization Paths for Generalized Linear Models via Coordinate
+Descent.''} \emph{Journal of Statistical Software} 33 (1): 1--22.
+\url{https://doi.org/10.18637/jss.v033.i01}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-HTW}{}}%
+Hastie, Trevor, Roberg Tibshirani, and Martin Wainwright. 2015.
+\emph{Statistical Learning with Sparsity: The Lasso and
+Generalizations}. CRC Press.
+\url{https://hastie.su.domains/StatLearnSparsity/}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-ESL}{}}%
+Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. \emph{The
+Elements of Statistical Learning: Data Mining, Inference, and
+Prediction}. Vol. 2. Springer series in statistics New York.
+\href{https://hastie.su.domains/ElemStatLearn}{hastie.su.domains/ElemStatLearn}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-WNvW}{}}%
+Wieringen, Wessel N. van. 2021. {``Lecture Notes on Ridge Regression.''}
+\url{https://arxiv.org/pdf/1509.09169v7.pdf}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Zou2006}{}}%
+Zou, Hui. 2006. {``The Adaptive Lasso and Its Oracle Properties.''}
+\emph{Journal of the American Statistical Association} 101 (476):
+1418--29. \url{https://doi.org/10.1198/016214506000000735}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-ZouHastie2005}{}}%
+Zou, Hui, and Trevor Hastie. 2005. {``Regularization and Variable
+Selection via the Elastic Net.''} \emph{Journal of the Royal Statistical
+Society. Series B (Statistical Methodology)} 67 (2): 301--20.
+\url{http://www.jstor.org/stable/3647580}.
+
+\end{CSLReferences}
+
+
+
+\end{document}

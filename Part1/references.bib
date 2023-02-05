@@ -69,9 +69,9 @@ PHDThesis{brandphd,
 
 @misc{WNvW,
 author = "Wessel N. van Wieringen",
-year = "2020",
+year = "2021",
 title = "Lecture notes on ridge regression",
-url = "https://arxiv.org/pdf/1509.09169.pdf"
+url = "https://arxiv.org/pdf/1509.09169v7.pdf"
 }
 
 @misc{Dua:2017 ,
@@ -409,4 +409,85 @@ author={Trevor Hastie and Roberg Tibshirani and Martin Wainwright},
 year={2015},
 url={https://hastie.su.domains/StatLearnSparsity/},
 publisher={CRC Press}}
+
+@article{FrankFriedman1993,
+author = {lldiko Frank and Jerome H. Friedman },
+title = {A Statistical View of Some Chemometrics Regression Tools},
+journal = {Technometrics},
+volume = {35},
+number = {2},
+pages = {109-135},
+year  = {1993},
+publisher = {Taylor & Francis},
+doi = {10.1080/00401706.1993.10485033},
+URL = {  https://www.tandfonline.com/doi/abs/10.1080/00401706.1993.10485033},
+eprint = { https://www.tandfonline.com/doi/pdf/10.1080/00401706.1993.10485033}
+}
+
+@article{JSSglmnet,
+ title={Regularization Paths for Generalized Linear Models via Coordinate Descent},
+ volume={33},
+ url={https://www.jstatsoft.org/index.php/jss/article/view/v033i01},
+ doi={10.18637/jss.v033.i01},
+ abstract={We develop fast algorithms for estimation of generalized linear models with convex penalties. The models include linear regression, two-class logistic regression, and multi- nomial regression problems while the penalties include ℓ&amp;lt;sub&amp;gt;1&amp;lt;/sub&amp;gt; (the lasso), ℓ&amp;lt;sub&amp;gt;2&amp;lt;/sub&amp;gt; (ridge regression) and mixtures of the two (the elastic net). The algorithms use cyclical coordinate descent, computed along a regularization path. The methods can handle large problems and can also deal efficiently with sparse features. In comparative timings we find that the new algorithms are considerably faster than competing methods.},
+ number={1},
+ journal={Journal of Statistical Software},
+ author={Friedman, Jerome H. and Hastie, Trevor and Tibshirani, Rob},
+ year={2010},
+ pages={1–22}}
+
+@article{ZouHastie2005,
+ ISSN = {13697412, 14679868},
+ URL = {http://www.jstor.org/stable/3647580},
+ abstract = {We propose the elastic net, a new regularization and variable selection method. Real world data and a simulation study show that the elastic net often outperforms the lasso, while enjoying a similar sparsity of representation. In addition, the elastic net encourages a grouping effect, where strongly correlated predictors tend to be in or out of the model together. The elastic net is particularly useful when the number of predictors (p) is much bigger than the number of observations (n). By contrast, the lasso is not a very satisfactory variable selection method in the p ≫ n case. An algorithm called LARS-EN is proposed for computing elastic net regularization paths efficiently, much like algorithm LARS does for the lasso.},
+ author = {Hui Zou and Trevor Hastie},
+ journal = {Journal of the Royal Statistical Society. Series B (Statistical Methodology)},
+ number = {2},
+ pages = {301--320},
+ publisher = {[Royal Statistical Society, Wiley]},
+ title = {Regularization and Variable Selection via the Elastic Net},
+ urldate = {2023-02-04},
+ volume = {67},
+ year = {2005}
+}
+
+@article{ZhaoLong2017,
+author = {Zhao, Yize and Long, Qi},
+title = {Variable selection in the presence of missing data: imputation-based methods},
+journal = {WIREs Computational Statistics},
+volume = {9},
+number = {5},
+pages = {e1402},
+keywords = {MAR, MCAR, MNAR, imputation, bootstrap, variable selection, missing data, resampling},
+doi = {https://doi.org/10.1002/wics.1402},
+url = {https://wires.onlinelibrary.wiley.com/doi/abs/10.1002/wics.1402},
+eprint = {https://wires.onlinelibrary.wiley.com/doi/pdf/10.1002/wics.1402},
+abstract = {Variable selection plays an essential role in regression analysis as it identifies important variables that are associated with outcomes and is known to improve predictive accuracy of resulting models. Variable selection methods have been widely investigated for fully observed data. However, in the presence of missing data, methods for variable selection need to be carefully designed to account for missing data mechanisms and statistical techniques used for handling missing data. Since imputation is arguably the most popular method for handling missing data due to its ease of use, statistical methods for variable selection that are combined with imputation are of particular interest. These methods, valid and used under the assumptions of missing at random and missing completely at random, largely fall into three general strategies. The first strategy applies existing variable selection methods to each imputed dataset and then combines variable selection results across all imputed datasets. The second strategy applies existing variable selection methods to stacked imputed datasets. The third variable selection strategy combines resampling techniques such as bootstrap with imputation. Despite recent advances, this area remains under-developed and offers fertile ground for further research. WIREs Comput Stat 2017, 9:e1402. doi: 10.1002/wics.1402 This article is categorized under: Statistical and Graphical Methods of Data Analysis > Bootstrap and Resampling},
+year = {2017}
+}
+
+@article{Lachenbruch2011,
+author = {Peter A Lachenbruch},
+title ={Variable selection when missing values are present: a case study},
+journal = {Statistical Methods in Medical Research},
+volume = {20},
+number = {4},
+pages = {429-444},
+year = {2011},
+doi = {10.1177/0962280209358003},
+    note ={PMID: 20442196},
+
+URL = { 
+        https://doi.org/10.1177/0962280209358003
+    
+},
+eprint = { 
+        https://doi.org/10.1177/0962280209358003
+    
+}
+,
+    abstract = { We consider variable selection when missing values are present in the predictor variables. We compare using complete cases with multiple imputation using backward selection (backwards stepping) and least angle regression. These are studied using a data set from a rheumatological disease (myositis). We find that the coefficients are slightly different and the estimated standard errors are smaller in the complete cases (not a surprise). This seems to be due to the fact that because the estimated residual variance is small the complete cases are more homogeneous than the full data cases. }
+}
+
+
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-01-30">
+<meta name="dcterms.date" content="2023-02-05">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -22,6 +22,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
@@ -55,6 +118,7 @@ div.csl-indent {
 <link href="L9_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="L9_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -66,12 +130,54 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#generalizations-of-the-lasso-penalty" id="toc-generalizations-of-the-lasso-penalty" class="nav-link active" data-scroll-target="#generalizations-of-the-lasso-penalty">Generalizations of the lasso penalty</a>
+  <li><a href="#before-we-begin" id="toc-before-we-begin" class="nav-link active" data-scroll-target="#before-we-begin">Before we begin</a>
   <ul class="collapse">
-  <li><a href="#reading-list" id="toc-reading-list" class="nav-link" data-scroll-target="#reading-list">Reading list</a></li>
-  <li><a href="#goal-for-this-part" id="toc-goal-for-this-part" class="nav-link" data-scroll-target="#goal-for-this-part">Goal for this part</a></li>
-  <li><a href="#group-activity" id="toc-group-activity" class="nav-link" data-scroll-target="#group-activity">Group activity</a></li>
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  <li><a href="#goal" id="toc-goal" class="nav-link" data-scroll-target="#goal">Goal</a></li>
   </ul></li>
+  <li><a href="#lasso-and-ridge" id="toc-lasso-and-ridge" class="nav-link" data-scroll-target="#lasso-and-ridge">Lasso and ridge</a>
+  <ul class="collapse">
+  <li><a href="#why-do-we-need-lasso-variants" id="toc-why-do-we-need-lasso-variants" class="nav-link" data-scroll-target="#why-do-we-need-lasso-variants">Why do we need lasso variants</a></li>
+  </ul></li>
+  <li><a href="#the-l_q-regression" id="toc-the-l_q-regression" class="nav-link" data-scroll-target="#the-l_q-regression">The <span class="math inline">\(l_q\)</span> regression</a>
+  <ul class="collapse">
+  <li><a href="#bridge-regression" id="toc-bridge-regression" class="nav-link" data-scroll-target="#bridge-regression">Bridge regression</a></li>
+  </ul></li>
+  <li><a href="#elastic-net" id="toc-elastic-net" class="nav-link" data-scroll-target="#elastic-net">Elastic net</a>
+  <ul class="collapse">
+  <li><a href="#minimization-problem" id="toc-minimization-problem" class="nav-link" data-scroll-target="#minimization-problem">Minimization problem</a></li>
+  <li><a href="#parameter-estimation" id="toc-parameter-estimation" class="nav-link" data-scroll-target="#parameter-estimation">Parameter estimation</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#exam-2020-problem-1-stk-in4300-uio" id="toc-exam-2020-problem-1-stk-in4300-uio" class="nav-link" data-scroll-target="#exam-2020-problem-1-stk-in4300-uio">Exam 2020 Problem 1 (STK-IN4300, UiO)</a></li>
+  <li><a href="#group-discussion-exam-2019-problem-1c-stk-in4300-uio" id="toc-group-discussion-exam-2019-problem-1c-stk-in4300-uio" class="nav-link" data-scroll-target="#group-discussion-exam-2019-problem-1c-stk-in4300-uio">Group discussion: Exam 2019 Problem 1c (STK-IN4300, UiO)</a></li>
+  </ul></li>
+  <li><a href="#group-lasso" id="toc-group-lasso" class="nav-link" data-scroll-target="#group-lasso">Group lasso</a>
+  <ul class="collapse">
+  <li><a href="#what-does-this-new-unsquared-l_2-penalty-do" id="toc-what-does-this-new-unsquared-l_2-penalty-do" class="nav-link" data-scroll-target="#what-does-this-new-unsquared-l_2-penalty-do">What does this new (unsquared) <span class="math inline">\(L_2\)</span> penalty do?</a></li>
+  <li><a href="#parameter-estimation-1" id="toc-parameter-estimation-1" class="nav-link" data-scroll-target="#parameter-estimation-1">Parameter estimation</a></li>
+  <li><a href="#sparse-group-lasso" id="toc-sparse-group-lasso" class="nav-link" data-scroll-target="#sparse-group-lasso">Sparse group lasso</a>
+  <ul class="collapse">
+  <li><a href="#parameter-estimation-2" id="toc-parameter-estimation-2" class="nav-link" data-scroll-target="#parameter-estimation-2">Parameter estimation</a></li>
+  </ul></li>
+  <li><a href="#group-discussion-exam-2019-problem-1b-stk-in4300-uio" id="toc-group-discussion-exam-2019-problem-1b-stk-in4300-uio" class="nav-link" data-scroll-target="#group-discussion-exam-2019-problem-1b-stk-in4300-uio">Group discussion: Exam 2019 Problem 1b (STK-IN4300, UiO)</a></li>
+  <li><a href="#overlap-group-lasso" id="toc-overlap-group-lasso" class="nav-link" data-scroll-target="#overlap-group-lasso">Overlap group lasso</a></li>
+  </ul></li>
+  <li><a href="#non-convex-penalties" id="toc-non-convex-penalties" class="nav-link" data-scroll-target="#non-convex-penalties">Non-convex penalties</a>
+  <ul class="collapse">
+  <li><a href="#adaptive-lasso" id="toc-adaptive-lasso" class="nav-link" data-scroll-target="#adaptive-lasso">Adaptive lasso</a></li>
+  <li><a href="#back-to-forward-stepwise-model-selection" id="toc-back-to-forward-stepwise-model-selection" class="nav-link" data-scroll-target="#back-to-forward-stepwise-model-selection">Back to forward stepwise model selection</a></li>
+  </ul></li>
+  <li><a href="#a-never-ending-story" id="toc-a-never-ending-story" class="nav-link" data-scroll-target="#a-never-ending-story">A never ending story?</a>
+  <ul class="collapse">
+  <li><a href="#group-discussion" id="toc-group-discussion" class="nav-link" data-scroll-target="#group-discussion">Group discussion</a></li>
+  </ul></li>
+  <li><a href="#solutions" id="toc-solutions" class="nav-link" data-scroll-target="#solutions">Solutions</a>
+  <ul class="collapse">
+  <li><a href="#exam-uio-stk-in4300-2019-problem-1bc" id="toc-exam-uio-stk-in4300-2019-problem-1bc" class="nav-link" data-scroll-target="#exam-uio-stk-in4300-2019-problem-1bc">Exam UiO STK-IN4300 2019 Problem 1bc</a></li>
+  <li><a href="#exam-uio-stk-in4300-2020-problem-1" id="toc-exam-uio-stk-in4300-2020-problem-1" class="nav-link" data-scroll-target="#exam-uio-stk-in4300-2020-problem-1">Exam UiO STK-IN4300 2020 Problem 1</a></li>
+  </ul></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
 </div>
@@ -99,7 +205,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 30, 2023</p>
+      <p class="date">February 5, 2023</p>
     </div>
   </div>
   
@@ -112,51 +218,444 @@ div.csl-indent {
 <div class="cell">
 
 </div>
-<section id="generalizations-of-the-lasso-penalty" class="level1">
-<h1>Generalizations of the lasso penalty</h1>
-<section id="reading-list" class="level2">
-<h2 class="anchored" data-anchor-id="reading-list">Reading list</h2>
-<p>(HTW 4.1-4.3, 4.5-4.6: NB only from a practical point of view)</p>
+<section id="before-we-begin" class="level1">
+<h1>Before we begin</h1>
+<section id="literature" class="level2">
+<h2 class="anchored" data-anchor-id="literature">Literature</h2>
+<ul>
+<li>[HTW] Hastie, Tibshirani, Wainwrigh: “Statistical Learning with Sparsity: The Lasso and Generalizations”. CRC press. <a href="https://hastie.su.domains/StatLearnSparsity/">Ebook</a>. Chapter 4.1-4.3,4.6</li>
+</ul>
+<p>and for the interested student</p>
+<ul>
+<li>[WNvW] <a href="https://arxiv.org/pdf/1509.09169v7.pdf">Wessel N. van Wieringen: Lecture notes on ridge regression</a> Chapter 6.6</li>
+<li>[CASI] <span class="citation" data-cites="casi">Efron and Hastie (<a href="#ref-casi" role="doc-biblioref">2016</a>)</span> Chapter 16 (lasso in general)</li>
+</ul>
+<hr>
 </section>
-<section id="goal-for-this-part" class="level2">
-<h2 class="anchored" data-anchor-id="goal-for-this-part">Goal for this part</h2>
+<section id="goal" class="level2">
+<h2 class="anchored" data-anchor-id="goal">Goal</h2>
 <p>The main goal of this part is to</p>
 <ul>
-<li>know about these special versions of the lasso, and</li>
+<li>know about these special versions of the lasso (also in combination with the ridge), and</li>
 <li>to see which practical data situation these can be smart to use.</li>
 </ul>
 <p>Maybe one of these is suitable for the Data analysis project?</p>
 <p>Theoretical properties and algorithmic details are not on the reading list.</p>
+</section>
+</section>
+<section id="lasso-and-ridge" class="level1">
+<h1>Lasso and ridge</h1>
+<p>We have seen that the ridge regression shrinks the regression coefficients (as compared to the least squares solution), while the lasso regression both shrinks and sets some coefficients to zero (model selection).</p>
+<section id="why-do-we-need-lasso-variants" class="level2">
+<h2 class="anchored" data-anchor-id="why-do-we-need-lasso-variants">Why do we need lasso variants</h2>
 <hr>
-<p>See <a href="https://github.com/mettelang/MA8701V2021/blob/main/Part1/LassoandfriendsBenDunn.pdf">slides from guest lecturer Benjamin Dunn</a></p>
+<ul>
+<li>empirically lasso sometimes does not perform well for highly correlated variables</li>
+<li>in some situations we would like a group of covariates to either be in or out of the model “together”, for example a dummy variable coded factor</li>
+</ul>
+</section>
+</section>
+<section id="the-l_q-regression" class="level1">
+<h1>The <span class="math inline">\(l_q\)</span> regression</h1>
+<p><span class="math display">\[ \text{minimize}_{\beta_0,\beta} \{ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \lvert \beta_j\rvert^q \}, q\ge 0\]</span></p>
+<ul>
+<li><span class="math inline">\(q=0\)</span>: best subset regression</li>
+<li><span class="math inline">\(q=1\)</span>: lasso</li>
+<li><span class="math inline">\(q=2\)</span>: ridge</li>
+</ul>
+<p>Remark: <span class="math inline">\(l_q\)</span> is the but penalty of the form <span class="math inline">\(\lvert \beta_j\rvert^q\)</span>. Note that <span class="math inline">\(l_2\)</span> is thus the squared <span class="math inline">\(L_2\)</span> norm (squared Euclidean norm).</p>
+<hr>
+<p>Properties</p>
+<ul>
+<li><span class="math inline">\(0 \le q \le 1\)</span>: not differentiable</li>
+<li><span class="math inline">\(1&lt;q&lt;2\)</span>: in between lasso and ridge, but differentiable (and no variable selection property)</li>
+<li><span class="math inline">\(q\)</span> can be estimated from data, but according to <span class="citation" data-cites="ESL">Hastie, Tibshirani, and Friedman (<a href="#ref-ESL" role="doc-biblioref">2009</a>)</span> this is “not worth the effort for the extra variance incurred”</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./ESLFig312.jpg" class="img-fluid figure-img" style="width:100.0%"></p>
+<p></p><figcaption class="figure-caption">Figure 3.12 from <span class="citation" data-cites="ESL">Hastie, Tibshirani, and Friedman (<a href="#ref-ESL" role="doc-biblioref">2009</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./HTWFig412.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p></p><figcaption class="figure-caption">Figure 4.12 from <span class="citation" data-cites="HTW">Hastie, Tibshirani, and Wainwright (<a href="#ref-HTW" role="doc-biblioref">2015</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<section id="bridge-regression" class="level2">
+<h2 class="anchored" data-anchor-id="bridge-regression">Bridge regression</h2>
+<!-- Origin of method: @FrankFriedman1993 Fant det ikke i den artikkelen men de snakket om å finne q-->
+<p>This is <span class="math inline">\(l_q\)</span> but with <span class="math inline">\(q&gt;1\)</span>.</p>
+<p><span class="math display">\[ \text{minimize}_{\beta_0,\beta} \{ \frac{1}{2}\sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \lvert \beta_j\rvert^q \}, q\ge 0\]</span></p>
+</section>
+</section>
+<section id="elastic-net" class="level1">
+<h1>Elastic net</h1>
+<p>(HTW 4.2) Origin of method: <span class="citation" data-cites="ZouHastie2005">Zou and Hastie (<a href="#ref-ZouHastie2005" role="doc-biblioref">2005</a>)</span></p>
+<ul>
+<li>Compromise between the ridge and lasso penalty.</li>
+<li>Lasso gives sparsity but does not handle correlated variables well.</li>
+<li>Ridge handles correlated variables well, but is not sparse.</li>
+</ul>
+<p>Solution: <em>elastic net</em> which handles” coefficients of correlated features together (similar values or all zero).</p>
+<p>The penalty used is now weighted sum of the ridge and the lasso penalty.</p>
+<hr>
+<section id="minimization-problem" class="level2">
+<h2 class="anchored" data-anchor-id="minimization-problem">Minimization problem</h2>
+<p><span class="math display">\[ \text{minimize}_{\beta_,\beta} \{ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p (\frac{1}{2}(1-\alpha) \beta_j^2+\alpha \lvert \beta_j\rvert )\}\]</span></p>
+<p>again, <span class="math inline">\(\lambda \ge 0\)</span> is a complexity (regularization, penalty) parameter controlling the amount of shrinkage together with <span class="math inline">\(\alpha \in [0,1]\)</span> that “balance” out the penalty between the squared and absolute penalty.</p>
+<ul>
+<li><span class="math inline">\(\alpha=1\)</span>: lasso only</li>
+<li><span class="math inline">\(\alpha=0\)</span>: ridge only</li>
+</ul>
+<p>The problem is strictly convex if <span class="math inline">\(\lambda&gt;0\)</span> and <span class="math inline">\(\alpha&lt;1\)</span> which gives uniqueness for the elastic net coefficients for this case.</p>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./HTWFig42.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p></p><figcaption class="figure-caption">Figure 4.2 from <span class="citation" data-cites="HTW">Hastie, Tibshirani, and Wainwright (<a href="#ref-HTW" role="doc-biblioref">2015</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<p>What is the elastic net parameter constraint region? Why will this give a variable selection property?</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./WNvWFig611.jpg" class="img-fluid figure-img" style="width:100.0%"></p>
+<p></p><figcaption class="figure-caption">Figure 6.11 from <span class="citation" data-cites="WNvW">Wieringen (<a href="#ref-WNvW" role="doc-biblioref">2021</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Slightly different parametrization in <span class="citation" data-cites="WNvW">Wieringen (<a href="#ref-WNvW" role="doc-biblioref">2021</a>)</span>, with <span class="math inline">\(\lambda_1=\lambda\alpha\)</span> and <span class="math inline">\(\lambda_2=\lambda(1-\alpha)\)</span>.</p>
+<hr>
+<p>The figure to the right shows potential problems in selecting the best hyperparameters. Observe that several combination of the two hyperparameters are equally good.</p>
+<p>This is the reason for the parameterization with <span class="math inline">\(\alpha\)</span> as a mixing parameter, where the <span class="math inline">\(\alpha\)</span> is assumed to be set by the user, while the <span class="math inline">\(\lambda\)</span> is found using cross-validation.</p>
+<p>However, of cause <span class="math inline">\(\alpha\)</span> is a tuning parameter and need to be set. See for example the <a href="https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/3026839">Master thesis of Lene Omdal Tillerli Chapter 3.5 and 5.3</a> for different cross-validation strategies for selecting the two hyperparameters.</p>
 <hr>
 </section>
-<section id="group-activity" class="level2">
-<h2 class="anchored" data-anchor-id="group-activity">Group activity</h2>
-<p>(choose one variant to work with)</p>
-<p>For the lasso variants</p>
+<section id="parameter-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="parameter-estimation">Parameter estimation</h2>
+<p>The <em>glmnet</em>-R package is constructed around the elastic net. Here the cyclic coordinate descent algorithm is used, and compared to the pseudo-algorithm we devised in class in L8, for the step with the update of <span class="math inline">\(\beta_j\)</span> the soft-threshold solution is slightly modified to (HTW Equation 4.4)</p>
+<p><span class="math display">\[\hat{\beta}_j=\frac{1}{\sum_{i=1}^N x_{ij}^2+\lambda (1-\alpha)} S_{\lambda \alpha}(\sum_{i=1}^N r_{ij}x_{ij})\]</span></p>
+<p>where (as in L8) the soft thresholding operator is <span class="math inline">\(S_{\mu}(z)=sign(z)(\lvert z \rvert -\mu)_{+}\)</span> and the partial residual (as in L8) is <span class="math inline">\(r_{ij}=y_i-\beta_0-\sum_{k\neq j} x_{ik}\hat{\beta}_k\)</span> (in L8 we used <span class="math inline">\(\tilde{y}\)</span> and not <span class="math inline">\(r\)</span>).</p>
+<hr>
+<p>Why do you think this can be solved in such a similar way as for the lasso?</p>
+<p>There is a “data augmentation trick” where we can add <span class="math inline">\(p\)</span> 0-reponses with covariates <span class="math inline">\(\sqrt{\lambda (1-\alpha)} \boldsymbol I_{pp}\)</span> to perform a ridge regression (<span class="citation" data-cites="WNvW">Wieringen (<a href="#ref-WNvW" role="doc-biblioref">2021</a>)</span> 6.8.1).</p>
+<p>Details are found in the article in the Journal on Statistical Software on the glmnet <span class="citation" data-cites="JSSglmnet">Friedman, Hastie, and Tibshirani (<a href="#ref-JSSglmnet" role="doc-biblioref">2010</a>)</span>.</p>
+<hr>
+</section>
+<section id="example" class="level2">
+<h2 class="anchored" data-anchor-id="example">Example</h2>
+<p>This example is shown in Figure 4.2 in HTW and reproduced with the R code below.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">8701</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>N<span class="ot">=</span><span class="dv">100</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>z1<span class="ot">=</span><span class="fu">rnorm</span>(N,<span class="dv">0</span>,<span class="dv">1</span>); z2<span class="ot">=</span><span class="fu">rnorm</span>(N,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>eps<span class="ot">=</span><span class="fu">rnorm</span>(N,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>y<span class="ot">=</span><span class="dv">3</span><span class="sc">*</span>z1<span class="fl">-1.5</span><span class="sc">*</span>z2<span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>eps</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>add<span class="ot">=</span><span class="fu">matrix</span>(<span class="fu">rnorm</span>(N<span class="sc">*</span><span class="dv">6</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">ncol=</span><span class="dv">6</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>x1<span class="ot">=</span>z1<span class="sc">+</span>add[,<span class="dv">1</span>]<span class="sc">/</span><span class="dv">5</span>; x2<span class="ot">=</span>z1<span class="sc">+</span>add[,<span class="dv">2</span>]<span class="sc">/</span><span class="dv">5</span>; x3<span class="ot">=</span>z1<span class="sc">+</span>add[,<span class="dv">3</span>]<span class="sc">/</span><span class="dv">5</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>x4<span class="ot">=</span>z2<span class="sc">+</span>add[,<span class="dv">4</span>]<span class="sc">/</span><span class="dv">5</span>; x5<span class="ot">=</span>z2<span class="sc">+</span>add[,<span class="dv">5</span>]<span class="sc">/</span><span class="dv">5</span>; x6<span class="ot">=</span>z2<span class="sc">+</span>add[,<span class="dv">6</span>]<span class="sc">/</span><span class="dv">5</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">as.matrix</span>(<span class="fu">data.frame</span>(<span class="at">x1=</span>x1,<span class="at">x2=</span>x2,<span class="at">x3=</span>x3,<span class="at">x4=</span>x4,<span class="at">x5=</span>x5,<span class="at">x6=</span>x6))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L9_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L9_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+
+</div>
+<hr>
+</section>
+<section id="exam-2020-problem-1-stk-in4300-uio" class="level2">
+<h2 class="anchored" data-anchor-id="exam-2020-problem-1-stk-in4300-uio">Exam 2020 Problem 1 (STK-IN4300, UiO)</h2>
+<p>Consider data simulated with the following setting:</p>
 <ul>
-<li>the elastic net [HTW 4.2]</li>
-<li>the group lasso [HTW 4.3]</li>
-<li>the fused lasso [HTW 4.5] <!-- * the bridge regression [ELS equation 3.53, page 72] --></li>
+<li><span class="math inline">\(\beta_i \sim N(0,2), i=1,\ldots,p\)</span></li>
+<li><span class="math inline">\(X \sim N_p(\boldsymbol 0,\boldsymbol \Sigma)\)</span> where (i)<span class="math inline">\(N_p(\cdot,\cdot)\)</span> denotes a <span class="math inline">\(p\)</span>-dimensional multivariate Gaussian distribution; (ii) <span class="math inline">\(\boldsymbol{0}\)</span> is a <span class="math inline">\(p\)</span>-dimensional vector of <span class="math inline">\(0\)</span>; (iii) <span class="math inline">\(\boldsymbol \Sigma\)</span> is a <span class="math inline">\(p \times p\)</span> matrix with diagonal elements equal to <span class="math inline">\(1\)</span> and all other elements equal to <span class="math inline">\(0.9\)</span>;</li>
+<li><span class="math inline">\(y = X \beta + \varepsilon\)</span>, with <span class="math inline">\(\beta = (\beta_1,\ldots, \beta_p)^T\)</span> and <span class="math inline">\(\varepsilon \sim N(0, 1)\)</span>.</li>
 </ul>
-<p>write down</p>
+<p><strong>a)</strong> If you were forced to choose between ridge regression and lasso, which one would you have used to predict y on a test set generated with the same setting? Why?</p>
+<p><strong>b)</strong> Would your choice have been the same if you ignored the ﬁrst information on <span class="math inline">\(\beta\)</span> ? Why?</p>
+<p><strong>c)</strong> Do you think that elastic net could have been a better choice in the situation of point (b)? Why?</p>
+<hr>
+</section>
+<section id="group-discussion-exam-2019-problem-1c-stk-in4300-uio" class="level2">
+<h2 class="anchored" data-anchor-id="group-discussion-exam-2019-problem-1c-stk-in4300-uio">Group discussion: Exam 2019 Problem 1c (STK-IN4300, UiO)</h2>
+<p>Briefly explain <em>elastic net</em> and <em>bridge regression</em> and explain why despite the corresponding constraints are almost indistinguishable in Figure 3.13 of <span class="citation" data-cites="ESL">Hastie, Tibshirani, and Friedman (<a href="#ref-ESL" role="doc-biblioref">2009</a>)</span>, they provide, in general, quite different models.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./ESLFig313.jpg" class="img-fluid figure-img" style="width:100.0%"></p>
+<p></p><figcaption class="figure-caption">Figure 3.13 from <span class="citation" data-cites="ESL">Hastie, Tibshirani, and Friedman (<a href="#ref-ESL" role="doc-biblioref">2009</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="group-lasso" class="level1">
+<h1>Group lasso</h1>
+<p>(HTW Section 4.3.1)</p>
+<p>Now we aim at fixing the following problem with the lasso: if we have a factor and have used dummy variable coding, then the lasso may only choose to select some of the dummy variables to be in the model, and the lasso solution also is dependent on how the dummy variable encoding is done (choosing different contrasts will produce different solutions). Other application might have groups of genes in pathways, where those can be handled together.</p>
+<p>The solution is to use a penalty that can be seen kind of intermediate to <span class="math inline">\(L_1\)</span> and squared <span class="math inline">\(L_2\)</span>:</p>
+<hr>
+<p>Assume we have <span class="math inline">\(J\)</span> groups and <span class="math inline">\(p_j\)</span> covariates for each group. Further <span class="math inline">\(Z_j\in \Re^{p_j}\)</span> is the covariates for group <span class="math inline">\(j\)</span>. Further let <span class="math inline">\(\theta_j \in \Re^{p_j}\)</span> be the regression coefficients for group <span class="math inline">\(j\)</span>.</p>
+<p><span class="math display">\[\text{minimize}_{\theta_0,\theta} \{
+\sum_{i=1}^N (y_i-\theta_0-\sum_{j=1}^J z_{ij}\theta_j )^2
++ \lambda \sum_{j=1}^J \lvert\lvert \theta_j{\rvert \rvert}_2\}\]</span></p>
+<p>where <span class="math inline">\(\lvert\lvert \theta_j{\rvert \rvert}_2\)</span> is the Euclidean norm of the vector <span class="math inline">\(\theta_j\)</span>.</p>
+<hr>
+<section id="what-does-this-new-unsquared-l_2-penalty-do" class="level2">
+<h2 class="anchored" data-anchor-id="what-does-this-new-unsquared-l_2-penalty-do">What does this new (unsquared) <span class="math inline">\(L_2\)</span> penalty do?</h2>
+<ul>
+<li>All groups with one variable ends up with lasso <span class="math inline">\(L_1\)</span> penalty because: when <span class="math inline">\(p_j=1\)</span> then <span class="math inline">\(\lvert\lvert \theta_j{\rvert \rvert}_2=\lvert \theta_j{\rvert}\)</span>, and thus the <span class="math inline">\(L_1\)</span> lasso penalty is used for singelton groups.</li>
+<li>All groups with more than two variables end up with the square root of the ridge penalty. since the penalty is <span class="math inline">\(\sqrt{\sum_{j \in J}\beta_{j}^2}\)</span> for all elements of this group <span class="math inline">\(J\)</span>.</li>
+</ul>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./HTWFig43.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p></p><figcaption class="figure-caption">Figure 4.3 from <span class="citation" data-cites="HTW">Hastie, Tibshirani, and Wainwright (<a href="#ref-HTW" role="doc-biblioref">2015</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<p>Observe that the penalty is the same for all groups, independent of the group size- but it is common to also include the group size in the penalty (HTW does not, WNvW does).</p>
+<p>HTW Exercise 4.4: the penalty term ensures that the coefficients in a group sum to zero given that there is an intercept term in the model.</p>
+<p>Comment: some results are for orthogonal design matrices for a group. But, this will only happen if we have a balanced design, with the same number of observations for each level of a categorical variable group. This is very seldom the case in observational data, but in Design of Experiments this may happen for example in <span class="math inline">\(2^k\)</span> designs.</p>
+<hr>
+</section>
+<section id="parameter-estimation-1" class="level2">
+<h2 class="anchored" data-anchor-id="parameter-estimation-1">Parameter estimation</h2>
+<p>The coordinate descent algorithm may be modified to a block coordinate descent version. The step to update <span class="math inline">\(\hat{\theta}_j\)</span> in the coordinate descent cyclic algorithm is</p>
+<p><span class="math display">\[\hat{\theta}_j=({\boldsymbol Z}_j^T{\boldsymbol Z}_j+
+\frac{\lambda}{\lvert\lvert \hat{\theta}_j{\rvert \rvert}_2}{\boldsymbol I})^{-1}{\boldsymbol Z}_j^T{\boldsymbol r}_j\]</span> where as earlier <span class="math inline">\({\boldsymbol r}_j\)</span> is a partial residual.</p>
+<p>If the designmatrix <span class="math inline">\({\boldsymbol Z}_j\)</span> is ortogonal this is simplified to <span class="math display">\[\hat{\theta}_j=(1
+\frac{\lambda}{\lvert \lvert {\boldsymbol Z}_j^T{\boldsymbol r}_j \rvert \rvert})_{+}{\boldsymbol Z}_j^T{\boldsymbol r}_j\]</span></p>
+<p>For non-ortogonal design matrices iterative methods are used.</p>
+<hr>
+</section>
+<section id="sparse-group-lasso" class="level2">
+<h2 class="anchored" data-anchor-id="sparse-group-lasso">Sparse group lasso</h2>
+<p>(HTW Section 4.3.2, WNvW Section 6.8.3)</p>
+<p>The group lasso (with the Euclidean penalty) is now joined by the <span class="math inline">\(L_1\)</span> penalty. This is kind of similar to the elastic net now the squared <span class="math inline">\(L_2\)</span> penalty is replaced by <span class="math inline">\(L_2\)</span> penalty.</p>
+<p><span class="math display">\[\text{minimize}_{\theta_0,\theta} \{ \sum_{i=1}^N (y_i-\theta_0-\sum_{j=1}^J z_{ij}\theta_j )^2 + \lambda \sum_{j=1}^J [(1-\alpha) \lvert \lvert \theta_j {\rvert \rvert}_2 + \alpha \lvert\lvert \theta_j{\rvert \rvert}_1]\}\]</span></p>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./HTWFig45.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p></p><figcaption class="figure-caption">Figure 4.5 from <span class="citation" data-cites="HTW">Hastie, Tibshirani, and Wainwright (<a href="#ref-HTW" role="doc-biblioref">2015</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<section id="parameter-estimation-2" class="level3">
+<h3 class="anchored" data-anchor-id="parameter-estimation-2">Parameter estimation</h3>
+<p>Again, a version of cyclic block-wise coordinate descent can be used.</p>
+<p>The case when <span class="math inline">\(\boldsymbol Z_j\)</span> is not orthogonal requires more work than for orthonal versions.</p>
+<p>Again, as for the elastic net, tuning the two hyperparametres may have several values being equally good.</p>
+<hr>
+</section>
+</section>
+<section id="group-discussion-exam-2019-problem-1b-stk-in4300-uio" class="level2">
+<h2 class="anchored" data-anchor-id="group-discussion-exam-2019-problem-1b-stk-in4300-uio">Group discussion: Exam 2019 Problem 1b (STK-IN4300, UiO)</h2>
+<p>Consider the following version of the sparse group lasso:</p>
+<p><span class="math display">\[\text{minimize}_{\beta_0,\beta} \{ \lvert \lvert y-\beta_0 \overrightarrow{1}-\sum_{l=1}^L X_{l}\beta_l {\rvert \rvert}^2_2 + (1-\alpha)\lambda \sum_{l=1}^L\sqrt{p_l}\lvert \lvert \beta_j {\rvert \rvert}_2 + \alpha \lambda \lvert\lvert \beta{\rvert \rvert}_1\}\]</span> where <span class="math inline">\(\overrightarrow{1}\)</span> denotes an <span class="math inline">\(N\)</span>-dimensional vector of 1s, <span class="math inline">\(\lambda \ge0\)</span> and <span class="math inline">\(0\ge \alpha \ge 1\)</span>. Answer the following questions:</p>
+<ul>
+<li>Why does <span class="math inline">\(\beta_0\)</span> only appear in the first term?</li>
+<li>What happens when <span class="math inline">\(\alpha=0\)</span> and <span class="math inline">\(\alpha=1\)</span>, respectively?</li>
+<li>Briefly describe the concept of “bet on sparsity”.</li>
+</ul>
+<hr>
+</section>
+<section id="overlap-group-lasso" class="level2">
+<h2 class="anchored" data-anchor-id="overlap-group-lasso">Overlap group lasso</h2>
+<p>(HTW Section 4.3.3)</p>
+<p>This is an extension to allow for a covariate to belong to more than one group.</p>
+<p>The overlap group lasso “replicates a variable” in whatever group it is a member of, and then fits the group lasso to the problem.</p>
+<p>The overlap group lasso can be used to ensure that interactions between covariates are only part of the model if the main effects of the covariates are in the model. See example HTW 4.3 for details.</p>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./HTWFig46.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p></p><figcaption class="figure-caption">Figure 4.6 from <span class="citation" data-cites="HTW">Hastie, Tibshirani, and Wainwright (<a href="#ref-HTW" role="doc-biblioref">2015</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="non-convex-penalties" class="level1">
+<h1>Non-convex penalties</h1>
+<p>(HTW Section 4.5, WNvW Section 6.9)</p>
+<p>We have looked at the <span class="math inline">\(l^q\)</span> penalty formula in the start of L9:</p>
+<p><span class="math display">\[ \text{minimize}_{\beta_0,\beta} \{ \sum_{i=1}^N (y_i-\beta_0+\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \lvert \beta_j\rvert^q \}, q\le 0\]</span> Observe that if <span class="math inline">\(0\le q \le 1\)</span> is non-convex.</p>
+<p>For <span class="math inline">\(l^0\)</span> we aim for best subset selection and need to investigate <span class="math inline">\(2^p\)</span> possible models. This is not easy for <span class="math inline">\(p&gt;40\)</span>.</p>
+<p>The Smoothly Clipped Absolute Deviation SCAD method is an alternative to the <span class="math inline">\(l^q\)</span>.</p>
+<hr>
+<section id="adaptive-lasso" class="level2">
+<h2 class="anchored" data-anchor-id="adaptive-lasso">Adaptive lasso</h2>
+<p>(HTW Section 4.6, WNvW Section 6.8.4)</p>
+<p>Origin: <span class="citation" data-cites="Zou2006">Zou (<a href="#ref-Zou2006" role="doc-biblioref">2006</a>)</span></p>
+<p>The aim is to fit models that are even sparser than the lasso. The method uses a so-called <em>pilot estimate</em> <span class="math inline">\(\tilde{\beta}\)</span>:</p>
+<p><span class="math display">\[ \text{minimize}_{\beta_0,\beta} \{ \sum_{i=1}^N (y_i-\beta_0+\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p w_j \lvert \beta_j\rvert \}\]</span> where <span class="math inline">\(w_j=1/{\lvert \tilde{\beta}_j}\rvert ^{\nu}\)</span> includes the pilot estimated, and given this pilot estimate the criterion i convex in <span class="math inline">\(\beta\)</span>. The value of <span class="math inline">\(\nu\)</span> makes this an approximation to the <span class="math inline">\(l^q\)</span> penalty where <span class="math inline">\(q=1-\nu\)</span>.</p>
+<hr>
+<p>Since the pilot estimate needs to be found first, this can be seen as a two-step procedure.</p>
+<p>If <span class="math inline">\(p&lt;N\)</span> then the least squares estimator can be used as the pilot estimate, and for larger <span class="math inline">\(p\)</span> the ridge or lasso estimate may be used.</p>
+<p>If <span class="math inline">\(\tilde{\beta_j}=0\)</span> then the penalty of the <span class="math inline">\(j\)</span>th element of the coefficient vector is infinity and the adaptive lasso estimate for the coeffisient will be zero.</p>
+<hr>
+<p>For the orthogonal design, the adaptive lasso can be written as:</p>
+<p><span class="math display">\[\hat{\beta}(\lambda)=sign(\hat{\beta}_{{\text LS},j})(\lvert \hat{\beta}_{{\text LS},j}\rvert -\frac{\lambda}{2 \hat{\beta}_{{\text LS},j}} )_{+}\]</span> Compare this with the lasso, the difference is the last denominator.</p>
+<hr>
+<p>Unlike the lasso (according to <span class="citation" data-cites="Zou2006">Zou (<a href="#ref-Zou2006" role="doc-biblioref">2006</a>)</span>) the adaptive lasso is found to fulfill the <em>oracle property</em>.</p>
+<p>According to <span class="citation" data-cites="Zou2006">Zou (<a href="#ref-Zou2006" role="doc-biblioref">2006</a>)</span>, for an oracle procedure <span class="math inline">\(\delta\)</span> then <span class="math inline">\(\beta(\delta)\)</span> has the following properties:</p>
+<ul>
+<li>It identifies the right (correct) subset model, <span class="math inline">\(\{j: \beta_j \neq0\}={\cal A}\)</span></li>
+<li>“Has the optimal estimation rate” <span class="math inline">\(\sqrt{N}(\hat{\beta}(\delta)_{\cal A}-\beta^*_{\cal A})\rightarrow_d N(\boldsymbol 0,\boldsymbol \Sigma)\)</span></li>
+</ul>
+<p>If stepwise selection is used to find the active set, it can be trapped in local minima.</p>
+<p>The continuous shrinkage property of the lasso is know to improve the prediction accuracy of the method (bias-variance trade-off).</p>
+<p>The adaptive lasso can be estimated using the LARS algorithm of Efron et al (2004) (not covered in this course, but presented in <span class="citation" data-cites="ESL">Hastie, Tibshirani, and Friedman (<a href="#ref-ESL" role="doc-biblioref">2009</a>)</span> Section 3.4.4).</p>
+<hr>
+</section>
+<section id="back-to-forward-stepwise-model-selection" class="level2">
+<h2 class="anchored" data-anchor-id="back-to-forward-stepwise-model-selection">Back to forward stepwise model selection</h2>
+<p>If the aim is to minimize the squared loss with the <span class="math inline">\(l^0\)</span> penalty, the <em>forward stepwise model</em> method for model selection is efficent and “hard to beat”.</p>
+<p>The forward stepwise model selection is a greedy algorithm.</p>
+<ul>
+<li>build a model sequentially by adding one variable at a time.</li>
+<li>At each step the best variable to include in the active set is identified and</li>
+<li>then the LS-fit is (re)computed for all the active variables.</li>
+</ul>
+<p>This is an algorithm and not an optimization problem, and the theoretical properties of the algorithm “are less well understood” (HTW page 86).</p>
+</section>
+</section>
+<section id="a-never-ending-story" class="level1">
+<h1>A never ending story?</h1>
+<p>There seems to always be something that can be improved upon, and there are several lasso variantes that we have not discussed.</p>
+<p>Other variants include</p>
+<ul>
+<li>The fused lasso (HTW Section 4.5)</li>
+<li>The random lasso</li>
+</ul>
+<hr>
+<section id="group-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="group-discussion">Group discussion</h2>
+<p>Choose one of the lasso/ridge variants we have covered in L8-L9 and write down:</p>
 <ul>
 <li>which variation on the classic lasso penalty is used (write down the penalty part of the minimization problem)</li>
 <li>make a drawing of the penalty (comparable to the sphere for ridge and the diamond for lasso)</li>
 <li>in which practical data analysis situation is this variation used (e.g.&nbsp;when many correlated variables are present, when the covariates have a natural group structure, …)</li>
-<li>are there any algorithmic challenges?</li>
+<li>how can the parameter estimates be found?</li>
 <li>anything else you found interesting?</li>
 </ul>
-
+<!-- # Exercises -->
+<!-- None -->
+<!-- # Solutions to exercises -->
+<!-- Please try yourself first, or take a small peek - and try some more - before fully reading the solutions. Report errors or improvements to <Mette.Langaas@ntnu.no>.  -->
 </section>
 </section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<section id="solutions" class="level1">
+<h1>Solutions</h1>
+<section id="exam-uio-stk-in4300-2019-problem-1bc" class="level2">
+<h2 class="anchored" data-anchor-id="exam-uio-stk-in4300-2019-problem-1bc">Exam UiO STK-IN4300 2019 Problem 1bc</h2>
+<p>(stolen from the webpages at UiO)</p>
+<p><strong>b)</strong></p>
+<ul>
+<li>Because the intercept is excluded from the penalization, as it makes no sense to shrink it toward 0.</li>
+<li>One obtains the group lasso and the ordinary lasso, respectively.</li>
+<li>It is preferable to use a procedure which assumes a sparse truth over one that does not, because the former performs better if the problem is actually sparse, while both procedures tend to perform badly for a dense problem.</li>
+</ul>
+<p><strong>c)</strong> Bridge regression is a penalize regression approach which uses a penalty of the form <span class="math inline">\(\sum_{j=1}^p \lvert \beta_j\rvert^q\)</span> where <span class="math inline">\(p\)</span> is the number of explanatory variables and <span class="math inline">\(\beta_j\)</span> the regression coeﬃcients. When <span class="math inline">\(1 \le q \le 2\)</span>, the penalty can be seen as a compromise between the lasso <span class="math inline">\(q=1\)</span> and the ridge <span class="math inline">\(q=2\)</span> penalties.</p>
+<p>Similarly, elastic net is also a compromise between lasso and ridge regression: in this case, a mixture of <span class="math inline">\(L_1\)</span> and <span class="math inline">\(L_2\)</span> penalties is used, with a hyperparameter controlling the ratio between the two penalties. The resulting methods is supposed to enclose the advantages of both penalties (mainly, variable selection and a better handling of correlation, respectively).</p>
+<p>The difference in the models that one obtains by applying bridge regression and elastic net is related to the form of the constraints: while similar, that of elastic net has non-differentiable corners that lead to sparser models, as some regression coeﬃcients are forced to be exactly 0.</p>
+</section>
+<section id="exam-uio-stk-in4300-2020-problem-1" class="level2">
+<h2 class="anchored" data-anchor-id="exam-uio-stk-in4300-2020-problem-1">Exam UiO STK-IN4300 2020 Problem 1</h2>
+<p>(stolen from the webpages at UiO)</p>
+<p><strong>a) </strong> Ridge regression, because it performs better in the case of many variables with small effect (which can be seen from <span class="math inline">\(\beta \sim N(0,2)\)</span>) and if there is a strong correlation among the variables (<span class="math inline">\(\rho=0.9\)</span>).</p>
+<p><strong>b)</strong> Without knowing that there are many variables with small effect (i.e., we miss the information on the <span class="math inline">\(\beta\)</span>s), it is safer to use lasso “betting on sparsity”: if there are only a few variables with a large ffect, it may strongly outperform ridge; if the situation is similar to the one at point (a), it will not perform much worse than ridge regression.</p>
+<p>NOTE: if there was good reasoning behind the choice of ridge regression, the answer was considered correct. Example of good reasoning: Despite the fact that I do not know the effect of the variables, which would let me choose lasso, I prefer to use ridge because I want my model to handle the correlation in a better way, and, anyway, part of the effect of a few potential strong variables is shared with all the variables due to correlation.</p>
+<p><strong>c)</strong> Yes, it would allow having a sparse model due to the <span class="math inline">\(L_1\)</span> penalty, with a better handling of the correlation among variables thanks to the <span class="math inline">\(L_2\)</span> penalty.</p>
+</section>
+</section>
+<section id="resources" class="level1">
+<h1>Resources</h1>
+<ul>
+<li>Video from webinar with Trevor Hastie on <a href="http://youtu.be/BU2gjoLPfDc">glmnet from 2019</a></li>
+<li>See <a href="https://github.com/mettelang/MA8701V2021/blob/main/Part1/LassoandfriendsBenDunn.pdf">slides from guest lecturer Benjamin Dunn in 2021</a></li>
+</ul>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-casi" class="csl-entry" role="doc-biblioentry">
 Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference - Algorithms, Evidence, and Data Science</em>. Cambridge University Press. <a href="https://hastie.su.domains/CASI/">https://hastie.su.domains/CASI/</a>.
 </div>
-</div></section></div></main>
+<div id="ref-JSSglmnet" class="csl-entry" role="doc-biblioentry">
+Friedman, Jerome H., Trevor Hastie, and Rob Tibshirani. 2010. <span>“Regularization Paths for Generalized Linear Models via Coordinate Descent.”</span> <em>Journal of Statistical Software</em> 33 (1): 1–22. <a href="https://doi.org/10.18637/jss.v033.i01">https://doi.org/10.18637/jss.v033.i01</a>.
+</div>
+<div id="ref-HTW" class="csl-entry" role="doc-biblioentry">
+Hastie, Trevor, Roberg Tibshirani, and Martin Wainwright. 2015. <em>Statistical Learning with Sparsity: The Lasso and Generalizations</em>. CRC Press. <a href="https://hastie.su.domains/StatLearnSparsity/">https://hastie.su.domains/StatLearnSparsity/</a>.
+</div>
+<div id="ref-ESL" class="csl-entry" role="doc-biblioentry">
+Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. Vol. 2. Springer series in statistics New York. <a href="https://hastie.su.domains/ElemStatLearn">hastie.su.domains/ElemStatLearn</a>.
+</div>
+<div id="ref-WNvW" class="csl-entry" role="doc-biblioentry">
+Wieringen, Wessel N. van. 2021. <span>“Lecture Notes on Ridge Regression.”</span> <a href="https://arxiv.org/pdf/1509.09169v7.pdf">https://arxiv.org/pdf/1509.09169v7.pdf</a>.
+</div>
+<div id="ref-Zou2006" class="csl-entry" role="doc-biblioentry">
+Zou, Hui. 2006. <span>“The Adaptive Lasso and Its Oracle Properties.”</span> <em>Journal of the American Statistical Association</em> 101 (476): 1418–29. <a href="https://doi.org/10.1198/016214506000000735">https://doi.org/10.1198/016214506000000735</a>.
+</div>
+<div id="ref-ZouHastie2005" class="csl-entry" role="doc-biblioentry">
+Zou, Hui, and Trevor Hastie. 2005. <span>“Regularization and Variable Selection via the Elastic Net.”</span> <em>Journal of the Royal Statistical Society. Series B (Statistical Methodology)</em> 67 (2): 301–20. <a href="http://www.jstor.org/stable/3647580">http://www.jstor.org/stable/3647580</a>.
+</div>
+</div>
+</section>
+
+</main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
