@@ -40,550 +40,684 @@ suppressPackageStartupMessages(library(GGally))
 suppressPackageStartupMessages(library(bestglm))
 suppressPackageStartupMessages(library(glmnet))
 suppressPackageStartupMessages(library(nortest))
+suppressPackageStartupMessages(library(knitr))
+#suppressPackageStartupMessages(library(ggroc))
+suppressPackageStartupMessages(library(kableExtra))
+suppressPackageStartupMessages(library(corrplot))
+#suppressPackageStartupMessages(library(monomvn))
+#suppressPackageStartupMessages(library(HDCI))
+suppressPackageStartupMessages(library(lars)) #data diabetes
+#suppressPackageStartupMessages(library(hdi))
 ```
 
 # Before we begin
 
 ## Literature
 
-* [HTW] Hastie, Tibshirani, Wainwrigh: "Statistical Learning with Sparsity: The Lasso and Generalizations". CRC press. [Ebook](https://hastie.su.domains/StatLearnSparsity/). Chapter 3.2,3.7
+* [ELS] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. [Ebook](https://web.stanford.edu/~hastie/Papers/ESLII.pdf). Chapter 4.4.1-4.4.3 (4.4.4 is covered in 3.2 of HTW).
 
+* [HTW] Hastie, Tibshirani, Wainwrigh: "Statistical Learning with Sparsity: The Lasso and Generalizations". CRC press. [Ebook](https://hastie.su.domains/StatLearnSparsity/). Chapter 3.2,3.7
 
 and for the interested student
 
-* [WNvW] [Wessel N. van Wieringen: Lecture notes on ridge regression](https://arxiv.org/pdf/1509.09169v7.pdf) Chapter 6.6
-* [CASI] @casi Chapter 16 (lasso in general)
+* [WNvW] [Wessel N. van Wieringen: Lecture notes on ridge regression](https://arxiv.org/pdf/1509.09169v7.pdf) Chapter XXX
+
+Supplemental sources useful for week 6:
+
+* Bootstrap confidence intervals
+* [Short note on multiple hypothesis testing](https://www.math.ntnu.no/emner/TMA4267/2017v/multtest.pdf) in TMA4267 Linear Statistical Models, Kari K. Halle, Øyvind Bakke and Mette Langaas, March 15, 2017. 
 
 ---
 
-# Multiple imputation combined with shrinkage methods
+<!-- # Multiple imputation combined with shrinkage methods -->
 
-## First case
+<!-- ## First case -->
 
-Assume that the aim is prediction, and only this is studied for model assessment (no need for hypothesis tests or confidence intervals for regression parameters).
+<!-- Assume that the aim is prediction, and only this is studied for model assessment (no need for hypothesis tests or confidence intervals for regression parameters). -->
 
-Further assume that there is enough data to set aside a test set for model assessment, maybe 20-80 split.
+<!-- Further assume that there is enough data to set aside a test set for model assessment, maybe 20-80 split. -->
 
-How is it now possible to combine multiple imputation and lasso/ridge type methods on the training set?
+<!-- How is it now possible to combine multiple imputation and lasso/ridge type methods on the training set? -->
 
-"Tja" - if Rubins rules could be used on the predictions on the test set?
+<!-- "Tja" - if Rubins rules could be used on the predictions on the test set? -->
 
----
+<!-- --- -->
 
-## Second case
+<!-- ## Second case -->
 
-Assume that the aim is model selection (find the important covariates) and that inference about the fitted coefficients is of interest.
+<!-- Assume that the aim is model selection (find the important covariates) and that inference about the fitted coefficients is of interest. -->
 
-We will in W6 learn how to used bootstrapping to provide a confidence interval for the regression coefficients, such that there needs to be a bootstrap loop.
+<!-- We will in W6 learn how to used bootstrapping to provide a confidence interval for the regression coefficients, such that there needs to be a bootstrap loop. -->
 
-How can now multiple imputation, lasso/ridge type method (which need bootsrapping) be combined?
+<!-- How can now multiple imputation, lasso/ridge type method (which need bootsrapping) be combined? -->
 
----
+<!-- --- -->
 
-## Short review of a few solution
+<!-- ## Short review of a few solution -->
 
-Warning: this is an area of research with few good solutions! Aka _"a fertile ground for further research"_
+<!-- Warning: this is an area of research with few good solutions! Aka _"a fertile ground for further research"_ -->
 
-@ZhaoLong2017: "Variable selection in the presence of missing data: imputation-based methods" lists three stragegies. (NB: here model assessment is not discussed, only model selection)
+<!-- @ZhaoLong2017: "Variable selection in the presence of missing data: imputation-based methods" lists three stragegies. (NB: here model assessment is not discussed, only model selection) -->
 
-1) Apply existing variable selection methods to each imputed dataset and then combine variable selection results across all imputed datasets.
+<!-- 1) Apply existing variable selection methods to each imputed dataset and then combine variable selection results across all imputed datasets. -->
 
-This is similar to what I presented for the suicide crisis syndrome data set, and is presented in @vanBuuren Section 5.4 Stepwise model selection, in particular 5.4.2 for the D1 method that is implemented in the MICE R package. 
+<!-- This is similar to what I presented for the suicide crisis syndrome data set, and is presented in @vanBuuren Section 5.4 Stepwise model selection, in particular 5.4.2 for the D1 method that is implemented in the MICE R package.  -->
 
-It is not clear how this should be done if the model selection method is a lasso variant. Could the penalty parameter be decided using Rubins rules and then used to fit lasso on each data set again and would then the same model be selected for each imputed data set? 
+<!-- It is not clear how this should be done if the model selection method is a lasso variant. Could the penalty parameter be decided using Rubins rules and then used to fit lasso on each data set again and would then the same model be selected for each imputed data set?  -->
 
-2) Apply existing variable selection methods to stacked imputed datasets.
+<!-- 2) Apply existing variable selection methods to stacked imputed datasets. -->
 
-3) Combine resampling techniques (such as bootstrap) with imputation
+<!-- 3) Combine resampling techniques (such as bootstrap) with imputation -->
 
-## MI and model assessment
+<!-- ## MI and model assessment -->
 
-If ridge regression is used, then the same active set is used for each of the imputed data sets, and in addition we know that the parameter estimates are normally distributed (however biased). This means that model selection is not performed (except for hyperparameter tuning which is done using cross-validation for data set). Is it wise to use Rubin´s rules for the ridge regression coefficients when these are biased?
-
-
-When searching for literature: some may use ridge/lasso for the imputation model in the multiple imputation, but we are interested in using ridge/lasso as the analysis model
+<!-- If ridge regression is used, then the same active set is used for each of the imputed data sets, and in addition we know that the parameter estimates are normally distributed (however biased). This means that model selection is not performed (except for hyperparameter tuning which is done using cross-validation for data set). Is it wise to use Rubin´s rules for the ridge regression coefficients when these are biased? -->
 
 
+<!-- When searching for literature: some may use ridge/lasso for the imputation model in the multiple imputation, but we are interested in using ridge/lasso as the analysis model -->
 
-## Goal 
 
-The main goal of this part is to 
+# Generalized linear models
+(HTW 3.1, 3.2, and TMA4315 GLM background)
 
-* know about these special versions of the lasso (also in combination with the ridge), and 
-* to see which practical data situation these can be smart to use. 
+## The model
+The GLM model has three ingredients: 
 
-Maybe one of these is suitable for the Data analysis project?
+1) Random component
+2) Systematic component
+3) Link function
 
-Theoretical properties and algorithmic details are not on the reading list. 
+We look into that for the normal and binomial distribution - to get multiple linear regression and logistic regression.
 
-# Lasso and ridge
-
-We have seen that the ridge regression shrinks the regression coefficients (as compared to the least squares solution), while the lasso regression both shrinks and sets some coefficients to zero (model selection).
-
-## Why do we need lasso variants
+* Write in class
+* Poll on standardization and centering.
 
 ---
 
-* empirically lasso sometimes does not perform well for highly correlated variables
-* in some situations we would like a group of covariates to either be in or out of the model "together", for example a dummy variable coded factor
+## Explaining $\beta$ in logistic regression
 
-# The $l_q$  regression
+* The ratio $\frac{P(Y_i=1)}{P(Y_i=0)}=\frac{\pi_i}{1-\pi_1}$ is called the _odds_. 
 
-$$ \text{minimize}_{\beta_0,\beta} \{ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \lvert \beta_j\rvert^q \}, q\le 0$$
-
-* $q=0$: best subset regression
-* $q=1$: lasso
-* $q=2$: ridge
-
-Remark: $l_q$ is the but penalty of the form $\lvert \beta_j\rvert^q$. Note that $l^2$ is thus the squared $L_2$ norm (squared Euclidean norm).
-
----
-
-Properties 
-
-* $0 \le q \le 1$: not differentiable
-* $1<q<2$: in between lasso and ridge, but differentiable (and no variable selection property)
-* $q$ can be estimated from data, but according to @ESL this is "not worth the effort for the extra variance incurred"
+* If $\pi_i=\frac{1}{2}$ then the odds is $1$, and if $\pi_i=\frac{1}{4}$ then the odds is $\frac{1}{3}$. We may make a table for probability vs. odds in R:
 
 ```{r}
-#| fig.cap: "Figure 3.12 from @ESL"
-#| out.width: "100%"
-include_graphics("./ESLFig312.jpg")
+pivec=seq(0.1,0.9,0.1)
+odds=pivec/(1-pivec)
+kable(t(data.frame(pivec,odds)),digits=c(2,2))%>%
+  kable_styling()
 ```
 
+* Odds may be seen to be a better scale than probability to represent chance, and is used in betting. In addition, odds are unbounded above. 
+
 ---
+
+We look at the link function (inverse of the response function). Let us assume that our linear predictor has $k$ covariates present
+
+\begin{align*}
+\eta_i&= \beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+\cdots + \beta_k x_{ik}\\
+\pi_i&= \frac{\exp(\eta_i)}{1+\exp(\eta_i)}\\
+\eta_i&=\ln(\frac{\pi_i}{1-\pi_i})\\
+\ln(\frac{\pi_i}{1-\pi_i})&=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+\cdots + \beta_k x_{ik}\\
+\frac{\pi_i}{1-\pi_i}=&\frac{P(Y_i=1)}{P(Y_i=0)}=\exp(\beta_0)\cdot \exp(\beta_1 x_{i1})\cdots\exp(\beta_k x_{ik})
+\end{align*}
+
+We have a _multiplicative model_ for the odds. 
+
+---
+
+**So, what if we increase $x_{1i}$ to $x_{1i}+1$?**
+
+If the covariate $x_{1i}$ increases by one unit (while all other covariates are kept fixed) then the odds is multiplied by $\exp(\beta_1)$:
+
+\begin{align*}
+\frac{P(Y_i=1\mid x_{i1}+1)}{P(Y_i=0)\mid x_{i1}+1)}&=\exp(\beta_0)\cdot \exp(\beta_1 (x_{i1}+1))\cdots\exp(\beta_k x_{ik})\\
+&=\exp(\beta_0)\cdot \exp(\beta_1 x_{i1})\exp(\beta_1)\cdots\exp(\beta_k x_{ik})\\
+&=\frac{P(Y_i=1\mid x_{i1})}{P(Y_i=0\mid x_{i1})}\cdot \exp(\beta_1)\\
+\end{align*}
+
+This means that if $x_{i1}$ increases by $1$ then: if $\beta_1<0$ we get a decrease in the odds, if $\beta_1=0$ no change, and if $\beta_1>0$ we have an increase.
+In the logit model $\exp(\beta_1)$ is easier to interpret than $\beta_1$.
+
+---
+
+The response function as a function of the covariate $x$ and not of $\eta$. Solid lines: $\beta_0=0$ and $\beta_1$ is $0.8$ (blue), $1$ (red) and $2$ (orange), and dashed lines with $\beta_0=1$.
 
 ```{r}
-#| fig.cap: "Figure 4.12 from @HTW"
-#| out.width: "100%"
-include_graphics("./HTWFig412.png")
+ggplot(data.frame(x=c(-6,5)), aes(x))+
+  xlab(expression(x))+ 
+  ylab(expression(mu))+
+    stat_function(fun=function(x) exp(x)/(1+exp(x)), geom="line", colour="red")+
+    stat_function(fun=function(x) exp(2*x)/(1+exp(2*x)), geom="line", colour="orange")+
+          stat_function(fun=function(x) exp(0.8*x)/(1+exp(0.8*x)), geom="line", colour="blue")+
+    stat_function(fun=function(x) exp(1+x)/(1+exp(1+x)), geom="line", colour="red",linetype="dashed")+
+    stat_function(fun=function(x) exp(1+2*x)/(1+exp(1+2*x)), geom="line", colour="orange",linetype="dashed")+
+          stat_function(fun=function(x) exp(1+0.8*x)/(1+exp(1+0.8*x)), geom="line", colour="blue",linetype="dashed")+
+  scale_colour_manual("0+k x",values = c("red", "orange","blue"),labels=c("1","2","0.8"))
 ```
-
----
-
-## Bridge regression
-Origin of method: @FrankFriedman1993
-
-This is $L^q$ but with $q>1$.
-
-$$ \text{minimize}_{\beta_0,\beta} \{ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \lvert \beta_j\rvert^q \}, q\le 0$$
-
-# Elastic net
-(HTW 4.2)
-Origin of method: @ZouHastie2005
-
-* Compromise between the ridge and lasso penalty.
-* Lasso gives sparsity but does not handle correlated variables well.
-* Ridge handles correlated variables well, but is not sparse.
-
-Solution: _elastic net_  which handles" coefficients of correlated features together (similar values or all zero).
-
-The penalty used is now weighted sum of the ridge and the lasso penalty.
-
----
-
-## Minimization problem
-
-$$ \text{minimize}_{\beta_,\beta} \{ \sum_{i=1}^N (y_i-\beta_0-\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p (\frac{1}{2}(1-\alpha) \beta_j^2+\alpha \lvert \beta_j\rvert )\}$$
-
-again, $\lambda \ge 0$ is a complexity (regularization, penalty) parameter controlling the amount of shrinkage together with $\alpha \in [0,1]$ that "balance" out the penalty between the squared and absolute penalty.
-
-* $\alpha=1$: lasso only
-* $\alpha=0$: ridge only
- 
-The problem is strictly convex if $\lambda>0$ and $\alpha<1$ which gives uniqueness for the elastic net coefficients for this case. 
-
----
-
-```{r}
-#| fig.cap: "Figure 4.2 from @HTW"
-#| out.width: "100%"
-include_graphics("./HTWFig42.png")
-```
-
----
-
-
-What is the elastic net parameter constraint region? Why will this give a variable selection property?
-
-```{r}
-#| fig.cap: "Figure 6.11 from @WNvW"
-#| out.width: "100%"
-include_graphics("./WNvWFig611.jpg")
-```
-
-Slightly different parametrization in @WNvW, with $\lambda_1=\lambda\alpha$ and $\lambda_2=\lambda(1-\alpha)$.
-
----
-
-The figure to the right shows potential problems in selecting the best hyperparameters. Observe that several combination of the two hyperparameters are equally good.
-
-This is the reason for the parameterization with $\alpha$ as a mixing parameter, where the $\alpha$ is assumed to be set by the user, while the $\lambda$ is found using cross-validation. 
-
-However, of cause $\alpha$ is a tuning parameter and need to be set. See for example the [Master thesis of 
-Lene Omdal Tillerli Chapter 3.5 and 5.3](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/3026839) for different cross-validation strategies for selecting the two hyperparameters.
 
 ---
 
 ## Parameter estimation
 
-The _glmnet_-R package is constructed around the elastic net. Here the cyclic coordinate descent algorithm is used, and compared to the pseudo-algorithm we devised in class in L8, for the step with the update of $\beta_j$ the soft-threshold solution is slightly modified to (HTW Equation 4.4)
+* Maximum likelihood estimation = maximize the likelihood of the data. We write for the loglikelihood ${\cal L}(\beta_0,\beta; {\bf y}, {\bf X})$.
 
-$$\hat{\beta}_j=\frac{1}{\sum_{i=1}^N x_{ij}^2+\lambda (1-\alpha)} S_{\lambda \alpha}(\sum_{i=1}^N r_{ij}x_{ij})$$
+* For penalized method we instead minimize the negative loglikelihood scaled with $\frac{1}{N}$.
 
-where (as in L8) the soft thresholding operator is $S_{\mu}(z)=sign(z)(\lvert z \rvert -\mu)_{+}$ and the partial residual (as in L8) is $r_{ij}=y_i-\beta_0-\sum_{k\neq j} x_{ik}\hat{\beta}_k$ (in L8 we used $\tilde{y}$ and not $r$).
+* The ridge and lasso penalty is added to the scaled negative loglikelihood.
 
----
+* We write this out for the normal and binomial distribution.
 
-Why do you think this can be solved in such a similar way as for the lasso?
-
-There is a "data augmentation trick" where we can add $p$ 0-reponses with covariates $\sqrt{\lambda (1-\alpha)} \boldsymbol I_{pp}$ to perform a ridge regression (@WNvW 6.8.1).
-
-Details are found in the article in the Journal on Statistical Software on the glmnet @JSSglmnet.
+* Write in class
 
 ---
 
-## Example 
+## Algorithms
 
-This example is shown in Figure 4.2 in HTW and reproduced with the R code below.
+* The likelihood for the GLM is differentiable, and the ridge and lasso objective functions are convex - and can be solved with socalled "standard convex optimization methods". 
+* But, by popular demand also special algorithms are available - building on the cyclic coordinate descent.
 
-```{r}
-#| echo: true
-set.seed(8701)
-N=100
-z1=rnorm(N,0,1); z2=rnorm(N,0,1)
-eps=rnorm(N,0,1)
-
-y=3*z1-1.5*z2+2*eps
-
-add=matrix(rnorm(N*6,0,1),ncol=6)
-x1=z1+add[,1]/5; x2=z1+add[,2]/5; x3=z1+add[,3]/5
-x4=z2+add[,4]/5; x5=z2+add[,5]/5; x6=z2+add[,6]/5
-
-x=as.matrix(data.frame(x1=x1,x2=x2,x3=x3,x4=x4,x5=x5,x6=x6))
-```
-
----
-
-```{r}
-fit.lasso=glmnet(x,y,alpha=1)
-plot(fit.lasso,xvar="norm",label=TRUE);
-```
-
----
-
-```{r}
-fit.elastic=glmnet(x,y,alpha=0.3)
-plot(fit.elastic,xvar="norm",label=TRUE);
-```
-
-
-```{r}
-#| echo: false
-#| eval: false
-library(rgl)
-w=c(1,1,1)
-## Plot unit ball in the 1st space sector (x>0, y>0, z>0)
-
-leng <- 1000
-b3.HGL <- seq(-1/sum(w), 1/sum(w), len=leng)
-b2.HGL <- seq(-1/(w[1]+w[2]), 1/(w[1]+w[2]), len=leng)
-b1.HGL <- matrix(NA, leng, leng)
-for (i in 1:leng) {
-for (j in 1:leng) {
-    b1 <- (1 - w[3]*abs(b3.HGL[j]) - w[2]*sqrt(b2.HGL[i]^2 + b3.HGL[j]^2))^2/w[1]^2 - b2.HGL[i]^2 - b3.HGL[j]^2
-    if (b1 >= 0) {
-        b1.HGL[i,j] <- sqrt(b1)
-    }
-}
-}
-persp3d(b2.HGL, b3.HGL, b1.HGL, xlim=range(-1,1), ylim=range(-1,1),zlim=range(-1,1), col="#DF8585")
-persp3d(b2.HGL, b3.HGL, -b1.HGL, xlim=range(-1,1), ylim=range(-1,1),zlim=range(-1,1), col="#DF8585", add=T)
-```
-
----
-
-## Exam 2020 Problem 1 (STK-IN4300, UiO)
-
-Consider data simulated with the following setting:
-
-* $\beta_i \sim N(0,2), i=1,\ldots,p$
-* $X \sim N_p(\boldsymbol 0,\boldsymbol \Sigma)$ where (i)$N_p(\cdot,\cdot)$ denotes a $p$-dimensional multivariate Gaussian distribution; (ii) $\boldsymbol{0}$ is a $p$-dimensional vector of $0$; (iii) $\boldsymbol \Sigma$ is a $p \times p$ matrix with diagonal elements equal to $1$ and all other elements equal to $0.9$;
-* $y = X \beta + \varepsilon$, with $\beta = (\beta_1,\ldots, \beta_p)^T$ and $\varepsilon \sim N(0, 1)$.
-
-**a)** If you were forced to choose between ridge regression and lasso, which one would you have used to predict y on a test set generated with the same setting? Why?
-
-**b)** Would your choice have been the same if you ignored the ﬁrst information on $\beta$ ? Why?
-
-**c)** Do you think that elastic net could have been a better choice in the situation of point (b)? Why?
-
----
-
-## Group discussion: Exam 2019 Problem 1c (STK-IN4300, UiO)
-
-Briefly explain _elastic net_ and _bridge regression_ and explain why despite the corresponding constraints are almoust indistinguishable in Figure 3.13 of @ESL, they provide, in general, quite different models.
-
-
-```{r}
-#| fig.cap: "Figure 3.13 from @ESL"
-#| out.width: "100%"
-include_graphics("./ESLFig313.jpg")
-```
-
-
-# Group lasso
-(HTW Section 4.3.1)
-
-Now we aim at fixing the following problem with the lasso: if we have a factor and have used dummy variable coding, then the lasso may only choose to select some of the dummy variables to be in the model, and the lasso solution also is dependent on how the dummy variable encoding is done (choosing different contrasts will produce different solutions). Other application might have groups of genes in pathways, where those can be handled together.
-
-The solution is to use a penalty that can be seen kind of intermediate to $L_1$ and squared $L_2$:
-
----
-
-Assume we have $J$ groups and $p_j$ covariates for each group. Further $Z_j\in \Re^{p_j}$ is the covariates for group $j$. 
-Further let $\theta_j \in \Re^{p_j}$ be the regression coefficients for group $j$.
-
-$$\text{minimize}_{\theta_0,\theta} \{ 
-\sum_{i=1}^N (y_i-\theta_0-\sum_{j=1}^J z_{ij}\theta_j )^2 
-+ \lambda \sum_{j=1}^J \lvert\lvert \theta_j{\rvert \rvert}_2\}$$
-
-
-where $\lvert\lvert \theta_j{\rvert \rvert}_2$ is the Euclidean norm of the vector $\theta_j$.
-
----
-
-## What does this new (unsquared) $L_2$ penalty do?
-
-* All groups with one variable ends up with lasso $L_1$ penalty because: when $p_j=1$ then 
-$\lvert\lvert \theta_j{\rvert \rvert}_2=\lvert \theta_j{\rvert}$, and thus the $L_1$ lasso penalty is used for singelton groups.
-* All groups with more than two variables end up with the square root of the ridge penalty.
-since the penalty is $\sqrt{\sum_{j \in J}\beta_{j}^2}$ for all elements of this group $J$.
-
----
-
-```{r}
-#| fig.cap: "Figure 4.3 from @HTW"
-#| out.width: "100%"
-include_graphics("./HTWFig43.png")
-```
-
----
-
-Observe that the penalty is the same for all groups, independent of the group size- but it is common to also include the group size in the penalty (HTW does not, WNvW does).
-
-HTW Exercise 4.4: the penalty term ensures that the coefficients in a group sum to zero given that there is an intercept term in the model.
-
-Comment: some results are for orthogonal design matrices for a group. But, this will only happen if we have a balanced design, with the same number of observations for each level of a categorical variable group. This is very seldom the case in observational data, but in Design of Experiments this may happen for example in  $2^k$ designs.
-
----
-
-## Parameter estimation
-
-The coordinate descent algorithm may be modified to a block coordinate descent version.
-The step to update $\hat{\theta}_j$ in the coordinate descent cyclic algorithm is
-
-$$\hat{\theta}_j=({\boldsymbol Z}_j^T{\boldsymbol Z}_j+
-\frac{\lambda}{\lvert\lvert \hat{\theta}_j{\rvert \rvert}_2}{\boldsymbol I})^{-1}{\boldsymbol Z}_j^T{\boldsymbol r}_j$$
-where as earlier ${\boldsymbol r}_j$ is a partial residual.
-
-If the designmatrix ${\boldsymbol Z}_j$ is ortogonal this is simplified to
-$$\hat{\theta}_j=(1
-\frac{\lambda}{\lvert \lvert {\boldsymbol Z}_j^T{\boldsymbol r}_j \rvert \rvert})_{+}{\boldsymbol Z}_j^T{\boldsymbol r}_j$$
-
-For non-ortogonal design matrices iterative methods are used. 
-
----
-
-## Sparse group lasso
-(HTW Section 4.3.2, WNvW Section 6.8.3)
-
-The group lasso (with the Euclidean penalty) is now joined by the $L_1$ penalty. This is kind of similar to the elastic net now the squared $L_2$ penalty is replaced by $L_2$ penalty.
-
-$$\text{minimize}_{\theta_0,\theta} \{ \sum_{i=1}^N (y_i-\theta_0-\sum_{j=1}^J z_{ij}\theta_j )^2 + \lambda \sum_{j=1}^J [(1-\alpha) \lvert \lvert \theta_j {\rvert \rvert}_2 + \alpha \lvert\lvert \theta_j{\rvert \rvert}_1]\}$$
----
-
-```{r}
-#| fig.cap: "Figure 4.5 from @HTW"
-#| out.width: "100%"
-include_graphics("./HTWFig45.png")
-```
----
-
-### Parameter estimation
-
-Again, a version of cyclic block-wise coordinate descent can be used. 
-
-The case when $\boldsymbol Z_j$ is not orthogonal requires more work than for orthonal versions.
-
-Again, as for the elastic net, tuning the two hyperparametres may have several values being equally good. 
-
----
-
-## Group discussion: Exam 2019 Problem 1b (STK-IN4300, UiO)
-
-Consider the following version of the sparse group lasso:
-
-
-$$\text{minimize}_{\beta_0,\beta} \{ \lvert \lvert y-\beta_0 \overrightarrow{1}-\sum_{l=1}^L X_{l}\beta_l {\rvert \rvert}^2_2 + (1-\alpha)\lambda \sum_{l=1}^L\sqrt{p_l}\lvert \lvert \beta_j {\rvert \rvert}_2 + \alpha \lambda \lvert\lvert \beta{\rvert \rvert}_1\}$$
-where $\overrightarrow{1}$ denotes an $N$-dimensional vector of 1s, $\lambda \ge0$ and $0\ge \alpha \ge 1$. Answer the following questions:
-
-* Why does $\beta_0$ only appear in the first term?
-* What happens when $\alpha=0$ and $\alpha=1$, respectively?
-* Briefly describe the concept of "bet on sparsity".
-
-
----
-
-## Overlap group lasso
-(HTW Section 4.3.3)
-
-This is an extension to allow for a covariate to belong to more than one group.
-
-The overlap group lasso "replicates a variable" in whatever group it is a member of, and then fits the group lasso to the problem.
-
-The overlap group lasso can be used to ensure that interactions between covariates are only part of the model if the main effects of the covariates are in the model. See example HTW 4.3 for details.
-
----
-
-```{r}
-#| fig.cap: "Figure 4.6 from @HTW"
-#| out.width: "100%"
-include_graphics("./HTWFig46.png")
-```
+To understand the (ridge and) lasso logistic regression we first look at the _iteratively reweighted least squares_ (IRLS) - as a result of the Newton Raphson method.
 
 ---
 
 
-# Non-convex penalties
-(HTW Section 4.5, WNvW Section 6.9)
-
-We have looked at the $l^q$ penalty formula in the start of L9:
-
-$$ \text{minimize}_{\beta_0,\beta} \{ \sum_{i=1}^N (y_i-\beta_0+\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p \lvert \beta_j\rvert^q \}, q\le 0$$
-Observe that if $0\le q \le 1$ is non-convex.
-
-For $l^0$ we aim for best subset selection and need to investigate $2^p$ possible models. This is not easy for $p>40$. 
-
-The Smoothly Clipped Absolute Deviation SCAD method is an alternative to the $l^q$.
 
 ---
 
-## Adaptive lasso
-(HTW Section 4.6, WNvW Section 6.8.4)
+### Lasso logistic regression fitting algoritm
+(HTW page 116)
 
-Origin: @Zou2006 
+```{r,echo=TRUE,eval=FALSE}
+OUTER LOOP: start with lambdamax and decrement
 
-The aim is to fit models that are even sparser than the lasso. The method uses a so-called _pilot estimate_ $\tilde{\beta}$:
+      MIDDLE LOOP (with warm start) 
+         
+         compute quadratic approximation Q(beta0,beta) 
+         for current beta-estimates
+         
+         
+         
+              INNER LOOP: cyclic coordinate descent
+              to minimize -Q added the lasso penalty
+              
+```            
 
-$$ \text{minimize}_{\beta_0,\beta} \{ \sum_{i=1}^N (y_i-\beta_0+\sum_{j=1}^p x_{ij}\beta_j )^2 + \lambda \sum_{j=1}^p w_j \lvert \beta_j\rvert \}$$
-where $w_j=1/{\lvert \tilde{\beta}_j}\rvert ^{\nu}$ includes the pilot estimated, and given this pilot estimate the criterion i convex in $\beta$.
-The value of $\nu$ makes this an approximation to the $l^q$ penalty where $q=1-\nu$.
+---         
 
----
+### Criteria for choosing $\lambda$
 
-Since the pilot estimate needs to be found first, this can be seen as a two-step procedure.
+We use cross-validation to choose $\lambda$.
 
-If $p<N$ then the least squares estimator can be used as the pilot estimate, and for larger $p$ the ridge or lasso estimate may be used.
+For regression we choose $\lambda$ by minimizing the (mean) squared error.
 
-If $\tilde{\beta_j}=0$ then the penalty of the $j$th element of the coefficient vector is infinity and the adaptive lasso estimate for the coeffisient will be zero.
+For (ridge and) lasso logistic regression we may choose:
 
----
-
-For the orthogonal design, the adaptive lasso can be written as:
-
-$$\hat{\beta}(\lambda)=sign(\hat{\beta}_{{\text LS},j})(\lvert \hat{\beta}_{{\text LS},j}\rvert -\frac{\lambda}{2 \hat{\beta}_{{\text LS},j}} )_{+}$$
-Compare this with the lasso, the difference is the last denominator. 
-
----
-
-Unlike the lasso (according to @Zou2006) the adaptive lasso is found to fulfill the _oracle property_. 
-
-According to @Zou2006, for an oracle procedure $\delta$ then $\beta(\delta)$ has the following properties:
-
-* It identifies the right (correct) subset model, $\{j: \beta_j \neq0\}={\cal A}$
-* "Has the optimal estimation rate" $\sqrt{N}(\hat{\beta}(\delta)_{\cal A}-\beta^*_{\cal A})\rightarrow_d N(\boldsymbol 0,\boldsymbol \Sigma)$
-
-If stepwise selection is used to find the active set, it can be trapped in local minima. 
-
-The continuous shrinkage property of the lasso is know to improve the prediction accuracy of the method (bias-variance trade-off).
-
-The adaptive lasso can be estimated using the LARS algorithm of Efron et al (2004) (not covered in this course, but presented in @ESL Section 3.4.4).
+* misclassification error rate on the validation set 
+* ROC-AUC or PR-AUC
+* binomial deviance
 
 ---
 
-## Back to forward stepwise model selection
+### Confusion matrix, sensitivity, specificity 
+(from TMA4268)
 
-If the aim is to minimize the squared loss with the $l^0$ penalty, the _forward stepwise model_ method for model selection is efficent and "hard to beat".
+In a two class problem - assume the classes are labelled "-" (non disease,0) and "+" (disease,1). In a population setting we define the following event and associated number of observations.
 
-The forward stepwise model selection is a greedy algorithm. 
+|  |Predicted -|Predicted + |Total|
+|:-------|:--------------|:---------------|:----------|
+|True - | True Negative TN  | False Positive FP | N|
+|True +|False Negative FN|True Positive TP|P|
+|Total|N*|P*| |
 
-* build a model sequentially by adding one variable at a time.
-* At each step the best variable to include in the active set is identified and
-* then the LS-fit is (re)computed for all the active variables.
-
-This is an algorithm and not an optimization problem, and the theoretical properties of the algorithm "are less well understood" (HTW page 86).
-
-# A never ending story?
-
-There seems to always be something that can be improved upon, and there are several lasso variantes that we have not discussed.
-
-Other variants include
-
-* The fused lasso (HTW Section 4.5)
-* The random lasso
+(N in this context not to be confused with our sample size...)
 
 ---
+
+**Sensitivity** (recall) is the proportion of correctly classified positive observations: $\frac{\# \text{True Positive}}{\# \text{Condition Positive}}=\frac{\text{TP}}{\text{P}}$. 
+
+**Specificity** is the proportion of correctly classified negative observations: $\frac{\# \text{True Negative}}{\# \text{Condition Negative}}=\frac{\text{TN}}{\text{N}}$.
+
+We would like that a classification rule have both a high sensitivity and a high specificity.
+
+---
+
+Other useful quantities:
+
+| Name | Definition | Synonoms |
+|:-----------------|:---------|:-----------------|
+|False positive rate | FP/N| Type I error, 1-specificity|
+|True positive rate|TP/P|1-Type II error, power, sensitivity, recall|
+|Positive predictive value (PPV) |TP/P*|Precision, 1-false discovery proportion|
+|Negative predictive value (NPV)| TN/N*| |
+
+Where the PPV can be used together with the sensitivity to make a precision-recall curve more suitable for low case rates.
+
+---
+
+### ROC curves 
+(also from TMA4268)
+
+The receiver operating characteristics (ROC) curve gives a graphical display of the sensitivity against specificity, as the threshold value (cut-off on probability of success or disease) is moved over the range of all possible values. 
+An ideal classifier will give a ROC curve which hugs the top left corner, while a straight line represents a classifier with a random guess of the outcome. 
+
+---
+
+### ROC-AUC 
+
+* The **ROC-AUC** score is the area under the ROC curve. It ranges between the values 0 and 1, where a higher value indicates a better classifier. 
+<!-- An AUC score equal to 1 would imply that all observations are correctly classified.  -->
+* The AUC score is useful for comparing the performance of different classifiers, as all possible threshold values are taken into account.
+* The ROC-AUC is closely connected to the robust U statistics.
+* If the prevalence (case proportion) is very low (0.01ish), the ROC-AUC may be misleading, and the PR-AUC is more commonly used.
+
+---
+
+### ROC-PR
+
+---
+
+
+### Deviance
+
+The _deviance_ is based on the likelihood ratio test statistic. 
+
+The derivation assumes that data can be grouped into covariate patterns, with $G$ groups (else interval solutions are used in practice).
+
+**Saturated model:**
+If we were to provide a perfect fit to our data then we would estimate $\pi_j$ by the observed frequency for the group, $\hat{y}_j=y_j$.
+
+**Candidate model:** the model with the current choice of $\lambda$.
+
+$$D_{\lambda}=2(l(\text{saturated model})-l(\text{candidate model}_{\lambda}))$$
+The **null deviance** is replacing the candidate model with a model where $\hat{y}_i=\frac{1}{N}\sum_{i=1}^N y_i$ (the case proportion).
+
+---
+
+# Example: South African heart disease
+(ELS 4.4.2)
 
 ## Group discussion
 
-Choose one of the lasso/ridge variants we have covered in L8-L9 and write down:
+Comment on what is done and the results. Where are the CIs and $p$-values for the ridge and lasso version?
 
-* which variation on the classic lasso penalty is used (write down the penalty part of the minimization problem)
-* make a drawing of the penalty (comparable to the sphere for ridge and the diamond for lasso)
-* in which practical data analysis situation is this variation used (e.g. when many correlated variables are present, when the covariates have a natural group structure, ...)
-* how can the parameter estimates be found?
-* anything else you found interesting?
+---
+
+## Data set
+
+The data is presented in ELS Section 4.4.2, and downloaded from <http://statweb.stanford.edu/~tibs/ElemStatLearn.1stEd/> with information in the file `SAheat.info` and data in `SAheart.data`.
+
+* This is a retrospective sample of males in a heart-disease high-risk region in South Africa. 
+*It consists of 462 observations on the 10 variables. All subjects are male in the age range 15-64. 
+* There are 160 cases (individuals who have suffered from a conorary heart disease) and 302 controls (individuals who have not suffered from a conorary heart disease).    
+* The overall prevalence in the region was 5.1%.
+
+The response value (`chd`) and covariates
+
+* `chd` : conorary heart disease \{yes, no\} coded by the numbers \{1, 0\}
+* `sbp` : systolic blood pressure  
+* `tobacco` : cumulative tobacco (kg)  
+* `ldl` : low density lipoprotein cholesterol
+* `adiposity` : a numeric vector
+* `famhist` : family history of heart disease. Categorical variable with two levels: \{Absent, Present\}.
+* `typea` : type-A behavior
+* `obesity` : a numerical value
+* `alcohol` : current alcohol consumption
+* `age` : age at onset
+
+_The goal is to identify important risk factors._ 
+
+---
+
+## Data description
+
+We start by loading and looking at the data:
+
+```{r,echo=TRUE}
+ds=read.csv("./SAheart.data",sep=",")[,-1]
+ds$chd=as.factor(ds$chd)
+ds$famhist=as.factor(ds$famhist)
+dim(ds)
+colnames(ds)
+head(ds)
+
+# to be easier to compare with lasso and ridge, we standardize the xs
+xs=model.matrix(chd~.,data=ds)[,-1] # to take care of categorical variables, but not include the intercept column
+xss=scale(xs)
+ys=as.numeric(ds[,10])-1 # not factor, must be numeric else errors...
+head(xss)
+table(ys)
+
+dss=data.frame(ys,xss)
+colnames(dss)[1]="chd"
+apply(dss,2,sd)
+apply(dss,2,mean)
+```
+
+The coloring is done according to the response variable, where green represents a case $Y=1$ and red represents a control $Y=0$.
+
+```{r, warning=FALSE, message=FALSE}
+ggpairs(ds, ggplot2::aes(color=chd), #upper="blank",  
+        lower = list(continuous = wrap("points", alpha = 0.3, size=0.2)))
+corrplot(cor(xss),type="upper")
+```
+
+**Q:** Comment on the correlation between covariates, and what that may lead to?
+
+---
+
+## Logistic regression
+
+We now fit a (multiple) logistic regression model using the `glm` function and the full data set. In order to fit a logistic model, the `family` argument must be set equal to `="binomial"`. The `summary` function prints out the estimates of the coefficients, their standard errors and z-values. As for a linear regression model, the significant coefficients are indicated by stars where the significant codes are included in the `R` printout.
+
+```{r,echo=TRUE}
+glm_heart = glm(chd~.,data=dss, family="binomial")
+summary(glm_heart)
+exp(coef(glm_heart))
+```
+
+A very surprising result here is that `sbp` and `obesity` are NOT significant and `obesity` has negative sign. This is a result of the correlation between covariates. In separate models with only `sbp` or only `obesity` each is positive and significant. 
+
+**Q:** How would you interpret the estimated coefficient for `tobacco`?
+
+---
+
+## Ridge logistic regression
+
+```{r,echo=TRUE}
+ridgefit=glmnet(x=xss,y=ys,alpha=0,standardize=FALSE,family="binomial") # already standardized
+plot(ridgefit,xvar="lambda",label=TRUE)
+
+cv.ridge=cv.glmnet(x=xss,y=ys,alpha=0,standardize=FALSE,family="binomial")
+print(paste("The lamda giving the smallest CV error",cv.ridge$lambda.min))
+print(paste("The 1sd err method lambda",cv.ridge$lambda.1se))
+
+plot(cv.ridge)
+
+# use 1sd error rule default
+plot(ridgefit,xvar="lambda",label=TRUE);
+abline(v=log(cv.ridge$lambda.1se));
+
+print(cbind(coef(ridgefit,s=cv.ridge$lambda.1se),coef(glm_heart)))
+# now possible to compare since the glm was also on standardized variables
+```
+
+---
+
+## Lasso logistic regression
+
+Numbering in plots is order of covariates, so:
 
 
-<!-- # Exercises -->
+```{r,echo=TRUE}
+cbind(1:9,colnames(xss))
 
-<!-- None -->
+lassofit=glmnet(x=xss,y=ys,alpha=1,standardize=FALSE,family="binomial") # already standardized
+plot(lassofit,xvar="lambda",label=TRUE)
 
-<!-- # Solutions to exercises -->
+cv.lasso=cv.glmnet(x=xss,y=ys,alpha=1,standardize=FALSE,,family="binomial")
+print(paste("The lamda giving the smallest CV error",cv.lasso$lambda.min))
+print(paste("The 1sd err method lambda",cv.lasso$lambda.1se))
 
-<!-- Please try yourself first, or take a small peek - and try some more - before fully reading the solutions. Report errors or improvements to <Mette.Langaas@ntnu.no>.  -->
+plot(cv.lasso)
+
+# use 1sd error rule default
+plot(lassofit,xvar="lambda",label=TRUE);
+abline(v=log(cv.lasso$lambda.1se));
+
+resmat=cbind(coef(lassofit,s=cv.lasso$lambda.1se),coef(ridgefit,s=cv.ridge$lambda.1se),coef(glm_heart))
+colnames(resmat)=c("lasso logistic","ridge logistic","logistic")
+print(resmat)
+```
+
+# Computational details for the glmnet implementation
+(HTW 3.7)
+
+`glmnet` is the implementation in R of the elastic net from  HTW-book, and the package is maintained by Trevor Hastie.
+
+The package fits generalized linear models using penalized maximum likelihood of elastic net type (lasso and ridge are special cases).
+
+The logistic lasso is fitted using a quadratic approximation for the
+negative log-likelihood in a "proximal-Newton iterative approach".
+
+## Software links
+
+* [R  glmnet on CRAN](https://cran.r-project.org/web/packages/glmnet/index.html)
+with [resources](http://www.stanford.edu/~hastie/glmnet).
+   + [Getting started](https://glmnet.stanford.edu/articles/glmnet.html)
+   + [GLM with glmnet](https://glmnet.stanford.edu/articles/glmnetFamily.html)
+
+For Python there are different options. 
+
+* [Python glmnet](https://web.stanford.edu/~hastie/glmnet_python/) is recommended by Hastie et al.
+* [scikit-learn](https://scikit-learn.org/stable/modules/linear_model.html#ridge-regression-and-classification) (seems to mostly be for regression? is there lasso for classification here?)
+
+---
+
+## glmnet inputs
+
+```{r,eval=FALSE,echo=TRUE}
+glmnet(x, y, 
+ family = c("gaussian", "binomial", "poisson", "multinomial","cox", "mgaussian"),
+ weights = NULL, offset = NULL, alpha = 1, nlambda = 100, 
+ lambda.min.ratio = ifelse(nobs < nvars, 0.01, 1e-04),
+ lambda = NULL, standardize = TRUE, intercept = TRUE,
+ thresh = 1e-07, dfmax = nvars + 1, 
+ pmax = min(dfmax * 2 + 20, nvars), 
+ exclude = NULL, penalty.factor = rep(1, nvars),
+ lower.limits = -Inf, upper.limits = Inf, maxit = 1e+05,
+ type.gaussian = ifelse(nvars < 500, "covariance", "naive"),
+ type.logistic = c("Newton", "modified.Newton"),
+ standardize.response = FALSE, 
+ type.multinomial = c("ungrouped","grouped"), 
+ relax = FALSE, trace.it = 0, ...)
+```
+
+---
+
+## cv.glmnet inputs
+
+```{r,eval=FALSE,echo=TRUE}
+cv.glmnet(x, y, weights = NULL, offset = NULL, lambda = NULL,
+  type.measure = c("default", "mse", "deviance", "class", "auc", "mae","C"),
+  nfolds = 10, foldid = NULL, 
+  alignment = c("lambda", "fraction"), grouped = TRUE, 
+  keep = FALSE, parallel = FALSE,
+  gamma = c(0, 0.25, 0.5, 0.75, 1), relax = FALSE, trace.it = 0, ...)
+```
+
+type.measure defaults to deviance (accoring to help(cv.glmnet)). The last is for Cox models.
+
+---
+
+### Family
+
+we have only covered `gaussian` (the default) and `binomial`.
+
+Each family has implemented the deviance measure. Poisson regression and Cox proportional hazard (survival analysis) is also implemented in glmnet.
+
+---
+
+### Penalties
+
+The elastic net is implemented, with three possible adjustment parameters.
+
+$$ \text{minimize}_{\beta_0,\beta} \{ -\frac{1}{N} l(y;\beta_0,\beta)+\lambda \sum_{j=1}^p
+\gamma_j ((1-\alpha)\beta_j^2+\alpha \lvert \beta_j \rvert)\}$$
+
+* $\lambda$: the penalty, default a grid of 100 values is chosen, to cover the lasso path on the log scale.
+* $\alpha$: elastic net parameter $\in [0,1]$. This is usually manually selected by a grid search over 3-5 values. Default is $\alpha=1$ (lasso), and with $\alpha=0$ we get ridge.
+* $\gamma_j$: penalty modifier for each covariate to be able to always include ($\gamma_j==0$), or exclude ($\gamma_j=\text{Inf}$), or give individual penalty modifications. Default $\lambda_j=1$.
+
+---
+
+For the $\lambda$ penalty the maximal value is for
+
+* linear regression: $\lambda_{\text max}=\text{max}_j \lvert \hat{\beta}_{LS,j} \rvert$ (standardized coefficients) or, should there also be a factor 1/N?
+* logistic regression: $\lambda_{\text max}=\text{max}_{j}\lvert {\bf x}_j ^T ({\bf y}-\bar{p}) \rvert$ where $\bar p$ is the mean case rate.
 
 
+### Additional modifications
 
-# Solutions
+* Coefficient bounds can be set (possible since coordinate descent is used)
+* Some coefficients can be excluded from the penalization (than thus forced in).
+* Offset can be added (popular if rate models for Poisson is used)
+* For binary and multinomial data factors or matrices can be input.
+* Sparse matrices with covariates can be supplied.
 
-## Exam UiO STK-IN4300 2019 Problem 1bc
-(stolen from the webpages at UiO)
+---
 
-**b)**
+## Lasso variants
 
-* Because the intercept is excluded from the penalization, as it makes no sense to shrink it toward 0.
-* One obtains the group lasso and the ordinary lasso, respectively.
-* It is preferable to use a procedure which assumes a sparse truth over one that does not, because the former performs better if the problem is actually sparse, while both procedures tend to perform badly for a dense problem. 
+Elastic net is already in glmnet (alpha-parameter).
 
-**c)**
-Bridge regression is a penalize regression approach which uses a penalty of the form $\sum_{j=1}^p \lvert \beta_j\rvert^q$ where $p$ is the number of explanatory variables and $\beta_j$ the regression coeﬃcients. When $1 \le q \le 2$, the penalty can be seen as a compromise between the lasso $q=1$ and the ridge $q=2$ penalties.
+Other lasso variants have their own R packages:
 
-Similarly, elastic net is also a compromise between lasso and ridge regression: in this case, a mixture of $L_1$ and $L_2$ penalties is used, with a hyperparameter controlling the ratio between the two penalties. The resulting methods is supposed to enclose the advantages of both penalties (mainly, variable selection and a better handling of correlation, respectively).
+* The group lasso <https://cran.r-project.org/web/packages/grplasso/grplasso.pdf>
+* The fused lasso <https://cran.r-project.org/web/packages/genlasso/genlasso.pdf>
+* The sparse group lasso <https://arxiv.org/pdf/2208.02942> and <https://cran.r-project.org/web/packages/sparsegl/vignettes/sparsegl.html>
 
-The difference in the models that one obtains by applying bridge regression and elastic net is related to the form of the constraints: while similar, that of elastic net has non-differentiable corners that lead to sparser models, as some regression coeﬃcients are forced to be exactly 0.
+* Bayesian lasso blasso function for normal data in package monomvn <https://rdrr.io/cran/monomvn/man/monomvn-package.html>
 
-## Exam UiO STK-IN4300 2020 Problem 1
-(stolen from the webpages at UiO)
+* Elastic net for ordinal data: <https://cran.r-project.org/web/packages/ordinalNet/ordinalNet.pdf>
 
-**a) **
-Ridge regression, because it performs better in the case of many variables with small effect (which can be seen from $\beta \sim N(0,2)$) and if there is a strong correlation among the variables ($\rho=0.9$).
 
-**b)** Without knowing that there are many variables with small effect (i.e., we miss the information on the $\beta$s), it is safer to use lasso "betting on sparsity": if there are only a few variables with a large ffect, it may strongly outperform ridge; if the situation is similar to the one at point (a), it will not perform much worse than ridge regression.
+# Confidence interval
 
-NOTE: if there was good reasoning behind the choice of ridge regression, the answer was considered correct. Example of good reasoning: Despite the fact that I do not know the effect of the variables, which would let me choose lasso, I prefer to use ridge because I want my model to handle the correlation in a better way, and, anyway, part of the effect of a few potential strong variables is shared with all the variables due to correlation.
+**Set-up**
 
-**c)** Yes, it would allow having a sparse model due to the $L_1$ penalty, with a better handling of the correlation among variables thanks to the $L_2$ penalty.
+* We have a random sample $Y_1,Y_2,\ldots,Y_N$ from 
+* some distribution $F$ with some (unkonwn) parameter $\theta$. 
+* Let $y_1,y_2,\ldots,y_N$ be the observed values for the random sample.
+
+**Statistics**
+
+* We have two statistics $\hat{\theta}_L(Y_1,Y_2,\ldots,Y_N)$ and $\hat{\theta}_U(Y_1,Y_2,\ldots,Y_N)$ so that 
+
+$$P(\hat{\theta}_L(Y_1,Y_2,\ldots,Y_N)\le \theta \le \hat{\theta}_U(Y_1,Y_2,\ldots,Y_N))=1-\alpha$$
+where $\alpha\in [0,1]$
+
+**Confidence interval**
+
+The numerical interval 
+$$[\hat{\theta}_L(y_1,y_2,\ldots,y_N),\hat{\theta}_U(y_1,y_2,\ldots,y_N)]$$
+is called a $(1-\alpha)$ 100% confidence interval.
+
+## Bootstrap confidence intervals
+
+## Percentile interval
+
+## Bias corrected accelerated interval
+
+
+# Background on hypothesis testing
+
+## Single hypothesis test
+
+$$H_{0}\colon \beta_j=0 \hspace{0.5cm} \text{vs.} \hspace{0.5cm} H_{1}\colon \beta_j \neq 0$$
+
+| | Not reject $H_0$ | Reject $H_0$|
+|:-------|:--------------|:---------------|
+| $H_0$ true  |  Correct | Type I error|
+|$H_0$ false  | Type II error | Correct|
+
+---
+
+* Two types of errors are possible, type I error and type II error. 
+* A type I error would be to reject $H_0$ when $H_0$ is true, that is concluding that there is a linear association between the response and the predictor where there is no such association. This is called a _false positive finding_.
+* A type II error would be to fail to reject $H_0$ when the alternative hypothesis $H_1$ is true, that is not detecting that there is a linear association between the response and the covariate. This is called a _false negative finding_.
+
+
+---
+
+## $p$-value
+ 
+* A $p$-value $p(X)$ is a test statistic satisfying $0 \leq p({\bf Y}) \leq 1$ for every vector of observations $\bf{Y}$. 
+* Small values give evidence that $H_1$ is true. 
+* In single hypothesis testing, if the $p$-value is less than the chosen significance level (chosen upper limit for the probability of committing a type I error), then we reject the null hypothesis, $H_0$. 
+* The chosen significance level is often referred to as $\alpha$.
+ 
+---
+ 
+A $p$-value is _valid_ if
+$$ P(p(\bf{Y}) \leq \alpha) \leq \alpha $$
+for all $\alpha$, $0 \leq \alpha \leq 1$, whenever $H_0$ is true, that is, if the $p$-value is valid, rejection on the basis of the $p$-value ensures that the probability of type I error does not exceed $\alpha$. 
+
+---
+
+An _exact_ $p$-value satisfies
+$$P(p(\bf{Y}) \leq \alpha) = \alpha$$
+for all $\alpha$, $0 \leq \alpha \leq 1$.
+
+* The exact $p$-value is uniformly distributed when the null hypothesis is true. 
+* This is a fact that is often misunderstood by users of $p$-values. 
+* The incorrect urban myth is that $p$-values from true null hypotheses are close to one, when the correct fact is that all values in intervals of the same length are equally probable (which is a property of the uniform distribution).
+
+
+## From single to multiple hypotheses
+
+In many situations we are not interested in testing only one hypothesis, but instead $m$ hypotheses. 
+
+| | Not reject $H_0$ | Reject $H_0$| Total |
+|:-------|:--------------|:---------------|:------|
+| $H_0$ true  |  $U$ | $V$| $m_0$|
+|$H_0$ false  | $T$ | $S$ |$m - m_0$|
+| Total | $m-R$ | $R$ | $m$ |
+
+* Out of the $m$ hypotheses tested, the (unknown) number of true null hypotheses is $m_0$. 
+* $V$: the number of type I errors (false positive findings) and 
+* $T$: the number of type II errors (false negative findings). 
+* $U$: the number of true null hypotheses that are not rejected and 
+* $S$: the number of false null hypotheses that are rejected.
+* $R$: the number of hypoteses rejected for a specific cut-off
+
+Observe: only $m$ and $R$ is observed!
+
+
+## Familywise error rate
+
+The familywise error rate (FWER) is defined as _the probability of one or more false positive findings_
+
+$$ \text{FWER} = P(V > 0) $$
+The number of false positive findings $V$ is not known in a real life situation, but still we may find a cut-off on the $p$-value, called $\alpha_{\text loc}$, that gives an upper limit to (controls) the FWER.
+
+---
+
+* Raw $p$-value, $p_j$, the lowest nominal level to reject the null hypothesis.  
+* Adjusted $p$-value, $\tilde{p}_j$, is the nominal level of the multiple (simultaneous) test procedure at which $H_{0j}, j=1,\ldots,m$ is just rejected, given the values of all test statistics involved. 
+
+The adjusted $p$-values can be defined as 
+$$\tilde{p}_j = \text{inf}\{\alpha  \mid H_{0j}\text{ is rejected at FWER level } \alpha \}$$
+
+In a multiple testing problem where all adjusted $p$-value below $\alpha$ are rejected, the overall type I error rate (for example FWER) will be controlled at level $\alpha$.
+ 
+---
+
+### The Bonferroni method controls the FWER
+
+Single-step methods controls for multiple testing by estimating one local significance level, $\alpha_{\text{loc}}$, which is used as a cut-off to detect significance for each individual test.
+
+The Bonferroni method is valid for all types of dependence structures between the test statistics. 
+
+The local significance level is $$\alpha_{\text loc}=\frac{\alpha}{m}$$
+
+The adjusted $p$-value is
+$$ \tilde{p}_j =\min(1,m p_j)$$
+
+Read more here if needed: [Short note on multiple hypothesis testing](https://www.math.ntnu.no/emner/TMA4267/2017v/multtest.pdf)
+
+---
+
+---
+
+# Exercises
+
+This week the best way to spend the time is to work on the Data Analysis Project 1.
+
+But, also good to study the R-code for the South African heart disease example, and make some changes.
+
+**Smart:** save this file as an .Rmd file and then run `purl(file.Rmd)` to produce a file with only the R-commands. (At the html-version you choose Code-Download Rmd on the top of the file).
+
+* Change the CV criterion to auc and to class. Are there changes to what is the best choice for $\lambda$?
 
 # Resources
 

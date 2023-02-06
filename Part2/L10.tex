@@ -1,0 +1,1563 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={MA8701 Advanced methods in statistical inference and learning},
+  pdfauthor={Mette Langaas},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{MA8701 Advanced methods in statistical inference and learning}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{L10: Shrinkage methods for the GLM}
+\author{Mette Langaas}
+\date{2/6/23}
+
+\begin{document}
+\maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, frame hidden, boxrule=0pt, sharp corners, enhanced, interior hidden, breakable]}{\end{tcolorbox}}\fi
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\hypertarget{before-we-begin}{%
+\section{Before we begin}\label{before-we-begin}}
+
+\hypertarget{literature}{%
+\subsection{Literature}\label{literature}}
+
+\begin{itemize}
+\item
+  {[}ELS{]} The Elements of Statistical Learning: Data Mining,
+  Inference, and Prediction, Second Edition (Springer Series in
+  Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome
+  Friedman.
+  \href{https://web.stanford.edu/~hastie/Papers/ESLII.pdf}{Ebook}.
+  Chapter 4.4.1-4.4.3 (4.4.4 is covered in 3.2 of HTW).
+\item
+  {[}HTW{]} Hastie, Tibshirani, Wainwrigh: ``Statistical Learning with
+  Sparsity: The Lasso and Generalizations''. CRC press.
+  \href{https://hastie.su.domains/StatLearnSparsity/}{Ebook}. Chapter
+  3.2,3.7
+\end{itemize}
+
+and for the interested student
+
+\begin{itemize}
+\tightlist
+\item
+  {[}WNvW{]} \href{https://arxiv.org/pdf/1509.09169v7.pdf}{Wessel N. van
+  Wieringen: Lecture notes on ridge regression} Chapter XXX
+\end{itemize}
+
+Supplemental sources useful for week 6:
+
+\begin{itemize}
+\tightlist
+\item
+  Bootstrap confidence intervals
+\item
+  \href{https://www.math.ntnu.no/emner/TMA4267/2017v/multtest.pdf}{Short
+  note on multiple hypothesis testing} in TMA4267 Linear Statistical
+  Models, Kari K. Halle, Øyvind Bakke and Mette Langaas, March 15, 2017.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{generalized-linear-models}{%
+\section{Generalized linear models}\label{generalized-linear-models}}
+
+(HTW 3.1, 3.2, and TMA4315 GLM background)
+
+\hypertarget{the-model}{%
+\subsection{The model}\label{the-model}}
+
+The GLM model has three ingredients:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Random component
+\item
+  Systematic component
+\item
+  Link function
+\end{enumerate}
+
+We look into that for the normal and binomial distribution - to get
+multiple linear regression and logistic regression.
+
+\begin{itemize}
+\tightlist
+\item
+  Write in class
+\item
+  Poll on standardization and centering.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{explaining-beta-in-logistic-regression}{%
+\subsection{\texorpdfstring{Explaining \(\beta\) in logistic
+regression}{Explaining \textbackslash beta in logistic regression}}\label{explaining-beta-in-logistic-regression}}
+
+\begin{itemize}
+\item
+  The ratio \(\frac{P(Y_i=1)}{P(Y_i=0)}=\frac{\pi_i}{1-\pi_1}\) is
+  called the \emph{odds}.
+\item
+  If \(\pi_i=\frac{1}{2}\) then the odds is \(1\), and if
+  \(\pi_i=\frac{1}{4}\) then the odds is \(\frac{1}{3}\). We may make a
+  table for probability vs.~odds in R:
+\end{itemize}
+
+\begin{table}
+\centering
+\begin{tabular}{l|r|r|r|r|r|r|r|r|r}
+\hline
+pivec & 0.10 & 0.20 & 0.30 & 0.40 & 0.5 & 0.6 & 0.70 & 0.8 & 0.9\\
+\hline
+odds & 0.11 & 0.25 & 0.43 & 0.67 & 1.0 & 1.5 & 2.33 & 4.0 & 9.0\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{itemize}
+\tightlist
+\item
+  Odds may be seen to be a better scale than probability to represent
+  chance, and is used in betting. In addition, odds are unbounded above.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+We look at the link function (inverse of the response function). Let us
+assume that our linear predictor has \(k\) covariates present
+
+\begin{align*}
+\eta_i&= \beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+\cdots + \beta_k x_{ik}\\
+\pi_i&= \frac{\exp(\eta_i)}{1+\exp(\eta_i)}\\
+\eta_i&=\ln(\frac{\pi_i}{1-\pi_i})\\
+\ln(\frac{\pi_i}{1-\pi_i})&=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+\cdots + \beta_k x_{ik}\\
+\frac{\pi_i}{1-\pi_i}=&\frac{P(Y_i=1)}{P(Y_i=0)}=\exp(\beta_0)\cdot \exp(\beta_1 x_{i1})\cdots\exp(\beta_k x_{ik})
+\end{align*}
+
+We have a \emph{multiplicative model} for the odds.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{So, what if we increase \(x_{1i}\) to \(x_{1i}+1\)?}
+
+If the covariate \(x_{1i}\) increases by one unit (while all other
+covariates are kept fixed) then the odds is multiplied by
+\(\exp(\beta_1)\):
+
+\begin{align*}
+\frac{P(Y_i=1\mid x_{i1}+1)}{P(Y_i=0)\mid x_{i1}+1)}&=\exp(\beta_0)\cdot \exp(\beta_1 (x_{i1}+1))\cdots\exp(\beta_k x_{ik})\\
+&=\exp(\beta_0)\cdot \exp(\beta_1 x_{i1})\exp(\beta_1)\cdots\exp(\beta_k x_{ik})\\
+&=\frac{P(Y_i=1\mid x_{i1})}{P(Y_i=0\mid x_{i1})}\cdot \exp(\beta_1)\\
+\end{align*}
+
+This means that if \(x_{i1}\) increases by \(1\) then: if \(\beta_1<0\)
+we get a decrease in the odds, if \(\beta_1=0\) no change, and if
+\(\beta_1>0\) we have an increase. In the logit model \(\exp(\beta_1)\)
+is easier to interpret than \(\beta_1\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+The response function as a function of the covariate \(x\) and not of
+\(\eta\). Solid lines: \(\beta_0=0\) and \(\beta_1\) is \(0.8\) (blue),
+\(1\) (red) and \(2\) (orange), and dashed lines with \(\beta_0=1\).
+
+\includegraphics{L10_files/figure-pdf/unnamed-chunk-3-1.pdf}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{parameter-estimation}{%
+\subsection{Parameter estimation}\label{parameter-estimation}}
+
+\begin{itemize}
+\item
+  Maximum likelihood estimation = maximize the likelihood of the data.
+  We write for the loglikelihood
+  \({\cal L}(\beta_0,\beta; {\bf y}, {\bf X})\).
+\item
+  For penalized method we instead minimize the negative loglikelihood
+  scaled with \(\frac{1}{N}\).
+\item
+  The ridge and lasso penalty is added to the scaled negative
+  loglikelihood.
+\item
+  We write this out for the normal and binomial distribution.
+\item
+  Write in class
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{algorithms}{%
+\subsection{Algorithms}\label{algorithms}}
+
+\begin{itemize}
+\tightlist
+\item
+  The likelihood for the GLM is differentiable, and the ridge and lasso
+  objective functions are convex - and can be solved with socalled
+  ``standard convex optimization methods''.
+\item
+  But, by popular demand also special algorithms are available -
+  building on the cyclic coordinate descent.
+\end{itemize}
+
+To understand the (ridge and) lasso logistic regression we first look at
+the \emph{iteratively reweighted least squares} (IRLS) - as a result of
+the Newton Raphson method.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{lasso-logistic-regression-fitting-algoritm}{%
+\subsubsection{Lasso logistic regression fitting
+algoritm}\label{lasso-logistic-regression-fitting-algoritm}}
+
+(HTW page 116)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{OUTER LOOP}\SpecialCharTok{:}\NormalTok{ start with lambdamax and decrement}
+
+\NormalTok{      MIDDLE }\FunctionTok{LOOP}\NormalTok{ (with warm start) }
+         
+\NormalTok{         compute quadratic approximation }\FunctionTok{Q}\NormalTok{(beta0,beta) }
+         \ControlFlowTok{for}\NormalTok{ current beta}\SpecialCharTok{{-}}\NormalTok{estimates}
+         
+         
+         
+\NormalTok{              INNER LOOP}\SpecialCharTok{:}\NormalTok{ cyclic coordinate descent}
+\NormalTok{              to minimize }\SpecialCharTok{{-}}\NormalTok{Q added the lasso penalty}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{criteria-for-choosing-lambda}{%
+\subsubsection{\texorpdfstring{Criteria for choosing
+\(\lambda\)}{Criteria for choosing \textbackslash lambda}}\label{criteria-for-choosing-lambda}}
+
+We use cross-validation to choose \(\lambda\).
+
+For regression we choose \(\lambda\) by minimizing the (mean) squared
+error.
+
+For (ridge and) lasso logistic regression we may choose:
+
+\begin{itemize}
+\tightlist
+\item
+  misclassification error rate on the validation set
+\item
+  ROC-AUC or PR-AUC
+\item
+  binomial deviance
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{confusion-matrix-sensitivity-specificity}{%
+\subsubsection{Confusion matrix, sensitivity,
+specificity}\label{confusion-matrix-sensitivity-specificity}}
+
+(from TMA4268)
+
+In a two class problem - assume the classes are labelled ``-'' (non
+disease,0) and ``+'' (disease,1). In a population setting we define the
+following event and associated number of observations.
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule()
+& Predicted - & Predicted + & Total \\
+\midrule()
+\endhead
+True - & True Negative TN & False Positive FP & N \\
+True + & False Negative FN & True Positive TP & P \\
+Total & N* & P* & \\
+\bottomrule()
+\end{longtable}
+
+(N in this context not to be confused with our sample size\ldots)
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Sensitivity} (recall) is the proportion of correctly classified
+positive observations:
+\(\frac{\# \text{True Positive}}{\# \text{Condition Positive}}=\frac{\text{TP}}{\text{P}}\).
+
+\textbf{Specificity} is the proportion of correctly classified negative
+observations:
+\(\frac{\# \text{True Negative}}{\# \text{Condition Negative}}=\frac{\text{TN}}{\text{N}}\).
+
+We would like that a classification rule have both a high sensitivity
+and a high specificity.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Other useful quantities:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3913}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2174}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3913}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Definition
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Synonoms
+\end{minipage} \\
+\midrule()
+\endhead
+False positive rate & FP/N & Type I error, 1-specificity \\
+True positive rate & TP/P & 1-Type II error, power, sensitivity,
+recall \\
+Positive predictive value (PPV) & TP/P* & Precision, 1-false discovery
+proportion \\
+Negative predictive value (NPV) & TN/N* & \\
+\bottomrule()
+\end{longtable}
+
+Where the PPV can be used together with the sensitivity to make a
+precision-recall curve more suitable for low case rates.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{roc-curves}{%
+\subsubsection{ROC curves}\label{roc-curves}}
+
+(also from TMA4268)
+
+The receiver operating characteristics (ROC) curve gives a graphical
+display of the sensitivity against specificity, as the threshold value
+(cut-off on probability of success or disease) is moved over the range
+of all possible values. An ideal classifier will give a ROC curve which
+hugs the top left corner, while a straight line represents a classifier
+with a random guess of the outcome.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{roc-auc}{%
+\subsubsection{ROC-AUC}\label{roc-auc}}
+
+\begin{itemize}
+\tightlist
+\item
+  The \textbf{ROC-AUC} score is the area under the ROC curve. It ranges
+  between the values 0 and 1, where a higher value indicates a better
+  classifier.
+\item
+  The AUC score is useful for comparing the performance of different
+  classifiers, as all possible threshold values are taken into account.
+\item
+  The ROC-AUC is closely connected to the robust U statistics.
+\item
+  If the prevalence (case proportion) is very low (0.01ish), the ROC-AUC
+  may be misleading, and the PR-AUC is more commonly used.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{roc-pr}{%
+\subsubsection{ROC-PR}\label{roc-pr}}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{deviance}{%
+\subsubsection{Deviance}\label{deviance}}
+
+The \emph{deviance} is based on the likelihood ratio test statistic.
+
+The derivation assumes that data can be grouped into covariate patterns,
+with \(G\) groups (else interval solutions are used in practice).
+
+\textbf{Saturated model:} If we were to provide a perfect fit to our
+data then we would estimate \(\pi_j\) by the observed frequency for the
+group, \(\hat{y}_j=y_j\).
+
+\textbf{Candidate model:} the model with the current choice of
+\(\lambda\).
+
+\[D_{\lambda}=2(l(\text{saturated model})-l(\text{candidate model}_{\lambda}))\]
+The \textbf{null deviance} is replacing the candidate model with a model
+where \(\hat{y}_i=\frac{1}{N}\sum_{i=1}^N y_i\) (the case proportion).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{example-south-african-heart-disease}{%
+\section{Example: South African heart
+disease}\label{example-south-african-heart-disease}}
+
+(ELS 4.4.2)
+
+\hypertarget{group-discussion}{%
+\subsection{Group discussion}\label{group-discussion}}
+
+Comment on what is done and the results. Where are the CIs and
+\(p\)-values for the ridge and lasso version?
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{data-set}{%
+\subsection{Data set}\label{data-set}}
+
+The data is presented in ELS Section 4.4.2, and downloaded from
+\url{http://statweb.stanford.edu/~tibs/ElemStatLearn.1stEd/} with
+information in the file \texttt{SAheat.info} and data in
+\texttt{SAheart.data}.
+
+\begin{itemize}
+\tightlist
+\item
+  This is a retrospective sample of males in a heart-disease high-risk
+  region in South Africa. *It consists of 462 observations on the 10
+  variables. All subjects are male in the age range 15-64.
+\item
+  There are 160 cases (individuals who have suffered from a conorary
+  heart disease) and 302 controls (individuals who have not suffered
+  from a conorary heart disease).\\
+\item
+  The overall prevalence in the region was 5.1\%.
+\end{itemize}
+
+The response value (\texttt{chd}) and covariates
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{chd} : conorary heart disease \{yes, no\} coded by the numbers
+  \{1, 0\}
+\item
+  \texttt{sbp} : systolic blood pressure\\
+\item
+  \texttt{tobacco} : cumulative tobacco (kg)\\
+\item
+  \texttt{ldl} : low density lipoprotein cholesterol
+\item
+  \texttt{adiposity} : a numeric vector
+\item
+  \texttt{famhist} : family history of heart disease. Categorical
+  variable with two levels: \{Absent, Present\}.
+\item
+  \texttt{typea} : type-A behavior
+\item
+  \texttt{obesity} : a numerical value
+\item
+  \texttt{alcohol} : current alcohol consumption
+\item
+  \texttt{age} : age at onset
+\end{itemize}
+
+\emph{The goal is to identify important risk factors.}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{data-description}{%
+\subsection{Data description}\label{data-description}}
+
+We start by loading and looking at the data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ds}\OtherTok{=}\FunctionTok{read.csv}\NormalTok{(}\StringTok{"./SAheart.data"}\NormalTok{,}\AttributeTok{sep=}\StringTok{","}\NormalTok{)[,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]}
+\NormalTok{ds}\SpecialCharTok{$}\NormalTok{chd}\OtherTok{=}\FunctionTok{as.factor}\NormalTok{(ds}\SpecialCharTok{$}\NormalTok{chd)}
+\NormalTok{ds}\SpecialCharTok{$}\NormalTok{famhist}\OtherTok{=}\FunctionTok{as.factor}\NormalTok{(ds}\SpecialCharTok{$}\NormalTok{famhist)}
+\FunctionTok{dim}\NormalTok{(ds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 462  10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(ds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "sbp"       "tobacco"   "ldl"       "adiposity" "famhist"   "typea"    
+ [7] "obesity"   "alcohol"   "age"       "chd"      
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(ds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  sbp tobacco  ldl adiposity famhist typea obesity alcohol age chd
+1 160   12.00 5.73     23.11 Present    49   25.30   97.20  52   1
+2 144    0.01 4.41     28.61  Absent    55   28.87    2.06  63   1
+3 118    0.08 3.48     32.28 Present    52   29.14    3.81  46   0
+4 170    7.50 6.41     38.03 Present    51   31.99   24.26  58   1
+5 134   13.60 3.50     27.78 Present    60   25.99   57.34  49   1
+6 132    6.20 6.47     36.21 Present    62   30.77   14.14  45   0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# to be easier to compare with lasso and ridge, we standardize the xs}
+\NormalTok{xs}\OtherTok{=}\FunctionTok{model.matrix}\NormalTok{(chd}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}\AttributeTok{data=}\NormalTok{ds)[,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{] }\CommentTok{\# to take care of categorical variables, but not include the intercept column}
+\NormalTok{xss}\OtherTok{=}\FunctionTok{scale}\NormalTok{(xs)}
+\NormalTok{ys}\OtherTok{=}\FunctionTok{as.numeric}\NormalTok{(ds[,}\DecValTok{10}\NormalTok{])}\SpecialCharTok{{-}}\DecValTok{1} \CommentTok{\# not factor, must be numeric else errors...}
+\FunctionTok{head}\NormalTok{(xss)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+         sbp    tobacco        ldl  adiposity famhistPresent      typea
+1  1.0574173  1.8210988  0.4778941 -0.2951832      1.1845700 -0.4180170
+2  0.2767892 -0.7893817 -0.1595071  0.4116942     -0.8423609  0.1931344
+3 -0.9917313 -0.7741412 -0.6085852  0.8833742      1.1845700 -0.1124413
+4  1.5453098  0.8413521  0.8062523  1.6223824      1.1845700 -0.2142999
+5 -0.2111033  2.1694532 -0.5989276  0.3050200      1.1845700  0.7024273
+6 -0.3086818  0.5583142  0.8352251  1.3884702      1.1845700  0.9061444
+      obesity    alcohol       age
+1 -0.17659445  3.2741887 0.6286543
+2  0.67064592 -0.6120811 1.3816170
+3  0.73472292 -0.5405973 0.2179473
+4  1.41109128  0.2947424 1.0393612
+5 -0.01284211  1.6459912 0.4233008
+6  1.12155816 -0.1186384 0.1494961
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(ys)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ys
+  0   1 
+302 160 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dss}\OtherTok{=}\FunctionTok{data.frame}\NormalTok{(ys,xss)}
+\FunctionTok{colnames}\NormalTok{(dss)[}\DecValTok{1}\NormalTok{]}\OtherTok{=}\StringTok{"chd"}
+\FunctionTok{apply}\NormalTok{(dss,}\DecValTok{2}\NormalTok{,sd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+           chd            sbp        tobacco            ldl      adiposity 
+     0.4763125      1.0000000      1.0000000      1.0000000      1.0000000 
+famhistPresent          typea        obesity        alcohol            age 
+     1.0000000      1.0000000      1.0000000      1.0000000      1.0000000 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{apply}\NormalTok{(dss,}\DecValTok{2}\NormalTok{,mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+           chd            sbp        tobacco            ldl      adiposity 
+  3.463203e-01   1.289252e-16   5.166622e-16  -3.961057e-15   1.557677e-15 
+famhistPresent          typea        obesity        alcohol            age 
+ -3.892990e-17  -9.924721e-17  -5.292544e-15  -6.411418e-16  -3.953067e-17 
+\end{verbatim}
+
+The coloring is done according to the response variable, where green
+represents a case \(Y=1\) and red represents a control \(Y=0\).
+
+\includegraphics{L10_files/figure-pdf/unnamed-chunk-6-1.pdf}
+
+\includegraphics{L10_files/figure-pdf/unnamed-chunk-6-2.pdf}
+
+\textbf{Q:} Comment on the correlation between covariates, and what that
+may lead to?
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{logistic-regression}{%
+\subsection{Logistic regression}\label{logistic-regression}}
+
+We now fit a (multiple) logistic regression model using the \texttt{glm}
+function and the full data set. In order to fit a logistic model, the
+\texttt{family} argument must be set equal to \texttt{="binomial"}. The
+\texttt{summary} function prints out the estimates of the coefficients,
+their standard errors and z-values. As for a linear regression model,
+the significant coefficients are indicated by stars where the
+significant codes are included in the \texttt{R} printout.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glm\_heart }\OtherTok{=} \FunctionTok{glm}\NormalTok{(chd}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}\AttributeTok{data=}\NormalTok{dss, }\AttributeTok{family=}\StringTok{"binomial"}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(glm\_heart)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+glm(formula = chd ~ ., family = "binomial", data = dss)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.7781  -0.8213  -0.4387   0.8889   2.5435  
+
+Coefficients:
+                Estimate Std. Error z value Pr(>|z|)    
+(Intercept)    -0.878545   0.123218  -7.130  1.0e-12 ***
+sbp             0.133308   0.117452   1.135 0.256374    
+tobacco         0.364578   0.122187   2.984 0.002847 ** 
+ldl             0.360181   0.123554   2.915 0.003555 ** 
+adiposity       0.144616   0.227892   0.635 0.525700    
+famhistPresent  0.456538   0.112433   4.061  4.9e-05 ***
+typea           0.388726   0.120954   3.214 0.001310 ** 
+obesity        -0.265082   0.186446  -1.422 0.155095    
+alcohol         0.002978   0.109754   0.027 0.978350    
+age             0.660695   0.177203   3.728 0.000193 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 596.11  on 461  degrees of freedom
+Residual deviance: 472.14  on 452  degrees of freedom
+AIC: 492.14
+
+Number of Fisher Scoring iterations: 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{exp}\NormalTok{(}\FunctionTok{coef}\NormalTok{(glm\_heart))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   (Intercept)            sbp        tobacco            ldl      adiposity 
+     0.4153868      1.1426023      1.4399061      1.4335883      1.1555963 
+famhistPresent          typea        obesity        alcohol            age 
+     1.5785989      1.4750996      0.7671430      1.0029829      1.9361378 
+\end{verbatim}
+
+A very surprising result here is that \texttt{sbp} and \texttt{obesity}
+are NOT significant and \texttt{obesity} has negative sign. This is a
+result of the correlation between covariates. In separate models with
+only \texttt{sbp} or only \texttt{obesity} each is positive and
+significant.
+
+\textbf{Q:} How would you interpret the estimated coefficient for
+\texttt{tobacco}?
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{ridge-logistic-regression}{%
+\subsection{Ridge logistic regression}\label{ridge-logistic-regression}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ridgefit}\OtherTok{=}\FunctionTok{glmnet}\NormalTok{(}\AttributeTok{x=}\NormalTok{xss,}\AttributeTok{y=}\NormalTok{ys,}\AttributeTok{alpha=}\DecValTok{0}\NormalTok{,}\AttributeTok{standardize=}\ConstantTok{FALSE}\NormalTok{,}\AttributeTok{family=}\StringTok{"binomial"}\NormalTok{) }\CommentTok{\# already standardized}
+\FunctionTok{plot}\NormalTok{(ridgefit,}\AttributeTok{xvar=}\StringTok{"lambda"}\NormalTok{,}\AttributeTok{label=}\ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{L10_files/figure-pdf/unnamed-chunk-8-1.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cv.ridge}\OtherTok{=}\FunctionTok{cv.glmnet}\NormalTok{(}\AttributeTok{x=}\NormalTok{xss,}\AttributeTok{y=}\NormalTok{ys,}\AttributeTok{alpha=}\DecValTok{0}\NormalTok{,}\AttributeTok{standardize=}\ConstantTok{FALSE}\NormalTok{,}\AttributeTok{family=}\StringTok{"binomial"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"The lamda giving the smallest CV error"}\NormalTok{,cv.ridge}\SpecialCharTok{$}\NormalTok{lambda.min))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "The lamda giving the smallest CV error 0.0449437341245567"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"The 1sd err method lambda"}\NormalTok{,cv.ridge}\SpecialCharTok{$}\NormalTok{lambda}\FloatTok{.1}\NormalTok{se))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "The 1sd err method lambda 0.199128672796206"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(cv.ridge)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{L10_files/figure-pdf/unnamed-chunk-8-2.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# use 1sd error rule default}
+\FunctionTok{plot}\NormalTok{(ridgefit,}\AttributeTok{xvar=}\StringTok{"lambda"}\NormalTok{,}\AttributeTok{label=}\ConstantTok{TRUE}\NormalTok{);}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\FunctionTok{log}\NormalTok{(cv.ridge}\SpecialCharTok{$}\NormalTok{lambda}\FloatTok{.1}\NormalTok{se));}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{L10_files/figure-pdf/unnamed-chunk-8-3.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(}\FunctionTok{coef}\NormalTok{(ridgefit,}\AttributeTok{s=}\NormalTok{cv.ridge}\SpecialCharTok{$}\NormalTok{lambda}\FloatTok{.1}\NormalTok{se),}\FunctionTok{coef}\NormalTok{(glm\_heart)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+10 x 2 sparse Matrix of class "dgCMatrix"
+                       s1             
+(Intercept)    -0.7172600 -0.878545196
+sbp             0.1045976  0.133308398
+tobacco         0.2261616  0.364577926
+ldl             0.1934864  0.360180594
+adiposity       0.1133511  0.144616485
+famhistPresent  0.2414481  0.456537713
+typea           0.1395311  0.388725509
+obesity        -0.0415776 -0.265082072
+alcohol         0.0190819  0.002978424
+age             0.2939324  0.660695163
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# now possible to compare since the glm was also on standardized variables}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{lasso-logistic-regression}{%
+\subsection{Lasso logistic regression}\label{lasso-logistic-regression}}
+
+Numbering in plots is order of covariates, so:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cbind}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{9}\NormalTok{,}\FunctionTok{colnames}\NormalTok{(xss))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      [,1] [,2]            
+ [1,] "1"  "sbp"           
+ [2,] "2"  "tobacco"       
+ [3,] "3"  "ldl"           
+ [4,] "4"  "adiposity"     
+ [5,] "5"  "famhistPresent"
+ [6,] "6"  "typea"         
+ [7,] "7"  "obesity"       
+ [8,] "8"  "alcohol"       
+ [9,] "9"  "age"           
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lassofit}\OtherTok{=}\FunctionTok{glmnet}\NormalTok{(}\AttributeTok{x=}\NormalTok{xss,}\AttributeTok{y=}\NormalTok{ys,}\AttributeTok{alpha=}\DecValTok{1}\NormalTok{,}\AttributeTok{standardize=}\ConstantTok{FALSE}\NormalTok{,}\AttributeTok{family=}\StringTok{"binomial"}\NormalTok{) }\CommentTok{\# already standardized}
+\FunctionTok{plot}\NormalTok{(lassofit,}\AttributeTok{xvar=}\StringTok{"lambda"}\NormalTok{,}\AttributeTok{label=}\ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{L10_files/figure-pdf/unnamed-chunk-9-1.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cv.lasso}\OtherTok{=}\FunctionTok{cv.glmnet}\NormalTok{(}\AttributeTok{x=}\NormalTok{xss,}\AttributeTok{y=}\NormalTok{ys,}\AttributeTok{alpha=}\DecValTok{1}\NormalTok{,}\AttributeTok{standardize=}\ConstantTok{FALSE}\NormalTok{,,}\AttributeTok{family=}\StringTok{"binomial"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"The lamda giving the smallest CV error"}\NormalTok{,cv.lasso}\SpecialCharTok{$}\NormalTok{lambda.min))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "The lamda giving the smallest CV error 0.00903024338615681"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"The 1sd err method lambda"}\NormalTok{,cv.lasso}\SpecialCharTok{$}\NormalTok{lambda}\FloatTok{.1}\NormalTok{se))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "The 1sd err method lambda 0.0481916929365089"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(cv.lasso)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{L10_files/figure-pdf/unnamed-chunk-9-2.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# use 1sd error rule default}
+\FunctionTok{plot}\NormalTok{(lassofit,}\AttributeTok{xvar=}\StringTok{"lambda"}\NormalTok{,}\AttributeTok{label=}\ConstantTok{TRUE}\NormalTok{);}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\FunctionTok{log}\NormalTok{(cv.lasso}\SpecialCharTok{$}\NormalTok{lambda}\FloatTok{.1}\NormalTok{se));}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{L10_files/figure-pdf/unnamed-chunk-9-3.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{resmat}\OtherTok{=}\FunctionTok{cbind}\NormalTok{(}\FunctionTok{coef}\NormalTok{(lassofit,}\AttributeTok{s=}\NormalTok{cv.lasso}\SpecialCharTok{$}\NormalTok{lambda}\FloatTok{.1}\NormalTok{se),}\FunctionTok{coef}\NormalTok{(ridgefit,}\AttributeTok{s=}\NormalTok{cv.ridge}\SpecialCharTok{$}\NormalTok{lambda}\FloatTok{.1}\NormalTok{se),}\FunctionTok{coef}\NormalTok{(glm\_heart))}
+\FunctionTok{colnames}\NormalTok{(resmat)}\OtherTok{=}\FunctionTok{c}\NormalTok{(}\StringTok{"lasso logistic"}\NormalTok{,}\StringTok{"ridge logistic"}\NormalTok{,}\StringTok{"logistic"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(resmat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+10 x 3 sparse Matrix of class "dgCMatrix"
+               lasso logistic ridge logistic     logistic
+(Intercept)       -0.71845118     -0.7172600 -0.878545196
+sbp                .               0.1045976  0.133308398
+tobacco            0.19488756      0.2261616  0.364577926
+ldl                0.16128600      0.1934864  0.360180594
+adiposity          .               0.1133511  0.144616485
+famhistPresent     0.23914352      0.2414481  0.456537713
+typea              0.04405624      0.1395311  0.388725509
+obesity            .              -0.0415776 -0.265082072
+alcohol            .               0.0190819  0.002978424
+age                0.45878137      0.2939324  0.660695163
+\end{verbatim}
+
+\hypertarget{computational-details-for-the-glmnet-implementation}{%
+\section{Computational details for the glmnet
+implementation}\label{computational-details-for-the-glmnet-implementation}}
+
+(HTW 3.7)
+
+\texttt{glmnet} is the implementation in R of the elastic net from
+HTW-book, and the package is maintained by Trevor Hastie.
+
+The package fits generalized linear models using penalized maximum
+likelihood of elastic net type (lasso and ridge are special cases).
+
+The logistic lasso is fitted using a quadratic approximation for the
+negative log-likelihood in a ``proximal-Newton iterative approach''.
+
+\hypertarget{software-links}{%
+\subsection{Software links}\label{software-links}}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://cran.r-project.org/web/packages/glmnet/index.html}{R
+  glmnet on CRAN} with
+  \href{http://www.stanford.edu/~hastie/glmnet}{resources}.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://glmnet.stanford.edu/articles/glmnet.html}{Getting
+    started}
+  \item
+    \href{https://glmnet.stanford.edu/articles/glmnetFamily.html}{GLM
+    with glmnet}
+  \end{itemize}
+\end{itemize}
+
+For Python there are different options.
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://web.stanford.edu/~hastie/glmnet_python/}{Python glmnet}
+  is recommended by Hastie et al.
+\item
+  \href{https://scikit-learn.org/stable/modules/linear_model.html\#ridge-regression-and-classification}{scikit-learn}
+  (seems to mostly be for regression? is there lasso for classification
+  here?)
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{glmnet-inputs}{%
+\subsection{glmnet inputs}\label{glmnet-inputs}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{glmnet}\NormalTok{(x, y, }
+ \AttributeTok{family =} \FunctionTok{c}\NormalTok{(}\StringTok{"gaussian"}\NormalTok{, }\StringTok{"binomial"}\NormalTok{, }\StringTok{"poisson"}\NormalTok{, }\StringTok{"multinomial"}\NormalTok{,}\StringTok{"cox"}\NormalTok{, }\StringTok{"mgaussian"}\NormalTok{),}
+ \AttributeTok{weights =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{offset =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{alpha =} \DecValTok{1}\NormalTok{, }\AttributeTok{nlambda =} \DecValTok{100}\NormalTok{, }
+ \AttributeTok{lambda.min.ratio =} \FunctionTok{ifelse}\NormalTok{(nobs }\SpecialCharTok{\textless{}}\NormalTok{ nvars, }\FloatTok{0.01}\NormalTok{, }\FloatTok{1e{-}04}\NormalTok{),}
+ \AttributeTok{lambda =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{standardize =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{intercept =} \ConstantTok{TRUE}\NormalTok{,}
+ \AttributeTok{thresh =} \FloatTok{1e{-}07}\NormalTok{, }\AttributeTok{dfmax =}\NormalTok{ nvars }\SpecialCharTok{+} \DecValTok{1}\NormalTok{, }
+ \AttributeTok{pmax =} \FunctionTok{min}\NormalTok{(dfmax }\SpecialCharTok{*} \DecValTok{2} \SpecialCharTok{+} \DecValTok{20}\NormalTok{, nvars), }
+ \AttributeTok{exclude =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{penalty.factor =} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, nvars),}
+ \AttributeTok{lower.limits =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{upper.limits =} \ConstantTok{Inf}\NormalTok{, }\AttributeTok{maxit =} \FloatTok{1e+05}\NormalTok{,}
+ \AttributeTok{type.gaussian =} \FunctionTok{ifelse}\NormalTok{(nvars }\SpecialCharTok{\textless{}} \DecValTok{500}\NormalTok{, }\StringTok{"covariance"}\NormalTok{, }\StringTok{"naive"}\NormalTok{),}
+ \AttributeTok{type.logistic =} \FunctionTok{c}\NormalTok{(}\StringTok{"Newton"}\NormalTok{, }\StringTok{"modified.Newton"}\NormalTok{),}
+ \AttributeTok{standardize.response =} \ConstantTok{FALSE}\NormalTok{, }
+ \AttributeTok{type.multinomial =} \FunctionTok{c}\NormalTok{(}\StringTok{"ungrouped"}\NormalTok{,}\StringTok{"grouped"}\NormalTok{), }
+ \AttributeTok{relax =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{trace.it =} \DecValTok{0}\NormalTok{, ...)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{cv.glmnet-inputs}{%
+\subsection{cv.glmnet inputs}\label{cv.glmnet-inputs}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cv.glmnet}\NormalTok{(x, y, }\AttributeTok{weights =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{offset =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{lambda =} \ConstantTok{NULL}\NormalTok{,}
+  \AttributeTok{type.measure =} \FunctionTok{c}\NormalTok{(}\StringTok{"default"}\NormalTok{, }\StringTok{"mse"}\NormalTok{, }\StringTok{"deviance"}\NormalTok{, }\StringTok{"class"}\NormalTok{, }\StringTok{"auc"}\NormalTok{, }\StringTok{"mae"}\NormalTok{,}\StringTok{"C"}\NormalTok{),}
+  \AttributeTok{nfolds =} \DecValTok{10}\NormalTok{, }\AttributeTok{foldid =} \ConstantTok{NULL}\NormalTok{, }
+  \AttributeTok{alignment =} \FunctionTok{c}\NormalTok{(}\StringTok{"lambda"}\NormalTok{, }\StringTok{"fraction"}\NormalTok{), }\AttributeTok{grouped =} \ConstantTok{TRUE}\NormalTok{, }
+  \AttributeTok{keep =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{parallel =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{gamma =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{relax =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{trace.it =} \DecValTok{0}\NormalTok{, ...)}
+\end{Highlighting}
+\end{Shaded}
+
+type.measure defaults to deviance (accoring to help(cv.glmnet)). The
+last is for Cox models.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{family}{%
+\subsubsection{Family}\label{family}}
+
+we have only covered \texttt{gaussian} (the default) and
+\texttt{binomial}.
+
+Each family has implemented the deviance measure. Poisson regression and
+Cox proportional hazard (survival analysis) is also implemented in
+glmnet.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{penalties}{%
+\subsubsection{Penalties}\label{penalties}}
+
+The elastic net is implemented, with three possible adjustment
+parameters.
+
+\[ \text{minimize}_{\beta_0,\beta} \{ -\frac{1}{N} l(y;\beta_0,\beta)+\lambda \sum_{j=1}^p
+\gamma_j ((1-\alpha)\beta_j^2+\alpha \lvert \beta_j \rvert)\}\]
+
+\begin{itemize}
+\tightlist
+\item
+  \(\lambda\): the penalty, default a grid of 100 values is chosen, to
+  cover the lasso path on the log scale.
+\item
+  \(\alpha\): elastic net parameter \(\in [0,1]\). This is usually
+  manually selected by a grid search over 3-5 values. Default is
+  \(\alpha=1\) (lasso), and with \(\alpha=0\) we get ridge.
+\item
+  \(\gamma_j\): penalty modifier for each covariate to be able to always
+  include (\(\gamma_j==0\)), or exclude (\(\gamma_j=\text{Inf}\)), or
+  give individual penalty modifications. Default \(\lambda_j=1\).
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+For the \(\lambda\) penalty the maximal value is for
+
+\begin{itemize}
+\tightlist
+\item
+  linear regression:
+  \(\lambda_{\text max}=\text{max}_j \lvert \hat{\beta}_{LS,j} \rvert\)
+  (standardized coefficients) or, should there also be a factor 1/N?
+\item
+  logistic regression:
+  \(\lambda_{\text max}=\text{max}_{j}\lvert {\bf x}_j ^T ({\bf y}-\bar{p}) \rvert\)
+  where \(\bar p\) is the mean case rate.
+\end{itemize}
+
+\hypertarget{additional-modifications}{%
+\subsubsection{Additional
+modifications}\label{additional-modifications}}
+
+\begin{itemize}
+\tightlist
+\item
+  Coefficient bounds can be set (possible since coordinate descent is
+  used)
+\item
+  Some coefficients can be excluded from the penalization (than thus
+  forced in).
+\item
+  Offset can be added (popular if rate models for Poisson is used)
+\item
+  For binary and multinomial data factors or matrices can be input.
+\item
+  Sparse matrices with covariates can be supplied.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{lasso-variants}{%
+\subsection{Lasso variants}\label{lasso-variants}}
+
+Elastic net is already in glmnet (alpha-parameter).
+
+Other lasso variants have their own R packages:
+
+\begin{itemize}
+\item
+  The group lasso
+  \url{https://cran.r-project.org/web/packages/grplasso/grplasso.pdf}
+\item
+  The fused lasso
+  \url{https://cran.r-project.org/web/packages/genlasso/genlasso.pdf}
+\item
+  The sparse group lasso \url{https://arxiv.org/pdf/2208.02942} and
+  \url{https://cran.r-project.org/web/packages/sparsegl/vignettes/sparsegl.html}
+\item
+  Bayesian lasso blasso function for normal data in package monomvn
+  \url{https://rdrr.io/cran/monomvn/man/monomvn-package.html}
+\item
+  Elastic net for ordinal data:
+  \url{https://cran.r-project.org/web/packages/ordinalNet/ordinalNet.pdf}
+\end{itemize}
+
+\hypertarget{confidence-interval}{%
+\section{Confidence interval}\label{confidence-interval}}
+
+\textbf{Set-up}
+
+\begin{itemize}
+\tightlist
+\item
+  We have a random sample \(Y_1,Y_2,\ldots,Y_N\) from
+\item
+  some distribution \(F\) with some (unkonwn) parameter \(\theta\).
+\item
+  Let \(y_1,y_2,\ldots,y_N\) be the observed values for the random
+  sample.
+\end{itemize}
+
+\textbf{Statistics}
+
+\begin{itemize}
+\tightlist
+\item
+  We have two statistics \(\hat{\theta}_L(Y_1,Y_2,\ldots,Y_N)\) and
+  \(\hat{\theta}_U(Y_1,Y_2,\ldots,Y_N)\) so that
+\end{itemize}
+
+\[P(\hat{\theta}_L(Y_1,Y_2,\ldots,Y_N)\le \theta \le \hat{\theta}_U(Y_1,Y_2,\ldots,Y_N))=1-\alpha\]
+where \(\alpha\in [0,1]\)
+
+\textbf{Confidence interval}
+
+The numerical interval
+\[[\hat{\theta}_L(y_1,y_2,\ldots,y_N),\hat{\theta}_U(y_1,y_2,\ldots,y_N)]\]
+is called a \((1-\alpha)\) 100\% confidence interval.
+
+\hypertarget{bootstrap-confidence-intervals}{%
+\subsection{Bootstrap confidence
+intervals}\label{bootstrap-confidence-intervals}}
+
+\hypertarget{percentile-interval}{%
+\subsection{Percentile interval}\label{percentile-interval}}
+
+\hypertarget{bias-corrected-accelerated-interval}{%
+\subsection{Bias corrected accelerated
+interval}\label{bias-corrected-accelerated-interval}}
+
+\hypertarget{background-on-hypothesis-testing}{%
+\section{Background on hypothesis
+testing}\label{background-on-hypothesis-testing}}
+
+\hypertarget{single-hypothesis-test}{%
+\subsection{Single hypothesis test}\label{single-hypothesis-test}}
+
+\[H_{0}\colon \beta_j=0 \hspace{0.5cm} \text{vs.} \hspace{0.5cm} H_{1}\colon \beta_j \neq 0\]
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule()
+& Not reject \(H_0\) & Reject \(H_0\) \\
+\midrule()
+\endhead
+\(H_0\) true & Correct & Type I error \\
+\(H_0\) false & Type II error & Correct \\
+\bottomrule()
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Two types of errors are possible, type I error and type II error.
+\item
+  A type I error would be to reject \(H_0\) when \(H_0\) is true, that
+  is concluding that there is a linear association between the response
+  and the predictor where there is no such association. This is called a
+  \emph{false positive finding}.
+\item
+  A type II error would be to fail to reject \(H_0\) when the
+  alternative hypothesis \(H_1\) is true, that is not detecting that
+  there is a linear association between the response and the covariate.
+  This is called a \emph{false negative finding}.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{p-value}{%
+\subsection{\texorpdfstring{\(p\)-value}{p-value}}\label{p-value}}
+
+\begin{itemize}
+\tightlist
+\item
+  A \(p\)-value \(p(X)\) is a test statistic satisfying
+  \(0 \leq p({\bf Y}) \leq 1\) for every vector of observations
+  \(\bf{Y}\).
+\item
+  Small values give evidence that \(H_1\) is true.
+\item
+  In single hypothesis testing, if the \(p\)-value is less than the
+  chosen significance level (chosen upper limit for the probability of
+  committing a type I error), then we reject the null hypothesis,
+  \(H_0\).
+\item
+  The chosen significance level is often referred to as \(\alpha\).
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+A \(p\)-value is \emph{valid} if
+\[ P(p(\bf{Y}) \leq \alpha) \leq \alpha \] for all \(\alpha\),
+\(0 \leq \alpha \leq 1\), whenever \(H_0\) is true, that is, if the
+\(p\)-value is valid, rejection on the basis of the \(p\)-value ensures
+that the probability of type I error does not exceed \(\alpha\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+An \emph{exact} \(p\)-value satisfies
+\[P(p(\bf{Y}) \leq \alpha) = \alpha\] for all \(\alpha\),
+\(0 \leq \alpha \leq 1\).
+
+\begin{itemize}
+\tightlist
+\item
+  The exact \(p\)-value is uniformly distributed when the null
+  hypothesis is true.
+\item
+  This is a fact that is often misunderstood by users of \(p\)-values.
+\item
+  The incorrect urban myth is that \(p\)-values from true null
+  hypotheses are close to one, when the correct fact is that all values
+  in intervals of the same length are equally probable (which is a
+  property of the uniform distribution).
+\end{itemize}
+
+\hypertarget{from-single-to-multiple-hypotheses}{%
+\subsection{From single to multiple
+hypotheses}\label{from-single-to-multiple-hypotheses}}
+
+In many situations we are not interested in testing only one hypothesis,
+but instead \(m\) hypotheses.
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule()
+& Not reject \(H_0\) & Reject \(H_0\) & Total \\
+\midrule()
+\endhead
+\(H_0\) true & \(U\) & \(V\) & \(m_0\) \\
+\(H_0\) false & \(T\) & \(S\) & \(m - m_0\) \\
+Total & \(m-R\) & \(R\) & \(m\) \\
+\bottomrule()
+\end{longtable}
+
+\begin{itemize}
+\tightlist
+\item
+  Out of the \(m\) hypotheses tested, the (unknown) number of true null
+  hypotheses is \(m_0\).
+\item
+  \(V\): the number of type I errors (false positive findings) and
+\item
+  \(T\): the number of type II errors (false negative findings).
+\item
+  \(U\): the number of true null hypotheses that are not rejected and
+\item
+  \(S\): the number of false null hypotheses that are rejected.
+\item
+  \(R\): the number of hypoteses rejected for a specific cut-off
+\end{itemize}
+
+Observe: only \(m\) and \(R\) is observed!
+
+\hypertarget{familywise-error-rate}{%
+\subsection{Familywise error rate}\label{familywise-error-rate}}
+
+The familywise error rate (FWER) is defined as \emph{the probability of
+one or more false positive findings}
+
+\[ \text{FWER} = P(V > 0) \] The number of false positive findings \(V\)
+is not known in a real life situation, but still we may find a cut-off
+on the \(p\)-value, called \(\alpha_{\text loc}\), that gives an upper
+limit to (controls) the FWER.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Raw \(p\)-value, \(p_j\), the lowest nominal level to reject the null
+  hypothesis.\\
+\item
+  Adjusted \(p\)-value, \(\tilde{p}_j\), is the nominal level of the
+  multiple (simultaneous) test procedure at which
+  \(H_{0j}, j=1,\ldots,m\) is just rejected, given the values of all
+  test statistics involved.
+\end{itemize}
+
+The adjusted \(p\)-values can be defined as
+\[\tilde{p}_j = \text{inf}\{\alpha  \mid H_{0j}\text{ is rejected at FWER level } \alpha \}\]
+
+In a multiple testing problem where all adjusted \(p\)-value below
+\(\alpha\) are rejected, the overall type I error rate (for example
+FWER) will be controlled at level \(\alpha\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{the-bonferroni-method-controls-the-fwer}{%
+\subsubsection{The Bonferroni method controls the
+FWER}\label{the-bonferroni-method-controls-the-fwer}}
+
+Single-step methods controls for multiple testing by estimating one
+local significance level, \(\alpha_{\text{loc}}\), which is used as a
+cut-off to detect significance for each individual test.
+
+The Bonferroni method is valid for all types of dependence structures
+between the test statistics.
+
+The local significance level is \[\alpha_{\text loc}=\frac{\alpha}{m}\]
+
+The adjusted \(p\)-value is \[ \tilde{p}_j =\min(1,m p_j)\]
+
+Read more here if needed:
+\href{https://www.math.ntnu.no/emner/TMA4267/2017v/multtest.pdf}{Short
+note on multiple hypothesis testing}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{exercises}{%
+\section{Exercises}\label{exercises}}
+
+This week the best way to spend the time is to work on the Data Analysis
+Project 1.
+
+But, also good to study the R-code for the South African heart disease
+example, and make some changes.
+
+\textbf{Smart:} save this file as an .Rmd file and then run
+\texttt{purl(file.Rmd)} to produce a file with only the R-commands. (At
+the html-version you choose Code-Download Rmd on the top of the file).
+
+\begin{itemize}
+\tightlist
+\item
+  Change the CV criterion to auc and to class. Are there changes to what
+  is the best choice for \(\lambda\)?
+\end{itemize}
+
+\hypertarget{resources}{%
+\section{Resources}\label{resources}}
+
+\begin{itemize}
+\tightlist
+\item
+  Video from webinar with Trevor Hastie on
+  \href{http://youtu.be/BU2gjoLPfDc}{glmnet from 2019}
+\item
+  See
+  \href{https://github.com/mettelang/MA8701V2021/blob/main/Part1/LassoandfriendsBenDunn.pdf}{slides
+  from guest lecturer Benjamin Dunn in 2021}
+\end{itemize}
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-casi}{}}%
+Efron, Bradley, and Trevor Hastie. 2016. \emph{Computer Age Statistical
+Inference - Algorithms, Evidence, and Data Science}. Cambridge
+University Press. \url{https://hastie.su.domains/CASI/}.
+
+\end{CSLReferences}
+
+
+
+\end{document}
