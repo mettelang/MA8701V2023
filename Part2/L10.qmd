@@ -5,7 +5,7 @@ author: "Mette Langaas"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 bibliography: ../Part1/references.bib
 nocite: |
-  @casi, @esl
+  @casi, @esl, @WNvW
 format: 
   html: 
     toc: true
@@ -56,15 +56,17 @@ suppressPackageStartupMessages(library(lars)) #data diabetes
 
 * [ELS] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. [Ebook](https://web.stanford.edu/~hastie/Papers/ESLII.pdf). Chapter 4.4.1-4.4.3 (4.4.4 is covered in 3.2 of HTW).
 
-* [HTW] Hastie, Tibshirani, Wainwrigh: "Statistical Learning with Sparsity: The Lasso and Generalizations". CRC press. [Ebook](https://hastie.su.domains/StatLearnSparsity/). Chapter 3.2,3.7
+* [HTW] Hastie, Tibshirani, Wainwright: "Statistical Learning with Sparsity: The Lasso and Generalizations". CRC press. [Ebook](https://hastie.su.domains/StatLearnSparsity/). Chapter 3.2,3.7, 5.4.3
 
 and for the interested student
 
-* [WNvW] [Wessel N. van Wieringen: Lecture notes on ridge regression](https://arxiv.org/pdf/1509.09169v7.pdf) Chapter XXX
+* [WNvW] [Wessel N. van Wieringen: Lecture notes on ridge regression](https://arxiv.org/pdf/1509.09169v7.pdf) Chapter 5.
 
-Supplemental sources useful for week 6:
+---
 
-* Bootstrap confidence intervals
+Supplemental sources useful for week 6 (see also the section on "Preparing for inference for the lasso and ridge")
+
+* [Bootstrap confidence intervals in the master thesis of Lene Tillerli Omdal Section 3.6.2](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/3026839) and teaching material from TMA4300 - see the wikipage for that course.
 * [Short note on multiple hypothesis testing](https://www.math.ntnu.no/emner/TMA4267/2017v/multtest.pdf) in TMA4267 Linear Statistical Models, Kari K. Halle, Øyvind Bakke and Mette Langaas, March 15, 2017. 
 
 ---
@@ -127,10 +129,9 @@ The GLM model has three ingredients:
 2) Systematic component
 3) Link function
 
-We look into that for the normal and binomial distribution - to get multiple linear regression and logistic regression.
+We look into that for the binomial distribution - to get multiple linear regression and logistic regression.
 
 * Write in class
-* Poll on standardization and centering.
 
 ---
 
@@ -199,30 +200,49 @@ ggplot(data.frame(x=c(-6,5)), aes(x))+
 
 ## Parameter estimation
 
-* Maximum likelihood estimation = maximize the likelihood of the data. We write for the loglikelihood ${\cal L}(\beta_0,\beta; {\bf y}, {\bf X})$.
+First logistic regression, then ridge and lasso logistic regression - and (maybe) elastic net logistic regression.
+
+### Logistic regression
+
+* Maximum likelihood estimation = maximize the likelihood of the data. We write for the loglikelihood ${\cal{l}}(\beta_0,\beta; {\boldsymbol y}, {\boldsymbol X})$.
+
+* We write out the loglikelihood for the binomial with logit link =logistic regression. 
+
+---
+
+### Algorithms
+
+To understand the ridge and lasso logistic regression we first look at the _iteratively reweighted least squares_ (IRLS) - as a result of the Newton Raphson method for the logistic regression (unpenalized).
+
+### Properties
+
+The parameter estimator is asymptotically normal. Unbiased with variance the inverse of the Fisher information matrix - as known TMA4315.
+
+---
+
+In class we now scroll down to the South African data set and look at the data and the logistic regression.
+
+---
+
+### Penalized logistic regression
 
 * For penalized method we instead minimize the negative loglikelihood scaled with $\frac{1}{N}$.
 
 * The ridge and lasso penalty is added to the scaled negative loglikelihood.
 
-* We write this out for the normal and binomial distribution.
-
 * Write in class
 
 ---
 
-## Algorithms
+### Algorithms
 
 * The likelihood for the GLM is differentiable, and the ridge and lasso objective functions are convex - and can be solved with socalled "standard convex optimization methods". 
 * But, by popular demand also special algorithms are available - building on the cyclic coordinate descent.
 
-To understand the (ridge and) lasso logistic regression we first look at the _iteratively reweighted least squares_ (IRLS) - as a result of the Newton Raphson method.
+### Ridge logistic regression IRWLS 
 
 ---
 
-
-
----
 
 ### Lasso logistic regression fitting algoritm
 (HTW page 116)
@@ -232,14 +252,12 @@ OUTER LOOP: start with lambdamax and decrement
 
       MIDDLE LOOP (with warm start) 
          
-         compute quadratic approximation Q(beta0,beta) 
+         compute quadratic approximation 
          for current beta-estimates
          
-         
-         
               INNER LOOP: cyclic coordinate descent
-              to minimize -Q added the lasso penalty
-              
+              to minimize quadratic approximation 
+              added the lasso penalty
 ```            
 
 ---         
@@ -258,7 +276,9 @@ For (ridge and) lasso logistic regression we may choose:
 
 ---
 
-### Confusion matrix, sensitivity, specificity 
+# Evaluation metrics
+
+## Confusion matrix, sensitivity, specificity 
 (from TMA4268)
 
 In a two class problem - assume the classes are labelled "-" (non disease,0) and "+" (disease,1). In a population setting we define the following event and associated number of observations.
@@ -294,7 +314,7 @@ Where the PPV can be used together with the sensitivity to make a precision-reca
 
 ---
 
-### ROC curves 
+## ROC curves 
 (also from TMA4268)
 
 The receiver operating characteristics (ROC) curve gives a graphical display of the sensitivity against specificity, as the threshold value (cut-off on probability of success or disease) is moved over the range of all possible values. 
@@ -302,7 +322,7 @@ An ideal classifier will give a ROC curve which hugs the top left corner, while 
 
 ---
 
-### ROC-AUC 
+## ROC-AUC 
 
 * The **ROC-AUC** score is the area under the ROC curve. It ranges between the values 0 and 1, where a higher value indicates a better classifier. 
 <!-- An AUC score equal to 1 would imply that all observations are correctly classified.  -->
@@ -312,12 +332,13 @@ An ideal classifier will give a ROC curve which hugs the top left corner, while 
 
 ---
 
-### ROC-PR
+## ROC-PR
+
+To be added.
 
 ---
 
-
-### Deviance
+## Deviance
 
 The _deviance_ is based on the likelihood ratio test statistic. 
 
@@ -347,9 +368,11 @@ Comment on what is done and the results. Where are the CIs and $p$-values for th
 The data is presented in ELS Section 4.4.2, and downloaded from <http://statweb.stanford.edu/~tibs/ElemStatLearn.1stEd/> with information in the file `SAheat.info` and data in `SAheart.data`.
 
 * This is a retrospective sample of males in a heart-disease high-risk region in South Africa. 
-*It consists of 462 observations on the 10 variables. All subjects are male in the age range 15-64. 
+* It consists of 462 observations on the 10 variables. All subjects are male in the age range 15-64. 
 * There are 160 cases (individuals who have suffered from a conorary heart disease) and 302 controls (individuals who have not suffered from a conorary heart disease).    
 * The overall prevalence in the region was 5.1%.
+
+---
 
 The response value (`chd`) and covariates
 
@@ -395,9 +418,16 @@ apply(dss,2,mean)
 
 The coloring is done according to the response variable, where green represents a case $Y=1$ and red represents a control $Y=0$.
 
+---
+
 ```{r, warning=FALSE, message=FALSE}
 ggpairs(ds, ggplot2::aes(color=chd), #upper="blank",  
         lower = list(continuous = wrap("points", alpha = 0.3, size=0.2)))
+```
+
+---
+
+```{r, warning=FALSE, message=FALSE}
 corrplot(cor(xss),type="upper")
 ```
 
@@ -409,11 +439,15 @@ corrplot(cor(xss),type="upper")
 
 We now fit a (multiple) logistic regression model using the `glm` function and the full data set. In order to fit a logistic model, the `family` argument must be set equal to `="binomial"`. The `summary` function prints out the estimates of the coefficients, their standard errors and z-values. As for a linear regression model, the significant coefficients are indicated by stars where the significant codes are included in the `R` printout.
 
+---
+
 ```{r,echo=TRUE}
 glm_heart = glm(chd~.,data=dss, family="binomial")
 summary(glm_heart)
 exp(coef(glm_heart))
 ```
+
+---
 
 A very surprising result here is that `sbp` and `obesity` are NOT significant and `obesity` has negative sign. This is a result of the correlation between covariates. In separate models with only `sbp` or only `obesity` each is positive and significant. 
 
@@ -426,17 +460,29 @@ A very surprising result here is that `sbp` and `obesity` are NOT significant an
 ```{r,echo=TRUE}
 ridgefit=glmnet(x=xss,y=ys,alpha=0,standardize=FALSE,family="binomial") # already standardized
 plot(ridgefit,xvar="lambda",label=TRUE)
+```
 
+---
+
+```{r}
 cv.ridge=cv.glmnet(x=xss,y=ys,alpha=0,standardize=FALSE,family="binomial")
 print(paste("The lamda giving the smallest CV error",cv.ridge$lambda.min))
 print(paste("The 1sd err method lambda",cv.ridge$lambda.1se))
 
 plot(cv.ridge)
+```
 
+---
+
+```{r}
 # use 1sd error rule default
 plot(ridgefit,xvar="lambda",label=TRUE);
 abline(v=log(cv.ridge$lambda.1se));
+```
 
+---
+
+```{r}
 print(cbind(coef(ridgefit,s=cv.ridge$lambda.1se),coef(glm_heart)))
 # now possible to compare since the glm was also on standardized variables
 ```
@@ -452,24 +498,86 @@ Numbering in plots is order of covariates, so:
 cbind(1:9,colnames(xss))
 
 lassofit=glmnet(x=xss,y=ys,alpha=1,standardize=FALSE,family="binomial") # already standardized
-plot(lassofit,xvar="lambda",label=TRUE)
+```
 
+---
+
+```{r}
+plot(lassofit,xvar="lambda",label=TRUE)
+```
+
+---
+
+```{r}
 cv.lasso=cv.glmnet(x=xss,y=ys,alpha=1,standardize=FALSE,,family="binomial")
 print(paste("The lamda giving the smallest CV error",cv.lasso$lambda.min))
 print(paste("The 1sd err method lambda",cv.lasso$lambda.1se))
 
 plot(cv.lasso)
+```
 
+---
+
+```{r}
 # use 1sd error rule default
 plot(lassofit,xvar="lambda",label=TRUE);
 abline(v=log(cv.lasso$lambda.1se));
 
+```
+
+---
+
+```{r}
 resmat=cbind(coef(lassofit,s=cv.lasso$lambda.1se),coef(ridgefit,s=cv.ridge$lambda.1se),coef(glm_heart))
-colnames(resmat)=c("lasso logistic","ridge logistic","logistic")
+colnames(resmat)=c("lasso","ridge","logistic")
 print(resmat)
 ```
 
-# Computational details for the glmnet implementation
+---
+
+## Elastic net logistic regression
+
+
+```{r,echo=TRUE}
+cbind(1:9,colnames(xss))
+
+elfit=glmnet(x=xss,y=ys,alpha=0.5,standardize=FALSE,family="binomial") # already standardized
+```
+
+---
+
+```{r}
+plot(elfit,xvar="lambda",label=TRUE)
+```
+
+---
+
+```{r}
+cv.el=cv.glmnet(x=xss,y=ys,alpha=1,standardize=FALSE,,family="binomial")
+print(paste("The lamda giving the smallest CV error",cv.el$lambda.min))
+print(paste("The 1sd err method lambda",cv.el$lambda.1se))
+
+plot(cv.el)
+```
+
+---
+
+```{r}
+# use 1sd error rule default
+plot(elfit,xvar="lambda",label=TRUE);
+abline(v=log(cv.el$lambda.1se));
+
+```
+
+---
+
+```{r}
+resmat=cbind(coef(elfit,s=cv.el$lambda.1se),coef(lassofit,s=cv.lasso$lambda.1se),coef(ridgefit,s=cv.ridge$lambda.1se),coef(glm_heart))
+colnames(resmat)=c("elactic", "lasso","ridge","logistic")
+print(resmat)
+```
+
+# Computational details for the glmnet 
 (HTW 3.7)
 
 `glmnet` is the implementation in R of the elastic net from  HTW-book, and the package is maintained by Trevor Hastie.
@@ -485,6 +593,8 @@ negative log-likelihood in a "proximal-Newton iterative approach".
 with [resources](http://www.stanford.edu/~hastie/glmnet).
    + [Getting started](https://glmnet.stanford.edu/articles/glmnet.html)
    + [GLM with glmnet](https://glmnet.stanford.edu/articles/glmnetFamily.html)
+
+---
 
 For Python there are different options. 
 
@@ -553,7 +663,7 @@ $$ \text{minimize}_{\beta_0,\beta} \{ -\frac{1}{N} l(y;\beta_0,\beta)+\lambda \s
 For the $\lambda$ penalty the maximal value is for
 
 * linear regression: $\lambda_{\text max}=\text{max}_j \lvert \hat{\beta}_{LS,j} \rvert$ (standardized coefficients) or, should there also be a factor 1/N?
-* logistic regression: $\lambda_{\text max}=\text{max}_{j}\lvert {\bf x}_j ^T ({\bf y}-\bar{p}) \rvert$ where $\bar p$ is the mean case rate.
+* logistic regression: $\lambda_{\text max}=\text{max}_{j}\lvert {\boldsymbol x}_j ^T ({\boldsymbol y}-\bar{p}) \rvert$ where $\bar p$ is the mean case rate.
 
 
 ### Additional modifications
@@ -581,7 +691,9 @@ Other lasso variants have their own R packages:
 * Elastic net for ordinal data: <https://cran.r-project.org/web/packages/ordinalNet/ordinalNet.pdf>
 
 
-# Confidence interval
+# Preparing for inference for the lasso and ridge
+
+## Confidence interval
 
 **Set-up**
 
@@ -596,6 +708,8 @@ Other lasso variants have their own R packages:
 $$P(\hat{\theta}_L(Y_1,Y_2,\ldots,Y_N)\le \theta \le \hat{\theta}_U(Y_1,Y_2,\ldots,Y_N))=1-\alpha$$
 where $\alpha\in [0,1]$
 
+---
+
 **Confidence interval**
 
 The numerical interval 
@@ -608,8 +722,7 @@ is called a $(1-\alpha)$ 100% confidence interval.
 
 ## Bias corrected accelerated interval
 
-
-# Background on hypothesis testing
+---
 
 ## Single hypothesis test
 
@@ -631,7 +744,7 @@ $$H_{0}\colon \beta_j=0 \hspace{0.5cm} \text{vs.} \hspace{0.5cm} H_{1}\colon \be
 
 ## $p$-value
  
-* A $p$-value $p(X)$ is a test statistic satisfying $0 \leq p({\bf Y}) \leq 1$ for every vector of observations $\bf{Y}$. 
+* A $p$-value $p(X)$ is a test statistic satisfying $0 \leq p({\boldsymbol Y}) \leq 1$ for every vector of observations $\boldsymbol{Y}$. 
 * Small values give evidence that $H_1$ is true. 
 * In single hypothesis testing, if the $p$-value is less than the chosen significance level (chosen upper limit for the probability of committing a type I error), then we reject the null hypothesis, $H_0$. 
 * The chosen significance level is often referred to as $\alpha$.
@@ -639,19 +752,20 @@ $$H_{0}\colon \beta_j=0 \hspace{0.5cm} \text{vs.} \hspace{0.5cm} H_{1}\colon \be
 ---
  
 A $p$-value is _valid_ if
-$$ P(p(\bf{Y}) \leq \alpha) \leq \alpha $$
+$$ P(p(\boldsymbol{Y}) \leq \alpha) \leq \alpha $$
 for all $\alpha$, $0 \leq \alpha \leq 1$, whenever $H_0$ is true, that is, if the $p$-value is valid, rejection on the basis of the $p$-value ensures that the probability of type I error does not exceed $\alpha$. 
 
 ---
 
 An _exact_ $p$-value satisfies
-$$P(p(\bf{Y}) \leq \alpha) = \alpha$$
+$$P(p(\boldsymbol{Y}) \leq \alpha) = \alpha$$
 for all $\alpha$, $0 \leq \alpha \leq 1$.
 
 * The exact $p$-value is uniformly distributed when the null hypothesis is true. 
 * This is a fact that is often misunderstood by users of $p$-values. 
 * The incorrect urban myth is that $p$-values from true null hypotheses are close to one, when the correct fact is that all values in intervals of the same length are equally probable (which is a property of the uniform distribution).
 
+---
 
 ## From single to multiple hypotheses
 
@@ -672,6 +786,7 @@ In many situations we are not interested in testing only one hypothesis, but ins
 
 Observe: only $m$ and $R$ is observed!
 
+---
 
 ## Familywise error rate
 
@@ -692,7 +807,7 @@ In a multiple testing problem where all adjusted $p$-value below $\alpha$ are re
  
 ---
 
-### The Bonferroni method controls the FWER
+## The Bonferroni method controls the FWER
 
 Single-step methods controls for multiple testing by estimating one local significance level, $\alpha_{\text{loc}}$, which is used as a cut-off to detect significance for each individual test.
 
@@ -703,11 +818,6 @@ The local significance level is $$\alpha_{\text loc}=\frac{\alpha}{m}$$
 The adjusted $p$-value is
 $$ \tilde{p}_j =\min(1,m p_j)$$
 
-Read more here if needed: [Short note on multiple hypothesis testing](https://www.math.ntnu.no/emner/TMA4267/2017v/multtest.pdf)
-
----
-
----
 
 # Exercises
 
@@ -718,11 +828,6 @@ But, also good to study the R-code for the South African heart disease example, 
 **Smart:** save this file as an .Rmd file and then run `purl(file.Rmd)` to produce a file with only the R-commands. (At the html-version you choose Code-Download Rmd on the top of the file).
 
 * Change the CV criterion to auc and to class. Are there changes to what is the best choice for $\lambda$?
-
-# Resources
-
-* Video from webinar with Trevor Hastie on [glmnet from 2019](http://youtu.be/BU2gjoLPfDc)
-* See [slides from guest lecturer Benjamin Dunn in 2021](https://github.com/mettelang/MA8701V2021/blob/main/Part1/LassoandfriendsBenDunn.pdf)
 
 # References
 

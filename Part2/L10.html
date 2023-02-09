@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-02-06">
+<meta name="dcterms.date" content="2023-02-09">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -141,28 +141,37 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#the-model" id="toc-the-model" class="nav-link" data-scroll-target="#the-model">The model</a></li>
   <li><a href="#explaining-beta-in-logistic-regression" id="toc-explaining-beta-in-logistic-regression" class="nav-link" data-scroll-target="#explaining-beta-in-logistic-regression">Explaining <span class="math inline">\(\beta\)</span> in logistic regression</a></li>
-  <li><a href="#parameter-estimation" id="toc-parameter-estimation" class="nav-link" data-scroll-target="#parameter-estimation">Parameter estimation</a></li>
-  <li><a href="#algorithms" id="toc-algorithms" class="nav-link" data-scroll-target="#algorithms">Algorithms</a>
+  <li><a href="#parameter-estimation" id="toc-parameter-estimation" class="nav-link" data-scroll-target="#parameter-estimation">Parameter estimation</a>
   <ul class="collapse">
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression">Logistic regression</a></li>
+  <li><a href="#algorithms" id="toc-algorithms" class="nav-link" data-scroll-target="#algorithms">Algorithms</a></li>
+  <li><a href="#properties" id="toc-properties" class="nav-link" data-scroll-target="#properties">Properties</a></li>
+  <li><a href="#penalized-logistic-regression" id="toc-penalized-logistic-regression" class="nav-link" data-scroll-target="#penalized-logistic-regression">Penalized logistic regression</a></li>
+  <li><a href="#algorithms-1" id="toc-algorithms-1" class="nav-link" data-scroll-target="#algorithms-1">Algorithms</a></li>
+  <li><a href="#ridge-logistic-regression-irwls" id="toc-ridge-logistic-regression-irwls" class="nav-link" data-scroll-target="#ridge-logistic-regression-irwls">Ridge logistic regression IRWLS</a></li>
   <li><a href="#lasso-logistic-regression-fitting-algoritm" id="toc-lasso-logistic-regression-fitting-algoritm" class="nav-link" data-scroll-target="#lasso-logistic-regression-fitting-algoritm">Lasso logistic regression fitting algoritm</a></li>
   <li><a href="#criteria-for-choosing-lambda" id="toc-criteria-for-choosing-lambda" class="nav-link" data-scroll-target="#criteria-for-choosing-lambda">Criteria for choosing <span class="math inline">\(\lambda\)</span></a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#evaluation-metrics" id="toc-evaluation-metrics" class="nav-link" data-scroll-target="#evaluation-metrics">Evaluation metrics</a>
+  <ul class="collapse">
   <li><a href="#confusion-matrix-sensitivity-specificity" id="toc-confusion-matrix-sensitivity-specificity" class="nav-link" data-scroll-target="#confusion-matrix-sensitivity-specificity">Confusion matrix, sensitivity, specificity</a></li>
   <li><a href="#roc-curves" id="toc-roc-curves" class="nav-link" data-scroll-target="#roc-curves">ROC curves</a></li>
   <li><a href="#roc-auc" id="toc-roc-auc" class="nav-link" data-scroll-target="#roc-auc">ROC-AUC</a></li>
   <li><a href="#roc-pr" id="toc-roc-pr" class="nav-link" data-scroll-target="#roc-pr">ROC-PR</a></li>
   <li><a href="#deviance" id="toc-deviance" class="nav-link" data-scroll-target="#deviance">Deviance</a></li>
   </ul></li>
-  </ul></li>
   <li><a href="#example-south-african-heart-disease" id="toc-example-south-african-heart-disease" class="nav-link" data-scroll-target="#example-south-african-heart-disease">Example: South African heart disease</a>
   <ul class="collapse">
   <li><a href="#group-discussion" id="toc-group-discussion" class="nav-link" data-scroll-target="#group-discussion">Group discussion</a></li>
   <li><a href="#data-set" id="toc-data-set" class="nav-link" data-scroll-target="#data-set">Data set</a></li>
   <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data description</a></li>
-  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression">Logistic regression</a></li>
+  <li><a href="#logistic-regression-1" id="toc-logistic-regression-1" class="nav-link" data-scroll-target="#logistic-regression-1">Logistic regression</a></li>
   <li><a href="#ridge-logistic-regression" id="toc-ridge-logistic-regression" class="nav-link" data-scroll-target="#ridge-logistic-regression">Ridge logistic regression</a></li>
   <li><a href="#lasso-logistic-regression" id="toc-lasso-logistic-regression" class="nav-link" data-scroll-target="#lasso-logistic-regression">Lasso logistic regression</a></li>
+  <li><a href="#elastic-net-logistic-regression" id="toc-elastic-net-logistic-regression" class="nav-link" data-scroll-target="#elastic-net-logistic-regression">Elastic net logistic regression</a></li>
   </ul></li>
-  <li><a href="#computational-details-for-the-glmnet-implementation" id="toc-computational-details-for-the-glmnet-implementation" class="nav-link" data-scroll-target="#computational-details-for-the-glmnet-implementation">Computational details for the glmnet implementation</a>
+  <li><a href="#computational-details-for-the-glmnet" id="toc-computational-details-for-the-glmnet" class="nav-link" data-scroll-target="#computational-details-for-the-glmnet">Computational details for the glmnet</a>
   <ul class="collapse">
   <li><a href="#software-links" id="toc-software-links" class="nav-link" data-scroll-target="#software-links">Software links</a></li>
   <li><a href="#glmnet-inputs" id="toc-glmnet-inputs" class="nav-link" data-scroll-target="#glmnet-inputs">glmnet inputs</a></li>
@@ -174,24 +183,19 @@ div.csl-indent {
   </ul></li>
   <li><a href="#lasso-variants" id="toc-lasso-variants" class="nav-link" data-scroll-target="#lasso-variants">Lasso variants</a></li>
   </ul></li>
-  <li><a href="#confidence-interval" id="toc-confidence-interval" class="nav-link" data-scroll-target="#confidence-interval">Confidence interval</a>
+  <li><a href="#preparing-for-inference-for-the-lasso-and-ridge" id="toc-preparing-for-inference-for-the-lasso-and-ridge" class="nav-link" data-scroll-target="#preparing-for-inference-for-the-lasso-and-ridge">Preparing for inference for the lasso and ridge</a>
   <ul class="collapse">
+  <li><a href="#confidence-interval" id="toc-confidence-interval" class="nav-link" data-scroll-target="#confidence-interval">Confidence interval</a></li>
   <li><a href="#bootstrap-confidence-intervals" id="toc-bootstrap-confidence-intervals" class="nav-link" data-scroll-target="#bootstrap-confidence-intervals">Bootstrap confidence intervals</a></li>
   <li><a href="#percentile-interval" id="toc-percentile-interval" class="nav-link" data-scroll-target="#percentile-interval">Percentile interval</a></li>
   <li><a href="#bias-corrected-accelerated-interval" id="toc-bias-corrected-accelerated-interval" class="nav-link" data-scroll-target="#bias-corrected-accelerated-interval">Bias corrected accelerated interval</a></li>
-  </ul></li>
-  <li><a href="#background-on-hypothesis-testing" id="toc-background-on-hypothesis-testing" class="nav-link" data-scroll-target="#background-on-hypothesis-testing">Background on hypothesis testing</a>
-  <ul class="collapse">
   <li><a href="#single-hypothesis-test" id="toc-single-hypothesis-test" class="nav-link" data-scroll-target="#single-hypothesis-test">Single hypothesis test</a></li>
   <li><a href="#p-value" id="toc-p-value" class="nav-link" data-scroll-target="#p-value"><span class="math inline">\(p\)</span>-value</a></li>
   <li><a href="#from-single-to-multiple-hypotheses" id="toc-from-single-to-multiple-hypotheses" class="nav-link" data-scroll-target="#from-single-to-multiple-hypotheses">From single to multiple hypotheses</a></li>
-  <li><a href="#familywise-error-rate" id="toc-familywise-error-rate" class="nav-link" data-scroll-target="#familywise-error-rate">Familywise error rate</a>
-  <ul class="collapse">
+  <li><a href="#familywise-error-rate" id="toc-familywise-error-rate" class="nav-link" data-scroll-target="#familywise-error-rate">Familywise error rate</a></li>
   <li><a href="#the-bonferroni-method-controls-the-fwer" id="toc-the-bonferroni-method-controls-the-fwer" class="nav-link" data-scroll-target="#the-bonferroni-method-controls-the-fwer">The Bonferroni method controls the FWER</a></li>
   </ul></li>
-  </ul></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -220,7 +224,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 6, 2023</p>
+      <p class="date">February 9, 2023</p>
     </div>
   </div>
   
@@ -239,15 +243,16 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="literature">Literature</h2>
 <ul>
 <li><p>[ELS] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. <a href="https://web.stanford.edu/~hastie/Papers/ESLII.pdf">Ebook</a>. Chapter 4.4.1-4.4.3 (4.4.4 is covered in 3.2 of HTW).</p></li>
-<li><p>[HTW] Hastie, Tibshirani, Wainwrigh: “Statistical Learning with Sparsity: The Lasso and Generalizations”. CRC press. <a href="https://hastie.su.domains/StatLearnSparsity/">Ebook</a>. Chapter 3.2,3.7</p></li>
+<li><p>[HTW] Hastie, Tibshirani, Wainwright: “Statistical Learning with Sparsity: The Lasso and Generalizations”. CRC press. <a href="https://hastie.su.domains/StatLearnSparsity/">Ebook</a>. Chapter 3.2,3.7, 5.4.3</p></li>
 </ul>
 <p>and for the interested student</p>
 <ul>
-<li>[WNvW] <a href="https://arxiv.org/pdf/1509.09169v7.pdf">Wessel N. van Wieringen: Lecture notes on ridge regression</a> Chapter XXX</li>
+<li>[WNvW] <a href="https://arxiv.org/pdf/1509.09169v7.pdf">Wessel N. van Wieringen: Lecture notes on ridge regression</a> Chapter 5.</li>
 </ul>
-<p>Supplemental sources useful for week 6:</p>
+<hr>
+<p>Supplemental sources useful for week 6 (see also the section on “Preparing for inference for the lasso and ridge”)</p>
 <ul>
-<li>Bootstrap confidence intervals</li>
+<li><a href="https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/3026839">Bootstrap confidence intervals in the master thesis of Lene Tillerli Omdal Section 3.6.2</a> and teaching material from TMA4300 - see the wikipage for that course.</li>
 <li><a href="https://www.math.ntnu.no/emner/TMA4267/2017v/multtest.pdf">Short note on multiple hypothesis testing</a> in TMA4267 Linear Statistical Models, Kari K. Halle, Øyvind Bakke and Mette Langaas, March 15, 2017.</li>
 </ul>
 <hr>
@@ -287,10 +292,9 @@ div.csl-indent {
 <li>Systematic component</li>
 <li>Link function</li>
 </ol>
-<p>We look into that for the normal and binomial distribution - to get multiple linear regression and logistic regression.</p>
+<p>We look into that for the binomial distribution - to get multiple linear regression and logistic regression.</p>
 <ul>
 <li>Write in class</li>
-<li>Poll on standardization and centering.</li>
 </ul>
 <hr>
 </section>
@@ -367,24 +371,46 @@ div.csl-indent {
 </section>
 <section id="parameter-estimation" class="level2">
 <h2 class="anchored" data-anchor-id="parameter-estimation">Parameter estimation</h2>
+<p>First logistic regression, then ridge and lasso logistic regression - and (maybe) elastic net logistic regression.</p>
+<section id="logistic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="logistic-regression">Logistic regression</h3>
 <ul>
-<li><p>Maximum likelihood estimation = maximize the likelihood of the data. We write for the loglikelihood <span class="math inline">\({\cal L}(\beta_0,\beta; {\bf y}, {\bf X})\)</span>.</p></li>
+<li><p>Maximum likelihood estimation = maximize the likelihood of the data. We write for the loglikelihood <span class="math inline">\({\cal{l}}(\beta_0,\beta; {\boldsymbol y}, {\boldsymbol X})\)</span>.</p></li>
+<li><p>We write out the loglikelihood for the binomial with logit link =logistic regression.</p></li>
+</ul>
+<hr>
+</section>
+<section id="algorithms" class="level3">
+<h3 class="anchored" data-anchor-id="algorithms">Algorithms</h3>
+<p>To understand the ridge and lasso logistic regression we first look at the <em>iteratively reweighted least squares</em> (IRLS) - as a result of the Newton Raphson method for the logistic regression (unpenalized).</p>
+</section>
+<section id="properties" class="level3">
+<h3 class="anchored" data-anchor-id="properties">Properties</h3>
+<p>The parameter estimator is asymptotically normal. Unbiased with variance the inverse of the Fisher information matrix - as known TMA4315.</p>
+<hr>
+<p>In class we now scroll down to the South African data set and look at the data and the logistic regression.</p>
+<hr>
+</section>
+<section id="penalized-logistic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="penalized-logistic-regression">Penalized logistic regression</h3>
+<ul>
 <li><p>For penalized method we instead minimize the negative loglikelihood scaled with <span class="math inline">\(\frac{1}{N}\)</span>.</p></li>
 <li><p>The ridge and lasso penalty is added to the scaled negative loglikelihood.</p></li>
-<li><p>We write this out for the normal and binomial distribution.</p></li>
 <li><p>Write in class</p></li>
 </ul>
 <hr>
 </section>
-<section id="algorithms" class="level2">
-<h2 class="anchored" data-anchor-id="algorithms">Algorithms</h2>
+<section id="algorithms-1" class="level3">
+<h3 class="anchored" data-anchor-id="algorithms-1">Algorithms</h3>
 <ul>
 <li>The likelihood for the GLM is differentiable, and the ridge and lasso objective functions are convex - and can be solved with socalled “standard convex optimization methods”.</li>
 <li>But, by popular demand also special algorithms are available - building on the cyclic coordinate descent.</li>
 </ul>
-<p>To understand the (ridge and) lasso logistic regression we first look at the <em>iteratively reweighted least squares</em> (IRLS) - as a result of the Newton Raphson method.</p>
+</section>
+<section id="ridge-logistic-regression-irwls" class="level3">
+<h3 class="anchored" data-anchor-id="ridge-logistic-regression-irwls">Ridge logistic regression IRWLS</h3>
 <hr>
-<hr>
+</section>
 <section id="lasso-logistic-regression-fitting-algoritm" class="level3">
 <h3 class="anchored" data-anchor-id="lasso-logistic-regression-fitting-algoritm">Lasso logistic regression fitting algoritm</h3>
 <p>(HTW page 116)</p>
@@ -395,13 +421,12 @@ div.csl-indent {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      MIDDLE <span class="fu">LOOP</span> (with warm start) </span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>         </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>         compute quadratic approximation <span class="fu">Q</span>(beta0,beta) </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>         compute quadratic approximation </span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>         <span class="cf">for</span> current beta<span class="sc">-</span>estimates</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>         </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>         </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>         </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>              INNER LOOP<span class="sc">:</span> cyclic coordinate descent</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>              to minimize <span class="sc">-</span>Q added the lasso penalty</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>              INNER LOOP<span class="sc">:</span> cyclic coordinate descent</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>              to minimize quadratic approximation </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>              added the lasso penalty</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <hr>
@@ -418,8 +443,12 @@ div.csl-indent {
 </ul>
 <hr>
 </section>
-<section id="confusion-matrix-sensitivity-specificity" class="level3">
-<h3 class="anchored" data-anchor-id="confusion-matrix-sensitivity-specificity">Confusion matrix, sensitivity, specificity</h3>
+</section>
+</section>
+<section id="evaluation-metrics" class="level1">
+<h1>Evaluation metrics</h1>
+<section id="confusion-matrix-sensitivity-specificity" class="level2">
+<h2 class="anchored" data-anchor-id="confusion-matrix-sensitivity-specificity">Confusion matrix, sensitivity, specificity</h2>
 <p>(from TMA4268)</p>
 <p>In a two class problem - assume the classes are labelled “-” (non disease,0) and “+” (disease,1). In a population setting we define the following event and associated number of observations.</p>
 <table class="table">
@@ -498,14 +527,14 @@ div.csl-indent {
 <p>Where the PPV can be used together with the sensitivity to make a precision-recall curve more suitable for low case rates.</p>
 <hr>
 </section>
-<section id="roc-curves" class="level3">
-<h3 class="anchored" data-anchor-id="roc-curves">ROC curves</h3>
+<section id="roc-curves" class="level2">
+<h2 class="anchored" data-anchor-id="roc-curves">ROC curves</h2>
 <p>(also from TMA4268)</p>
 <p>The receiver operating characteristics (ROC) curve gives a graphical display of the sensitivity against specificity, as the threshold value (cut-off on probability of success or disease) is moved over the range of all possible values. An ideal classifier will give a ROC curve which hugs the top left corner, while a straight line represents a classifier with a random guess of the outcome.</p>
 <hr>
 </section>
-<section id="roc-auc" class="level3">
-<h3 class="anchored" data-anchor-id="roc-auc">ROC-AUC</h3>
+<section id="roc-auc" class="level2">
+<h2 class="anchored" data-anchor-id="roc-auc">ROC-AUC</h2>
 <ul>
 <li>The <strong>ROC-AUC</strong> score is the area under the ROC curve. It ranges between the values 0 and 1, where a higher value indicates a better classifier. <!-- An AUC score equal to 1 would imply that all observations are correctly classified.  --></li>
 <li>The AUC score is useful for comparing the performance of different classifiers, as all possible threshold values are taken into account.</li>
@@ -514,19 +543,19 @@ div.csl-indent {
 </ul>
 <hr>
 </section>
-<section id="roc-pr" class="level3">
-<h3 class="anchored" data-anchor-id="roc-pr">ROC-PR</h3>
+<section id="roc-pr" class="level2">
+<h2 class="anchored" data-anchor-id="roc-pr">ROC-PR</h2>
+<p>To be added.</p>
 <hr>
 </section>
-<section id="deviance" class="level3">
-<h3 class="anchored" data-anchor-id="deviance">Deviance</h3>
+<section id="deviance" class="level2">
+<h2 class="anchored" data-anchor-id="deviance">Deviance</h2>
 <p>The <em>deviance</em> is based on the likelihood ratio test statistic.</p>
 <p>The derivation assumes that data can be grouped into covariate patterns, with <span class="math inline">\(G\)</span> groups (else interval solutions are used in practice).</p>
 <p><strong>Saturated model:</strong> If we were to provide a perfect fit to our data then we would estimate <span class="math inline">\(\pi_j\)</span> by the observed frequency for the group, <span class="math inline">\(\hat{y}_j=y_j\)</span>.</p>
 <p><strong>Candidate model:</strong> the model with the current choice of <span class="math inline">\(\lambda\)</span>.</p>
 <p><span class="math display">\[D_{\lambda}=2(l(\text{saturated model})-l(\text{candidate model}_{\lambda}))\]</span> The <strong>null deviance</strong> is replacing the candidate model with a model where <span class="math inline">\(\hat{y}_i=\frac{1}{N}\sum_{i=1}^N y_i\)</span> (the case proportion).</p>
 <hr>
-</section>
 </section>
 </section>
 <section id="example-south-african-heart-disease" class="level1">
@@ -541,11 +570,13 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="data-set">Data set</h2>
 <p>The data is presented in ELS Section 4.4.2, and downloaded from <a href="http://statweb.stanford.edu/~tibs/ElemStatLearn.1stEd/" class="uri">http://statweb.stanford.edu/~tibs/ElemStatLearn.1stEd/</a> with information in the file <code>SAheat.info</code> and data in <code>SAheart.data</code>.</p>
 <ul>
-<li>This is a retrospective sample of males in a heart-disease high-risk region in South Africa. *It consists of 462 observations on the 10 variables. All subjects are male in the age range 15-64.</li>
+<li>This is a retrospective sample of males in a heart-disease high-risk region in South Africa.</li>
+<li>It consists of 462 observations on the 10 variables. All subjects are male in the age range 15-64.</li>
 <li>There are 160 cases (individuals who have suffered from a conorary heart disease) and 302 controls (individuals who have not suffered from a conorary heart disease).<br>
 </li>
 <li>The overall prevalence in the region was 5.1%.</li>
 </ul>
+<hr>
 <p>The response value (<code>chd</code>) and covariates</p>
 <ul>
 <li><code>chd</code> : conorary heart disease {yes, no} coded by the numbers {1, 0}</li>
@@ -656,20 +687,25 @@ famhistPresent          typea        obesity        alcohol            age
 </div>
 </div>
 <p>The coloring is done according to the response variable, where green represents a case <span class="math inline">\(Y=1\)</span> and red represents a control <span class="math inline">\(Y=0\)</span>.</p>
+<hr>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="L10_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
+</div>
+<hr>
+<div class="cell">
 <div class="cell-output-display">
-<p><img src="L10_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid" width="672"></p>
+<p><img src="L10_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p><strong>Q:</strong> Comment on the correlation between covariates, and what that may lead to?</p>
 <hr>
 </section>
-<section id="logistic-regression" class="level2">
-<h2 class="anchored" data-anchor-id="logistic-regression">Logistic regression</h2>
+<section id="logistic-regression-1" class="level2">
+<h2 class="anchored" data-anchor-id="logistic-regression-1">Logistic regression</h2>
 <p>We now fit a (multiple) logistic regression model using the <code>glm</code> function and the full data set. In order to fit a logistic model, the <code>family</code> argument must be set equal to <code>="binomial"</code>. The <code>summary</code> function prints out the estimates of the coefficients, their standard errors and z-values. As for a linear regression model, the significant coefficients are indicated by stars where the significant codes are included in the <code>R</code> printout.</p>
+<hr>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -719,6 +755,7 @@ famhistPresent          typea        obesity        alcohol            age
      1.5785989      1.4750996      0.7671430      1.0029829      1.9361378 </code></pre>
 </div>
 </div>
+<hr>
 <p>A very surprising result here is that <code>sbp</code> and <code>obesity</code> are NOT significant and <code>obesity</code> has negative sign. This is a result of the correlation between covariates. In separate models with only <code>sbp</code> or only <code>obesity</code> each is positive and significant.</p>
 <p><strong>Q:</strong> How would you interpret the estimated coefficient for <code>tobacco</code>?</p>
 <hr>
@@ -732,67 +769,116 @@ famhistPresent          typea        obesity        alcohol            age
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ridgefit,<span class="at">xvar=</span><span class="st">"lambda"</span>,<span class="at">label=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L10_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<p><img src="L10_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>cv.ridge<span class="ot">=</span><span class="fu">cv.glmnet</span>(<span class="at">x=</span>xss,<span class="at">y=</span>ys,<span class="at">alpha=</span><span class="dv">0</span>,<span class="at">standardize=</span><span class="cn">FALSE</span>,<span class="at">family=</span><span class="st">"binomial"</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"The lamda giving the smallest CV error"</span>,cv.ridge<span class="sc">$</span>lambda.min))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+</div>
+<hr>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "The lamda giving the smallest CV error 0.0309779725841594"</code></pre>
+<pre><code>[1] "The lamda giving the smallest CV error 0.0177267348467831"</code></pre>
 </div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"The 1sd err method lambda"</span>,cv.ridge<span class="sc">$</span>lambda<span class="fl">.1</span>se))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "The 1sd err method lambda 0.199128672796206"</code></pre>
+<pre><code>[1] "The 1sd err method lambda 0.218543472568106"</code></pre>
 </div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv.ridge)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output-display">
-<p><img src="L10_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid" width="672"></p>
+<p><img src="L10_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use 1sd error rule default</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ridgefit,<span class="at">xvar=</span><span class="st">"lambda"</span>,<span class="at">label=</span><span class="cn">TRUE</span>);</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fu">log</span>(cv.ridge<span class="sc">$</span>lambda<span class="fl">.1</span>se));</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+</div>
+<hr>
+<div class="cell">
 <div class="cell-output-display">
-<p><img src="L10_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid" width="672"></p>
+<p><img src="L10_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">cbind</span>(<span class="fu">coef</span>(ridgefit,<span class="at">s=</span>cv.ridge<span class="sc">$</span>lambda<span class="fl">.1</span>se),<span class="fu">coef</span>(glm_heart)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+</div>
+<hr>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>10 x 2 sparse Matrix of class "dgCMatrix"
-                       s1             
-(Intercept)    -0.7172600 -0.878545196
-sbp             0.1045976  0.133308398
-tobacco         0.2261616  0.364577926
-ldl             0.1934864  0.360180594
-adiposity       0.1133511  0.144616485
-famhistPresent  0.2414481  0.456537713
-typea           0.1395311  0.388725509
-obesity        -0.0415776 -0.265082072
-alcohol         0.0190819  0.002978424
-age             0.2939324  0.660695163</code></pre>
+                        s1             
+(Intercept)    -0.71220689 -0.878545196
+sbp             0.10221203  0.133308398
+tobacco         0.21846208  0.364577926
+ldl             0.18656817  0.360180594
+adiposity       0.11163533  0.144616485
+famhistPresent  0.23181050  0.456537713
+typea           0.13189202  0.388725509
+obesity        -0.03579032 -0.265082072
+alcohol         0.01941844  0.002978424
+age             0.28192570  0.660695163</code></pre>
 </div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now possible to compare since the glm was also on standardized variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <hr>
 </section>
 <section id="lasso-logistic-regression" class="level2">
 <h2 class="anchored" data-anchor-id="lasso-logistic-regression">Lasso logistic regression</h2>
 <p>Numbering in plots is order of covariates, so:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>,<span class="fu">colnames</span>(xss))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1] [,2]            
+ [1,] "1"  "sbp"           
+ [2,] "2"  "tobacco"       
+ [3,] "3"  "ldl"           
+ [4,] "4"  "adiposity"     
+ [5,] "5"  "famhistPresent"
+ [6,] "6"  "typea"         
+ [7,] "7"  "obesity"       
+ [8,] "8"  "alcohol"       
+ [9,] "9"  "age"           </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>lassofit<span class="ot">=</span><span class="fu">glmnet</span>(<span class="at">x=</span>xss,<span class="at">y=</span>ys,<span class="at">alpha=</span><span class="dv">1</span>,<span class="at">standardize=</span><span class="cn">FALSE</span>,<span class="at">family=</span><span class="st">"binomial"</span>) <span class="co"># already standardized</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L10_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "The lamda giving the smallest CV error 0.00903024338615681"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "The 1sd err method lambda 0.052890323504839"</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="L10_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L10_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>10 x 3 sparse Matrix of class "dgCMatrix"
+                     lasso       ridge     logistic
+(Intercept)    -0.70977228 -0.71220689 -0.878545196
+sbp             .           0.10221203  0.133308398
+tobacco         0.18103811  0.21846208  0.364577926
+ldl             0.14726886  0.18656817  0.360180594
+adiposity       .           0.11163533  0.144616485
+famhistPresent  0.22246385  0.23181050  0.456537713
+typea           0.01954765  0.13189202  0.388725509
+obesity         .          -0.03579032 -0.265082072
+alcohol         .           0.01941844  0.002978424
+age             0.43990121  0.28192570  0.660695163</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="elastic-net-logistic-regression" class="level2">
+<h2 class="anchored" data-anchor-id="elastic-net-logistic-regression">Elastic net logistic regression</h2>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -812,68 +898,54 @@ age             0.2939324  0.660695163</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>lassofit<span class="ot">=</span><span class="fu">glmnet</span>(<span class="at">x=</span>xss,<span class="at">y=</span>ys,<span class="at">alpha=</span><span class="dv">1</span>,<span class="at">standardize=</span><span class="cn">FALSE</span>,<span class="at">family=</span><span class="st">"binomial"</span>) <span class="co"># already standardized</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lassofit,<span class="at">xvar=</span><span class="st">"lambda"</span>,<span class="at">label=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>elfit<span class="ot">=</span><span class="fu">glmnet</span>(<span class="at">x=</span>xss,<span class="at">y=</span>ys,<span class="at">alpha=</span><span class="fl">0.5</span>,<span class="at">standardize=</span><span class="cn">FALSE</span>,<span class="at">family=</span><span class="st">"binomial"</span>) <span class="co"># already standardized</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+</div>
+<hr>
+<div class="cell">
 <div class="cell-output-display">
-<p><img src="L10_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="L10_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>cv.lasso<span class="ot">=</span><span class="fu">cv.glmnet</span>(<span class="at">x=</span>xss,<span class="at">y=</span>ys,<span class="at">alpha=</span><span class="dv">1</span>,<span class="at">standardize=</span><span class="cn">FALSE</span>,,<span class="at">family=</span><span class="st">"binomial"</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"The lamda giving the smallest CV error"</span>,cv.lasso<span class="sc">$</span>lambda.min))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+</div>
+<hr>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "The lamda giving the smallest CV error 0.00749706670369495"</code></pre>
+<pre><code>[1] "The lamda giving the smallest CV error 0.00822802145212431"</code></pre>
 </div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"The 1sd err method lambda"</span>,cv.lasso<span class="sc">$</span>lambda<span class="fl">.1</span>se))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "The 1sd err method lambda 0.052890323504839"</code></pre>
+<pre><code>[1] "The 1sd err method lambda 0.0302657876716661"</code></pre>
 </div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv.lasso)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output-display">
-<p><img src="L10_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid" width="672"></p>
+<p><img src="L10_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use 1sd error rule default</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lassofit,<span class="at">xvar=</span><span class="st">"lambda"</span>,<span class="at">label=</span><span class="cn">TRUE</span>);</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fu">log</span>(cv.lasso<span class="sc">$</span>lambda<span class="fl">.1</span>se));</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+</div>
+<hr>
+<div class="cell">
 <div class="cell-output-display">
-<p><img src="L10_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid" width="672"></p>
+<p><img src="L10_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
 </div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>resmat<span class="ot">=</span><span class="fu">cbind</span>(<span class="fu">coef</span>(lassofit,<span class="at">s=</span>cv.lasso<span class="sc">$</span>lambda<span class="fl">.1</span>se),<span class="fu">coef</span>(ridgefit,<span class="at">s=</span>cv.ridge<span class="sc">$</span>lambda<span class="fl">.1</span>se),<span class="fu">coef</span>(glm_heart))</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(resmat)<span class="ot">=</span><span class="fu">c</span>(<span class="st">"lasso logistic"</span>,<span class="st">"ridge logistic"</span>,<span class="st">"logistic"</span>)</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(resmat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+</div>
+<hr>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>10 x 3 sparse Matrix of class "dgCMatrix"
-               lasso logistic ridge logistic     logistic
-(Intercept)       -0.70977228     -0.7172600 -0.878545196
-sbp                .               0.1045976  0.133308398
-tobacco            0.18103811      0.2261616  0.364577926
-ldl                0.14726886      0.1934864  0.360180594
-adiposity          .               0.1133511  0.144616485
-famhistPresent     0.22246385      0.2414481  0.456537713
-typea              0.01954765      0.1395311  0.388725509
-obesity            .              -0.0415776 -0.265082072
-alcohol            .               0.0190819  0.002978424
-age                0.43990121      0.2939324  0.660695163</code></pre>
+<pre><code>10 x 4 sparse Matrix of class "dgCMatrix"
+                    elactic       lasso       ridge     logistic
+(Intercept)    -0.787051709 -0.70977228 -0.71220689 -0.878545196
+sbp             0.068908933  .           0.10221203  0.133308398
+tobacco         0.296131971  0.18103811  0.21846208  0.364577926
+ldl             0.259807431  0.14726886  0.18656817  0.360180594
+adiposity       .            .           0.11163533  0.144616485
+famhistPresent  0.351410691  0.22246385  0.23181050  0.456537713
+typea           0.217807228  0.01954765  0.13189202  0.388725509
+obesity        -0.003273359  .          -0.03579032 -0.265082072
+alcohol         .            .           0.01941844  0.002978424
+age             0.544428773  0.43990121  0.28192570  0.660695163</code></pre>
 </div>
 </div>
 </section>
 </section>
-<section id="computational-details-for-the-glmnet-implementation" class="level1">
-<h1>Computational details for the glmnet implementation</h1>
+<section id="computational-details-for-the-glmnet" class="level1">
+<h1>Computational details for the glmnet</h1>
 <p>(HTW 3.7)</p>
 <p><code>glmnet</code> is the implementation in R of the elastic net from HTW-book, and the package is maintained by Trevor Hastie.</p>
 <p>The package fits generalized linear models using penalized maximum likelihood of elastic net type (lasso and ridge are special cases).</p>
@@ -887,6 +959,7 @@ age                0.43990121      0.2939324  0.660695163</code></pre>
 <li><a href="https://glmnet.stanford.edu/articles/glmnetFamily.html">GLM with glmnet</a></li>
 </ul></li>
 </ul>
+<hr>
 <p>For Python there are different options.</p>
 <ul>
 <li><a href="https://web.stanford.edu/~hastie/glmnet_python/">Python glmnet</a> is recommended by Hastie et al.</li>
@@ -899,20 +972,20 @@ age                0.43990121      0.2939324  0.660695163</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glmnet</span>(x, y, </span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a> <span class="at">family =</span> <span class="fu">c</span>(<span class="st">"gaussian"</span>, <span class="st">"binomial"</span>, <span class="st">"poisson"</span>, <span class="st">"multinomial"</span>,<span class="st">"cox"</span>, <span class="st">"mgaussian"</span>),</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a> <span class="at">weights =</span> <span class="cn">NULL</span>, <span class="at">offset =</span> <span class="cn">NULL</span>, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">nlambda =</span> <span class="dv">100</span>, </span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a> <span class="at">lambda.min.ratio =</span> <span class="fu">ifelse</span>(nobs <span class="sc">&lt;</span> nvars, <span class="fl">0.01</span>, <span class="fl">1e-04</span>),</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a> <span class="at">lambda =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">TRUE</span>, <span class="at">intercept =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a> <span class="at">thresh =</span> <span class="fl">1e-07</span>, <span class="at">dfmax =</span> nvars <span class="sc">+</span> <span class="dv">1</span>, </span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a> <span class="at">pmax =</span> <span class="fu">min</span>(dfmax <span class="sc">*</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">20</span>, nvars), </span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a> <span class="at">exclude =</span> <span class="cn">NULL</span>, <span class="at">penalty.factor =</span> <span class="fu">rep</span>(<span class="dv">1</span>, nvars),</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a> <span class="at">lower.limits =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">upper.limits =</span> <span class="cn">Inf</span>, <span class="at">maxit =</span> <span class="fl">1e+05</span>,</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a> <span class="at">type.gaussian =</span> <span class="fu">ifelse</span>(nvars <span class="sc">&lt;</span> <span class="dv">500</span>, <span class="st">"covariance"</span>, <span class="st">"naive"</span>),</span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a> <span class="at">type.logistic =</span> <span class="fu">c</span>(<span class="st">"Newton"</span>, <span class="st">"modified.Newton"</span>),</span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a> <span class="at">standardize.response =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a> <span class="at">type.multinomial =</span> <span class="fu">c</span>(<span class="st">"ungrouped"</span>,<span class="st">"grouped"</span>), </span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a> <span class="at">relax =</span> <span class="cn">FALSE</span>, <span class="at">trace.it =</span> <span class="dv">0</span>, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glmnet</span>(x, y, </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a> <span class="at">family =</span> <span class="fu">c</span>(<span class="st">"gaussian"</span>, <span class="st">"binomial"</span>, <span class="st">"poisson"</span>, <span class="st">"multinomial"</span>,<span class="st">"cox"</span>, <span class="st">"mgaussian"</span>),</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a> <span class="at">weights =</span> <span class="cn">NULL</span>, <span class="at">offset =</span> <span class="cn">NULL</span>, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">nlambda =</span> <span class="dv">100</span>, </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a> <span class="at">lambda.min.ratio =</span> <span class="fu">ifelse</span>(nobs <span class="sc">&lt;</span> nvars, <span class="fl">0.01</span>, <span class="fl">1e-04</span>),</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a> <span class="at">lambda =</span> <span class="cn">NULL</span>, <span class="at">standardize =</span> <span class="cn">TRUE</span>, <span class="at">intercept =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a> <span class="at">thresh =</span> <span class="fl">1e-07</span>, <span class="at">dfmax =</span> nvars <span class="sc">+</span> <span class="dv">1</span>, </span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a> <span class="at">pmax =</span> <span class="fu">min</span>(dfmax <span class="sc">*</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">20</span>, nvars), </span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a> <span class="at">exclude =</span> <span class="cn">NULL</span>, <span class="at">penalty.factor =</span> <span class="fu">rep</span>(<span class="dv">1</span>, nvars),</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a> <span class="at">lower.limits =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">upper.limits =</span> <span class="cn">Inf</span>, <span class="at">maxit =</span> <span class="fl">1e+05</span>,</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a> <span class="at">type.gaussian =</span> <span class="fu">ifelse</span>(nvars <span class="sc">&lt;</span> <span class="dv">500</span>, <span class="st">"covariance"</span>, <span class="st">"naive"</span>),</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a> <span class="at">type.logistic =</span> <span class="fu">c</span>(<span class="st">"Newton"</span>, <span class="st">"modified.Newton"</span>),</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a> <span class="at">standardize.response =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a> <span class="at">type.multinomial =</span> <span class="fu">c</span>(<span class="st">"ungrouped"</span>,<span class="st">"grouped"</span>), </span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a> <span class="at">relax =</span> <span class="cn">FALSE</span>, <span class="at">trace.it =</span> <span class="dv">0</span>, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <hr>
@@ -922,12 +995,12 @@ age                0.43990121      0.2939324  0.660695163</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cv.glmnet</span>(x, y, <span class="at">weights =</span> <span class="cn">NULL</span>, <span class="at">offset =</span> <span class="cn">NULL</span>, <span class="at">lambda =</span> <span class="cn">NULL</span>,</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">type.measure =</span> <span class="fu">c</span>(<span class="st">"default"</span>, <span class="st">"mse"</span>, <span class="st">"deviance"</span>, <span class="st">"class"</span>, <span class="st">"auc"</span>, <span class="st">"mae"</span>,<span class="st">"C"</span>),</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">nfolds =</span> <span class="dv">10</span>, <span class="at">foldid =</span> <span class="cn">NULL</span>, </span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alignment =</span> <span class="fu">c</span>(<span class="st">"lambda"</span>, <span class="st">"fraction"</span>), <span class="at">grouped =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">keep =</span> <span class="cn">FALSE</span>, <span class="at">parallel =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">gamma =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>), <span class="at">relax =</span> <span class="cn">FALSE</span>, <span class="at">trace.it =</span> <span class="dv">0</span>, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cv.glmnet</span>(x, y, <span class="at">weights =</span> <span class="cn">NULL</span>, <span class="at">offset =</span> <span class="cn">NULL</span>, <span class="at">lambda =</span> <span class="cn">NULL</span>,</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">type.measure =</span> <span class="fu">c</span>(<span class="st">"default"</span>, <span class="st">"mse"</span>, <span class="st">"deviance"</span>, <span class="st">"class"</span>, <span class="st">"auc"</span>, <span class="st">"mae"</span>,<span class="st">"C"</span>),</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">nfolds =</span> <span class="dv">10</span>, <span class="at">foldid =</span> <span class="cn">NULL</span>, </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alignment =</span> <span class="fu">c</span>(<span class="st">"lambda"</span>, <span class="st">"fraction"</span>), <span class="at">grouped =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">keep =</span> <span class="cn">FALSE</span>, <span class="at">parallel =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">gamma =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>), <span class="at">relax =</span> <span class="cn">FALSE</span>, <span class="at">trace.it =</span> <span class="dv">0</span>, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>type.measure defaults to deviance (accoring to help(cv.glmnet)). The last is for Cox models.</p>
@@ -952,7 +1025,7 @@ age                0.43990121      0.2939324  0.660695163</code></pre>
 <p>For the <span class="math inline">\(\lambda\)</span> penalty the maximal value is for</p>
 <ul>
 <li>linear regression: <span class="math inline">\(\lambda_{\text max}=\text{max}_j \lvert \hat{\beta}_{LS,j} \rvert\)</span> (standardized coefficients) or, should there also be a factor 1/N?</li>
-<li>logistic regression: <span class="math inline">\(\lambda_{\text max}=\text{max}_{j}\lvert {\bf x}_j ^T ({\bf y}-\bar{p}) \rvert\)</span> where <span class="math inline">\(\bar p\)</span> is the mean case rate.</li>
+<li>logistic regression: <span class="math inline">\(\lambda_{\text max}=\text{max}_{j}\lvert {\boldsymbol x}_j ^T ({\boldsymbol y}-\bar{p}) \rvert\)</span> where <span class="math inline">\(\bar p\)</span> is the mean case rate.</li>
 </ul>
 </section>
 <section id="additional-modifications" class="level3">
@@ -980,8 +1053,10 @@ age                0.43990121      0.2939324  0.660695163</code></pre>
 </ul>
 </section>
 </section>
-<section id="confidence-interval" class="level1">
-<h1>Confidence interval</h1>
+<section id="preparing-for-inference-for-the-lasso-and-ridge" class="level1">
+<h1>Preparing for inference for the lasso and ridge</h1>
+<section id="confidence-interval" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-interval">Confidence interval</h2>
 <p><strong>Set-up</strong></p>
 <ul>
 <li>We have a random sample <span class="math inline">\(Y_1,Y_2,\ldots,Y_N\)</span> from</li>
@@ -993,8 +1068,10 @@ age                0.43990121      0.2939324  0.660695163</code></pre>
 <li>We have two statistics <span class="math inline">\(\hat{\theta}_L(Y_1,Y_2,\ldots,Y_N)\)</span> and <span class="math inline">\(\hat{\theta}_U(Y_1,Y_2,\ldots,Y_N)\)</span> so that</li>
 </ul>
 <p><span class="math display">\[P(\hat{\theta}_L(Y_1,Y_2,\ldots,Y_N)\le \theta \le \hat{\theta}_U(Y_1,Y_2,\ldots,Y_N))=1-\alpha\]</span> where <span class="math inline">\(\alpha\in [0,1]\)</span></p>
+<hr>
 <p><strong>Confidence interval</strong></p>
 <p>The numerical interval <span class="math display">\[[\hat{\theta}_L(y_1,y_2,\ldots,y_N),\hat{\theta}_U(y_1,y_2,\ldots,y_N)]\]</span> is called a <span class="math inline">\((1-\alpha)\)</span> 100% confidence interval.</p>
+</section>
 <section id="bootstrap-confidence-intervals" class="level2">
 <h2 class="anchored" data-anchor-id="bootstrap-confidence-intervals">Bootstrap confidence intervals</h2>
 </section>
@@ -1003,10 +1080,8 @@ age                0.43990121      0.2939324  0.660695163</code></pre>
 </section>
 <section id="bias-corrected-accelerated-interval" class="level2">
 <h2 class="anchored" data-anchor-id="bias-corrected-accelerated-interval">Bias corrected accelerated interval</h2>
+<hr>
 </section>
-</section>
-<section id="background-on-hypothesis-testing" class="level1">
-<h1>Background on hypothesis testing</h1>
 <section id="single-hypothesis-test" class="level2">
 <h2 class="anchored" data-anchor-id="single-hypothesis-test">Single hypothesis test</h2>
 <p><span class="math display">\[H_{0}\colon \beta_j=0 \hspace{0.5cm} \text{vs.} \hspace{0.5cm} H_{1}\colon \beta_j \neq 0\]</span></p>
@@ -1042,20 +1117,21 @@ age                0.43990121      0.2939324  0.660695163</code></pre>
 <section id="p-value" class="level2">
 <h2 class="anchored" data-anchor-id="p-value"><span class="math inline">\(p\)</span>-value</h2>
 <ul>
-<li>A <span class="math inline">\(p\)</span>-value <span class="math inline">\(p(X)\)</span> is a test statistic satisfying <span class="math inline">\(0 \leq p({\bf Y}) \leq 1\)</span> for every vector of observations <span class="math inline">\(\bf{Y}\)</span>.</li>
+<li>A <span class="math inline">\(p\)</span>-value <span class="math inline">\(p(X)\)</span> is a test statistic satisfying <span class="math inline">\(0 \leq p({\boldsymbol Y}) \leq 1\)</span> for every vector of observations <span class="math inline">\(\boldsymbol{Y}\)</span>.</li>
 <li>Small values give evidence that <span class="math inline">\(H_1\)</span> is true.</li>
 <li>In single hypothesis testing, if the <span class="math inline">\(p\)</span>-value is less than the chosen significance level (chosen upper limit for the probability of committing a type I error), then we reject the null hypothesis, <span class="math inline">\(H_0\)</span>.</li>
 <li>The chosen significance level is often referred to as <span class="math inline">\(\alpha\)</span>.</li>
 </ul>
 <hr>
-<p>A <span class="math inline">\(p\)</span>-value is <em>valid</em> if <span class="math display">\[ P(p(\bf{Y}) \leq \alpha) \leq \alpha \]</span> for all <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(0 \leq \alpha \leq 1\)</span>, whenever <span class="math inline">\(H_0\)</span> is true, that is, if the <span class="math inline">\(p\)</span>-value is valid, rejection on the basis of the <span class="math inline">\(p\)</span>-value ensures that the probability of type I error does not exceed <span class="math inline">\(\alpha\)</span>.</p>
+<p>A <span class="math inline">\(p\)</span>-value is <em>valid</em> if <span class="math display">\[ P(p(\boldsymbol{Y}) \leq \alpha) \leq \alpha \]</span> for all <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(0 \leq \alpha \leq 1\)</span>, whenever <span class="math inline">\(H_0\)</span> is true, that is, if the <span class="math inline">\(p\)</span>-value is valid, rejection on the basis of the <span class="math inline">\(p\)</span>-value ensures that the probability of type I error does not exceed <span class="math inline">\(\alpha\)</span>.</p>
 <hr>
-<p>An <em>exact</em> <span class="math inline">\(p\)</span>-value satisfies <span class="math display">\[P(p(\bf{Y}) \leq \alpha) = \alpha\]</span> for all <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(0 \leq \alpha \leq 1\)</span>.</p>
+<p>An <em>exact</em> <span class="math inline">\(p\)</span>-value satisfies <span class="math display">\[P(p(\boldsymbol{Y}) \leq \alpha) = \alpha\]</span> for all <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(0 \leq \alpha \leq 1\)</span>.</p>
 <ul>
 <li>The exact <span class="math inline">\(p\)</span>-value is uniformly distributed when the null hypothesis is true.</li>
 <li>This is a fact that is often misunderstood by users of <span class="math inline">\(p\)</span>-values.</li>
 <li>The incorrect urban myth is that <span class="math inline">\(p\)</span>-values from true null hypotheses are close to one, when the correct fact is that all values in intervals of the same length are equally probable (which is a property of the uniform distribution).</li>
 </ul>
+<hr>
 </section>
 <section id="from-single-to-multiple-hypotheses" class="level2">
 <h2 class="anchored" data-anchor-id="from-single-to-multiple-hypotheses">From single to multiple hypotheses</h2>
@@ -1099,6 +1175,7 @@ age                0.43990121      0.2939324  0.660695163</code></pre>
 <li><span class="math inline">\(R\)</span>: the number of hypoteses rejected for a specific cut-off</li>
 </ul>
 <p>Observe: only <span class="math inline">\(m\)</span> and <span class="math inline">\(R\)</span> is observed!</p>
+<hr>
 </section>
 <section id="familywise-error-rate" class="level2">
 <h2 class="anchored" data-anchor-id="familywise-error-rate">Familywise error rate</h2>
@@ -1113,16 +1190,13 @@ age                0.43990121      0.2939324  0.660695163</code></pre>
 <p>The adjusted <span class="math inline">\(p\)</span>-values can be defined as <span class="math display">\[\tilde{p}_j = \text{inf}\{\alpha  \mid H_{0j}\text{ is rejected at FWER level } \alpha \}\]</span></p>
 <p>In a multiple testing problem where all adjusted <span class="math inline">\(p\)</span>-value below <span class="math inline">\(\alpha\)</span> are rejected, the overall type I error rate (for example FWER) will be controlled at level <span class="math inline">\(\alpha\)</span>.</p>
 <hr>
-<section id="the-bonferroni-method-controls-the-fwer" class="level3">
-<h3 class="anchored" data-anchor-id="the-bonferroni-method-controls-the-fwer">The Bonferroni method controls the FWER</h3>
+</section>
+<section id="the-bonferroni-method-controls-the-fwer" class="level2">
+<h2 class="anchored" data-anchor-id="the-bonferroni-method-controls-the-fwer">The Bonferroni method controls the FWER</h2>
 <p>Single-step methods controls for multiple testing by estimating one local significance level, <span class="math inline">\(\alpha_{\text{loc}}\)</span>, which is used as a cut-off to detect significance for each individual test.</p>
 <p>The Bonferroni method is valid for all types of dependence structures between the test statistics.</p>
 <p>The local significance level is <span class="math display">\[\alpha_{\text loc}=\frac{\alpha}{m}\]</span></p>
 <p>The adjusted <span class="math inline">\(p\)</span>-value is <span class="math display">\[ \tilde{p}_j =\min(1,m p_j)\]</span></p>
-<p>Read more here if needed: <a href="https://www.math.ntnu.no/emner/TMA4267/2017v/multtest.pdf">Short note on multiple hypothesis testing</a></p>
-<hr>
-<hr>
-</section>
 </section>
 </section>
 <section id="exercises" class="level1">
@@ -1134,18 +1208,14 @@ age                0.43990121      0.2939324  0.660695163</code></pre>
 <li>Change the CV criterion to auc and to class. Are there changes to what is the best choice for <span class="math inline">\(\lambda\)</span>?</li>
 </ul>
 </section>
-<section id="resources" class="level1">
-<h1>Resources</h1>
-<ul>
-<li>Video from webinar with Trevor Hastie on <a href="http://youtu.be/BU2gjoLPfDc">glmnet from 2019</a></li>
-<li>See <a href="https://github.com/mettelang/MA8701V2021/blob/main/Part1/LassoandfriendsBenDunn.pdf">slides from guest lecturer Benjamin Dunn in 2021</a></li>
-</ul>
-</section>
 <section id="references" class="level1">
 <h1>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-casi" class="csl-entry" role="doc-biblioentry">
 Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference - Algorithms, Evidence, and Data Science</em>. Cambridge University Press. <a href="https://hastie.su.domains/CASI/">https://hastie.su.domains/CASI/</a>.
+</div>
+<div id="ref-WNvW" class="csl-entry" role="doc-biblioentry">
+Wieringen, Wessel N. van. 2021. <span>“Lecture Notes on Ridge Regression.”</span> <a href="https://arxiv.org/pdf/1509.09169v7.pdf">https://arxiv.org/pdf/1509.09169v7.pdf</a>.
 </div>
 </div>
 </section>
