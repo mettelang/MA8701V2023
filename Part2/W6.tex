@@ -215,11 +215,11 @@
 \makeatother
 \subtitle{W6: Statistical inference for penalized GLM methods}
 \author{Mette Langaas}
-\date{2/12/23}
+\date{2/19/23}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, enhanced, interior hidden, breakable, sharp corners, boxrule=0pt, frame hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, breakable, borderline west={3pt}{0pt}{shadecolor}, enhanced, interior hidden, sharp corners, frame hidden]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -233,6 +233,9 @@
 \hypertarget{outline}{%
 \subsection{Outline}\label{outline}}
 
+\hypertarget{l11}{%
+\subsubsection{L11}\label{l11}}
+
 \begin{itemize}
 \tightlist
 \item
@@ -245,13 +248,22 @@
   Bayesian lasso
 \item
   Boostrapping
+\end{itemize}
+
+\hypertarget{l12}{%
+\subsubsection{L12}\label{l12}}
+
+\begin{itemize}
+\tightlist
+\item
+  Selective inference
 \item
   Sample splitting
 \item
   Inference after selection (forward regression example, polyhedral
-  result, PoSI)
+  result, lasso result PoSI)
 \item
-  Reproducibility crisis and selective inference
+  Reproducibility crisis
 \item
   Conclusions
 \end{itemize}
@@ -272,7 +284,7 @@
   6.4, 6.5. (Results from 6.3 through Taylor and Tibshirani (2015))
 \end{itemize}
 
-Also: brush up on \textbf{bootstrap intervals from TMA4300}, where
+Also: brush up on bootstrap intervals from TMA4300, where
 \href{https://onlinelibrary.wiley.com/doi/book/10.1002/9781118555552}{Givens
 and Hoeting (2013)} is on the reading list. See specifically chapter 9
 (9.2.1 and 9.3 will be used here). NTNU-access to the full book if you
@@ -1015,18 +1027,18 @@ each new bootstrap sample we run through the 6 steps in the
 
 \begin{verbatim}
 11 x 1 sparse Matrix of class "dgCMatrix"
-                    s1
-(Intercept)  152.13348
-age            .      
-sex          -13.59236
-bmi          506.66309
-map          199.02672
-tc             .      
-ldl            .      
-hdl         -124.16053
-tch            .      
-ltg          441.69986
-glu            .      
+                   s1
+(Intercept) 152.13348
+age           .      
+sex           .      
+bmi         493.42401
+map         172.00436
+tc            .      
+ldl           .      
+hdl         -94.48438
+tch           .      
+ltg         428.55200
+glu           .      
 \end{verbatim}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -1091,8 +1103,8 @@ as easy as for the linear model.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{bootstrapt-percentile-ci}{%
-\subsection{Bootstrapt percentile CI}\label{bootstrapt-percentile-ci}}
+\hypertarget{bootstrap-percentile-ci}{%
+\subsection{Bootstrap percentile CI}\label{bootstrap-percentile-ci}}
 
 To construct a \((1-\alpha)\cdot 100\)\% CI:
 
@@ -1153,19 +1165,15 @@ glu        61.07588  111.952224  168.07668    0.000000   0.00000  90.18665
 \hypertarget{medical-example}{%
 \subsubsection{Medical example}\label{medical-example}}
 
-(See Figures from study in class notes.)
+Results from the publication
+\href{https://www.archives-pmr.org/article/S0003-9993(20)31154-0/fulltext}{Skandsen
+et al 2021} discussed in class.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\hypertarget{bootstrap-cis-for-beta_j}{%
-\subsection{\texorpdfstring{Bootstrap CIs for
-\(\beta_j\)}{Bootstrap CIs for \textbackslash beta\_j}}\label{bootstrap-cis-for-beta_j}}
+\hypertarget{bootstrap-cis-forbeta_j}{%
+\subsection{\texorpdfstring{Bootstrap CIs
+for\(\beta_j\)}{Bootstrap CIs for\textbackslash beta\_j}}\label{bootstrap-cis-forbeta_j}}
 
 Sadly, there are two main challenges:
 
@@ -1206,36 +1214,47 @@ generalized linear model theory as implemented in lm, glm and coxph.''
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{outline-1}{%
-\subsection{Outline}\label{outline-1}}
+\hypertarget{selective-inference}{%
+\section{Selective inference}\label{selective-inference}}
+
+\hypertarget{what-is-selective-inference}{%
+\subsection{What is selective
+inference?}\label{what-is-selective-inference}}
+
+Selective inference is concerned with testing hypotheses suggested by
+the data.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{from-selective-inference-seminar}{%
+\subsection{From selective inference
+seminar}\label{from-selective-inference-seminar}}
+
+Source: \url{https://sites.google.com/view/selective-inference-seminar}
+
+Broadly construed, selective inference means \emph{searching for
+interesting patterns in data}, usually with \emph{inferential guarantees
+that account for the search process}.
+
+It encompasses:
 
 \begin{itemize}
 \tightlist
 \item
-  Prediction vs statistics inference: what are the aims?
+  Multiple testing: testing many hypotheses at once (and paying
+  disproportionate attention to rejections)
 \item
-  Sampling distributions
+  Post-selection inference: examining the data to decide what question
+  to ask, or what model to use, then carrying out one or more
+  appropriate inferences
 \item
-  Debiased lasso
+  Adaptive / interactive inference: sequentially asking one question
+  after another of the same data set, where each question is informed by
+  the answers to preceding questions
 \item
-  Bayesian lasso
-\item
-  Boostrapping
-\end{itemize}
-
-\textbf{WE are here now!}
-
-\begin{itemize}
-\tightlist
-\item
-  Sample splitting
-\item
-  Inference after selection (forward regression example, polyhedral
-  result, PoSI)
-\item
-  Reproducibility crisis and selective inference
-\item
-  Conclusions
+  Cheating: cherry-picking, double dipping, data snooping, data
+  dredging, p-hacking, HARKing, and other low-down dirty rotten tricks;
+  basically any of the above, but done wrong!
 \end{itemize}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -1247,7 +1266,9 @@ generalized linear model theory as implemented in lm, glm and coxph.''
 \subsection{What if we just split the data in
 two?}\label{what-if-we-just-split-the-data-in-two}}
 
-Linear regression or logistic regression.
+\hypertarget{lasso---linear-or-logistic-regression}{%
+\subsubsection{Lasso - linear or logistic
+regression}\label{lasso---linear-or-logistic-regression}}
 
 Dataset with \(p\) covariates and \(N\) observations. Divided into a
 training set of size \(aN\) and a test set of \((1-a)N\), where
@@ -1264,9 +1285,10 @@ training set of size \(aN\) and a test set of \((1-a)N\), where
   \begin{itemize}
   \tightlist
   \item
-    Fit ordinary LS or GLM model with only the non-zero lasso covariates
+    Fit ordinary LS or GLM model with \emph{only the non-zero lasso
+    covariates}
   \item
-    present CI and \(p\)-values from LS
+    present CI and \(p\)-values.
   \end{itemize}
 \end{itemize}
 
@@ -1274,12 +1296,96 @@ training set of size \(aN\) and a test set of \((1-a)N\), where
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{single-hypothesis-test}{%
+\subsection{Single hypothesis test}\label{single-hypothesis-test}}
+
+\[H_{0}\colon \beta_j=0 \hspace{0.5cm} \text{vs.} \hspace{0.5cm} H_{1}\colon \beta_j \neq 0\]
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule()
+& Not reject \(H_0\) & Reject \(H_0\) \\
+\midrule()
+\endhead
+\(H_0\) true & Correct & Type I error \\
+\(H_0\) false & Type II error & Correct \\
+\bottomrule()
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Two types of errors are possible, type I error and type II error.
+\item
+  A type I error would be to reject \(H_0\) when \(H_0\) is true, that
+  is concluding that there is a linear association between the response
+  and the predictor where there is no such association. This is called a
+  \emph{false positive finding}.
+\item
+  A type II error would be to fail to reject \(H_0\) when the
+  alternative hypothesis \(H_1\) is true, that is not detecting that
+  there is a linear association between the response and the covariate.
+  This is called a \emph{false negative finding}.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{p-value}{%
+\subsection{\texorpdfstring{\(p\)-value}{p-value}}\label{p-value}}
+
+\begin{itemize}
+\tightlist
+\item
+  A \(p\)-value \(p(X)\) is a test statistic satisfying
+  \(0 \leq p({\boldsymbol Y}) \leq 1\) for every vector of observations
+  \(\boldsymbol{Y}\).
+\item
+  Small values give evidence that \(H_1\) is true.
+\item
+  In single hypothesis testing, if the \(p\)-value is less than the
+  chosen significance level (chosen upper limit for the probability of
+  committing a type I error), then we reject the null hypothesis,
+  \(H_0\).
+\item
+  The chosen significance level is often referred to as \(\alpha\).
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+A \(p\)-value is \emph{valid} if
+\[ P(p(\boldsymbol{Y}) \leq \alpha) \leq \alpha \] for all \(\alpha\),
+\(0 \leq \alpha \leq 1\), whenever \(H_0\) is true, that is, if the
+\(p\)-value is valid, rejection on the basis of the \(p\)-value ensures
+that the probability of type I error does not exceed \(\alpha\).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+An \emph{exact} \(p\)-value satisfies
+\[P(p(\boldsymbol{Y}) \leq \alpha) = \alpha\] for all \(\alpha\),
+\(0 \leq \alpha \leq 1\).
+
+\begin{itemize}
+\tightlist
+\item
+  The exact \(p\)-value is uniformly distributed when the null
+  hypothesis is true.
+\item
+  This is a fact that is often misunderstood by users of \(p\)-values.
+\item
+  The incorrect urban myth is that \(p\)-values from true null
+  hypotheses are close to one, when the correct fact is that all values
+  in intervals of the same length are equally probable (which is a
+  property of the uniform distribution).
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
 \hypertarget{from-single-to-multiple-hypotheses}{%
 \subsection{From single to multiple
 hypotheses}\label{from-single-to-multiple-hypotheses}}
 
-In many situations we are not interested in testing only one hypothesis,
-but instead \(m\) hypotheses.
+We test \(m\) hypotheses.
 
 \begin{longtable}[]{@{}llll@{}}
 \toprule()
@@ -1309,7 +1415,8 @@ Total & \(m-R\) & \(R\) & \(m\) \\
   \(R\): the number of hypoteses rejected for a specific cut-off
 \end{itemize}
 
-Observe: only \(m\) and \(R\) is observed!
+\textbf{Question: which of these quantities do we observe for a specific
+\(p\)-value cut-off?}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1368,9 +1475,9 @@ note on multiple hypothesis testing}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{high-dimensional-inference}{%
-\subsection{High-dimensional
-inference}\label{high-dimensional-inference}}
+\hypertarget{high-dimensional-inference-hdi}{%
+\subsection{High-dimensional inference
+(hdi)}\label{high-dimensional-inference-hdi}}
 
 (Dezeure, Bühlmann, Meier, Meinshausen, 2.1.1 + 2.2)
 
@@ -1399,7 +1506,7 @@ inference}\label{high-dimensional-inference}}
 \item
   \(\varepsilon\) is an \(n \times 1\) error vector, independent of
   \({\boldsymbol X}\) and i.i.d. entries with
-  \(\text{E}(\varepsilon)_i)=0\).
+  \(\text{E}(\varepsilon_i)=0\).
 \item
   The number of parameters \emph{may} be larger than the sample size
   (then the regression parameter is not identifiable in general).
@@ -1427,7 +1534,7 @@ ones that the lasso has selected.
   But, the distribution of the estimator is hard to characterize, and
 \item
   it has been shown that (for fixed \(p\)) the asymptotic
-  (\(n\leftarrow \infty\)) distribution of the lasso has point mass at
+  (\(n\rightarrow \infty\)) distribution of the lasso has point mass at
   zero (which leads to that bootstrapping not having optimal
   properties).
 \end{itemize}
@@ -1513,7 +1620,7 @@ Some assumptions are necessary to assure FWER control.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-Confidence intervals are found
+Confidence intervals are found by ``inversion''
 
 \begin{itemize}
 \tightlist
@@ -1521,19 +1628,16 @@ Confidence intervals are found
   from the adjusted \(p\)-values \(P_j\)
 \item
   using the duality of \(p\)-values and two-sided confidence intervals.
-  That is,
+  That is, a \((1-\alpha)\) 100\% CI contains values \(c\) where the
+  \(p\)-value is below \(\alpha\) for testing \(H_0: \beta_j=c\).
 \item
-  a \((1-\alpha)\) 100\% CI contains values \(c\) where the \(p\)-value
-  is below \(\alpha\) for testing \(H_0: \beta_j=c\). A closed form
-  solution involving \(P_j\) is found.
+  A closed form solution involving \(P_j\) is found.
 \item
   Both single testing and multiple corrected testing CIs are found.
   (Appendix A.2 in article)
 \end{itemize}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\footnotesize
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1570,49 +1674,32 @@ Confidence intervals are found
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\#summary(hdires$pvals.nonaggr) \# if return.nonaggr=TRUE}
 \NormalTok{hdires}\SpecialCharTok{$}\NormalTok{gamma.min}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
- [1] 0.999 0.999 0.050 0.064 0.999 0.999 0.050 0.999 0.052 0.999
+ [1] 0.999 0.999 0.050 0.062 0.999 0.999 0.076 0.999 0.053 0.999
 \end{verbatim}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\#summary(hdires$pvals.nonaggr) \# if return.nonaggr=TRUE}
-\NormalTok{hdires}\SpecialCharTok{$}\NormalTok{pval.corr}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-         age          sex          bmi          map           tc          ldl 
-1.000000e+00 1.000000e+00 5.178832e-10 1.331537e-02 1.000000e+00 1.000000e+00 
-         hdl          tch          ltg          glu 
-4.533731e-01 1.000000e+00 6.863052e-08 1.000000e+00 
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{cbind}\NormalTok{(hdires}\SpecialCharTok{$}\NormalTok{lci, hdires}\SpecialCharTok{$}\NormalTok{uci)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-          [,1]      [,2]
-age       -Inf       Inf
-sex -435.92911 103.48598
-bmi  363.10330 776.42063
-map   66.58321 472.64439
-tc        -Inf       Inf
-ldl       -Inf       Inf
-hdl -406.96777  14.72096
-tch -764.32633 201.01275
-ltg  301.70828 715.18364
-glu -327.08642 254.88420
-\end{verbatim}
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \normalsize
+
+\begin{verbatim}
+    adjusted pvalue    lowerCI   upperCI
+age    1.000000e+00       -Inf       Inf
+sex    1.000000e+00 -435.36819 106.48904
+bmi    3.537003e-10  370.71236 777.71218
+map    1.525473e-02   63.76631 472.25384
+tc     1.000000e+00       -Inf       Inf
+ldl    1.000000e+00       -Inf       Inf
+hdl    5.416138e-01 -411.95903  20.84983
+tch    1.000000e+00 -764.83148 204.03679
+ltg    5.982750e-08  312.01305 717.79228
+glu    1.000000e+00 -332.40694 242.89069
+\end{verbatim}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1653,6 +1740,8 @@ lasso estimator is included. (See HTW 6.4 or the Dezure et al article.)
 \subsubsection{Summing up}\label{summing-up}}
 
 What is the take home message from this ``Sample splitting'' story?
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{inference-after-selection}{%
 \section{Inference after selection}\label{inference-after-selection}}
@@ -1705,8 +1794,8 @@ The technical solutions are of less importance, and is not presented
 with enough mathematical detail so that we understand the method in
 detail.
 
-\emph{Remark: the single and multiple sample splitting strategy
-isvalid.}
+\emph{Remark: the single and multiple sample splitting strategy is
+valid.}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1731,11 +1820,10 @@ While some stopping criterion not reach - perform step
 \tightlist
 \item
   At step \(k\) add the predictor that gives the most decrease in the
-  sums of squares of error (here now - to follow the notation denoted by
-  RSS instead of what we previously called SSE)
+  sums of squares of error (SSE)
 \end{itemize}
 
-\[ \text{RSS}=\sum_{i=1}^N (y_i -\hat{y}_i)^2\] where \(\hat{y}_i\) is
+\[ \text{SEE}=\sum_{i=1}^N (y_i -\hat{y}_i)^2\] where \(\hat{y}_i\) is
 the predicted value for observation \(i\) in this model.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -1743,7 +1831,7 @@ the predicted value for observation \(i\) in this model.
 If we have a model with \(k-1\) predictors and we would like to add one
 more predictor (the \(k\) to be added):
 
-\[ \text{R}_k=\frac{1}{\sigma^2}(\text{RSS}_{k-1}-\text{RSS}_{k})\sim \chi^2_1\]
+\[ \text{R}_k=\frac{1}{\sigma^2}(\text{SSE}_{k-1}-\text{SSE}_{k})\sim \chi^2_1\]
 where here \(\sigma^2\) is assumed known.
 
 This can be seen as an hypothesis test:
@@ -1751,6 +1839,12 @@ This can be seen as an hypothesis test:
 \(H_0: \text{The new predictor is not relevant}\) vs.
 \(H_1: \text{The new predictor is relevant}\) with a \(p\)-value
 calculated from the upper tail of the \(\chi^2_1\)-distribution.
+
+Why this test statistic? This is a special case of \(H_0: C\beta=d\),
+see
+\href{https://www.math.ntnu.no/emner/TMA4267/2017v/TMA4267V2017Part3.pdf}{part
+3 of TMA4267 in 2017 (in particular L13+14)} where we now assume
+\(\sigma^2\) to be known (not Fisher but \(\chi^2\)).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1782,8 +1876,19 @@ Distribution to the maximum given that we have \(p\) predictors:
 \[ P(\max R_1 \ge c)=1-P(\max R_1 < c)=1-P(\text{all p } R_1 \text{ are} <c)\]
 
 Study Figure 1 in the article for a plot of nominal vs.~actual
-\(p\)-value for \(p=10\) and \(p=50\). The figure was made using Monte
-Carlo sampling.
+\(p\)-value for \(p=10\) and \(p=50\), and see below a possible R
+reproduction.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{ecdf-of-p-values-under-the-null-for-first-step-of-forward-selection}{%
+\subsubsection{\texorpdfstring{ECDF of \(p\)-values under the null for
+first step of forward
+selection}{ECDF of p-values under the null for first step of forward selection}}\label{ecdf-of-p-values-under-the-null-for-first-step-of-forward-selection}}
+
+\includegraphics{W6_files/figure-pdf/unnamed-chunk-39-1.pdf}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1799,12 +1904,11 @@ Carlo sampling.
 \end{itemize}
 
 The method used in the article is to calculate a \(p\)-value for the
-covariate at step \(k\) by conditioning on the fact that already the
-strongest \(k-1\) predictors in this sequential set-up has already been
-chosen.
+covariate at step \(k\) by conditioning on the fact that the strongest
+\(k-1\) predictors in this sequential set-up has already been chosen.
 
-The \(p\)-value at step \(k\) would be dependent on the number of
-covariates \(p\).
+The \(p\)-value to be calculated at step \(k\) would be dependent on the
+number of covariates \(p\).
 
 We now change focus and look at the distribution of the estimated
 regression coefficient for the covariate added at step \(k\), because
@@ -1860,7 +1964,7 @@ now has a \emph{truncated normal distribution}
 i.e.~the \emph{same} normal distribution, but scaled to lie within the
 interval \((c,d)\).
 
-The limits \((c,d)\) depends on both the data and the selection evetns
+The limits \((c,d)\) depends on both the data and the selection events
 that lead to the current model.
 
 \emph{The formulae for these limits are somewhat complicated but easily
@@ -1869,7 +1973,36 @@ computable}.
 This truncated normal distribution is used to calculate
 \emph{selection-adjusted} \(p\)-values and confidence interval.
 
-(Study Figure 3. in the article by Taylor and Tibshirani.)
+(Study Figure 3 in Taylor and Tibshirani (2015).)
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{ecdf-of-polyheder-p-values-under-the-null-for-first-step-of-forward-selection}{%
+\subsubsection{\texorpdfstring{ECDF of polyheder \(p\)-values under the
+null for first step of forward
+selection}{ECDF of polyheder p-values under the null for first step of forward selection}}\label{ecdf-of-polyheder-p-values-under-the-null-for-first-step-of-forward-selection}}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{ecdf-of-polyheder-p-values-under-the-null-for-first-step-of-forward-selection-1}{%
+\subsubsection{\texorpdfstring{ECDF of polyheder \(p\)-values under the
+null for first step of forward
+selection}{ECDF of polyheder p-values under the null for first step of forward selection}}\label{ecdf-of-polyheder-p-values-under-the-null-for-first-step-of-forward-selection-1}}
+
+\includegraphics{W6_files/figure-pdf/unnamed-chunk-41-1.pdf}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{comparing-simple-and-polyheder-p-values-for-the-first-step-of-forward-selection}{%
+\subsubsection{\texorpdfstring{Comparing simple and polyheder
+\(p\)-values for the first step of forward
+selection}{Comparing simple and polyheder p-values for the first step of forward selection}}\label{comparing-simple-and-polyheder-p-values-for-the-first-step-of-forward-selection}}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\includegraphics{W6_files/figure-pdf/unnamed-chunk-44-1.pdf}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1880,7 +2013,7 @@ The same methodology can be used for the lasso, here also the selection
 of predictors can be described as a polyhedral region of the form
 \(Ay\le b\) - for a fixed value \(\lambda\).
 
-For the lass the \(A\) and \(b\) will depend on
+For the lasso the \(A\) and \(b\) will depend on
 
 \begin{itemize}
 \tightlist
@@ -1909,6 +2042,165 @@ Study Figure 5 from the article for an example of Naive and
 Selection-adjusted intervals for the lasso.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{selective-inference-with-the-diabetes-data}{%
+\subsection{Selective inference with the diabetes
+data}\label{selective-inference-with-the-diabetes-data}}
+
+\hypertarget{forward-selection-diabetes}{%
+\subsubsection{Forward selection
+diabetes}\label{forward-selection-diabetes}}
+
+\begin{verbatim}
+      [,1] [,2] 
+ [1,] "1"  "age"
+ [2,] "2"  "sex"
+ [3,] "3"  "bmi"
+ [4,] "4"  "map"
+ [5,] "5"  "tc" 
+ [6,] "6"  "ldl"
+ [7,] "7"  "hdl"
+ [8,] "8"  "tch"
+ [9,] "9"  "ltg"
+[10,] "10" "glu"
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\includegraphics{W6_files/figure-pdf/unnamed-chunk-46-1.pdf}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{verbatim}
+
+Call:
+fsInf(obj = fsfit)
+
+Standard deviation of noise (specified or estimated) sigma = 54.154
+
+Sequential testing results with alpha = 0.100
+ Step Var     Coef Z-score P-value LowConfPt UpConfPt LowTailArea UpTailArea
+    1   3  949.435  17.532   0.000   790.681 1037.113       0.049      0.050
+    2   9  614.951  10.163   0.000   521.696  887.192       0.049      0.050
+    3   4  262.275   4.291   0.010    90.437  363.617       0.049      0.048
+    4   5 -206.670  -3.266   0.684  -279.583 1539.967       0.049      0.050
+    5   2 -148.375  -2.648   0.689  -273.862 1234.380       0.050      0.050
+    6   6  538.586   3.664   0.025   208.452 5364.275       0.050      0.050
+    7   8  135.265   1.121   0.900      -Inf  577.340       0.000      0.050
+    8  10   67.141   1.027   0.033   100.724      Inf       0.050      0.000
+    9   7   99.718   0.470   0.629 -2450.846 1220.006       0.050      0.050
+   10   1  -10.012  -0.168   0.644  -527.324 1058.916       0.050      0.050
+
+Estimated stopping point from ForwardStop rule = 3
+\end{verbatim}
+
+\begin{verbatim}
+
+Call:
+fsInf(obj = fsfit, k = 3, type = "all")
+
+Standard deviation of noise (specified or estimated) sigma = 54.154
+
+Testing results at step = 3, with alpha = 0.100
+ Var    Coef Z-score P-value LowConfPt UpConfPt LowTailArea UpTailArea
+   3 603.074   9.604   0.001   329.956  700.275       0.049      0.050
+   9 543.872   8.669   0.000   444.878  816.142       0.048      0.050
+   4 262.275   4.291   0.010    90.437  363.617       0.049      0.048
+\end{verbatim}
+
+\begin{verbatim}
+
+Call:
+fsInf(obj = fsfit, type = "aic")
+
+Standard deviation of noise (specified or estimated) sigma = 54.154
+
+Testing results at step = 6, with alpha = 0.100
+ Var     Coef Z-score P-value LowConfPt UpConfPt LowTailArea UpTailArea
+   3  529.873   8.061   0.071  -101.266  618.999       0.050      0.049
+   9  804.192  10.014   0.000   636.648 1316.723       0.050      0.050
+   4  327.220   5.211   0.012   104.438  428.643       0.049      0.049
+   5 -757.938  -4.716   0.016 -3805.607 -303.334       0.050      0.049
+   2 -226.511  -3.778   0.495  -378.663  794.641       0.050      0.050
+   6  538.586   3.664   0.025   208.452 5364.275       0.050      0.050
+
+Estimated stopping point from AIC rule = 6
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+For comparison, the suggested forward model with variabls bmi, ltg and
+map - with naive \(p\)-values.
+
+\footnotesize
+
+\begin{verbatim}
+
+Call:
+lm(formula = y ~ x[, 3] + x[, 9] + x[, 4])
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-140.229  -40.637   -2.187   38.269  139.804 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  152.133      2.653  57.342  < 2e-16 ***
+x[, 3]       603.074     64.677   9.324  < 2e-16 ***
+x[, 9]       543.872     64.619   8.417 5.56e-16 ***
+x[, 4]       262.275     62.962   4.166 3.74e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 55.78 on 438 degrees of freedom
+Multiple R-squared:  0.4801,    Adjusted R-squared:  0.4765 
+F-statistic: 134.8 on 3 and 438 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\normalsize
+
+\hypertarget{lasso-diabetes}{%
+\subsubsection{Lasso diabetes}\label{lasso-diabetes}}
+
+\footnotesize
+
+\begin{verbatim}
+[1] 0.2527843
+\end{verbatim}
+
+\begin{verbatim}
+ [1]    0.00000  -33.33808  508.19096  210.35372    0.00000    0.00000
+ [7] -138.84778    0.00000  444.56109    0.00000
+\end{verbatim}
+
+\begin{verbatim}
+
+Call:
+fixedLassoInf(x = x, y = y, beta = beta, lambda = lambda * n)
+
+Standard deviation of noise (specified or estimated) sigma = 54.154
+
+Testing results at lambda = 111.731, with alpha = 0.100
+
+ Var     Coef Z-score P-value LowConfPt UpConfPt LowTailArea UpTailArea
+   2 -235.776  -3.913   0.117  -325.205   96.516       0.049      0.050
+   3  523.562   8.047   0.000   416.203  631.275       0.049      0.049
+   4  326.236   5.190   0.000   212.282  430.335       0.048      0.049
+   7 -289.117  -4.420   0.003  -397.090 -136.813       0.049      0.050
+   9  474.292   7.247   0.000   366.602  582.958       0.050      0.048
+
+Note: coefficients shown are partial regression coefficients
+\end{verbatim}
+
+\begin{verbatim}
+[1] 1.168127e-01 1.092168e-15 3.912618e-05 2.928151e-03 6.562529e-13
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\normalsize
 
 \hypertarget{further-improvements}{%
 \subsubsection{Further improvements}\label{further-improvements}}
@@ -2020,11 +2312,13 @@ Published on Dec 16, 2020}
 \hypertarget{conclusion-1}{%
 \section{Conclusion}\label{conclusion-1}}
 
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
 \hypertarget{how-will-you-perform-inference}{%
 \subsection{How will you perform
 inference}\label{how-will-you-perform-inference}}
 
-on Data Analysis Project 1?
+on your data analysis roject?
 
 We discuss:
 
@@ -2042,153 +2336,34 @@ We discuss:
 \hypertarget{references}{%
 \section{References}\label{references}}
 
-(also given in the text and not repeated here)
-
-\begin{itemize}
-\tightlist
-\item
-  \href{https://arxiv.org/pdf/1509.09169.pdf}{Wessel N. van Wieringen:
-  Lecture notes on ridge regression}
-\item
-  A. Chatterjee and S. N. Lahiri (2011). Bootstrapping Lasso Estimators.
-  Journal of the American Statistical Association. Vol. 106, No.~494
-  (June 2011), pp.~608-625 (18 pages)
-\item
-  Single/multi-sampling splitting part of
-  \href{https://projecteuclid.org/download/pdfview_1/euclid.ss/1449670857}{Dezeure,
-  Bühlmann, Meier, Meinshausen (2015)}. ``High-Dimensional Inference:
-  Confidence Intervals, p-Values and R-Software hdi''. Statistical
-  Science, 2015, Vol. 30, No.~4, 533--558 DOI: 10.1214/15-STS527 (only
-  the single/multiple sample splitting part in 2.1.1 and 2.2 for linear
-  regression, and using the method in practice).
-\item
-  \href{https://www.pnas.org/content/112/25/7629}{Taylor and Tibshirani
-  (2015)}: Statistical learning and selective inference, PNAS, vol 112,
-  no 25, pages 7629-7634. (Soft version of HTW 6.3.2)
-\item
-  Berk, Richard; Brown, Lawrence; Buja, Andreas; Zhang, Kai; Zhao,
-  Linda. Valid post-selection inference. Ann. Statist. 41 (2013), no. 2,
-  802--837. doi:10.1214/12-AOS1077.
-\end{itemize}
-
-\hypertarget{left-overs}{%
-\section{Left overs}\label{left-overs}}
-
-To check that all is here
-
-\hypertarget{bootstrap-confidence-intervals}{%
-\subsection{Bootstrap confidence
-intervals}\label{bootstrap-confidence-intervals}}
-
-\hypertarget{percentile-interval}{%
-\subsection{Percentile interval}\label{percentile-interval}}
-
-\hypertarget{bias-corrected-accelerated-interval}{%
-\subsection{Bias corrected accelerated
-interval}\label{bias-corrected-accelerated-interval}}
-
-\hypertarget{single-hypothesis-test}{%
-\subsection{Single hypothesis test}\label{single-hypothesis-test}}
-
-\[H_{0}\colon \beta_j=0 \hspace{0.5cm} \text{vs.} \hspace{0.5cm} H_{1}\colon \beta_j \neq 0\]
-
-\begin{longtable}[]{@{}lll@{}}
-\toprule()
-& Not reject \(H_0\) & Reject \(H_0\) \\
-\midrule()
-\endhead
-\(H_0\) true & Correct & Type I error \\
-\(H_0\) false & Type II error & Correct \\
-\bottomrule()
-\end{longtable}
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\begin{itemize}
-\tightlist
-\item
-  Two types of errors are possible, type I error and type II error.
-\item
-  A type I error would be to reject \(H_0\) when \(H_0\) is true, that
-  is concluding that there is a linear association between the response
-  and the predictor where there is no such association. This is called a
-  \emph{false positive finding}.
-\item
-  A type II error would be to fail to reject \(H_0\) when the
-  alternative hypothesis \(H_1\) is true, that is not detecting that
-  there is a linear association between the response and the covariate.
-  This is called a \emph{false negative finding}.
-\end{itemize}
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\hypertarget{p-value}{%
-\subsection{\texorpdfstring{\(p\)-value}{p-value}}\label{p-value}}
-
-\begin{itemize}
-\tightlist
-\item
-  A \(p\)-value \(p(X)\) is a test statistic satisfying
-  \(0 \leq p({\boldsymbol Y}) \leq 1\) for every vector of observations
-  \(\boldsymbol{Y}\).
-\item
-  Small values give evidence that \(H_1\) is true.
-\item
-  In single hypothesis testing, if the \(p\)-value is less than the
-  chosen significance level (chosen upper limit for the probability of
-  committing a type I error), then we reject the null hypothesis,
-  \(H_0\).
-\item
-  The chosen significance level is often referred to as \(\alpha\).
-\end{itemize}
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-A \(p\)-value is \emph{valid} if
-\[ P(p(\boldsymbol{Y}) \leq \alpha) \leq \alpha \] for all \(\alpha\),
-\(0 \leq \alpha \leq 1\), whenever \(H_0\) is true, that is, if the
-\(p\)-value is valid, rejection on the basis of the \(p\)-value ensures
-that the probability of type I error does not exceed \(\alpha\).
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-An \emph{exact} \(p\)-value satisfies
-\[P(p(\boldsymbol{Y}) \leq \alpha) = \alpha\] for all \(\alpha\),
-\(0 \leq \alpha \leq 1\).
-
-\begin{itemize}
-\tightlist
-\item
-  The exact \(p\)-value is uniformly distributed when the null
-  hypothesis is true.
-\item
-  This is a fact that is often misunderstood by users of \(p\)-values.
-\item
-  The incorrect urban myth is that \(p\)-values from true null
-  hypotheses are close to one, when the correct fact is that all values
-  in intervals of the same length are equally probable (which is a
-  property of the uniform distribution).
-\end{itemize}
-
-\hypertarget{false-discovery-rate}{%
-\subsection{False discovery rate}\label{false-discovery-rate}}
-
-The false discovery rate (FDR) is defined as
-\[ \text{FDR}= \text{E}(\frac{V}{R})  \text{ for }R>0\] and
-\[ \text{FDR}= 0 \text{ else} \]
-
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-BootLasso2011}{}}%
+Chatterjee, A., and S. N. Lahiri. 2011. {``Bootstrapping Lasso
+Estimators.''} \emph{Journal of the American Statistical Association}
+106 (494): 608--25. \url{http://www.jstor.org/stable/41416396}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-hdi2015}{}}%
+Dezeure, Ruben, Peter Bühlmann, Lukas Meier, and Nicolai Meinshausen.
+2015. {``High-Dimensional Inference: Confidence Intervals, p-Values and
+{R}-Software {hdi}.''} \emph{Statistical Science} 30 (4): 533--58.
+
 \leavevmode\vadjust pre{\hypertarget{ref-casi}{}}%
 Efron, Bradley, and Trevor Hastie. 2016. \emph{Computer Age Statistical
 Inference - Algorithms, Evidence, and Data Science}. Cambridge
 University Press. \url{https://hastie.su.domains/CASI/}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-HTW}{}}%
-Hastie, Trevor, Roberg Tibshirani, and Martin Wainwright. 2015.
+Hastie, Trevor, Robert J. Tibshirani, and Martin Wainwright. 2015.
 \emph{Statistical Learning with Sparsity: The Lasso and
 Generalizations}. CRC Press.
 \url{https://hastie.su.domains/StatLearnSparsity/}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-TaylorTibshirani2015}{}}%
+Taylor, Jonathan, and Robert J. Tibshirani. 2015. {``Statistical
+Learning and Selective Inference.''} \emph{Proceedings of the National
+Academy of Sciences} 112 (25): 7629--34.
+\url{https://doi.org/10.1073/pnas.1507583112}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-WNvW}{}}%
 Wieringen, Wessel N. van. 2021. {``Lecture Notes on Ridge Regression.''}

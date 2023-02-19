@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-02-12">
+<meta name="dcterms.date" content="2023-02-19">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -132,7 +132,11 @@ div.csl-indent {
   <ul>
   <li><a href="#before-we-begin" id="toc-before-we-begin" class="nav-link active" data-scroll-target="#before-we-begin">Before we begin</a>
   <ul class="collapse">
-  <li><a href="#outline" id="toc-outline" class="nav-link" data-scroll-target="#outline">Outline</a></li>
+  <li><a href="#outline" id="toc-outline" class="nav-link" data-scroll-target="#outline">Outline</a>
+  <ul class="collapse">
+  <li><a href="#l11" id="toc-l11" class="nav-link" data-scroll-target="#l11">L11</a></li>
+  <li><a href="#l12" id="toc-l12" class="nav-link" data-scroll-target="#l12">L12</a></li>
+  </ul></li>
   <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
   </ul></li>
   <li><a href="#statistical-inference" id="toc-statistical-inference" class="nav-link" data-scroll-target="#statistical-inference">Statistical inference</a>
@@ -180,24 +184,33 @@ div.csl-indent {
   <li><a href="#diabetes-example" id="toc-diabetes-example" class="nav-link" data-scroll-target="#diabetes-example">Diabetes example</a></li>
   </ul></li>
   <li><a href="#bootstrapping-vs-bayesian-lasso" id="toc-bootstrapping-vs-bayesian-lasso" class="nav-link" data-scroll-target="#bootstrapping-vs-bayesian-lasso">Bootstrapping vs Bayesian lasso</a></li>
-  <li><a href="#bootstrapt-percentile-ci" id="toc-bootstrapt-percentile-ci" class="nav-link" data-scroll-target="#bootstrapt-percentile-ci">Bootstrapt percentile CI</a></li>
+  <li><a href="#bootstrap-percentile-ci" id="toc-bootstrap-percentile-ci" class="nav-link" data-scroll-target="#bootstrap-percentile-ci">Bootstrap percentile CI</a></li>
   <li><a href="#bootstrap-bca-ci" id="toc-bootstrap-bca-ci" class="nav-link" data-scroll-target="#bootstrap-bca-ci">Bootstrap BCa CI</a>
   <ul class="collapse">
   <li><a href="#diabetes-example-1" id="toc-diabetes-example-1" class="nav-link" data-scroll-target="#diabetes-example-1">Diabetes example</a></li>
   <li><a href="#medical-example" id="toc-medical-example" class="nav-link" data-scroll-target="#medical-example">Medical example</a></li>
   </ul></li>
-  <li><a href="#bootstrap-cis-for-beta_j" id="toc-bootstrap-cis-for-beta_j" class="nav-link" data-scroll-target="#bootstrap-cis-for-beta_j">Bootstrap CIs for <span class="math inline">\(\beta_j\)</span></a></li>
-  <li><a href="#outline-1" id="toc-outline-1" class="nav-link" data-scroll-target="#outline-1">Outline</a></li>
+  <li><a href="#bootstrap-cis-forbeta_j" id="toc-bootstrap-cis-forbeta_j" class="nav-link" data-scroll-target="#bootstrap-cis-forbeta_j">Bootstrap CIs for<span class="math inline">\(\beta_j\)</span></a></li>
+  </ul></li>
+  <li><a href="#selective-inference" id="toc-selective-inference" class="nav-link" data-scroll-target="#selective-inference">Selective inference</a>
+  <ul class="collapse">
+  <li><a href="#what-is-selective-inference" id="toc-what-is-selective-inference" class="nav-link" data-scroll-target="#what-is-selective-inference">What is selective inference?</a></li>
+  <li><a href="#from-selective-inference-seminar" id="toc-from-selective-inference-seminar" class="nav-link" data-scroll-target="#from-selective-inference-seminar">From selective inference seminar</a></li>
   </ul></li>
   <li><a href="#sample-splitting" id="toc-sample-splitting" class="nav-link" data-scroll-target="#sample-splitting">Sample splitting</a>
   <ul class="collapse">
-  <li><a href="#what-if-we-just-split-the-data-in-two" id="toc-what-if-we-just-split-the-data-in-two" class="nav-link" data-scroll-target="#what-if-we-just-split-the-data-in-two">What if we just split the data in two?</a></li>
+  <li><a href="#what-if-we-just-split-the-data-in-two" id="toc-what-if-we-just-split-the-data-in-two" class="nav-link" data-scroll-target="#what-if-we-just-split-the-data-in-two">What if we just split the data in two?</a>
+  <ul class="collapse">
+  <li><a href="#lasso---linear-or-logistic-regression" id="toc-lasso---linear-or-logistic-regression" class="nav-link" data-scroll-target="#lasso---linear-or-logistic-regression">Lasso - linear or logistic regression</a></li>
+  </ul></li>
+  <li><a href="#single-hypothesis-test" id="toc-single-hypothesis-test" class="nav-link" data-scroll-target="#single-hypothesis-test">Single hypothesis test</a></li>
+  <li><a href="#p-value" id="toc-p-value" class="nav-link" data-scroll-target="#p-value"><span class="math inline">\(p\)</span>-value</a></li>
   <li><a href="#from-single-to-multiple-hypotheses" id="toc-from-single-to-multiple-hypotheses" class="nav-link" data-scroll-target="#from-single-to-multiple-hypotheses">From single to multiple hypotheses</a></li>
   <li><a href="#familywise-error-rate" id="toc-familywise-error-rate" class="nav-link" data-scroll-target="#familywise-error-rate">Familywise error rate</a>
   <ul class="collapse">
   <li><a href="#the-bonferroni-method-controls-the-fwer" id="toc-the-bonferroni-method-controls-the-fwer" class="nav-link" data-scroll-target="#the-bonferroni-method-controls-the-fwer">The Bonferroni method controls the FWER</a></li>
   </ul></li>
-  <li><a href="#high-dimensional-inference" id="toc-high-dimensional-inference" class="nav-link" data-scroll-target="#high-dimensional-inference">High-dimensional inference</a></li>
+  <li><a href="#high-dimensional-inference-hdi" id="toc-high-dimensional-inference-hdi" class="nav-link" data-scroll-target="#high-dimensional-inference-hdi">High-dimensional inference (hdi)</a></li>
   <li><a href="#single-sample-splitting" id="toc-single-sample-splitting" class="nav-link" data-scroll-target="#single-sample-splitting">Single-sample splitting</a></li>
   <li><a href="#multiple-sample-splitting" id="toc-multiple-sample-splitting" class="nav-link" data-scroll-target="#multiple-sample-splitting">Multiple-sample splitting</a>
   <ul class="collapse">
@@ -209,10 +222,21 @@ div.csl-indent {
   <li><a href="#inference-after-selection" id="toc-inference-after-selection" class="nav-link" data-scroll-target="#inference-after-selection">Inference after selection</a>
   <ul class="collapse">
   <li><a href="#the-plot" id="toc-the-plot" class="nav-link" data-scroll-target="#the-plot">The plot</a></li>
-  <li><a href="#forward-stepwise-regression" id="toc-forward-stepwise-regression" class="nav-link" data-scroll-target="#forward-stepwise-regression">Forward stepwise regression</a></li>
-  <li><a href="#the-polyhedral-result" id="toc-the-polyhedral-result" class="nav-link" data-scroll-target="#the-polyhedral-result">The polyhedral result</a></li>
-  <li><a href="#polyhedral-lasso-result" id="toc-polyhedral-lasso-result" class="nav-link" data-scroll-target="#polyhedral-lasso-result">Polyhedral lasso result</a>
+  <li><a href="#forward-stepwise-regression" id="toc-forward-stepwise-regression" class="nav-link" data-scroll-target="#forward-stepwise-regression">Forward stepwise regression</a>
   <ul class="collapse">
+  <li><a href="#ecdf-of-p-values-under-the-null-for-first-step-of-forward-selection" id="toc-ecdf-of-p-values-under-the-null-for-first-step-of-forward-selection" class="nav-link" data-scroll-target="#ecdf-of-p-values-under-the-null-for-first-step-of-forward-selection">ECDF of <span class="math inline">\(p\)</span>-values under the null for first step of forward selection</a></li>
+  </ul></li>
+  <li><a href="#the-polyhedral-result" id="toc-the-polyhedral-result" class="nav-link" data-scroll-target="#the-polyhedral-result">The polyhedral result</a>
+  <ul class="collapse">
+  <li><a href="#ecdf-of-polyheder-p-values-under-the-null-for-first-step-of-forward-selection" id="toc-ecdf-of-polyheder-p-values-under-the-null-for-first-step-of-forward-selection" class="nav-link" data-scroll-target="#ecdf-of-polyheder-p-values-under-the-null-for-first-step-of-forward-selection">ECDF of polyheder <span class="math inline">\(p\)</span>-values under the null for first step of forward selection</a></li>
+  <li><a href="#ecdf-of-polyheder-p-values-under-the-null-for-first-step-of-forward-selection-1" id="toc-ecdf-of-polyheder-p-values-under-the-null-for-first-step-of-forward-selection-1" class="nav-link" data-scroll-target="#ecdf-of-polyheder-p-values-under-the-null-for-first-step-of-forward-selection-1">ECDF of polyheder <span class="math inline">\(p\)</span>-values under the null for first step of forward selection</a></li>
+  <li><a href="#comparing-simple-and-polyheder-p-values-for-the-first-step-of-forward-selection" id="toc-comparing-simple-and-polyheder-p-values-for-the-first-step-of-forward-selection" class="nav-link" data-scroll-target="#comparing-simple-and-polyheder-p-values-for-the-first-step-of-forward-selection">Comparing simple and polyheder <span class="math inline">\(p\)</span>-values for the first step of forward selection</a></li>
+  </ul></li>
+  <li><a href="#polyhedral-lasso-result" id="toc-polyhedral-lasso-result" class="nav-link" data-scroll-target="#polyhedral-lasso-result">Polyhedral lasso result</a></li>
+  <li><a href="#selective-inference-with-the-diabetes-data" id="toc-selective-inference-with-the-diabetes-data" class="nav-link" data-scroll-target="#selective-inference-with-the-diabetes-data">Selective inference with the diabetes data</a>
+  <ul class="collapse">
+  <li><a href="#forward-selection-diabetes" id="toc-forward-selection-diabetes" class="nav-link" data-scroll-target="#forward-selection-diabetes">Forward selection diabetes</a></li>
+  <li><a href="#lasso-diabetes" id="toc-lasso-diabetes" class="nav-link" data-scroll-target="#lasso-diabetes">Lasso diabetes</a></li>
   <li><a href="#further-improvements" id="toc-further-improvements" class="nav-link" data-scroll-target="#further-improvements">Further improvements</a></li>
   </ul></li>
   <li><a href="#posi" id="toc-posi" class="nav-link" data-scroll-target="#posi">PoSI</a>
@@ -226,15 +250,6 @@ div.csl-indent {
   <li><a href="#how-will-you-perform-inference" id="toc-how-will-you-perform-inference" class="nav-link" data-scroll-target="#how-will-you-perform-inference">How will you perform inference</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  <li><a href="#left-overs" id="toc-left-overs" class="nav-link" data-scroll-target="#left-overs">Left overs</a>
-  <ul class="collapse">
-  <li><a href="#bootstrap-confidence-intervals" id="toc-bootstrap-confidence-intervals" class="nav-link" data-scroll-target="#bootstrap-confidence-intervals">Bootstrap confidence intervals</a></li>
-  <li><a href="#percentile-interval" id="toc-percentile-interval" class="nav-link" data-scroll-target="#percentile-interval">Percentile interval</a></li>
-  <li><a href="#bias-corrected-accelerated-interval" id="toc-bias-corrected-accelerated-interval" class="nav-link" data-scroll-target="#bias-corrected-accelerated-interval">Bias corrected accelerated interval</a></li>
-  <li><a href="#single-hypothesis-test" id="toc-single-hypothesis-test" class="nav-link" data-scroll-target="#single-hypothesis-test">Single hypothesis test</a></li>
-  <li><a href="#p-value" id="toc-p-value" class="nav-link" data-scroll-target="#p-value"><span class="math inline">\(p\)</span>-value</a></li>
-  <li><a href="#false-discovery-rate" id="toc-false-discovery-rate" class="nav-link" data-scroll-target="#false-discovery-rate">False discovery rate</a></li>
-  </ul></li>
   </ul>
 </nav>
 </div>
@@ -262,7 +277,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 12, 2023</p>
+      <p class="date">February 19, 2023</p>
     </div>
   </div>
   
@@ -279,18 +294,27 @@ div.csl-indent {
 <h1>Before we begin</h1>
 <section id="outline" class="level2">
 <h2 class="anchored" data-anchor-id="outline">Outline</h2>
+<section id="l11" class="level3">
+<h3 class="anchored" data-anchor-id="l11">L11</h3>
 <ul>
 <li>Prediction vs statistics inference: what are the aims?</li>
 <li>Sampling distributions</li>
 <li>Debiased lasso</li>
 <li>Bayesian lasso</li>
 <li>Boostrapping</li>
+</ul>
+</section>
+<section id="l12" class="level3">
+<h3 class="anchored" data-anchor-id="l12">L12</h3>
+<ul>
+<li>Selective inference</li>
 <li>Sample splitting</li>
-<li>Inference after selection (forward regression example, polyhedral result, PoSI)</li>
-<li>Reproducibility crisis and selective inference</li>
+<li>Inference after selection (forward regression example, polyhedral result, lasso result PoSI)</li>
+<li>Reproducibility crisis</li>
 <li>Conclusions</li>
 </ul>
 <hr>
+</section>
 </section>
 <section id="literature" class="level2">
 <h2 class="anchored" data-anchor-id="literature">Literature</h2>
@@ -298,7 +322,7 @@ div.csl-indent {
 <ul>
 <li>[HTW] Hastie, Tibshirani, Wainwright: “Statistical Learning with Sparsity: The Lasso and Generalizations”. CRC press. <a href="https://trevorhastie.github.io/">Ebook</a>. Chapter 6.0, 6.1, 6.2, 6.4, 6.5. (Results from 6.3 through Taylor and Tibshirani (2015))</li>
 </ul>
-<p>Also: brush up on <strong>bootstrap intervals from TMA4300</strong>, where <a href="https://onlinelibrary.wiley.com/doi/book/10.1002/9781118555552">Givens and Hoeting (2013)</a> is on the reading list. See specifically chapter 9 (9.2.1 and 9.3 will be used here). NTNU-access to the full book if you are on vpn.</p>
+<p>Also: brush up on bootstrap intervals from TMA4300, where <a href="https://onlinelibrary.wiley.com/doi/book/10.1002/9781118555552">Givens and Hoeting (2013)</a> is on the reading list. See specifically chapter 9 (9.2.1 and 9.3 will be used here). NTNU-access to the full book if you are on vpn.</p>
 <hr>
 <p><strong>Secondary sources:</strong></p>
 <ul>
@@ -746,18 +770,18 @@ div.csl-indent {
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>11 x 1 sparse Matrix of class "dgCMatrix"
-                    s1
-(Intercept)  152.13348
-age            .      
-sex          -33.35229
-bmi          508.13935
-map          210.34606
-tc             .      
-ldl            .      
-hdl         -138.84433
-tch            .      
-ltg          444.59064
-glu            .      </code></pre>
+                   s1
+(Intercept)  152.1335
+age            .     
+sex            .     
+bmi          503.9260
+map          188.5872
+tc             .     
+ldl            .     
+hdl         -111.3725
+tch            .     
+ltg          438.1323
+glu            .     </code></pre>
 </div>
 </div>
 <hr>
@@ -826,8 +850,8 @@ glu            .      </code></pre>
 </div>
 <hr>
 </section>
-<section id="bootstrapt-percentile-ci" class="level2">
-<h2 class="anchored" data-anchor-id="bootstrapt-percentile-ci">Bootstrapt percentile CI</h2>
+<section id="bootstrap-percentile-ci" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrap-percentile-ci">Bootstrap percentile CI</h2>
 <p>To construct a <span class="math inline">\((1-\alpha)\cdot 100\)</span>% CI:</p>
 <ul>
 <li>order the bootstrap sample for the estimate of interest</li>
@@ -867,27 +891,24 @@ glu        61.07588  111.952224  168.07668    0.000000   0.00000  90.18665</code
 </section>
 <section id="medical-example" class="level3">
 <h3 class="anchored" data-anchor-id="medical-example">Medical example</h3>
-<p>(See Figures from study in class notes.)</p>
+<p>Results from the publication <a href="https://www.archives-pmr.org/article/S0003-9993(20)31154-0/fulltext">Skandsen et al 2021</a> discussed in class.</p>
 <div class="cell">
 
 </div>
-<hr>
 <div class="cell">
 
 </div>
-<hr>
 <div class="cell">
 
 </div>
-<hr>
 <div class="cell">
 
 </div>
 <hr>
 </section>
 </section>
-<section id="bootstrap-cis-for-beta_j" class="level2">
-<h2 class="anchored" data-anchor-id="bootstrap-cis-for-beta_j">Bootstrap CIs for <span class="math inline">\(\beta_j\)</span></h2>
+<section id="bootstrap-cis-forbeta_j" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrap-cis-forbeta_j">Bootstrap CIs for<span class="math inline">\(\beta_j\)</span></h2>
 <p>Sadly, there are two main challenges:</p>
 <ul>
 <li>The percentile interval is not a good choice for biased estimators, and it is not clear if the bias-corrected accelerated intervals are better</li>
@@ -898,25 +919,26 @@ glu        61.07588  111.952224  168.07668    0.000000   0.00000  90.18665</code
 <p>“Unfortunately, in most applications of penalized regression it is impossible to obtain a suﬃciently precise estimate of the bias. Any bootstrap-based calculations can only give an assessment of the variance of the estimates. Reliable estimates of the bias are only available if reliable unbiased estimates are available, which is typically not the case in situations in which penalized estimates are used.”</p>
 <p>“It is certainly a mistake to make conﬁdence statements that are only based on an assessment of the variance of the estimates, such as bootstrap-based conﬁdence intervals do.”</p>
 <p>Reliable conﬁdence intervals around the penalized estimates can be obtained in the case of low dimensional models using the standard generalized linear model theory as implemented in lm, glm and coxph.”</p>
-<!-- One possibility is the R-package [HDCI](https://cran.r-project.org/web/packages/HDCI/HDCI.pdf) -->
-<!-- but the background manuscript is not published yet <https://arxiv.org/abs/1706.02150>. -->
 <hr>
 </section>
-<section id="outline-1" class="level2">
-<h2 class="anchored" data-anchor-id="outline-1">Outline</h2>
+</section>
+<section id="selective-inference" class="level1">
+<h1>Selective inference</h1>
+<section id="what-is-selective-inference" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-selective-inference">What is selective inference?</h2>
+<p>Selective inference is concerned with testing hypotheses suggested by the data.</p>
+<hr>
+</section>
+<section id="from-selective-inference-seminar" class="level2">
+<h2 class="anchored" data-anchor-id="from-selective-inference-seminar">From selective inference seminar</h2>
+<p>Source: <a href="https://sites.google.com/view/selective-inference-seminar" class="uri">https://sites.google.com/view/selective-inference-seminar</a></p>
+<p>Broadly construed, selective inference means <em>searching for interesting patterns in data</em>, usually with <em>inferential guarantees that account for the search process</em>.</p>
+<p>It encompasses:</p>
 <ul>
-<li>Prediction vs statistics inference: what are the aims?</li>
-<li>Sampling distributions</li>
-<li>Debiased lasso</li>
-<li>Bayesian lasso</li>
-<li>Boostrapping</li>
-</ul>
-<p><strong>WE are here now!</strong></p>
-<ul>
-<li>Sample splitting</li>
-<li>Inference after selection (forward regression example, polyhedral result, PoSI)</li>
-<li>Reproducibility crisis and selective inference</li>
-<li>Conclusions</li>
+<li>Multiple testing: testing many hypotheses at once (and paying disproportionate attention to rejections)</li>
+<li>Post-selection inference: examining the data to decide what question to ask, or what model to use, then carrying out one or more appropriate inferences</li>
+<li>Adaptive / interactive inference: sequentially asking one question after another of the same data set, where each question is informed by the answers to preceding questions</li>
+<li>Cheating: cherry-picking, double dipping, data snooping, data dredging, p-hacking, HARKing, and other low-down dirty rotten tricks; basically any of the above, but done wrong!</li>
 </ul>
 <hr>
 </section>
@@ -925,14 +947,15 @@ glu        61.07588  111.952224  168.07668    0.000000   0.00000  90.18665</code
 <h1>Sample splitting</h1>
 <section id="what-if-we-just-split-the-data-in-two" class="level2">
 <h2 class="anchored" data-anchor-id="what-if-we-just-split-the-data-in-two">What if we just split the data in two?</h2>
-<p>Linear regression or logistic regression.</p>
+<section id="lasso---linear-or-logistic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="lasso---linear-or-logistic-regression">Lasso - linear or logistic regression</h3>
 <p>Dataset with <span class="math inline">\(p\)</span> covariates and <span class="math inline">\(N\)</span> observations. Divided into a training set of size <span class="math inline">\(aN\)</span> and a test set of <span class="math inline">\((1-a)N\)</span>, where <span class="math inline">\(a \in [0,1]\)</span>.</p>
 <ul>
 <li><p>Training data used to decide on <span class="math inline">\(\lambda\)</span> using CV - gives final model where some coefficients is set to 0 and some are shrunken. (The 6 steps.)</p></li>
 <li><p>Test data:</p>
 <ul>
-<li>Fit ordinary LS or GLM model with only the non-zero lasso covariates</li>
-<li>present CI and <span class="math inline">\(p\)</span>-values from LS</li>
+<li>Fit ordinary LS or GLM model with <em>only the non-zero lasso covariates</em></li>
+<li>present CI and <span class="math inline">\(p\)</span>-values.</li>
 </ul></li>
 </ul>
 <p><strong>Group discussion:</strong> Is this ok? What is gained and what is lost?</p>
@@ -944,408 +967,6 @@ glu        61.07588  111.952224  168.07668    0.000000   0.00000  90.18665</code
 
 <!-- * Not suitable to assess the prediction since no shrinkage is included. -->
 </section>
-<section id="from-single-to-multiple-hypotheses" class="level2">
-<h2 class="anchored" data-anchor-id="from-single-to-multiple-hypotheses">From single to multiple hypotheses</h2>
-<p>In many situations we are not interested in testing only one hypothesis, but instead <span class="math inline">\(m\)</span> hypotheses.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: left;">Not reject <span class="math inline">\(H_0\)</span></th>
-<th style="text-align: left;">Reject <span class="math inline">\(H_0\)</span></th>
-<th style="text-align: left;">Total</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><span class="math inline">\(H_0\)</span> true</td>
-<td style="text-align: left;"><span class="math inline">\(U\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(V\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(m_0\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="math inline">\(H_0\)</span> false</td>
-<td style="text-align: left;"><span class="math inline">\(T\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(S\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(m - m_0\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Total</td>
-<td style="text-align: left;"><span class="math inline">\(m-R\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(R\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(m\)</span></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>Out of the <span class="math inline">\(m\)</span> hypotheses tested, the (unknown) number of true null hypotheses is <span class="math inline">\(m_0\)</span>.</li>
-<li><span class="math inline">\(V\)</span>: the number of type I errors (false positive findings) and</li>
-<li><span class="math inline">\(T\)</span>: the number of type II errors (false negative findings).</li>
-<li><span class="math inline">\(U\)</span>: the number of true null hypotheses that are not rejected and</li>
-<li><span class="math inline">\(S\)</span>: the number of false null hypotheses that are rejected.</li>
-<li><span class="math inline">\(R\)</span>: the number of hypoteses rejected for a specific cut-off</li>
-</ul>
-<p>Observe: only <span class="math inline">\(m\)</span> and <span class="math inline">\(R\)</span> is observed!</p>
-<hr>
-</section>
-<section id="familywise-error-rate" class="level2">
-<h2 class="anchored" data-anchor-id="familywise-error-rate">Familywise error rate</h2>
-<p>The familywise error rate (FWER) is defined as <em>the probability of one or more false positive findings</em></p>
-<p><span class="math display">\[ \text{FWER} = P(V &gt; 0) \]</span> The number of false positive findings <span class="math inline">\(V\)</span> is not known in a real life situation, but still we may find a cut-off on the <span class="math inline">\(p\)</span>-value, called <span class="math inline">\(\alpha_{\text loc}\)</span>, that gives an upper limit to (controls) the FWER.</p>
-<hr>
-<ul>
-<li>Raw <span class="math inline">\(p\)</span>-value, <span class="math inline">\(p_j\)</span>, the lowest nominal level to reject the null hypothesis.<br>
-</li>
-<li>Adjusted <span class="math inline">\(p\)</span>-value, <span class="math inline">\(\tilde{p}_j\)</span>, is the nominal level of the multiple (simultaneous) test procedure at which <span class="math inline">\(H_{0j}, j=1,\ldots,m\)</span> is just rejected, given the values of all test statistics involved.</li>
-</ul>
-<p>The adjusted <span class="math inline">\(p\)</span>-values can be defined as <span class="math display">\[\tilde{p}_j = \text{inf}\{\alpha  \mid H_{0j}\text{ is rejected at FWER level } \alpha \}\]</span></p>
-<p>In a multiple testing problem where all adjusted <span class="math inline">\(p\)</span>-value below <span class="math inline">\(\alpha\)</span> are rejected, the overall type I error rate (for example FWER) will be controlled at level <span class="math inline">\(\alpha\)</span>.</p>
-<hr>
-<section id="the-bonferroni-method-controls-the-fwer" class="level3">
-<h3 class="anchored" data-anchor-id="the-bonferroni-method-controls-the-fwer">The Bonferroni method controls the FWER</h3>
-<p>Single-step methods controls for multiple testing by estimating one local significance level, <span class="math inline">\(\alpha_{\text{loc}}\)</span>, which is used as a cut-off to detect significance for each individual test.</p>
-<p>The Bonferroni method is valid for all types of dependence structures between the test statistics.</p>
-<p>The local significance level is <span class="math display">\[\alpha_{\text loc}=\frac{\alpha}{m}\]</span></p>
-<p>The adjusted <span class="math inline">\(p\)</span>-value is <span class="math display">\[ \tilde{p}_j =\min(1,m p_j)\]</span></p>
-<p>Read more here if needed: <a href="https://www.math.ntnu.no/emner/TMA4267/2017v/multtest.pdf">Short note on multiple hypothesis testing</a></p>
-<hr>
-</section>
-</section>
-<section id="high-dimensional-inference" class="level2">
-<h2 class="anchored" data-anchor-id="high-dimensional-inference">High-dimensional inference</h2>
-<p>(Dezeure, Bühlmann, Meier, Meinshausen, 2.1.1 + 2.2)</p>
-<ul>
-<li>The article has focus on frequentist methods for high-dimensional inference with confidence intervals and <span class="math inline">\(p\)</span>-values in linear and generalized linear models.</li>
-<li>We will focus on linear models.</li>
-</ul>
-<hr>
-<p><strong>Set-up:</strong></p>
-<p><span class="math display">\[Y={\boldsymbol X} \beta^0 +\varepsilon\]</span></p>
-<ul>
-<li><span class="math inline">\({\boldsymbol X}\)</span> is <span class="math inline">\(n\times p\)</span> design matrix</li>
-<li><span class="math inline">\(Y\)</span> is an <span class="math inline">\(n \times 1\)</span> response vector</li>
-<li><span class="math inline">\(\varepsilon\)</span> is an <span class="math inline">\(n \times 1\)</span> error vector, independent of <span class="math inline">\({\boldsymbol X}\)</span> and i.i.d. entries with <span class="math inline">\(\text{E}(\varepsilon)_i)=0\)</span>.</li>
-<li>The number of parameters <em>may</em> be larger than the sample size (then the regression parameter is not identifiable in general).</li>
-</ul>
-<p>The <em>active set</em> is <span class="math display">\[S_0=\{ j; \beta_j^0 \neq 0,j=1,\ldots,p\}\]</span> with cardinality (size) <span class="math inline">\(\lvert S_0 \rvert\)</span>.</p>
-<p><strong>Now:</strong> construct CI and <span class="math inline">\(p\)</span>-values for <em>individual regression parameters</em> <span class="math inline">\(\beta_j^0\)</span>, <span class="math inline">\(j=1,\ldots, p\)</span>, and also with multiple testing adjustment.</p>
-<p>Remark: We want inference for <em>all</em> coefficients - not only the ones that the lasso has selected.</p>
-<hr>
-<ul>
-<li>The lasso has desirable properties for estimating <span class="math inline">\(\beta^0\)</span> in high dimensional models, in particular for prediction <span class="math inline">\({\boldsymbol X}\beta^0\)</span> or a new response <span class="math inline">\(Y_{\text{new}}\)</span>.</li>
-<li>But, the distribution of the estimator is hard to characterize, and</li>
-<li>it has been shown that (for fixed <span class="math inline">\(p\)</span>) the asymptotic (<span class="math inline">\(n\leftarrow \infty\)</span>) distribution of the lasso has point mass at zero (which leads to that bootstrapping not having optimal properties).</li>
-</ul>
-<p>For the situation <span class="math inline">\(p &gt;&gt; n\)</span> extra assumptions are needed, called the <em>compatibility condition</em> on the design matrix, and this guarantees identifiability and socalled oracle optimality results for the lasso. However, this is reported to be <em>unrealistic in practical situations</em>.</p>
-<hr>
-</section>
-<section id="single-sample-splitting" class="level2">
-<h2 class="anchored" data-anchor-id="single-sample-splitting">Single-sample splitting</h2>
-<ol type="1">
-<li>Split the data into two (equal) halves, <span class="math inline">\(I_1\)</span> and <span class="math inline">\(I_2\)</span>, no observations in common.</li>
-<li><span class="math inline">\(I_1\)</span> is used for model selection (with the lasso), with active variables in <span class="math inline">\(\hat{S}(I_1)\)</span>.</li>
-<li>The selected covariates in <span class="math inline">\(\hat{S}(I_1)\)</span> is used for estimation in <span class="math inline">\(I_2\)</span>. To construct <span class="math inline">\(p\)</span>-values, <span class="math inline">\(P_j\)</span>, for example use LS with <span class="math inline">\(t\)</span>-tests. <span class="math inline">\(P\)</span>-values for variables not selected is set to <span class="math inline">\(1\)</span>. Remark: then the number of covariates selected in <span class="math inline">\(I_1\)</span> need be smaller than the sample size for <span class="math inline">\(I_2\)</span>.</li>
-<li>The raw <span class="math inline">\(p\)</span>-values is corrected for multiple testing (Bonferroni method controlling FWER) <span class="math display">\[ P_{\text{corr},j}=\min(P_j \cdot \lvert \hat{S} \rvert,1)\]</span></li>
-</ol>
-<p>This avoids using the data twice! But, is very sensitive to the split - giving <em>wildly</em> different <span class="math inline">\(p\)</span>-values=<span class="math inline">\(p\)</span>-value lottery</p>
-<p>How can this be amended?</p>
-<hr>
-</section>
-<section id="multiple-sample-splitting" class="level2">
-<h2 class="anchored" data-anchor-id="multiple-sample-splitting">Multiple-sample splitting</h2>
-<ul>
-<li><p>The single-sample splitting routine is run <span class="math inline">\(B\)</span> times giving <span class="math inline">\(P_{\text{corr},j}^{[b]}\)</span> for <span class="math inline">\(b=1,\ldots,B\)</span> and <span class="math inline">\(j=1,\ldots,p\)</span>.</p></li>
-<li><p>Problem: how aggregate the <span class="math inline">\(B\)</span> <span class="math inline">\(p\)</span>-values for each <span class="math inline">\(j\)</span> to give one <span class="math inline">\(p\)</span>-value?</p></li>
-<li><p>The different <span class="math inline">\(b\)</span> runs have many observations in common, so the <span class="math inline">\(p\)</span>-values for covariate <span class="math inline">\(j\)</span> are correlated.</p></li>
-<li><p>The authors have shown in a previous article that for dependent <span class="math inline">\(p\)</span>-values that one solution (that gives valid <span class="math inline">\(p\)</span>-values) is to take the median and multiply with 2.</p></li>
-<li><p>The result is more general, and <span class="math inline">\(\gamma\)</span> is a general quantile (<span class="math inline">\(\gamma=0.5\)</span> for the median):</p></li>
-</ul>
-<p><span class="math display">\[Q_k(\gamma)=\min(\text{empirical }\gamma- \text{quantile} \{ P_{\text{corr},j}^{[b]}/\gamma,b=1,\ldots, B\},1)\]</span></p>
-<hr>
-<ul>
-<li>The authors get more advanced and choose to search all <span class="math inline">\(\gamma\)</span> within the interval <span class="math inline">\((\gamma_{\text{min}},1)\)</span>, where a common choice is <span class="math inline">\(\gamma_{\text{min}}=0.05\)</span>, to get the smallest <span class="math inline">\(p\)</span>-value. However there is a price to pay: <span class="math inline">\((1-\log(\gamma_{\text{min}}))\)</span></li>
-</ul>
-<p><span class="math display">\[ P_j=\min((1-\log(\gamma_{\text{min}})\cdot \inf_{\gamma \in (\gamma_{\text{min}},1)} Q_j(\gamma)),1)\]</span> for <span class="math inline">\(j=1,\ldots,p\)</span>.</p>
-<p>Some assumptions are necessary to assure FWER control.</p>
-<hr>
-<p>Confidence intervals are found</p>
-<ul>
-<li>from the adjusted <span class="math inline">\(p\)</span>-values <span class="math inline">\(P_j\)</span></li>
-<li>using the duality of <span class="math inline">\(p\)</span>-values and two-sided confidence intervals. That is,</li>
-<li>a <span class="math inline">\((1-\alpha)\)</span> 100% CI contains values <span class="math inline">\(c\)</span> where the <span class="math inline">\(p\)</span>-value is below <span class="math inline">\(\alpha\)</span> for testing <span class="math inline">\(H_0: \beta_j=c\)</span>. A closed form solution involving <span class="math inline">\(P_j\)</span> is found.</li>
-<li>Both single testing and multiple corrected testing CIs are found. (Appendix A.2 in article)</li>
-</ul>
-<hr>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(diabetes)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">cbind</span>(diabetes<span class="sc">$</span>x)<span class="co">#,diabetes$x2)</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>y<span class="ot">=</span>diabetes<span class="sc">$</span>y</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>hdires<span class="ot">=</span><span class="fu">multi.split</span>(<span class="at">x=</span>x,<span class="at">y=</span>y,<span class="at">B=</span><span class="dv">1000</span>,<span class="at">fraction=</span><span class="fl">0.5</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ci.level=</span><span class="fl">0.95</span>, <span class="at">model.selector=</span>lasso.cv,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">classical.fit=</span>lm.pval, <span class="at">classical.ci=</span>lm.ci,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">return.nonaggr =</span> <span class="cn">FALSE</span>, <span class="co">#if not adj for multiple testing</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">return.selmodels=</span><span class="cn">FALSE</span>, <span class="co">#just to have a look!</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">verbose=</span><span class="cn">FALSE</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dput</span>(hdires,<span class="st">"hdires.dd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<hr>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>hdires<span class="ot">=</span><span class="fu">dget</span>(<span class="st">"hdires.dd"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(hdires)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "pval"             "pval.corr"        "pvals.nonaggr"    "ci.level"        
- [5] "lci"              "uci"              "gamma.min"        "sel.models"      
- [9] "method"           "call"             "clusterGroupTest"</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>hdires<span class="sc">$</span>gamma.min</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] 0.999 0.999 0.050 0.064 0.999 0.999 0.050 0.999 0.052 0.999</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(hdires$pvals.nonaggr) # if return.nonaggr=TRUE</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>hdires<span class="sc">$</span>pval.corr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>         age          sex          bmi          map           tc          ldl 
-1.000000e+00 1.000000e+00 5.178832e-10 1.331537e-02 1.000000e+00 1.000000e+00 
-         hdl          tch          ltg          glu 
-4.533731e-01 1.000000e+00 6.863052e-08 1.000000e+00 </code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(hdires<span class="sc">$</span>lci, hdires<span class="sc">$</span>uci)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>          [,1]      [,2]
-age       -Inf       Inf
-sex -435.92911 103.48598
-bmi  363.10330 776.42063
-map   66.58321 472.64439
-tc        -Inf       Inf
-ldl       -Inf       Inf
-hdl -406.96777  14.72096
-tch -764.32633 201.01275
-ltg  301.70828 715.18364
-glu -327.08642 254.88420</code></pre>
-</div>
-</div>
-<hr>
-<section id="hdi-with-logistic-regression" class="level3">
-<h3 class="anchored" data-anchor-id="hdi-with-logistic-regression">hdi with logistic regression</h3>
-<p>For modifications to the call to <code>mult.split</code> see the Appendix of the master thesis of</p>
-<ul>
-<li>Martina Hall: <a href="http://hdl.handle.net/11250/2453095">“Statistical Methods for early Prediction of Cerebral Palsy based on Data from Computer-based Video Analysis”</a>.</li>
-<li>Dag J. Kristiansen: <a href="http://hdl.handle.net/11250/2624609">“Detecting Neuronal Activity with Lasso Penalized Logistic Regression”</a></li>
-<li>Haris Fawad: ” Modelling Neuronal Activity using Lasso Regularized Logistic Regression”( Modelling Neuronal Activity using Lasso Regularized Logistic Regression) - also <a href="https://github.com/harisf/neuro-lasso">git repo neuro-lasso</a>.</li>
-</ul>
-</section>
-<section id="hdi---also-with-other-solutions" class="level3">
-<h3 class="anchored" data-anchor-id="hdi---also-with-other-solutions">hdi - also with other solutions</h3>
-<p>In the <code>hdi</code> package also solutions for <em>debiasing</em> the lasso estimator is included. (See HTW 6.4 or the Dezure et al article.)</p>
-<hr>
-</section>
-<section id="summing-up" class="level3">
-<h3 class="anchored" data-anchor-id="summing-up">Summing up</h3>
-<p>What is the take home message from this “Sample splitting” story?</p>
-</section>
-</section>
-</section>
-<section id="inference-after-selection" class="level1">
-<h1>Inference after selection</h1>
-<p>(Taylor and Tibshirani, 2015 and HTW 6.3)</p>
-<section id="the-plot" class="level2">
-<h2 class="anchored" data-anchor-id="the-plot">The plot</h2>
-<p>Let us leave the lasso for a while.</p>
-<p>1980: small data sets, planned hypothesis to test ready before data collected, no model selection. Only fit model and look at CI and p-values.</p>
-<p>After 1980: larger data sets and looking at data to give best model. New challenge: <em>how to do inference after selection</em>.</p>
-<p>This is an important topic that is not a part of ANY statistical courses at IMF.</p>
-<p>The main question is:</p>
-<ul>
-<li>we have used a selection method (forward selection, lasso) to find potential association between covariates and response,</li>
-<li>with focus on interpreting the selected model: how can we assess the strength (read: CI and <span class="math inline">\(p\)</span>-value) of these findings?</li>
-</ul>
-<hr>
-<p>The answer includes:</p>
-<ul>
-<li>we have “cherry picked” the strongest associations, and we can thus not just report CI and <span class="math inline">\(p\)</span>-values based on the final model - when all is done on the same data set.</li>
-</ul>
-<p>In this story we now focus on <em>understanding how our model selection influences the inference on the final model</em>.</p>
-<p>The technical solutions are of less importance, and is not presented with enough mathematical detail so that we understand the method in detail.</p>
-<p><em>Remark: the single and multiple sample splitting strategy isvalid.</em></p>
-<hr>
-</section>
-<section id="forward-stepwise-regression" class="level2">
-<h2 class="anchored" data-anchor-id="forward-stepwise-regression">Forward stepwise regression</h2>
-<p><strong>Aim:</strong> Multiple linear regression - where forward stepwise regression is used to select the model</p>
-<p><span class="math display">\[y_i=\beta_0+\sum_{j=1}^p x_{ij}\beta_j + \varepsilon_i\]</span></p>
-<ul>
-<li>Start with an empty model (only intercept)</li>
-</ul>
-<p>While some stopping criterion not reach - perform step</p>
-<ul>
-<li>At step <span class="math inline">\(k\)</span> add the predictor that gives the most decrease in the sums of squares of error (here now - to follow the notation denoted by RSS instead of what we previously called SSE)</li>
-</ul>
-<p><span class="math display">\[ \text{RSS}=\sum_{i=1}^N (y_i -\hat{y}_i)^2\]</span> where <span class="math inline">\(\hat{y}_i\)</span> is the predicted value for observation <span class="math inline">\(i\)</span> in this model.</p>
-<hr>
-<p>If we have a model with <span class="math inline">\(k-1\)</span> predictors and we would like to add one more predictor (the <span class="math inline">\(k\)</span> to be added):</p>
-<p><span class="math display">\[ \text{R}_k=\frac{1}{\sigma^2}(\text{RSS}_{k-1}-\text{RSS}_{k})\sim \chi^2_1\]</span> where here <span class="math inline">\(\sigma^2\)</span> is assumed known.</p>
-<p>This can be seen as an hypothesis test:</p>
-<p><span class="math inline">\(H_0: \text{The new predictor is not relevant}\)</span> vs. <span class="math inline">\(H_1: \text{The new predictor is relevant}\)</span> with a <span class="math inline">\(p\)</span>-value calculated from the upper tail of the <span class="math inline">\(\chi^2_1\)</span>-distribution.</p>
-<hr>
-<p><strong>Alternative scenario:</strong></p>
-<p>For simplicity - we look at the <span class="math inline">\(k=1\)</span>:</p>
-<p>The order in which the predictors is to be entered in to the model was decided before the data was collected (or at least before the data was analysed or plottet).</p>
-<p>Then: we are all good - and this <span class="math inline">\(p\)</span>-value from the <span class="math inline">\(\chi^2_1\)</span>-distribution will be a valid <span class="math inline">\(p\)</span>-value.</p>
-<p>What does this mean in practice?</p>
-<hr>
-<p><strong>Back to original scenario:</strong></p>
-<p>Assume we are at step <span class="math inline">\(k=1\)</span>, and will add the first predictor which is the one with the largest <span class="math inline">\(R_1\)</span>.</p>
-<p>Will the distribution of the <em>maximal</em> <span class="math inline">\(R_1\)</span> be the same as the distribution of a given predefined <span class="math inline">\(R_1\)</span>?</p>
-<p>Distribution to the maximum given that we have <span class="math inline">\(p\)</span> predictors:</p>
-<p><span class="math display">\[ P(\max R_1 \ge c)=1-P(\max R_1 &lt; c)=1-P(\text{all p } R_1 \text{ are} &lt;c)\]</span></p>
-<p>Study Figure 1 in the article for a plot of nominal vs.&nbsp;actual <span class="math inline">\(p\)</span>-value for <span class="math inline">\(p=10\)</span> and <span class="math inline">\(p=50\)</span>. The figure was made using Monte Carlo sampling.</p>
-<hr>
-<p><strong>Moving on to</strong> <span class="math inline">\(k&gt;1\)</span></p>
-<ul>
-<li>We would like to obtain valid (“correct”) <span class="math inline">\(p\)</span>-values for all steps, not only for <span class="math inline">\(k=1\)</span>.</li>
-<li>Monte Carlo solution would be elaborate.</li>
-</ul>
-<p>The method used in the article is to calculate a <span class="math inline">\(p\)</span>-value for the covariate at step <span class="math inline">\(k\)</span> by conditioning on the fact that already the strongest <span class="math inline">\(k-1\)</span> predictors in this sequential set-up has already been chosen.</p>
-<p>The <span class="math inline">\(p\)</span>-value at step <span class="math inline">\(k\)</span> would be dependent on the number of covariates <span class="math inline">\(p\)</span>.</p>
-<p>We now change focus and look at the distribution of the estimated regression coefficient for the covariate added at step <span class="math inline">\(k\)</span>, because that can be used to construct both a CI for the coefficient and a <span class="math inline">\(p\)</span>-value for testing if the coefficient is different from zero.</p>
-<hr>
-</section>
-<section id="the-polyhedral-result" class="level2">
-<h2 class="anchored" data-anchor-id="the-polyhedral-result">The polyhedral result</h2>
-<p>(for details consult HTW 6.3 or articles references to in the Taylor and Tibshirani article)</p>
-<p><strong>Distribution for regression coefficient:</strong></p>
-<ul>
-<li>Assume that we are at some step <span class="math inline">\(k\)</span>, and that <span class="math inline">\(k-1\)</span> covariates are in the model.</li>
-<li>We have found the new covariate to include, and fitted the model with the <span class="math inline">\(k\)</span> covariates.</li>
-<li>Standard theory tells us that the estimator <span class="math inline">\(\hat{\beta}\)</span> for covariate <span class="math inline">\(k\)</span> is unbiased and follows a normal distribution with some variance <span class="math inline">\(\tau^2\)</span>.</li>
-</ul>
-<p><span class="math display">\[ \hat{\beta} \sim N(\beta,\tau^2)\]</span></p>
-<hr>
-<p>But, this is given that we only had these <span class="math inline">\(k\)</span> covariates available at the start. We will instead <em>condition on</em> selection event.</p>
-<p>It turns out that the selection event can be written in a <em>polyhedral form</em> <span class="math inline">\(A y \le b\)</span> for some matrix <span class="math inline">\(A\)</span> and some vector <span class="math inline">\(b\)</span>.</p>
-<p>At each step of the forward selection we have a competition among all <span class="math inline">\(p\)</span> variables, and the <span class="math inline">\(A\)</span> and <span class="math inline">\(b\)</span> is used to construct the competition.</p>
-<hr>
-<p>The correct distribution of the estimator <span class="math inline">\(\hat{\beta}\)</span> for covariate now has a <em>truncated normal distribution</em></p>
-<p><span class="math display">\[ \hat{\beta} \sim TN^{c,d}(\beta,\tau^2)\]</span></p>
-<p>i.e.&nbsp;the <em>same</em> normal distribution, but scaled to lie within the interval <span class="math inline">\((c,d)\)</span>.</p>
-<p>The limits <span class="math inline">\((c,d)\)</span> depends on both the data and the selection evetns that lead to the current model.</p>
-<p><em>The formulae for these limits are somewhat complicated but easily computable</em>.</p>
-<p>This truncated normal distribution is used to calculate <em>selection-adjusted</em> <span class="math inline">\(p\)</span>-values and confidence interval.</p>
-<p>(Study Figure 3. in the article by Taylor and Tibshirani.)</p>
-<hr>
-</section>
-<section id="polyhedral-lasso-result" class="level2">
-<h2 class="anchored" data-anchor-id="polyhedral-lasso-result">Polyhedral lasso result</h2>
-<p>The same methodology can be used for the lasso, here also the selection of predictors can be described as a polyhedral region of the form <span class="math inline">\(Ay\le b\)</span> - for a fixed value <span class="math inline">\(\lambda\)</span>.</p>
-<p>For the lass the <span class="math inline">\(A\)</span> and <span class="math inline">\(b\)</span> will depend on</p>
-<ul>
-<li>the predictors</li>
-<li>the active set</li>
-<li><span class="math inline">\(\lambda\)</span></li>
-</ul>
-<p>but not on <span class="math inline">\(y\)</span>.</p>
-<p>The methods are on closed form, but the values <span class="math inline">\(c\)</span> and <span class="math inline">\(d\)</span> may be of complicated form.</p>
-<hr>
-<p>The R package <code>selectiveInference</code> can be used to find post selection <span class="math inline">\(p\)</span>-values both for forward stepwise selection and for the lasso.</p>
-<p>See the package help for details.</p>
-<p>Study Figure 5 from the article for an example of Naive and Selection-adjusted intervals for the lasso.</p>
-<hr>
-<section id="further-improvements" class="level3">
-<h3 class="anchored" data-anchor-id="further-improvements">Further improvements</h3>
-<p>The method yields rather wide confidence intervals for the regression parameters (given that we translate the <span class="math inline">\(p\)</span>-values into CIs).</p>
-<p>There exists improvements to the results, in particular a method called <em>carving</em> which is explained in the you-tube videos from a course with <a href="https://lsa.umich.edu/stats/people/faculty/psnigdha.html">Snigdha Paragrahi</a></p>
-<ul>
-<li><a href="https://www.youtube.com/watch?v=qofrkW-DL7c&amp;t=3682s">Tutorial I</a></li>
-<li><a href="https://www.youtube.com/watch?v=rGHf6BPeqBg&amp;t=1105s">Tutorial II</a></li>
-</ul>
-<hr>
-</section>
-</section>
-<section id="posi" class="level2">
-<h2 class="anchored" data-anchor-id="posi">PoSI</h2>
-<p>(HTW 6.5)</p>
-<ul>
-<li>The POSI method also fits a selected submodel and</li>
-<li>adjust the standard CIs by <em>accounting for all possible models that might have been delivered by the selection procedure</em>.</li>
-<li>This means the method can be used on published results where the complete selection process is not explained in detail.</li>
-<li>This lack of information of the selection process leads to <em>very wide CIs</em>.</li>
-</ul>
-<p>Inference is based on the submodel <span class="math inline">\(M\)</span> chosen, and on the projection of <span class="math inline">\({\boldsymbol X} \beta\)</span> onto the space spanned by the submodel <span class="math inline">\(M\)</span>:</p>
-<p><span class="math display">\[\beta_M=({\boldsymbol X}_M^T{\boldsymbol X}_M)^{-1}{\boldsymbol X}_M^T{\boldsymbol X} \beta\]</span></p>
-<hr>
-<p>The method considers a confidence interval for the <span class="math inline">\(j\)</span>th element of <span class="math inline">\(\beta_M\)</span> of the form <span class="math display">\[\text{CI}_{jM}=\hat{\beta}_{jM}\pm K \hat{\sigma}v_{jM}\]</span> where <span class="math inline">\(v_{jM}^2=({\boldsymbol X}_M^T{\boldsymbol X}_M)^{-1}_{jj}\)</span></p>
-<p>The constant <span class="math inline">\(K\)</span> is found to satisfy <span class="math display">\[ P(\beta_{jM}\in \text{CI}_{jM}) \le 1-2\alpha\]</span> <em>over all possible selection models</em>.</p>
-<hr>
-<p><span class="math inline">\(K\)</span> is a function of the data matrix <span class="math inline">\({\boldsymbol X}\)</span> and the maximum number of nonzero component allowed in <span class="math inline">\(\beta_M\)</span>. An upper bound on <span class="math inline">\(K\)</span> is known from a result on simultaneous intervals by Scheffe.</p>
-<p>HTW page 161: Reports on the diabetes data with submodels of size 5, where the 95% CI value of K is 4.42 (“little less than 2 hours of computing”).</p>
-<p>Details may be found in the PoSI 2013 article (reference Berk et al below).</p>
-<hr>
-<section id="posi-r-package" class="level3">
-<h3 class="anchored" data-anchor-id="posi-r-package">PoSI R-package</h3>
-<p><em>In linear LS regression, calculate for a given design matrix the multiplier</em> <span class="math inline">\(K\)</span> of coefficient standard errors such that the confidence intervals [b - K<em>SE(b), b + K</em>SE(b)] have a guaranteed coverage probability for all coefficient estimates b in any submodels after performing arbitrary model selection.</p>
-<p>Results for the Boston housing data is available in the help section.</p>
-<p><a href="https://cran.r-project.org/web/packages/PoSI/index.html" class="uri">https://cran.r-project.org/web/packages/PoSI/index.html</a></p>
-<hr>
-</section>
-</section>
-<section id="post-selection-inference-and-the-reproducibility-crisis" class="level2">
-<h2 class="anchored" data-anchor-id="post-selection-inference-and-the-reproducibility-crisis">Post selection inference and the reproducibility crisis</h2>
-<p>The <em>incorrect</em> use of CIs and <span class="math inline">\(p\)</span>-values in models found from model selection <em>and</em> inference on the same data - is though to be one of the main contributors to the <em>reproducibility crisis in science</em>.</p>
-<p><a href="https://hdsr.mitpress.mit.edu/pub/l39rpgyc/release/1">Selective Inference: The Silent Killer of Replicability by Yoav Benjamini Published on Dec 16, 2020</a></p>
-<hr>
-</section>
-</section>
-<section id="conclusion-1" class="level1">
-<h1>Conclusion</h1>
-<section id="how-will-you-perform-inference" class="level2">
-<h2 class="anchored" data-anchor-id="how-will-you-perform-inference">How will you perform inference</h2>
-<p>on Data Analysis Project 1?</p>
-<p>We discuss:</p>
-<ol type="1">
-<li>You can afford a test set</li>
-<li>You have no test set</li>
-</ol>
-<hr>
-</section>
-</section>
-<section id="references" class="level1">
-<h1>References</h1>
-<p>(also given in the text and not repeated here)</p>
-<ul>
-<li><a href="https://arxiv.org/pdf/1509.09169.pdf">Wessel N. van Wieringen: Lecture notes on ridge regression</a></li>
-<li>A. Chatterjee and S. N. Lahiri (2011). Bootstrapping Lasso Estimators. Journal of the American Statistical Association. Vol. 106, No.&nbsp;494 (June 2011), pp.&nbsp;608-625 (18 pages)</li>
-<li>Single/multi-sampling splitting part of <a href="https://projecteuclid.org/download/pdfview_1/euclid.ss/1449670857">Dezeure, Bühlmann, Meier, Meinshausen (2015)</a>. “High-Dimensional Inference: Confidence Intervals, p-Values and R-Software hdi”. Statistical Science, 2015, Vol. 30, No.&nbsp;4, 533–558 DOI: 10.1214/15-STS527 (only the single/multiple sample splitting part in 2.1.1 and 2.2 for linear regression, and using the method in practice).</li>
-<li><a href="https://www.pnas.org/content/112/25/7629">Taylor and Tibshirani (2015)</a>: Statistical learning and selective inference, PNAS, vol 112, no 25, pages 7629-7634. (Soft version of HTW 6.3.2)</li>
-<li>Berk, Richard; Brown, Lawrence; Buja, Andreas; Zhang, Kai; Zhao, Linda. Valid post-selection inference. Ann. Statist. 41 (2013), no. 2, 802–837. doi:10.1214/12-AOS1077.</li>
-</ul>
-</section>
-<section id="left-overs" class="level1">
-<h1>Left overs</h1>
-<p>To check that all is here</p>
-<section id="bootstrap-confidence-intervals" class="level2">
-<h2 class="anchored" data-anchor-id="bootstrap-confidence-intervals">Bootstrap confidence intervals</h2>
-</section>
-<section id="percentile-interval" class="level2">
-<h2 class="anchored" data-anchor-id="percentile-interval">Percentile interval</h2>
-</section>
-<section id="bias-corrected-accelerated-interval" class="level2">
-<h2 class="anchored" data-anchor-id="bias-corrected-accelerated-interval">Bias corrected accelerated interval</h2>
 </section>
 <section id="single-hypothesis-test" class="level2">
 <h2 class="anchored" data-anchor-id="single-hypothesis-test">Single hypothesis test</h2>
@@ -1396,25 +1017,595 @@ glu -327.08642 254.88420</code></pre>
 <li>This is a fact that is often misunderstood by users of <span class="math inline">\(p\)</span>-values.</li>
 <li>The incorrect urban myth is that <span class="math inline">\(p\)</span>-values from true null hypotheses are close to one, when the correct fact is that all values in intervals of the same length are equally probable (which is a property of the uniform distribution).</li>
 </ul>
+<hr>
 </section>
-<section id="false-discovery-rate" class="level2">
-<h2 class="anchored" data-anchor-id="false-discovery-rate">False discovery rate</h2>
-<p>The false discovery rate (FDR) is defined as <span class="math display">\[ \text{FDR}= \text{E}(\frac{V}{R})  \text{ for }R&gt;0\]</span> and <span class="math display">\[ \text{FDR}= 0 \text{ else} \]</span></p>
+<section id="from-single-to-multiple-hypotheses" class="level2">
+<h2 class="anchored" data-anchor-id="from-single-to-multiple-hypotheses">From single to multiple hypotheses</h2>
+<p>We test <span class="math inline">\(m\)</span> hypotheses.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Not reject <span class="math inline">\(H_0\)</span></th>
+<th style="text-align: left;">Reject <span class="math inline">\(H_0\)</span></th>
+<th style="text-align: left;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(H_0\)</span> true</td>
+<td style="text-align: left;"><span class="math inline">\(U\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(V\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(m_0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(H_0\)</span> false</td>
+<td style="text-align: left;"><span class="math inline">\(T\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(S\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(m - m_0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: left;"><span class="math inline">\(m-R\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(R\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(m\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Out of the <span class="math inline">\(m\)</span> hypotheses tested, the (unknown) number of true null hypotheses is <span class="math inline">\(m_0\)</span>.</li>
+<li><span class="math inline">\(V\)</span>: the number of type I errors (false positive findings) and</li>
+<li><span class="math inline">\(T\)</span>: the number of type II errors (false negative findings).</li>
+<li><span class="math inline">\(U\)</span>: the number of true null hypotheses that are not rejected and</li>
+<li><span class="math inline">\(S\)</span>: the number of false null hypotheses that are rejected.</li>
+<li><span class="math inline">\(R\)</span>: the number of hypoteses rejected for a specific cut-off</li>
+</ul>
+<p><strong>Question: which of these quantities do we observe for a specific <span class="math inline">\(p\)</span>-value cut-off?</strong></p>
+<hr>
+</section>
+<section id="familywise-error-rate" class="level2">
+<h2 class="anchored" data-anchor-id="familywise-error-rate">Familywise error rate</h2>
+<p>The familywise error rate (FWER) is defined as <em>the probability of one or more false positive findings</em></p>
+<p><span class="math display">\[ \text{FWER} = P(V &gt; 0) \]</span> The number of false positive findings <span class="math inline">\(V\)</span> is not known in a real life situation, but still we may find a cut-off on the <span class="math inline">\(p\)</span>-value, called <span class="math inline">\(\alpha_{\text loc}\)</span>, that gives an upper limit to (controls) the FWER.</p>
+<hr>
+<ul>
+<li>Raw <span class="math inline">\(p\)</span>-value, <span class="math inline">\(p_j\)</span>, the lowest nominal level to reject the null hypothesis.<br>
+</li>
+<li>Adjusted <span class="math inline">\(p\)</span>-value, <span class="math inline">\(\tilde{p}_j\)</span>, is the nominal level of the multiple (simultaneous) test procedure at which <span class="math inline">\(H_{0j}, j=1,\ldots,m\)</span> is just rejected, given the values of all test statistics involved.</li>
+</ul>
+<p>The adjusted <span class="math inline">\(p\)</span>-values can be defined as <span class="math display">\[\tilde{p}_j = \text{inf}\{\alpha  \mid H_{0j}\text{ is rejected at FWER level } \alpha \}\]</span></p>
+<p>In a multiple testing problem where all adjusted <span class="math inline">\(p\)</span>-value below <span class="math inline">\(\alpha\)</span> are rejected, the overall type I error rate (for example FWER) will be controlled at level <span class="math inline">\(\alpha\)</span>.</p>
+<hr>
+<section id="the-bonferroni-method-controls-the-fwer" class="level3">
+<h3 class="anchored" data-anchor-id="the-bonferroni-method-controls-the-fwer">The Bonferroni method controls the FWER</h3>
+<p>Single-step methods controls for multiple testing by estimating one local significance level, <span class="math inline">\(\alpha_{\text{loc}}\)</span>, which is used as a cut-off to detect significance for each individual test.</p>
+<p>The Bonferroni method is valid for all types of dependence structures between the test statistics.</p>
+<p>The local significance level is <span class="math display">\[\alpha_{\text loc}=\frac{\alpha}{m}\]</span></p>
+<p>The adjusted <span class="math inline">\(p\)</span>-value is <span class="math display">\[ \tilde{p}_j =\min(1,m p_j)\]</span></p>
+<p>Read more here if needed: <a href="https://www.math.ntnu.no/emner/TMA4267/2017v/multtest.pdf">Short note on multiple hypothesis testing</a></p>
+<hr>
+</section>
+</section>
+<section id="high-dimensional-inference-hdi" class="level2">
+<h2 class="anchored" data-anchor-id="high-dimensional-inference-hdi">High-dimensional inference (hdi)</h2>
+<p>(Dezeure, Bühlmann, Meier, Meinshausen, 2.1.1 + 2.2)</p>
+<ul>
+<li>The article has focus on frequentist methods for high-dimensional inference with confidence intervals and <span class="math inline">\(p\)</span>-values in linear and generalized linear models.</li>
+<li>We will focus on linear models.</li>
+</ul>
+<hr>
+<p><strong>Set-up:</strong></p>
+<p><span class="math display">\[Y={\boldsymbol X} \beta^0 +\varepsilon\]</span></p>
+<ul>
+<li><span class="math inline">\({\boldsymbol X}\)</span> is <span class="math inline">\(n\times p\)</span> design matrix</li>
+<li><span class="math inline">\(Y\)</span> is an <span class="math inline">\(n \times 1\)</span> response vector</li>
+<li><span class="math inline">\(\varepsilon\)</span> is an <span class="math inline">\(n \times 1\)</span> error vector, independent of <span class="math inline">\({\boldsymbol X}\)</span> and i.i.d. entries with <span class="math inline">\(\text{E}(\varepsilon_i)=0\)</span>.</li>
+<li>The number of parameters <em>may</em> be larger than the sample size (then the regression parameter is not identifiable in general).</li>
+</ul>
+<p>The <em>active set</em> is <span class="math display">\[S_0=\{ j; \beta_j^0 \neq 0,j=1,\ldots,p\}\]</span> with cardinality (size) <span class="math inline">\(\lvert S_0 \rvert\)</span>.</p>
+<p><strong>Now:</strong> construct CI and <span class="math inline">\(p\)</span>-values for <em>individual regression parameters</em> <span class="math inline">\(\beta_j^0\)</span>, <span class="math inline">\(j=1,\ldots, p\)</span>, and also with multiple testing adjustment.</p>
+<p>Remark: We want inference for <em>all</em> coefficients - not only the ones that the lasso has selected.</p>
+<hr>
+<ul>
+<li>The lasso has desirable properties for estimating <span class="math inline">\(\beta^0\)</span> in high dimensional models, in particular for prediction <span class="math inline">\({\boldsymbol X}\beta^0\)</span> or a new response <span class="math inline">\(Y_{\text{new}}\)</span>.</li>
+<li>But, the distribution of the estimator is hard to characterize, and</li>
+<li>it has been shown that (for fixed <span class="math inline">\(p\)</span>) the asymptotic (<span class="math inline">\(n\rightarrow \infty\)</span>) distribution of the lasso has point mass at zero (which leads to that bootstrapping not having optimal properties).</li>
+</ul>
+<p>For the situation <span class="math inline">\(p &gt;&gt; n\)</span> extra assumptions are needed, called the <em>compatibility condition</em> on the design matrix, and this guarantees identifiability and socalled oracle optimality results for the lasso. However, this is reported to be <em>unrealistic in practical situations</em>.</p>
+<hr>
+</section>
+<section id="single-sample-splitting" class="level2">
+<h2 class="anchored" data-anchor-id="single-sample-splitting">Single-sample splitting</h2>
+<ol type="1">
+<li>Split the data into two (equal) halves, <span class="math inline">\(I_1\)</span> and <span class="math inline">\(I_2\)</span>, no observations in common.</li>
+<li><span class="math inline">\(I_1\)</span> is used for model selection (with the lasso), with active variables in <span class="math inline">\(\hat{S}(I_1)\)</span>.</li>
+<li>The selected covariates in <span class="math inline">\(\hat{S}(I_1)\)</span> is used for estimation in <span class="math inline">\(I_2\)</span>. To construct <span class="math inline">\(p\)</span>-values, <span class="math inline">\(P_j\)</span>, for example use LS with <span class="math inline">\(t\)</span>-tests. <span class="math inline">\(P\)</span>-values for variables not selected is set to <span class="math inline">\(1\)</span>. Remark: then the number of covariates selected in <span class="math inline">\(I_1\)</span> need be smaller than the sample size for <span class="math inline">\(I_2\)</span>.</li>
+<li>The raw <span class="math inline">\(p\)</span>-values is corrected for multiple testing (Bonferroni method controlling FWER) <span class="math display">\[ P_{\text{corr},j}=\min(P_j \cdot \lvert \hat{S} \rvert,1)\]</span></li>
+</ol>
+<p>This avoids using the data twice! But, is very sensitive to the split - giving <em>wildly</em> different <span class="math inline">\(p\)</span>-values=<span class="math inline">\(p\)</span>-value lottery</p>
+<p>How can this be amended?</p>
+<hr>
+</section>
+<section id="multiple-sample-splitting" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-sample-splitting">Multiple-sample splitting</h2>
+<ul>
+<li><p>The single-sample splitting routine is run <span class="math inline">\(B\)</span> times giving <span class="math inline">\(P_{\text{corr},j}^{[b]}\)</span> for <span class="math inline">\(b=1,\ldots,B\)</span> and <span class="math inline">\(j=1,\ldots,p\)</span>.</p></li>
+<li><p>Problem: how aggregate the <span class="math inline">\(B\)</span> <span class="math inline">\(p\)</span>-values for each <span class="math inline">\(j\)</span> to give one <span class="math inline">\(p\)</span>-value?</p></li>
+<li><p>The different <span class="math inline">\(b\)</span> runs have many observations in common, so the <span class="math inline">\(p\)</span>-values for covariate <span class="math inline">\(j\)</span> are correlated.</p></li>
+<li><p>The authors have shown in a previous article that for dependent <span class="math inline">\(p\)</span>-values that one solution (that gives valid <span class="math inline">\(p\)</span>-values) is to take the median and multiply with 2.</p></li>
+<li><p>The result is more general, and <span class="math inline">\(\gamma\)</span> is a general quantile (<span class="math inline">\(\gamma=0.5\)</span> for the median):</p></li>
+</ul>
+<p><span class="math display">\[Q_k(\gamma)=\min(\text{empirical }\gamma- \text{quantile} \{ P_{\text{corr},j}^{[b]}/\gamma,b=1,\ldots, B\},1)\]</span></p>
+<hr>
+<ul>
+<li>The authors get more advanced and choose to search all <span class="math inline">\(\gamma\)</span> within the interval <span class="math inline">\((\gamma_{\text{min}},1)\)</span>, where a common choice is <span class="math inline">\(\gamma_{\text{min}}=0.05\)</span>, to get the smallest <span class="math inline">\(p\)</span>-value. However there is a price to pay: <span class="math inline">\((1-\log(\gamma_{\text{min}}))\)</span></li>
+</ul>
+<p><span class="math display">\[ P_j=\min((1-\log(\gamma_{\text{min}})\cdot \inf_{\gamma \in (\gamma_{\text{min}},1)} Q_j(\gamma)),1)\]</span> for <span class="math inline">\(j=1,\ldots,p\)</span>.</p>
+<p>Some assumptions are necessary to assure FWER control.</p>
+<hr>
+<p>Confidence intervals are found by “inversion”</p>
+<ul>
+<li>from the adjusted <span class="math inline">\(p\)</span>-values <span class="math inline">\(P_j\)</span></li>
+<li>using the duality of <span class="math inline">\(p\)</span>-values and two-sided confidence intervals. That is, a <span class="math inline">\((1-\alpha)\)</span> 100% CI contains values <span class="math inline">\(c\)</span> where the <span class="math inline">\(p\)</span>-value is below <span class="math inline">\(\alpha\)</span> for testing <span class="math inline">\(H_0: \beta_j=c\)</span>.</li>
+<li>A closed form solution involving <span class="math inline">\(P_j\)</span> is found.</li>
+<li>Both single testing and multiple corrected testing CIs are found. (Appendix A.2 in article)</li>
+</ul>
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(diabetes)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">cbind</span>(diabetes<span class="sc">$</span>x)<span class="co">#,diabetes$x2)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>y<span class="ot">=</span>diabetes<span class="sc">$</span>y</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>hdires<span class="ot">=</span><span class="fu">multi.split</span>(<span class="at">x=</span>x,<span class="at">y=</span>y,<span class="at">B=</span><span class="dv">1000</span>,<span class="at">fraction=</span><span class="fl">0.5</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ci.level=</span><span class="fl">0.95</span>, <span class="at">model.selector=</span>lasso.cv,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">classical.fit=</span>lm.pval, <span class="at">classical.ci=</span>lm.ci,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">return.nonaggr =</span> <span class="cn">FALSE</span>, <span class="co">#if not adj for multiple testing</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">return.selmodels=</span><span class="cn">FALSE</span>, <span class="co">#just to have a look!</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">verbose=</span><span class="cn">FALSE</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dput</span>(hdires,<span class="st">"hdires.dd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>hdires<span class="ot">=</span><span class="fu">dget</span>(<span class="st">"hdires.dd"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(hdires)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "pval"             "pval.corr"        "pvals.nonaggr"    "ci.level"        
+ [5] "lci"              "uci"              "gamma.min"        "sel.models"      
+ [9] "method"           "call"             "clusterGroupTest"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(hdires$pvals.nonaggr) # if return.nonaggr=TRUE</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>hdires<span class="sc">$</span>gamma.min</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0.999 0.999 0.050 0.062 0.999 0.999 0.076 0.999 0.053 0.999</code></pre>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>    adjusted pvalue    lowerCI   upperCI
+age    1.000000e+00       -Inf       Inf
+sex    1.000000e+00 -435.36819 106.48904
+bmi    3.537003e-10  370.71236 777.71218
+map    1.525473e-02   63.76631 472.25384
+tc     1.000000e+00       -Inf       Inf
+ldl    1.000000e+00       -Inf       Inf
+hdl    5.416138e-01 -411.95903  20.84983
+tch    1.000000e+00 -764.83148 204.03679
+ltg    5.982750e-08  312.01305 717.79228
+glu    1.000000e+00 -332.40694 242.89069</code></pre>
+</div>
+</div>
+<hr>
+<section id="hdi-with-logistic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="hdi-with-logistic-regression">hdi with logistic regression</h3>
+<p>For modifications to the call to <code>mult.split</code> see the Appendix of the master thesis of</p>
+<ul>
+<li>Martina Hall: <a href="http://hdl.handle.net/11250/2453095">“Statistical Methods for early Prediction of Cerebral Palsy based on Data from Computer-based Video Analysis”</a>.</li>
+<li>Dag J. Kristiansen: <a href="http://hdl.handle.net/11250/2624609">“Detecting Neuronal Activity with Lasso Penalized Logistic Regression”</a></li>
+<li>Haris Fawad: ” Modelling Neuronal Activity using Lasso Regularized Logistic Regression”( Modelling Neuronal Activity using Lasso Regularized Logistic Regression) - also <a href="https://github.com/harisf/neuro-lasso">git repo neuro-lasso</a>.</li>
+</ul>
+</section>
+<section id="hdi---also-with-other-solutions" class="level3">
+<h3 class="anchored" data-anchor-id="hdi---also-with-other-solutions">hdi - also with other solutions</h3>
+<p>In the <code>hdi</code> package also solutions for <em>debiasing</em> the lasso estimator is included. (See HTW 6.4 or the Dezure et al article.)</p>
+<hr>
+</section>
+<section id="summing-up" class="level3">
+<h3 class="anchored" data-anchor-id="summing-up">Summing up</h3>
+<p>What is the take home message from this “Sample splitting” story?</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="inference-after-selection" class="level1">
+<h1>Inference after selection</h1>
+<p>(Taylor and Tibshirani, 2015 and HTW 6.3)</p>
+<section id="the-plot" class="level2">
+<h2 class="anchored" data-anchor-id="the-plot">The plot</h2>
+<p>Let us leave the lasso for a while.</p>
+<p>1980: small data sets, planned hypothesis to test ready before data collected, no model selection. Only fit model and look at CI and p-values.</p>
+<p>After 1980: larger data sets and looking at data to give best model. New challenge: <em>how to do inference after selection</em>.</p>
+<p>This is an important topic that is not a part of ANY statistical courses at IMF.</p>
+<p>The main question is:</p>
+<ul>
+<li>we have used a selection method (forward selection, lasso) to find potential association between covariates and response,</li>
+<li>with focus on interpreting the selected model: how can we assess the strength (read: CI and <span class="math inline">\(p\)</span>-value) of these findings?</li>
+</ul>
+<hr>
+<p>The answer includes:</p>
+<ul>
+<li>we have “cherry picked” the strongest associations, and we can thus not just report CI and <span class="math inline">\(p\)</span>-values based on the final model - when all is done on the same data set.</li>
+</ul>
+<p>In this story we now focus on <em>understanding how our model selection influences the inference on the final model</em>.</p>
+<p>The technical solutions are of less importance, and is not presented with enough mathematical detail so that we understand the method in detail.</p>
+<p><em>Remark: the single and multiple sample splitting strategy is valid.</em></p>
+<hr>
+</section>
+<section id="forward-stepwise-regression" class="level2">
+<h2 class="anchored" data-anchor-id="forward-stepwise-regression">Forward stepwise regression</h2>
+<p><strong>Aim:</strong> Multiple linear regression - where forward stepwise regression is used to select the model</p>
+<p><span class="math display">\[y_i=\beta_0+\sum_{j=1}^p x_{ij}\beta_j + \varepsilon_i\]</span></p>
+<ul>
+<li>Start with an empty model (only intercept)</li>
+</ul>
+<p>While some stopping criterion not reach - perform step</p>
+<ul>
+<li>At step <span class="math inline">\(k\)</span> add the predictor that gives the most decrease in the sums of squares of error (SSE)</li>
+</ul>
+<p><span class="math display">\[ \text{SEE}=\sum_{i=1}^N (y_i -\hat{y}_i)^2\]</span> where <span class="math inline">\(\hat{y}_i\)</span> is the predicted value for observation <span class="math inline">\(i\)</span> in this model.</p>
+<hr>
+<p>If we have a model with <span class="math inline">\(k-1\)</span> predictors and we would like to add one more predictor (the <span class="math inline">\(k\)</span> to be added):</p>
+<p><span class="math display">\[ \text{R}_k=\frac{1}{\sigma^2}(\text{SSE}_{k-1}-\text{SSE}_{k})\sim \chi^2_1\]</span> where here <span class="math inline">\(\sigma^2\)</span> is assumed known.</p>
+<p>This can be seen as an hypothesis test:</p>
+<p><span class="math inline">\(H_0: \text{The new predictor is not relevant}\)</span> vs. <span class="math inline">\(H_1: \text{The new predictor is relevant}\)</span> with a <span class="math inline">\(p\)</span>-value calculated from the upper tail of the <span class="math inline">\(\chi^2_1\)</span>-distribution.</p>
+<p>Why this test statistic? This is a special case of <span class="math inline">\(H_0: C\beta=d\)</span>, see <a href="https://www.math.ntnu.no/emner/TMA4267/2017v/TMA4267V2017Part3.pdf">part 3 of TMA4267 in 2017 (in particular L13+14)</a> where we now assume <span class="math inline">\(\sigma^2\)</span> to be known (not Fisher but <span class="math inline">\(\chi^2\)</span>).</p>
+<hr>
+<p><strong>Alternative scenario:</strong></p>
+<p>For simplicity - we look at the <span class="math inline">\(k=1\)</span>:</p>
+<p>The order in which the predictors is to be entered in to the model was decided before the data was collected (or at least before the data was analysed or plottet).</p>
+<p>Then: we are all good - and this <span class="math inline">\(p\)</span>-value from the <span class="math inline">\(\chi^2_1\)</span>-distribution will be a valid <span class="math inline">\(p\)</span>-value.</p>
+<p>What does this mean in practice?</p>
+<hr>
+<p><strong>Back to original scenario:</strong></p>
+<p>Assume we are at step <span class="math inline">\(k=1\)</span>, and will add the first predictor which is the one with the largest <span class="math inline">\(R_1\)</span>.</p>
+<p>Will the distribution of the <em>maximal</em> <span class="math inline">\(R_1\)</span> be the same as the distribution of a given predefined <span class="math inline">\(R_1\)</span>?</p>
+<p>Distribution to the maximum given that we have <span class="math inline">\(p\)</span> predictors:</p>
+<p><span class="math display">\[ P(\max R_1 \ge c)=1-P(\max R_1 &lt; c)=1-P(\text{all p } R_1 \text{ are} &lt;c)\]</span></p>
+<p>Study Figure 1 in the article for a plot of nominal vs.&nbsp;actual <span class="math inline">\(p\)</span>-value for <span class="math inline">\(p=10\)</span> and <span class="math inline">\(p=50\)</span>, and see below a possible R reproduction.</p>
+<hr>
+<div class="cell">
 
+</div>
+<hr>
+<section id="ecdf-of-p-values-under-the-null-for-first-step-of-forward-selection" class="level3">
+<h3 class="anchored" data-anchor-id="ecdf-of-p-values-under-the-null-for-first-step-of-forward-selection">ECDF of <span class="math inline">\(p\)</span>-values under the null for first step of forward selection</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="W6_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="1152"></p>
+</div>
+</div>
+<hr>
+<p><strong>Moving on to</strong> <span class="math inline">\(k&gt;1\)</span></p>
+<ul>
+<li>We would like to obtain valid (“correct”) <span class="math inline">\(p\)</span>-values for all steps, not only for <span class="math inline">\(k=1\)</span>.</li>
+<li>Monte Carlo solution would be elaborate.</li>
+</ul>
+<p>The method used in the article is to calculate a <span class="math inline">\(p\)</span>-value for the covariate at step <span class="math inline">\(k\)</span> by conditioning on the fact that the strongest <span class="math inline">\(k-1\)</span> predictors in this sequential set-up has already been chosen.</p>
+<p>The <span class="math inline">\(p\)</span>-value to be calculated at step <span class="math inline">\(k\)</span> would be dependent on the number of covariates <span class="math inline">\(p\)</span>.</p>
+<p>We now change focus and look at the distribution of the estimated regression coefficient for the covariate added at step <span class="math inline">\(k\)</span>, because that can be used to construct both a CI for the coefficient and a <span class="math inline">\(p\)</span>-value for testing if the coefficient is different from zero.</p>
+<hr>
 </section>
 </section>
+<section id="the-polyhedral-result" class="level2">
+<h2 class="anchored" data-anchor-id="the-polyhedral-result">The polyhedral result</h2>
+<p>(for details consult HTW 6.3 or articles references to in the Taylor and Tibshirani article)</p>
+<p><strong>Distribution for regression coefficient:</strong></p>
+<ul>
+<li>Assume that we are at some step <span class="math inline">\(k\)</span>, and that <span class="math inline">\(k-1\)</span> covariates are in the model.</li>
+<li>We have found the new covariate to include, and fitted the model with the <span class="math inline">\(k\)</span> covariates.</li>
+<li>Standard theory tells us that the estimator <span class="math inline">\(\hat{\beta}\)</span> for covariate <span class="math inline">\(k\)</span> is unbiased and follows a normal distribution with some variance <span class="math inline">\(\tau^2\)</span>.</li>
+</ul>
+<p><span class="math display">\[ \hat{\beta} \sim N(\beta,\tau^2)\]</span></p>
+<hr>
+<p>But, this is given that we only had these <span class="math inline">\(k\)</span> covariates available at the start. We will instead <em>condition on</em> selection event.</p>
+<p>It turns out that the selection event can be written in a <em>polyhedral form</em> <span class="math inline">\(A y \le b\)</span> for some matrix <span class="math inline">\(A\)</span> and some vector <span class="math inline">\(b\)</span>.</p>
+<p>At each step of the forward selection we have a competition among all <span class="math inline">\(p\)</span> variables, and the <span class="math inline">\(A\)</span> and <span class="math inline">\(b\)</span> is used to construct the competition.</p>
+<hr>
+<p>The correct distribution of the estimator <span class="math inline">\(\hat{\beta}\)</span> for covariate now has a <em>truncated normal distribution</em></p>
+<p><span class="math display">\[ \hat{\beta} \sim TN^{c,d}(\beta,\tau^2)\]</span></p>
+<p>i.e.&nbsp;the <em>same</em> normal distribution, but scaled to lie within the interval <span class="math inline">\((c,d)\)</span>.</p>
+<p>The limits <span class="math inline">\((c,d)\)</span> depends on both the data and the selection events that lead to the current model.</p>
+<p><em>The formulae for these limits are somewhat complicated but easily computable</em>.</p>
+<p>This truncated normal distribution is used to calculate <em>selection-adjusted</em> <span class="math inline">\(p\)</span>-values and confidence interval.</p>
+<p>(Study Figure 3 in <span class="citation" data-cites="TaylorTibshirani2015">Taylor and Tibshirani (<a href="#ref-TaylorTibshirani2015" role="doc-biblioref">2015</a>)</span>.)</p>
+<hr>
+<section id="ecdf-of-polyheder-p-values-under-the-null-for-first-step-of-forward-selection" class="level3">
+<h3 class="anchored" data-anchor-id="ecdf-of-polyheder-p-values-under-the-null-for-first-step-of-forward-selection">ECDF of polyheder <span class="math inline">\(p\)</span>-values under the null for first step of forward selection</h3>
+<div class="cell">
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+</div>
+<hr>
+</section>
+<section id="ecdf-of-polyheder-p-values-under-the-null-for-first-step-of-forward-selection-1" class="level3">
+<h3 class="anchored" data-anchor-id="ecdf-of-polyheder-p-values-under-the-null-for-first-step-of-forward-selection-1">ECDF of polyheder <span class="math inline">\(p\)</span>-values under the null for first step of forward selection</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="W6_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="1152"></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="comparing-simple-and-polyheder-p-values-for-the-first-step-of-forward-selection" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-simple-and-polyheder-p-values-for-the-first-step-of-forward-selection">Comparing simple and polyheder <span class="math inline">\(p\)</span>-values for the first step of forward selection</h3>
+<div class="cell">
+
+</div>
+<hr>
+<div class="cell">
+
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="W6_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid" width="1152"></p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="polyhedral-lasso-result" class="level2">
+<h2 class="anchored" data-anchor-id="polyhedral-lasso-result">Polyhedral lasso result</h2>
+<p>The same methodology can be used for the lasso, here also the selection of predictors can be described as a polyhedral region of the form <span class="math inline">\(Ay\le b\)</span> - for a fixed value <span class="math inline">\(\lambda\)</span>.</p>
+<p>For the lasso the <span class="math inline">\(A\)</span> and <span class="math inline">\(b\)</span> will depend on</p>
+<ul>
+<li>the predictors</li>
+<li>the active set</li>
+<li><span class="math inline">\(\lambda\)</span></li>
+</ul>
+<p>but not on <span class="math inline">\(y\)</span>.</p>
+<p>The methods are on closed form, but the values <span class="math inline">\(c\)</span> and <span class="math inline">\(d\)</span> may be of complicated form.</p>
+<hr>
+<p>The R package <code>selectiveInference</code> can be used to find post selection <span class="math inline">\(p\)</span>-values both for forward stepwise selection and for the lasso.</p>
+<p>See the package help for details.</p>
+<p>Study Figure 5 from the article for an example of Naive and Selection-adjusted intervals for the lasso.</p>
+<hr>
+</section>
+<section id="selective-inference-with-the-diabetes-data" class="level2">
+<h2 class="anchored" data-anchor-id="selective-inference-with-the-diabetes-data">Selective inference with the diabetes data</h2>
+<section id="forward-selection-diabetes" class="level3">
+<h3 class="anchored" data-anchor-id="forward-selection-diabetes">Forward selection diabetes</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1] [,2] 
+ [1,] "1"  "age"
+ [2,] "2"  "sex"
+ [3,] "3"  "bmi"
+ [4,] "4"  "map"
+ [5,] "5"  "tc" 
+ [6,] "6"  "ldl"
+ [7,] "7"  "hdl"
+ [8,] "8"  "tch"
+ [9,] "9"  "ltg"
+[10,] "10" "glu"</code></pre>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="W6_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="1152"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+fsInf(obj = fsfit)
+
+Standard deviation of noise (specified or estimated) sigma = 54.154
+
+Sequential testing results with alpha = 0.100
+ Step Var     Coef Z-score P-value LowConfPt UpConfPt LowTailArea UpTailArea
+    1   3  949.435  17.532   0.000   790.681 1037.113       0.049      0.050
+    2   9  614.951  10.163   0.000   521.696  887.192       0.049      0.050
+    3   4  262.275   4.291   0.010    90.437  363.617       0.049      0.048
+    4   5 -206.670  -3.266   0.684  -279.583 1539.967       0.049      0.050
+    5   2 -148.375  -2.648   0.689  -273.862 1234.380       0.050      0.050
+    6   6  538.586   3.664   0.025   208.452 5364.275       0.050      0.050
+    7   8  135.265   1.121   0.900      -Inf  577.340       0.000      0.050
+    8  10   67.141   1.027   0.033   100.724      Inf       0.050      0.000
+    9   7   99.718   0.470   0.629 -2450.846 1220.006       0.050      0.050
+   10   1  -10.012  -0.168   0.644  -527.324 1058.916       0.050      0.050
+
+Estimated stopping point from ForwardStop rule = 3</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+fsInf(obj = fsfit, k = 3, type = "all")
+
+Standard deviation of noise (specified or estimated) sigma = 54.154
+
+Testing results at step = 3, with alpha = 0.100
+ Var    Coef Z-score P-value LowConfPt UpConfPt LowTailArea UpTailArea
+   3 603.074   9.604   0.001   329.956  700.275       0.049      0.050
+   9 543.872   8.669   0.000   444.878  816.142       0.048      0.050
+   4 262.275   4.291   0.010    90.437  363.617       0.049      0.048</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+fsInf(obj = fsfit, type = "aic")
+
+Standard deviation of noise (specified or estimated) sigma = 54.154
+
+Testing results at step = 6, with alpha = 0.100
+ Var     Coef Z-score P-value LowConfPt UpConfPt LowTailArea UpTailArea
+   3  529.873   8.061   0.071  -101.266  618.999       0.050      0.049
+   9  804.192  10.014   0.000   636.648 1316.723       0.050      0.050
+   4  327.220   5.211   0.012   104.438  428.643       0.049      0.049
+   5 -757.938  -4.716   0.016 -3805.607 -303.334       0.050      0.049
+   2 -226.511  -3.778   0.495  -378.663  794.641       0.050      0.050
+   6  538.586   3.664   0.025   208.452 5364.275       0.050      0.050
+
+Estimated stopping point from AIC rule = 6</code></pre>
+</div>
+</div>
+<hr>
+<p>For comparison, the suggested forward model with variabls bmi, ltg and map - with naive <span class="math inline">\(p\)</span>-values.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x[, 3] + x[, 9] + x[, 4])
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-140.229  -40.637   -2.187   38.269  139.804 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  152.133      2.653  57.342  &lt; 2e-16 ***
+x[, 3]       603.074     64.677   9.324  &lt; 2e-16 ***
+x[, 9]       543.872     64.619   8.417 5.56e-16 ***
+x[, 4]       262.275     62.962   4.166 3.74e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 55.78 on 438 degrees of freedom
+Multiple R-squared:  0.4801,    Adjusted R-squared:  0.4765 
+F-statistic: 134.8 on 3 and 438 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="lasso-diabetes" class="level3">
+<h3 class="anchored" data-anchor-id="lasso-diabetes">Lasso diabetes</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2527843</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]    0.00000  -33.33808  508.19096  210.35372    0.00000    0.00000
+ [7] -138.84778    0.00000  444.56109    0.00000</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+fixedLassoInf(x = x, y = y, beta = beta, lambda = lambda * n)
+
+Standard deviation of noise (specified or estimated) sigma = 54.154
+
+Testing results at lambda = 111.731, with alpha = 0.100
+
+ Var     Coef Z-score P-value LowConfPt UpConfPt LowTailArea UpTailArea
+   2 -235.776  -3.913   0.117  -325.205   96.516       0.049      0.050
+   3  523.562   8.047   0.000   416.203  631.275       0.049      0.049
+   4  326.236   5.190   0.000   212.282  430.335       0.048      0.049
+   7 -289.117  -4.420   0.003  -397.090 -136.813       0.049      0.050
+   9  474.292   7.247   0.000   366.602  582.958       0.050      0.048
+
+Note: coefficients shown are partial regression coefficients</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.168127e-01 1.092168e-15 3.912618e-05 2.928151e-03 6.562529e-13</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="further-improvements" class="level3">
+<h3 class="anchored" data-anchor-id="further-improvements">Further improvements</h3>
+<p>The method yields rather wide confidence intervals for the regression parameters (given that we translate the <span class="math inline">\(p\)</span>-values into CIs).</p>
+<p>There exists improvements to the results, in particular a method called <em>carving</em> which is explained in the you-tube videos from a course with <a href="https://lsa.umich.edu/stats/people/faculty/psnigdha.html">Snigdha Paragrahi</a></p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=qofrkW-DL7c&amp;t=3682s">Tutorial I</a></li>
+<li><a href="https://www.youtube.com/watch?v=rGHf6BPeqBg&amp;t=1105s">Tutorial II</a></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="posi" class="level2">
+<h2 class="anchored" data-anchor-id="posi">PoSI</h2>
+<p>(HTW 6.5)</p>
+<ul>
+<li>The POSI method also fits a selected submodel and</li>
+<li>adjust the standard CIs by <em>accounting for all possible models that might have been delivered by the selection procedure</em>.</li>
+<li>This means the method can be used on published results where the complete selection process is not explained in detail.</li>
+<li>This lack of information of the selection process leads to <em>very wide CIs</em>.</li>
+</ul>
+<p>Inference is based on the submodel <span class="math inline">\(M\)</span> chosen, and on the projection of <span class="math inline">\({\boldsymbol X} \beta\)</span> onto the space spanned by the submodel <span class="math inline">\(M\)</span>:</p>
+<p><span class="math display">\[\beta_M=({\boldsymbol X}_M^T{\boldsymbol X}_M)^{-1}{\boldsymbol X}_M^T{\boldsymbol X} \beta\]</span></p>
+<hr>
+<p>The method considers a confidence interval for the <span class="math inline">\(j\)</span>th element of <span class="math inline">\(\beta_M\)</span> of the form <span class="math display">\[\text{CI}_{jM}=\hat{\beta}_{jM}\pm K \hat{\sigma}v_{jM}\]</span> where <span class="math inline">\(v_{jM}^2=({\boldsymbol X}_M^T{\boldsymbol X}_M)^{-1}_{jj}\)</span></p>
+<p>The constant <span class="math inline">\(K\)</span> is found to satisfy <span class="math display">\[ P(\beta_{jM}\in \text{CI}_{jM}) \le 1-2\alpha\]</span> <em>over all possible selection models</em>.</p>
+<hr>
+<p><span class="math inline">\(K\)</span> is a function of the data matrix <span class="math inline">\({\boldsymbol X}\)</span> and the maximum number of nonzero component allowed in <span class="math inline">\(\beta_M\)</span>. An upper bound on <span class="math inline">\(K\)</span> is known from a result on simultaneous intervals by Scheffe.</p>
+<p>HTW page 161: Reports on the diabetes data with submodels of size 5, where the 95% CI value of K is 4.42 (“little less than 2 hours of computing”).</p>
+<p>Details may be found in the PoSI 2013 article (reference Berk et al below).</p>
+<hr>
+<section id="posi-r-package" class="level3">
+<h3 class="anchored" data-anchor-id="posi-r-package">PoSI R-package</h3>
+<p><em>In linear LS regression, calculate for a given design matrix the multiplier</em> <span class="math inline">\(K\)</span> of coefficient standard errors such that the confidence intervals [b - K<em>SE(b), b + K</em>SE(b)] have a guaranteed coverage probability for all coefficient estimates b in any submodels after performing arbitrary model selection.</p>
+<p>Results for the Boston housing data is available in the help section.</p>
+<p><a href="https://cran.r-project.org/web/packages/PoSI/index.html" class="uri">https://cran.r-project.org/web/packages/PoSI/index.html</a></p>
+<hr>
+</section>
+</section>
+<section id="post-selection-inference-and-the-reproducibility-crisis" class="level2">
+<h2 class="anchored" data-anchor-id="post-selection-inference-and-the-reproducibility-crisis">Post selection inference and the reproducibility crisis</h2>
+<p>The <em>incorrect</em> use of CIs and <span class="math inline">\(p\)</span>-values in models found from model selection <em>and</em> inference on the same data - is though to be one of the main contributors to the <em>reproducibility crisis in science</em>.</p>
+<p><a href="https://hdsr.mitpress.mit.edu/pub/l39rpgyc/release/1">Selective Inference: The Silent Killer of Replicability by Yoav Benjamini Published on Dec 16, 2020</a></p>
+<hr>
+</section>
+</section>
+<section id="conclusion-1" class="level1">
+<h1>Conclusion</h1>
+<hr>
+<section id="how-will-you-perform-inference" class="level2">
+<h2 class="anchored" data-anchor-id="how-will-you-perform-inference">How will you perform inference</h2>
+<p>on your data analysis roject?</p>
+<p>We discuss:</p>
+<ol type="1">
+<li>You can afford a test set</li>
+<li>You have no test set</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-BootLasso2011" class="csl-entry" role="doc-biblioentry">
+Chatterjee, A., and S. N. Lahiri. 2011. <span>“Bootstrapping Lasso Estimators.”</span> <em>Journal of the American Statistical Association</em> 106 (494): 608–25. <a href="http://www.jstor.org/stable/41416396">http://www.jstor.org/stable/41416396</a>.
+</div>
+<div id="ref-hdi2015" class="csl-entry" role="doc-biblioentry">
+Dezeure, Ruben, Peter Bühlmann, Lukas Meier, and Nicolai Meinshausen. 2015. <span>“High-Dimensional Inference: Confidence Intervals, p-Values and <span>R</span>-Software <span class="nocase">hdi</span>.”</span> <em>Statistical Science</em> 30 (4): 533–58.
+</div>
 <div id="ref-casi" class="csl-entry" role="doc-biblioentry">
 Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference - Algorithms, Evidence, and Data Science</em>. Cambridge University Press. <a href="https://hastie.su.domains/CASI/">https://hastie.su.domains/CASI/</a>.
 </div>
 <div id="ref-HTW" class="csl-entry" role="doc-biblioentry">
-Hastie, Trevor, Roberg Tibshirani, and Martin Wainwright. 2015. <em>Statistical Learning with Sparsity: The Lasso and Generalizations</em>. CRC Press. <a href="https://hastie.su.domains/StatLearnSparsity/">https://hastie.su.domains/StatLearnSparsity/</a>.
+Hastie, Trevor, Robert J. Tibshirani, and Martin Wainwright. 2015. <em>Statistical Learning with Sparsity: The Lasso and Generalizations</em>. CRC Press. <a href="https://hastie.su.domains/StatLearnSparsity/">https://hastie.su.domains/StatLearnSparsity/</a>.
+</div>
+<div id="ref-TaylorTibshirani2015" class="csl-entry" role="doc-biblioentry">
+Taylor, Jonathan, and Robert J. Tibshirani. 2015. <span>“Statistical Learning and Selective Inference.”</span> <em>Proceedings of the National Academy of Sciences</em> 112 (25): 7629–34. <a href="https://doi.org/10.1073/pnas.1507583112">https://doi.org/10.1073/pnas.1507583112</a>.
 </div>
 <div id="ref-WNvW" class="csl-entry" role="doc-biblioentry">
 Wieringen, Wessel N. van. 2021. <span>“Lecture Notes on Ridge Regression.”</span> <a href="https://arxiv.org/pdf/1509.09169v7.pdf">https://arxiv.org/pdf/1509.09169v7.pdf</a>.
 </div>
-</div></section></div></main>
+</div>
+</section>
+
+</main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

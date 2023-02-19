@@ -5,7 +5,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 subtitle: 'W6: Statistical inference for penalized GLM methods'
 bibliography: ../Part1/references.bib
 nocite: |
-  @casi, @esl, @WNvW
+  @casi, @esl, @WNvW,@hdi2015,@BootLasso2011, @TaylorTibshirani2015
 format: 
   html: 
     toc: true
@@ -44,21 +44,28 @@ suppressPackageStartupMessages(library(lars)) #data diabetes
 suppressPackageStartupMessages(library(hdi))
 suppressPackageStartupMessages(library(GGally))
 suppressPackageStartupMessages(library(bcaboot))
+suppressPackageStartupMessages(library(selectiveInference))
 ```
 
 # Before we begin
 
 ## Outline
 
+### L11
+
 -   Prediction vs statistics inference: what are the aims?
 -   Sampling distributions
 -   Debiased lasso
 -   Bayesian lasso
 -   Boostrapping
+
+### L12
+
+-   Selective inference
 -   Sample splitting
 -   Inference after selection (forward regression example, polyhedral
-    result, PoSI)
--   Reproducibility crisis and selective inference
+    result, lasso result PoSI)
+-   Reproducibility crisis 
 -   Conclusions
 
 ------------------------------------------------------------------------
@@ -72,7 +79,7 @@ suppressPackageStartupMessages(library(bcaboot))
     [Ebook](https://trevorhastie.github.io/). Chapter 6.0, 6.1, 6.2,
     6.4, 6.5. (Results from 6.3 through Taylor and Tibshirani (2015))
 
-Also: brush up on **bootstrap intervals from TMA4300**, where [Givens
+Also: brush up on bootstrap intervals from TMA4300, where [Givens
 and Hoeting
 (2013)](https://onlinelibrary.wiley.com/doi/book/10.1002/9781118555552)
 is on the reading list. See specifically chapter 9 (9.2.1 and 9.3 will
@@ -830,7 +837,7 @@ ggpairs(as.data.frame(ridgemat))
 ---
 
 
-## Bootstrapt percentile CI
+## Bootstrap percentile CI
 
 To construct a $(1-\alpha)\cdot 100$% CI:
 
@@ -865,7 +872,10 @@ print("Ridge first then lasso");cbind(t(ridgeCI),t(lassoCI))
 ---
 
 ### Medical example
-(See Figures from study in class notes.)
+
+Results from the publication [Skandsen et al 2021](
+https://www.archives-pmr.org/article/S0003-9993(20)31154-0/fulltext)
+discussed in class.
 
 ```{r,out.width="70%",eval=FALSE}
 #http://zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/
@@ -876,7 +886,7 @@ print("Ridge first then lasso");cbind(t(ridgeCI),t(lassoCI))
 include_graphics("./MedTitle.jpg")
 ```
 
----
+
 
 ```{r,out.width="70%",eval=FALSE}
 #http://zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/
@@ -887,7 +897,7 @@ include_graphics("./MedTitle.jpg")
 include_graphics("./MedDescr1.jpg")
 ```
 
----
+
 
 ```{r,out.width="70%",eval=FALSE}
 #http://zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/
@@ -898,7 +908,7 @@ include_graphics("./MedDescr1.jpg")
 include_graphics("./MedDescr2.jpg")
 ```
 
---- 
+
 
 ```{r,out.width="70%",eval=FALSE}
 #http://zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/
@@ -911,7 +921,7 @@ include_graphics("./MedTable.jpg")
 
 ------------------------------------------------------------------------
 
-## Bootstrap CIs for  $\beta_j$
+## Bootstrap CIs for$\beta_j$
 
 Sadly, there are two main challenges:
 
@@ -932,36 +942,37 @@ The authors of the _penalized package_ take the following view  Section 6: A not
 
 Reliable conﬁdence intervals around the penalized estimates can be obtained in the case of low dimensional models using the standard generalized linear model theory as implemented in lm, glm and coxph."
 
-<!-- One possibility is the R-package [HDCI](https://cran.r-project.org/web/packages/HDCI/HDCI.pdf) -->
-
-<!-- but the background manuscript is not published yet <https://arxiv.org/abs/1706.02150>. -->
 
 ------------------------------------------------------------------------
 
-## Outline
+# Selective inference
 
--   Prediction vs statistics inference: what are the aims?
--   Sampling distributions
--   Debiased lasso
--   Bayesian lasso
--   Boostrapping
+## What is selective inference?
 
-**WE are here now!**
+Selective inference is concerned with testing hypotheses suggested by
+the data.
 
--   Sample splitting
--   Inference after selection (forward regression example, polyhedral
-    result, PoSI)
--   Reproducibility crisis and selective inference
--   Conclusions
+---
 
+## From selective inference seminar
+Source: <https://sites.google.com/view/selective-inference-seminar>
 
-------------------------------------------------------------------------
+Broadly construed, selective inference means _searching for interesting patterns in data_, usually with _inferential guarantees that account for the search process_. 
+
+It encompasses:
+
+* Multiple testing: testing many hypotheses at once (and paying disproportionate attention to rejections)
+* Post-selection inference: examining the data to decide what question to ask, or what model to use, then carrying out one or more appropriate inferences
+* Adaptive / interactive inference: sequentially asking one question after another of the same data set, where each question is informed by the answers to preceding questions
+* Cheating: cherry-picking, double dipping, data snooping, data dredging, p-hacking, HARKing, and other low-down dirty rotten tricks; basically any of the above, but done wrong!
+
+---
 
 # Sample splitting
 
 ## What if we just split the data in two?
 
-Linear regression or logistic regression.
+### Lasso - linear or logistic regression
 
 Dataset with $p$ covariates and $N$ observations. Divided into a
 training set of size $aN$ and a test set of $(1-a)N$, where
@@ -973,9 +984,9 @@ $a \in [0,1]$.
 
 -   Test data:
 
-    -   Fit ordinary LS or GLM model with only the non-zero lasso
-        covariates
-    -   present CI and $p$-values from LS
+    -   Fit ordinary LS or GLM model with _only the non-zero lasso
+        covariates_
+    -   present CI and $p$-values.
 
 **Group discussion:** Is this ok? What is gained and what is lost?
 
@@ -991,10 +1002,68 @@ $a \in [0,1]$.
 
 <!-- * Not suitable to assess the prediction since no shrinkage is included. -->
 
+## Single hypothesis test
+
+$$H_{0}\colon \beta_j=0 \hspace{0.5cm} \text{vs.} \hspace{0.5cm} H_{1}\colon \beta_j \neq 0$$
+
+|             | Not reject $H_0$ | Reject $H_0$ |
+|:------------|:-----------------|:-------------|
+| $H_0$ true  | Correct          | Type I error |
+| $H_0$ false | Type II error    | Correct      |
+
+------------------------------------------------------------------------
+
+-   Two types of errors are possible, type I error and type II error.
+-   A type I error would be to reject $H_0$ when $H_0$ is true, that is
+    concluding that there is a linear association between the response
+    and the predictor where there is no such association. This is called
+    a *false positive finding*.
+-   A type II error would be to fail to reject $H_0$ when the
+    alternative hypothesis $H_1$ is true, that is not detecting that
+    there is a linear association between the response and the
+    covariate. This is called a *false negative finding*.
+
+------------------------------------------------------------------------
+
+## $p$-value
+
+-   A $p$-value $p(X)$ is a test statistic satisfying
+    $0 \leq p({\boldsymbol Y}) \leq 1$ for every vector of observations
+    $\boldsymbol{Y}$.
+-   Small values give evidence that $H_1$ is true.
+-   In single hypothesis testing, if the $p$-value is less than the
+    chosen significance level (chosen upper limit for the probability of
+    committing a type I error), then we reject the null hypothesis,
+    $H_0$.
+-   The chosen significance level is often referred to as $\alpha$.
+
+------------------------------------------------------------------------
+
+A $p$-value is *valid* if
+$$ P(p(\boldsymbol{Y}) \leq \alpha) \leq \alpha $$ for all $\alpha$,
+$0 \leq \alpha \leq 1$, whenever $H_0$ is true, that is, if the
+$p$-value is valid, rejection on the basis of the $p$-value ensures that
+the probability of type I error does not exceed $\alpha$.
+
+------------------------------------------------------------------------
+
+An *exact* $p$-value satisfies
+$$P(p(\boldsymbol{Y}) \leq \alpha) = \alpha$$ for all $\alpha$,
+$0 \leq \alpha \leq 1$.
+
+-   The exact $p$-value is uniformly distributed when the null
+    hypothesis is true.
+-   This is a fact that is often misunderstood by users of $p$-values.
+-   The incorrect urban myth is that $p$-values from true null
+    hypotheses are close to one, when the correct fact is that all
+    values in intervals of the same length are equally probable (which
+    is a property of the uniform distribution).
+
+---
+
 ## From single to multiple hypotheses
 
-In many situations we are not interested in testing only one hypothesis,
-but instead $m$ hypotheses.
+We test $m$ hypotheses.
 
 |             | Not reject $H_0$ | Reject $H_0$ | Total     |
 |:------------|:-----------------|:-------------|:----------|
@@ -1010,7 +1079,8 @@ but instead $m$ hypotheses.
 -   $S$: the number of false null hypotheses that are rejected.
 -   $R$: the number of hypoteses rejected for a specific cut-off
 
-Observe: only $m$ and $R$ is observed!
+
+**Question: which of these quantities do we observe for a specific $p$-value cut-off?**
 
 ------------------------------------------------------------------------
 
@@ -1060,7 +1130,7 @@ testing](https://www.math.ntnu.no/emner/TMA4267/2017v/multtest.pdf)
 
 ------------------------------------------------------------------------
 
-## High-dimensional inference
+## High-dimensional inference (hdi)
 
 (Dezeure, Bühlmann, Meier, Meinshausen, 2.1.1 + 2.2)
 
@@ -1079,7 +1149,7 @@ $$Y={\boldsymbol X} \beta^0 +\varepsilon$$
 -   $Y$ is an $n \times 1$ response vector
 -   $\varepsilon$ is an $n \times 1$ error vector, independent of
     ${\boldsymbol X}$ and i.i.d. entries with
-    $\text{E}(\varepsilon)_i)=0$.
+    $\text{E}(\varepsilon_i)=0$.
 -   The number of parameters *may* be larger than the sample size (then
     the regression parameter is not identifiable in general).
 
@@ -1100,7 +1170,7 @@ that the lasso has selected.
     ${\boldsymbol X}\beta^0$ or a new response $Y_{\text{new}}$.
 -   But, the distribution of the estimator is hard to characterize, and
 -   it has been shown that (for fixed $p$) the asymptotic
-    ($n\leftarrow \infty$) distribution of the lasso has point mass at
+    ($n\rightarrow \infty$) distribution of the lasso has point mass at
     zero (which leads to that bootstrapping not having optimal
     properties).
 
@@ -1167,20 +1237,16 @@ Some assumptions are necessary to assure FWER control.
 
 ------------------------------------------------------------------------
 
-Confidence intervals are found
+Confidence intervals are found by "inversion"
 
 -   from the adjusted $p$-values $P_j$
 -   using the duality of $p$-values and two-sided confidence intervals.
-    That is,
--   a $(1-\alpha)$ 100% CI contains values $c$ where the $p$-value is
-    below $\alpha$ for testing $H_0: \beta_j=c$. A closed form solution
-    involving $P_j$ is found.
+    That is, a $(1-\alpha)$ 100% CI contains values $c$ where the $p$-value is below $\alpha$ for testing $H_0: \beta_j=c$. 
+-   A closed form solution involving $P_j$ is found.
 -   Both single testing and multiple corrected testing CIs are found.
     (Appendix A.2 in article)
 
 ------------------------------------------------------------------------
-
-\footnotesize
 
 ```{r,eval=FALSE,echo=TRUE}
 data(diabetes)
@@ -1203,13 +1269,20 @@ dput(hdires,"hdires.dd")
 ```{r,echo=TRUE}
 hdires=dget("hdires.dd")
 names(hdires)
-hdires$gamma.min
 #summary(hdires$pvals.nonaggr) # if return.nonaggr=TRUE
-hdires$pval.corr
-cbind(hdires$lci, hdires$uci)
+hdires$gamma.min
 ```
 
+---
+
 \normalsize
+
+```{r}
+res=cbind(hdires$pval.corr,hdires$lci, hdires$uci)
+colnames(res)=c("adjusted pvalue","lowerCI","upperCI")
+print(res)
+```
+
 
 ------------------------------------------------------------------------
 
@@ -1238,6 +1311,8 @@ is included. (See HTW 6.4 or the Dezure et al article.)
 ### Summing up
 
 What is the take home message from this "Sample splitting" story?
+
+---
 
 # Inference after selection
 
@@ -1279,7 +1354,7 @@ The technical solutions are of less importance, and is not presented
 with enough mathematical detail so that we understand the method in
 detail.
 
-*Remark: the single and multiple sample splitting strategy isvalid.*
+*Remark: the single and multiple sample splitting strategy is valid.*
 
 ------------------------------------------------------------------------
 
@@ -1295,10 +1370,9 @@ $$y_i=\beta_0+\sum_{j=1}^p x_{ij}\beta_j + \varepsilon_i$$
 While some stopping criterion not reach - perform step
 
 -   At step $k$ add the predictor that gives the most decrease in the
-    sums of squares of error (here now - to follow the notation denoted
-    by RSS instead of what we previously called SSE)
+    sums of squares of error (SSE)
 
-$$ \text{RSS}=\sum_{i=1}^N (y_i -\hat{y}_i)^2$$ where $\hat{y}_i$ is the
+$$ \text{SEE}=\sum_{i=1}^N (y_i -\hat{y}_i)^2$$ where $\hat{y}_i$ is the
 predicted value for observation $i$ in this model.
 
 ------------------------------------------------------------------------
@@ -1306,7 +1380,7 @@ predicted value for observation $i$ in this model.
 If we have a model with $k-1$ predictors and we would like to add one
 more predictor (the $k$ to be added):
 
-$$ \text{R}_k=\frac{1}{\sigma^2}(\text{RSS}_{k-1}-\text{RSS}_{k})\sim \chi^2_1$$
+$$ \text{R}_k=\frac{1}{\sigma^2}(\text{SSE}_{k-1}-\text{SSE}_{k})\sim \chi^2_1$$
 where here $\sigma^2$ is assumed known.
 
 This can be seen as an hypothesis test:
@@ -1314,6 +1388,8 @@ This can be seen as an hypothesis test:
 $H_0: \text{The new predictor is not relevant}$ vs.
 $H_1: \text{The new predictor is relevant}$ with a $p$-value calculated
 from the upper tail of the $\chi^2_1$-distribution.
+
+Why this test statistic? This is a special case of $H_0: C\beta=d$, see [part 3 of TMA4267 in 2017 (in particular L13+14)](https://www.math.ntnu.no/emner/TMA4267/2017v/TMA4267V2017Part3.pdf) where we now assume $\sigma^2$ to be known (not Fisher but $\chi^2$).
 
 ------------------------------------------------------------------------
 
@@ -1345,9 +1421,52 @@ Distribution to the maximum given that we have $p$ predictors:
 $$ P(\max R_1 \ge c)=1-P(\max R_1 < c)=1-P(\text{all p } R_1 \text{ are} <c)$$
 
 Study Figure 1 in the article for a plot of nominal vs. actual $p$-value
-for $p=10$ and $p=50$. The figure was made using Monte Carlo sampling.
+for $p=10$ and $p=50$, and see below a possible R reproduction. 
 
 ------------------------------------------------------------------------
+
+```{r}
+#| warning: false
+# try to reproduce Figure 1 of Taylor and Tibshirani, but higher violations achived - what is done differently in that figure?
+B=1000
+N=100
+ds=data.frame(p1=rep(NA,B),p2=rep(NA,B),p10=rep(NA,B),p50=rep(NA,B))
+ps=c(1,2,10,50)
+for (i in 1:4)
+{
+  p=ps[i]
+  set.seed(8701)
+  nomvec=rep(NA,B)
+  for (b in 1:B)
+  {
+    X=matrix(rnorm(p*N,0,1),ncol=p,nrow=N)
+    Xs=scale(X)
+    #diag(t(Xs)%*%Xs) - just check - is N-1 as it should
+    y=rnorm(N,0,1)
+    ys=y-mean(y)
+    # beta=X^T y/N-1 and then var is sigma^2/(N-1) giving
+    # testobs2 (X^T y/sqrt(N-1))^2 when sigma^2=1
+    testobs2=(t(Xs)%*%ys)^2/(N-1)
+    #testobs2=(t(X)%*%y)^2/(N)
+    whichvar=which.max(testobs2)
+    nomvec[b]=pchisq(testobs2[whichvar],df=1,lower.tail=FALSE)
+  }
+ ds[[i]]=nomvec
+}
+df=tidyr::pivot_longer(ds,cols=1:4)
+colnames(df)=c("g","x")
+```
+
+---
+
+### ECDF of $p$-values under the null for first step of forward selection
+
+```{r}
+ggplot(df, aes(x, colour = g)) +
+  stat_ecdf()+geom_vline(xintercept=0.05)+geom_abline(intercept=0,slope=1)#+xlim(0,0.35) 
+```
+
+---
 
 **Moving on to** $k>1$
 
@@ -1356,11 +1475,11 @@ for $p=10$ and $p=50$. The figure was made using Monte Carlo sampling.
 -   Monte Carlo solution would be elaborate.
 
 The method used in the article is to calculate a $p$-value for the
-covariate at step $k$ by conditioning on the fact that already the
+covariate at step $k$ by conditioning on the fact that the
 strongest $k-1$ predictors in this sequential set-up has already been
 chosen.
 
-The $p$-value at step $k$ would be dependent on the number of covariates
+The $p$-value to be calculated at step $k$ would be dependent on the number of covariates
 $p$.
 
 We now change focus and look at the distribution of the estimated
@@ -1408,7 +1527,7 @@ $$ \hat{\beta} \sim TN^{c,d}(\beta,\tau^2)$$
 i.e. the *same* normal distribution, but scaled to lie within the
 interval $(c,d)$.
 
-The limits $(c,d)$ depends on both the data and the selection evetns
+The limits $(c,d)$ depends on both the data and the selection events
 that lead to the current model.
 
 *The formulae for these limits are somewhat complicated but easily
@@ -1417,9 +1536,105 @@ computable*.
 This truncated normal distribution is used to calculate
 *selection-adjusted* $p$-values and confidence interval.
 
-(Study Figure 3. in the article by Taylor and Tibshirani.)
+(Study Figure 3 in @TaylorTibshirani2015.)
 
 ------------------------------------------------------------------------
+
+### ECDF of polyheder $p$-values under the null for first step of forward selection
+
+```{r}
+#| warning: false
+#| eval: false
+B=1000
+N=100
+ds=data.frame(p1=rep(NA,B),p2=rep(NA,B),p10=rep(NA,B),p50=rep(NA,B))
+ps=c(1,2,10,50)
+for (i in 1:4)
+{
+  p=ps[i]
+  set.seed(8701)
+  nomvec=rep(NA,B)
+  for (b in 1:B)
+  {
+    X=matrix(rnorm(p*N,0,1),ncol=p,nrow=N)
+    y=rnorm(N,0,1)
+    fsfit = fs(X,y,maxsteps=1)
+    out = fsInf(fsfit)
+    nomvec[b]=out$pv
+  }
+ ds[[i]]=nomvec
+}
+df=tidyr::pivot_longer(ds,cols=1:4)
+colnames(df)=c("g","x")
+dput(df,"dfcond.dd")
+```
+
+---
+
+### ECDF of polyheder $p$-values under the null for first step of forward selection
+
+```{r}
+df=dget("dfcond.dd")
+ggplot(df, aes(x, colour = g)) +
+  stat_ecdf()+geom_vline(xintercept=0.05)+geom_abline(intercept=0,slope=1)#+xlim(0,0.35) 
+
+```
+
+---
+
+### Comparing simple and polyheder $p$-values for the first step of forward selection
+
+```{r}
+#| warning: false
+#| eval: false
+B=1000
+N=100
+dsnom=dscond=matrix(NA, ncol=4,nrow=B)
+ps=c(1,2,10,50)
+for (i in 1:4)
+{
+  p=ps[i]
+  set.seed(8701)
+  nomvec=rep(NA,B)
+  condvec=rep(NA,B)
+  for (b in 1:B)
+  {
+    X=matrix(rnorm(p*N,0,1),ncol=p,nrow=N)
+    y=rnorm(N,0,1)
+    testobs2=(t(X)%*%y)^2
+    whichvar=which.max(testobs2)
+    nomvec[b]=summary(lm(y~X[,whichvar]))$coef[2,4]
+    fsfit = fs(X,y,maxsteps=1)
+    out = fsInf(fsfit)
+    condvec[b]=out$pv
+  }
+ dsnom[,i]=nomvec
+ dscond[,i]=condvec
+}
+colnames(dsnom)=colnames(dscond)=paste(rep("p",4),c(1,2,10,50),sep="")
+df=data.frame(dsnom, dscond)
+colnames(df)[5:8]=paste("C",colnames(df)[1:4],sep="")
+#colnames(df)
+dput(df,"dfnomcond.dd")
+```
+
+---
+
+```{r}
+df=dget("dfnomcond.dd")
+p1=ggplot(df)+geom_point(aes(x=p1,y=Cp1),shape=20)+ggtitle("p=1")+xlab("naive")+ylab("polyheder")
+p2=ggplot(df)+geom_point(aes(x=p2,y=Cp2),shape=20)+ggtitle("p=2")+xlab("naive")+ylab("polyheder")+geom_abline(intercept=0,slope=1)
+p10=ggplot(df)+geom_point(aes(x=p10,y=Cp10),shape=20)+ggtitle("p=10")+xlab("naive")+ylab("polyheder")+geom_abline(intercept=0,slope=1)
+p50=ggplot(df)+geom_point(aes(x=p50,y=Cp50),shape=20)+ggtitle("p=50")+xlab("naive")+ylab("polyheder")+geom_abline(intercept=0,slope=1)
+```
+
+---
+
+```{r}
+ggarrange(p1,p2,p10,p50,ncol=2,nrow=2)
+```
+
+---
 
 ## Polyhedral lasso result
 
@@ -1427,7 +1642,7 @@ The same methodology can be used for the lasso, here also the selection
 of predictors can be described as a polyhedral region of the form
 $Ay\le b$ - for a fixed value $\lambda$.
 
-For the lass the $A$ and $b$ will depend on
+For the lasso the $A$ and $b$ will depend on
 
 -   the predictors
 -   the active set
@@ -1449,6 +1664,82 @@ Study Figure 5 from the article for an example of Naive and
 Selection-adjusted intervals for the lasso.
 
 ------------------------------------------------------------------------
+
+## Selective inference with the diabetes data
+
+### Forward selection diabetes
+
+```{r}
+data(diabetes)
+x=diabetes$x
+y=diabetes$y
+cbind(1:10,colnames(x))
+
+fsfit = fs(x,y)
+```
+
+---
+
+```{r}
+plot(fsfit,var.labels=TRUE)
+```
+
+---
+
+```{r}
+# run for all variables and only calculate coeff and p-value for each predictor as it enteres the model
+out = fsInf(fsfit)
+print(out)
+
+# stop at 4 and then calculate all coeffs and p-values for the final model
+out = fsInf(fsfit,type="all",k=3)
+print(out)
+
+# use AIC to stop and then calculate all coeffs and p-values for the final model
+out = fsInf(fsfit,type="aic")
+print(out)
+```
+
+---
+
+For comparison, the suggested forward model with variabls bmi, ltg and map - with naive $p$-values.
+
+\footnotesize
+
+```{r}
+summary(lm(y~x[,3]+x[,9]+x[,4]))
+```
+
+
+---
+
+\normalsize
+
+### Lasso diabetes
+
+\footnotesize
+
+```{r}
+#apply(x,2,mean)
+#apply(x,2,sd)
+
+# first run glmnet
+gfit = glmnet(x,y,standardize=FALSE,thres=1e-16)
+lambda=cv.glmnet(x,y,standardize=FALSE)$lambda.1se
+print(lambda)
+n=length(y) #442
+# extract coef for a given lambda; note the 1/n factor!
+# (and we don't save the intercept term)
+beta = coef.glmnet(gfit, x=x, y=y, s=lambda, exact=TRUE)[-1]
+beta
+# compute fixed lambda p-values and selection intervals
+out = fixedLassoInf(x,y,beta,lambda*n)
+out
+out$pv
+```
+---
+
+\normalsize
 
 ### Further improvements
 
@@ -1536,9 +1827,11 @@ Benjamini Published on Dec 16,
 
 # Conclusion
 
+---
+
 ## How will you perform inference
 
-on Data Analysis Project 1?
+on your data analysis roject?
 
 We discuss:
 
@@ -1547,100 +1840,9 @@ We discuss:
 
 ------------------------------------------------------------------------
 
+
 # References
 
-(also given in the text and not repeated here)
+::: {#refs}
+:::
 
--   [Wessel N. van Wieringen: Lecture notes on ridge
-    regression](https://arxiv.org/pdf/1509.09169.pdf)
--   A. Chatterjee and S. N. Lahiri (2011). Bootstrapping Lasso
-    Estimators. Journal of the American Statistical Association. Vol.
-    106, No. 494 (June 2011), pp. 608-625 (18 pages)
--   Single/multi-sampling splitting part of [Dezeure, Bühlmann, Meier,
-    Meinshausen
-    (2015)](https://projecteuclid.org/download/pdfview_1/euclid.ss/1449670857).
-    "High-Dimensional Inference: Confidence Intervals, p-Values and
-    R-Software hdi". Statistical Science, 2015, Vol. 30, No. 4, 533--558
-    DOI: 10.1214/15-STS527 (only the single/multiple sample splitting
-    part in 2.1.1 and 2.2 for linear regression, and using the method in
-    practice).
--   [Taylor and Tibshirani
-    (2015)](https://www.pnas.org/content/112/25/7629): Statistical
-    learning and selective inference, PNAS, vol 112, no 25, pages
-    7629-7634. (Soft version of HTW 6.3.2)
--   Berk, Richard; Brown, Lawrence; Buja, Andreas; Zhang, Kai; Zhao,
-    Linda. Valid post-selection inference. Ann. Statist. 41 (2013), no.
-    2, 802--837. doi:10.1214/12-AOS1077.
-
-# Left overs
-
-To check that all is here
-
-## Bootstrap confidence intervals
-
-## Percentile interval
-
-## Bias corrected accelerated interval
-
-## Single hypothesis test
-
-$$H_{0}\colon \beta_j=0 \hspace{0.5cm} \text{vs.} \hspace{0.5cm} H_{1}\colon \beta_j \neq 0$$
-
-|             | Not reject $H_0$ | Reject $H_0$ |
-|:------------|:-----------------|:-------------|
-| $H_0$ true  | Correct          | Type I error |
-| $H_0$ false | Type II error    | Correct      |
-
-------------------------------------------------------------------------
-
--   Two types of errors are possible, type I error and type II error.
--   A type I error would be to reject $H_0$ when $H_0$ is true, that is
-    concluding that there is a linear association between the response
-    and the predictor where there is no such association. This is called
-    a *false positive finding*.
--   A type II error would be to fail to reject $H_0$ when the
-    alternative hypothesis $H_1$ is true, that is not detecting that
-    there is a linear association between the response and the
-    covariate. This is called a *false negative finding*.
-
-------------------------------------------------------------------------
-
-## $p$-value
-
--   A $p$-value $p(X)$ is a test statistic satisfying
-    $0 \leq p({\boldsymbol Y}) \leq 1$ for every vector of observations
-    $\boldsymbol{Y}$.
--   Small values give evidence that $H_1$ is true.
--   In single hypothesis testing, if the $p$-value is less than the
-    chosen significance level (chosen upper limit for the probability of
-    committing a type I error), then we reject the null hypothesis,
-    $H_0$.
--   The chosen significance level is often referred to as $\alpha$.
-
-------------------------------------------------------------------------
-
-A $p$-value is *valid* if
-$$ P(p(\boldsymbol{Y}) \leq \alpha) \leq \alpha $$ for all $\alpha$,
-$0 \leq \alpha \leq 1$, whenever $H_0$ is true, that is, if the
-$p$-value is valid, rejection on the basis of the $p$-value ensures that
-the probability of type I error does not exceed $\alpha$.
-
-------------------------------------------------------------------------
-
-An *exact* $p$-value satisfies
-$$P(p(\boldsymbol{Y}) \leq \alpha) = \alpha$$ for all $\alpha$,
-$0 \leq \alpha \leq 1$.
-
--   The exact $p$-value is uniformly distributed when the null
-    hypothesis is true.
--   This is a fact that is often misunderstood by users of $p$-values.
--   The incorrect urban myth is that $p$-values from true null
-    hypotheses are close to one, when the correct fact is that all
-    values in intervals of the same length are equally probable (which
-    is a property of the uniform distribution).
-
-## False discovery rate
-
-The false discovery rate (FDR) is defined as
-$$ \text{FDR}= \text{E}(\frac{V}{R})  \text{ for }R>0$$ and
-$$ \text{FDR}= 0 \text{ else} $$

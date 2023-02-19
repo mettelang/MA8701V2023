@@ -405,7 +405,7 @@ eprint = {https://doi.org/10.1198/01621450600000073}
 
 @book{HTW,
 title={Statistical Learning with Sparsity: The Lasso and Generalizations},
-author={Trevor Hastie and Roberg Tibshirani and Martin Wainwright},
+author={Trevor Hastie and Robert J. Tibshirani and Martin Wainwright},
 year={2015},
 url={https://hastie.su.domains/StatLearnSparsity/},
 publisher={CRC Press}}
@@ -489,5 +489,55 @@ eprint = {
     abstract = { We consider variable selection when missing values are present in the predictor variables. We compare using complete cases with multiple imputation using backward selection (backwards stepping) and least angle regression. These are studied using a data set from a rheumatological disease (myositis). We find that the coefficients are slightly different and the estimated standard errors are smaller in the complete cases (not a surprise). This seems to be due to the fact that because the estimated residual variance is small the complete cases are more homogeneous than the full data cases. }
 }
 
+ @Article{hdi2015,
+    title = {High-Dimensional Inference: Confidence Intervals, p-values
+      and {R}-Software {hdi}},
+    author = {Ruben Dezeure and Peter B\"uhlmann and Lukas Meier and
+      Nicolai Meinshausen},
+    journal = {Statistical Science},
+    year = {2015},
+    volume = {30},
+    number = {4},
+    pages = {533--558}}
+  
+@article{TaylorTibshirani2015,
+author = {Jonathan Taylor  and Robert J. Tibshirani },
+title = {Statistical learning and selective inference},
+journal = {Proceedings of the National Academy of Sciences},
+volume = {112},
+number = {25},
+pages = {7629-7634},
+year = {2015},
+doi = {10.1073/pnas.1507583112},
+URL = {https://www.pnas.org/doi/abs/10.1073/pnas.1507583112},
+eprint = {https://www.pnas.org/doi/pdf/10.1073/pnas.1507583112}}
 
+@article{Berketal2013,
+author = {Richard Berk and Lawrence Brown and Andreas Buja and Kai Zhang and Linda Zhao},
+title = {{Valid post-selection inference}},
+volume = {41},
+journal = {The Annals of Statistics},
+number = {2},
+publisher = {Institute of Mathematical Statistics},
+pages = {802 -- 837},
+keywords = {Family-wise error, high-dimensional inference, Linear regression, Model selection, multiple comparison, sphere packing},
+year = {2013},
+doi = {10.1214/12-AOS1077},
+URL = {https://doi.org/10.1214/12-AOS1077}
+}
+
+@article{BootLasso2011,
+ ISSN = {01621459},
+ URL = {http://www.jstor.org/stable/41416396},
+ abstract = {In this article, we consider bootstrapping the Lasso estimator of the regression parameter in a multiple linear regression model. It is known that the standard bootstrap method fails to be consistent. Here, we propose a modified bootstrap method, and show that it provides valid approximation to the distribution of the Lasso estimator, for all possible values of the unknown regression parameter vector, including the case where some of the components are zero. Further, we establish consistency of the modified bootstrap method for estimating the asymptotic bias and variance of the Lasso estimator. We also show that the residual bootstrap can be used to consistently estimate the distribution and variance of the adaptive Lasso estimator. Using the former result, we formulate a novel data-based method for choosing the optimal penalizing parameter for the Lasso using the modified bootstrap. A numerical study is performed to investigate the finite sample performance of the modified bootstrap. The methodology proposed in the article is illustrated with a real data example.},
+ author = {A. Chatterjee and S. N. Lahiri},
+ journal = {Journal of the American Statistical Association},
+ number = {494},
+ pages = {608--625},
+ publisher = {Taylor & Francis, Ltd.},
+ title = {Bootstrapping Lasso Estimators},
+ urldate = {2023-02-19},
+ volume = {106},
+ year = {2011}
+}
 
