@@ -1,0 +1,67 @@
+---
+title: "MA8701 Advanced methods in statistical inference and learning"
+author: "Mette Langaas"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+subtitle: 'Part 3: Ensembles. L14: Boosting'
+bibliography: ../Part1/references.bib
+nocite: |
+  @casi, @ESL, @ISL,@Bagging,@Randomforest, @Ripley
+format: 
+  html: 
+    toc: true
+    code-fold: true
+    toc-location: left
+    toc-depth: 3
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+    keep-tex: true
+  beamer:
+    incremental: false
+    aspectratio: 43
+    navigation: frame
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+suppressPackageStartupMessages(library(knitr))
+knitr::opts_chunk$set(echo = FALSE, message=FALSE,warning = FALSE, error = FALSE)
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(rpart))
+suppressPackageStartupMessages(library(rpart.plot))
+suppressPackageStartupMessages(library(randomForest))
+suppressPackageStartupMessages(library(DAAG))
+suppressPackageStartupMessages(library(tree))
+suppressPackageStartupMessages(library(MASS))
+suppressPackageStartupMessages(library(GGally))
+suppressPackageStartupMessages(library(corrplot))
+suppressPackageStartupMessages(library(caret)) #for confusion matrices
+suppressPackageStartupMessages(library(pROC)) #for ROC curves
+suppressPackageStartupMessages(library(dplyr))
+```
+
+Course homepage: <https://wiki.math.ntnu.no/ma8701/2023v/start>
+
+# Before we start
+
+## Outline
+
+
+---
+
+## Literature
+
+* [ESL] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. [Ebook](https://hastie.su.domains/ElemStatLearn/download.html). Chapter 8.7 (bagging), 9.2 (trees), 15 (random forest, not 15.3.3 and 15.4.3).
+
+
+# References
+
+::: {#refs}
+:::
+

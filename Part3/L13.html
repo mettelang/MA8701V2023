@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mette Langaas">
+<meta name="dcterms.date" content="2023-02-21">
+
+<title>MA8701 Advanced methods in statistical inference and learning</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="L13_files/libs/clipboard/clipboard.min.js"></script>
+<script src="L13_files/libs/quarto-html/quarto.js"></script>
+<script src="L13_files/libs/quarto-html/popper.min.js"></script>
+<script src="L13_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="L13_files/libs/quarto-html/anchor.min.js"></script>
+<link href="L13_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="L13_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="L13_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="L13_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="L13_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#ensembles---first-act" id="toc-ensembles---first-act" class="nav-link active" data-scroll-target="#ensembles---first-act">Ensembles - first act</a>
+  <ul class="collapse">
+  <li><a href="#outline" id="toc-outline" class="nav-link" data-scroll-target="#outline">Outline</a></li>
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  </ul></li>
+  <li><a href="#trees" id="toc-trees" class="nav-link" data-scroll-target="#trees">Trees</a>
+  <ul class="collapse">
+  <li><a href="#leo-breiman" id="toc-leo-breiman" class="nav-link" data-scroll-target="#leo-breiman">Leo Breiman</a></li>
+  <li><a href="#main-idea" id="toc-main-idea" class="nav-link" data-scroll-target="#main-idea">Main idea</a>
+  <ul class="collapse">
+  <li><a href="#from-regions-in-predictor-space-to-decision-tree" id="toc-from-regions-in-predictor-space-to-decision-tree" class="nav-link" data-scroll-target="#from-regions-in-predictor-space-to-decision-tree">From regions in predictor space to decision tree</a></li>
+  </ul></li>
+  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary">Glossary</a>
+  <ul class="collapse">
+  <li><a href="#problem-preditor-space-partition-vs-tree" id="toc-problem-preditor-space-partition-vs-tree" class="nav-link" data-scroll-target="#problem-preditor-space-partition-vs-tree">Problem: preditor space partition vs tree</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#regression-tree" id="toc-regression-tree" class="nav-link" data-scroll-target="#regression-tree">Regression tree</a>
+  <ul class="collapse">
+  <li><a href="#fitting-a-regression-tree" id="toc-fitting-a-regression-tree" class="nav-link" data-scroll-target="#fitting-a-regression-tree">Fitting a regression tree</a></li>
+  <li><a href="#recursive-binary-splitting" id="toc-recursive-binary-splitting" class="nav-link" data-scroll-target="#recursive-binary-splitting">Recursive binary splitting</a>
+  <ul class="collapse">
+  <li><a href="#problem-hands-on-splitting" id="toc-problem-hands-on-splitting" class="nav-link" data-scroll-target="#problem-hands-on-splitting">Problem: hands-on splitting</a></li>
+  </ul></li>
+  <li><a href="#pruning" id="toc-pruning" class="nav-link" data-scroll-target="#pruning">Pruning</a>
+  <ul class="collapse">
+  <li><a href="#cost-complexity-pruning" id="toc-cost-complexity-pruning" class="nav-link" data-scroll-target="#cost-complexity-pruning">Cost complexity pruning</a></li>
+  <li><a href="#pruning-in-practice" id="toc-pruning-in-practice" class="nav-link" data-scroll-target="#pruning-in-practice">Pruning in practice</a></li>
+  </ul></li>
+  <li><a href="#r-function-tree-in-package-tree" id="toc-r-function-tree-in-package-tree" class="nav-link" data-scroll-target="#r-function-tree-in-package-tree">R: function <code>tree</code> in package <code>tree</code></a></li>
+  <li><a href="#r-rpart-package" id="toc-r-rpart-package" class="nav-link" data-scroll-target="#r-rpart-package">R: <code>rpart</code> package</a></li>
+  <li><a href="#regression-example" id="toc-regression-example" class="nav-link" data-scroll-target="#regression-example">Regression example</a>
+  <ul class="collapse">
+  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#regression-tree-1" id="toc-regression-tree-1" class="nav-link" data-scroll-target="#regression-tree-1">Regression tree</a></li>
+  <li><a href="#need-to-prune" id="toc-need-to-prune" class="nav-link" data-scroll-target="#need-to-prune">Need to prune?</a></li>
+  <li><a href="#pruning-1" id="toc-pruning-1" class="nav-link" data-scroll-target="#pruning-1">Pruning</a></li>
+  <li><a href="#test-error-for-full-tree" id="toc-test-error-for-full-tree" class="nav-link" data-scroll-target="#test-error-for-full-tree">Test error for full tree</a></li>
+  <li><a href="#effect-of-changing-training-set" id="toc-effect-of-changing-training-set" class="nav-link" data-scroll-target="#effect-of-changing-training-set">Effect of changing training set</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#classification-tree" id="toc-classification-tree" class="nav-link" data-scroll-target="#classification-tree">Classification tree</a>
+  <ul class="collapse">
+  <li><a href="#fitting-a-classification-tree" id="toc-fitting-a-classification-tree" class="nav-link" data-scroll-target="#fitting-a-classification-tree">Fitting a classification tree</a>
+  <ul class="collapse">
+  <li><a href="#why-not-misclassification-rate-as-the-split-criterion" id="toc-why-not-misclassification-rate-as-the-split-criterion" class="nav-link" data-scroll-target="#why-not-misclassification-rate-as-the-split-criterion">Why not misclassification rate as the split criterion?</a></li>
+  </ul></li>
+  <li><a href="#classification-example" id="toc-classification-example" class="nav-link" data-scroll-target="#classification-example">Classification example</a>
+  <ul class="collapse">
+  <li><a href="#full-tree-performance" id="toc-full-tree-performance" class="nav-link" data-scroll-target="#full-tree-performance">Full tree performance</a></li>
+  <li><a href="#pruned-tree-performance" id="toc-pruned-tree-performance" class="nav-link" data-scroll-target="#pruned-tree-performance">Pruned tree performance</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#tree-issues" id="toc-tree-issues" class="nav-link" data-scroll-target="#tree-issues">Tree issues</a>
+  <ul class="collapse">
+  <li><a href="#building-a-regression-classification-tree" id="toc-building-a-regression-classification-tree" class="nav-link" data-scroll-target="#building-a-regression-classification-tree">Building a regression (classification) tree</a></li>
+  <li><a href="#handling-missing-covariates-in-trees" id="toc-handling-missing-covariates-in-trees" class="nav-link" data-scroll-target="#handling-missing-covariates-in-trees">Handling missing covariates in trees</a>
+  <ul class="collapse">
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  </ul></li>
+  <li><a href="#other-issues" id="toc-other-issues" class="nav-link" data-scroll-target="#other-issues">Other issues</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a>
+  <ul class="collapse">
+  <li><a href="#some-answers" id="toc-some-answers" class="nav-link" data-scroll-target="#some-answers">Some answers</a></li>
+  </ul></li>
+  <li><a href="#what-is-next" id="toc-what-is-next" class="nav-link" data-scroll-target="#what-is-next">What is next?</a></li>
+  </ul></li>
+  <li><a href="#bagging" id="toc-bagging" class="nav-link" data-scroll-target="#bagging">Bagging</a>
+  <ul class="collapse">
+  <li><a href="#high-variance-of-trees" id="toc-high-variance-of-trees" class="nav-link" data-scroll-target="#high-variance-of-trees">High variance of trees</a></li>
+  <li><a href="#independent-data-sets" id="toc-independent-data-sets" class="nav-link" data-scroll-target="#independent-data-sets">Independent data sets</a></li>
+  <li><a href="#bootstrapping" id="toc-bootstrapping" class="nav-link" data-scroll-target="#bootstrapping">Bootstrapping</a></li>
+  <li><a href="#bootstrap-samples-and-trees" id="toc-bootstrap-samples-and-trees" class="nav-link" data-scroll-target="#bootstrap-samples-and-trees">Bootstrap samples and trees</a></li>
+  <li><a href="#bagging-regression-trees" id="toc-bagging-regression-trees" class="nav-link" data-scroll-target="#bagging-regression-trees">Bagging regression trees</a></li>
+  <li><a href="#bagging-classification-trees" id="toc-bagging-classification-trees" class="nav-link" data-scroll-target="#bagging-classification-trees">Bagging classification trees</a>
+  <ul class="collapse">
+  <li><a href="#prediction-by-consensus-vs-probability" id="toc-prediction-by-consensus-vs-probability" class="nav-link" data-scroll-target="#prediction-by-consensus-vs-probability">Prediction by consensus vs probability</a></li>
+  </ul></li>
+  <li><a href="#choosing-b" id="toc-choosing-b" class="nav-link" data-scroll-target="#choosing-b">Choosing <span class="math inline">\(B\)</span></a></li>
+  <li><a href="#pruning-trees" id="toc-pruning-trees" class="nav-link" data-scroll-target="#pruning-trees">Pruning trees?</a></li>
+  <li><a href="#bagging-algorithm" id="toc-bagging-algorithm" class="nav-link" data-scroll-target="#bagging-algorithm">Bagging algorithm</a></li>
+  <li><a href="#wisdom-of-the-crowd" id="toc-wisdom-of-the-crowd" class="nav-link" data-scroll-target="#wisdom-of-the-crowd">Wisdom of the crowd</a></li>
+  <li><a href="#out-of-bag-error-estimation" id="toc-out-of-bag-error-estimation" class="nav-link" data-scroll-target="#out-of-bag-error-estimation">Out-of-bag error estimation</a>
+  <ul class="collapse">
+  <li><a href="#boston-housing" id="toc-boston-housing" class="nav-link" data-scroll-target="#boston-housing">Boston housing</a></li>
+  <li><a href="#pima-indians" id="toc-pima-indians" class="nav-link" data-scroll-target="#pima-indians">Pima indians</a></li>
+  </ul></li>
+  <li><a href="#when-should-we-use-bagging" id="toc-when-should-we-use-bagging" class="nav-link" data-scroll-target="#when-should-we-use-bagging">When should we use bagging?</a></li>
+  </ul></li>
+  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest">Random forest</a>
+  <ul class="collapse">
+  <li><a href="#the-effect-of-correlation-on-the-variance-of-the-mean" id="toc-the-effect-of-correlation-on-the-variance-of-the-mean" class="nav-link" data-scroll-target="#the-effect-of-correlation-on-the-variance-of-the-mean">The effect of correlation on the variance of the mean</a></li>
+  <li><a href="#core-modifications-to-bagging" id="toc-core-modifications-to-bagging" class="nav-link" data-scroll-target="#core-modifications-to-bagging">Core modifications to bagging</a></li>
+  <li><a href="#random-forest-algorithm" id="toc-random-forest-algorithm" class="nav-link" data-scroll-target="#random-forest-algorithm">Random forest algorithm</a></li>
+  <li><a href="#oob-again" id="toc-oob-again" class="nav-link" data-scroll-target="#oob-again">OOB again</a></li>
+  <li><a href="#variable-importance-plots" id="toc-variable-importance-plots" class="nav-link" data-scroll-target="#variable-importance-plots">Variable importance plots</a>
+  <ul class="collapse">
+  <li><a href="#variable-importance-for-a-single-tree" id="toc-variable-importance-for-a-single-tree" class="nav-link" data-scroll-target="#variable-importance-for-a-single-tree">Variable importance for a single tree</a></li>
+  <li><a href="#from-single-to-many-trees" id="toc-from-single-to-many-trees" class="nav-link" data-scroll-target="#from-single-to-many-trees">From single to many trees</a></li>
+  <li><a href="#variable-importance-based-on-randomization" id="toc-variable-importance-based-on-randomization" class="nav-link" data-scroll-target="#variable-importance-based-on-randomization">Variable importance based on randomization</a></li>
+  <li><a href="#boston" id="toc-boston" class="nav-link" data-scroll-target="#boston">Boston</a></li>
+  <li><a href="#pima-indians-1" id="toc-pima-indians-1" class="nav-link" data-scroll-target="#pima-indians-1">Pima indians</a></li>
+  </ul></li>
+  <li><a href="#forward---boosting-next" id="toc-forward---boosting-next" class="nav-link" data-scroll-target="#forward---boosting-next">Forward - boosting next</a></li>
+  </ul></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+  <li><a href="#small-tasks" id="toc-small-tasks" class="nav-link" data-scroll-target="#small-tasks">Small tasks</a></li>
+  <li><a href="#prove-the-formula" id="toc-prove-the-formula" class="nav-link" data-scroll-target="#prove-the-formula">Prove the formula</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">MA8701 Advanced methods in statistical inference and learning</h1>
+<p class="subtitle lead">Part 3: Ensembles. L13: Bagging - trees - random forests</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mette Langaas </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 21, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<p>Course homepage: <a href="https://wiki.math.ntnu.no/ma8701/2023v/start" class="uri">https://wiki.math.ntnu.no/ma8701/2023v/start</a></p>
+<section id="ensembles---first-act" class="level1">
+<h1>Ensembles - first act</h1>
+<section id="outline" class="level2">
+<h2 class="anchored" data-anchor-id="outline">Outline</h2>
+<ul>
+<li>Trees</li>
+<li>Many trees with bootstrap aggregation</li>
+<li>Many trees into a random forest</li>
+<li>Conclusions</li>
+</ul>
+</section>
+<section id="literature" class="level2">
+<h2 class="anchored" data-anchor-id="literature">Literature</h2>
+<ul>
+<li>[ESL] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. <a href="https://hastie.su.domains/ElemStatLearn/download.html">Ebook</a>. Chapter 8.7 (bagging), 9.2 (trees), 15 (random forest, not 15.3.3 and 15.4.3).</li>
+</ul>
+</section>
+</section>
+<section id="trees" class="level1">
+<h1>Trees</h1>
+<p>(ESL 9.2)</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="./cart.jpg" class="img-fluid" style="width:25.0%"></p>
+</div>
+</div>
+<hr>
+<section id="leo-breiman" class="level2">
+<h2 class="anchored" data-anchor-id="leo-breiman">Leo Breiman</h2>
+<p>the inventor of CART, bagging and random forests</p>
+<p>Quotation from <a href="https://en.wikipedia.org/wiki/Leo_Breiman">Wikipedia</a></p>
+<p>Leo Breiman (January 27, 1928 – July 5, 2005) was a distinguished statistician at the University of California, Berkeley. He was the recipient of numerous honors and awards, and was a member of the United States National Academy of Science.</p>
+<p>Breiman’s work helped to bridge the gap between statistics and computer science, particularly in the field of machine learning. His most important contributions were his work on classification and regression trees and ensembles of trees fit to bootstrap samples. Bootstrap aggregation was given the name bagging by Breiman. Another of Breiman’s ensemble approaches is the random forest.</p>
+<p>From <a href="https://www.berkeley.edu/news/media/releases/2005/07/07_breiman.shtml">Breimans obituary</a></p>
+<p>BERKELEY – Leo Breiman, professor emeritus of statistics at the University of California, Berkeley.</p>
+<p>“It is trite to say so, but Leo Breiman was indeed a Renaissance man, and we shall miss him greatly,” said Peter Bickel, professor of statistics and chairman this summer of UC Berkeley’s statistics department.</p>
+<p>Breiman retired in 1993, but as a Professor in the Graduate School, he continued to get substantial National Science Foundation grants and supervised three Ph.D.&nbsp;students. Bickel said that some of Breiman’s best work was done after retirement.</p>
+<p>“In particular,” said Bickel, “he developed one of the most successful state-of-the-art classification programs, ‘Random Forest.’ This method was based on a series of new ideas that he developed in papers during the last seven years, and it is extensively used in government and industry.”</p>
+<p>Breiman’s best known work is considered to be “Classification and Regression Trees,” a work in collaboration with three other scholars that facilitates practical applications, such as the diagnosis of diseases, from a multitude of symptoms.</p>
+<hr>
+</section>
+<section id="main-idea" class="level2">
+<h2 class="anchored" data-anchor-id="main-idea">Main idea</h2>
+<p>(for regression or classification)</p>
+<ul>
+<li>Derive a set of decision rules for segmenting the predictor space into a number of regions.</li>
+<li>We classify a new observation into one of these regions by applying the derived decision rules.</li>
+<li>Then we typically use the mean (regression problems) or a majority vote (classification problems) of the training observations in this region as the prediction in the region.</li>
+<li>Key advantage: interpretability.</li>
+</ul>
+<p>We will only allow <em>recursive binary partitions</em> of the predictor space, using some stopping criterion.</p>
+<hr>
+<section id="from-regions-in-predictor-space-to-decision-tree" class="level3">
+<h3 class="anchored" data-anchor-id="from-regions-in-predictor-space-to-decision-tree">From regions in predictor space to decision tree</h3>
+<p>(ESL Figure 9.2)</p>
+<hr>
+</section>
+</section>
+<section id="glossary" class="level2">
+<h2 class="anchored" data-anchor-id="glossary">Glossary</h2>
+<ul>
+<li>Classification and regression trees are usually drawn upside down, where the top node is called the <em>root</em>.</li>
+<li>The <em>terminal nodes</em> or <em>leaf nodes</em> are the nodes at the bottom, with no splitting criteria. These represent the final predicted class (for classification trees) or predicted response value (for regression trees) and are written symbolically as <span class="math inline">\(R_m\)</span> for <span class="math inline">\(m = 1, 2, ..., M\)</span> - and will be referred to as <em>non-overlapping regions</em>.</li>
+<li><em>Internal nodes</em> are all nodes between the root and the terminal nodes. These nodes correspond to the partitions of the predictor space.</li>
+<li><em>Branches</em>: segment of the tree connecting the nodes.</li>
+</ul>
+<hr>
+<section id="problem-preditor-space-partition-vs-tree" class="level3">
+<h3 class="anchored" data-anchor-id="problem-preditor-space-partition-vs-tree">Problem: preditor space partition vs tree</h3>
+<p>(from IRSL)</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./ILSR812.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p></p><figcaption class="figure-caption">Figure 8.12 in <span class="citation" data-cites="ISL">James et al. (<a href="#ref-ISL" role="doc-biblioref">2013</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<ol type="1">
+<li><p>Draw the tree corresponding to the partition of the predictor space (left).</p></li>
+<li><p>Draw a partitioning of the predictor space corresponding to the tree (right).</p></li>
+</ol>
+<p><a href="https://rstudio-pubs-static.s3.amazonaws.com/65564_925dfde884e14ef9b5735eddd16c263e.html">Solutions (Q4)</a></p>
+<hr>
+</section>
+</section>
+</section>
+<section id="regression-tree" class="level1">
+<h1>Regression tree</h1>
+<section id="fitting-a-regression-tree" class="level2">
+<h2 class="anchored" data-anchor-id="fitting-a-regression-tree">Fitting a regression tree</h2>
+<p>Assume that we have a dataset consisting of <span class="math inline">\(N\)</span> pairs <span class="math inline">\(({\bf x}_i,Y_i)\)</span>, <span class="math inline">\(i=1,\ldots,N\)</span>, and each predictor is <span class="math inline">\({\bf x}_i=(x_{i1},x_{i2},...,x_{ip})\)</span>.</p>
+<p>We want:</p>
+<p><span class="math display">\[\hat{f}(X_i)=\sum_{m=1}^M \hat{c}_m I(X_i \in R_m)\]</span> where <span class="math inline">\(\hat{c}_m\)</span> is the estimate for region <span class="math inline">\(R_m\)</span>.</p>
+<hr>
+<p>Two steps:</p>
+<ol type="1">
+<li>Divide the predictor space into non-overlapping regions <span class="math inline">\(R_1,R_2,\ldots,R_m\)</span>.</li>
+<li>For every observation that falls into region <span class="math inline">\(R_j\)</span> we make the same prediction - which is the mean of the responses for the training observations that fall into <span class="math inline">\(R_j\)</span>. <span class="math display">\[\hat{c}_m=\text{ave}(y_i \mid x_i \in R_m)\]</span></li>
+</ol>
+<p>How to divide the predictor space into non-overlapping regions <span class="math inline">\(R_1,R_2,\ldots,R_m\)</span>?</p>
+<hr>
+<p>We could try to minimize the MSE (mean squared error, residual sums of squares) on the training set given by <span class="math display">\[
+\text{MSE}=\sum_{m=1}^M \sum_{i \in R_m}(y_i-\hat{c}_m)^2,
+\]</span> where <span class="math inline">\(\hat{c}_m\)</span> is the mean response for the training observations in region <span class="math inline">\(m\)</span>, and is also used as the predicted value for a new observations that falls into region <span class="math inline">\(m\)</span>.</p>
+<p>To do this we need to consider every partition of the predictor space, and compute the MSE for each partition.</p>
+<hr>
+<p>Ripley (1996, p 216): Two types of optimality. a) Optimality of the partitioning of the predictor space : only feasible for small dimensions. b) Given partitioning of predictor space, how to represent this by a tree in the best possible way (=minimal expected number of tests) is a NP-complete problem. (NP=nondeterministic polynomial, a NP problem can be solved in polynomial time.)</p>
+<p>A <em>greedy</em> approach is taken (aka top-down) - called <em>recursive binary splitting.</em></p>
+<hr>
+</section>
+<section id="recursive-binary-splitting" class="level2">
+<h2 class="anchored" data-anchor-id="recursive-binary-splitting">Recursive binary splitting</h2>
+<hr>
+<p>We start at the top of the tree and divide the predictor space into two regions, <span class="math inline">\(R_1\)</span> and <span class="math inline">\(R_2\)</span> by making a decision rule for one of the predictors <span class="math inline">\(x_1, x_2,...,x_p\)</span>. If we define the two regions by</p>
+<p><span class="math display">\[R_1(j,s)=\{x|x_j\le s\} \text{ and }  R_2(j,s)=\{x|x_j &gt; s\}\]</span></p>
+<p>We need to find the (predictor) <span class="math inline">\(j\)</span> and (splitting point) <span class="math inline">\(s\)</span> that minimize</p>
+<p><span class="math display">\[\min_{j,s} [ \min_{c_1}\sum_{i: x_i \in R_1(j,s)}(y_i-c_1)^2+\min_{c_2} \sum_{i: x_i \in R_2(j,s)}(y_i -c_2)^2]\]</span></p>
+<p>For any choice of <span class="math inline">\(j\)</span> and <span class="math inline">\(s\)</span> the inner minimization: <span class="math display">\[ \hat{c}_1=\text{ave}(y_i \mid x_i \in R_1(j,s)) \text{ and }
+\hat{c}_2=\text{ave}(y_i \mid x_i \in R_2(j,s))\]</span></p>
+<p>This way we get the two first branches in our decision tree.</p>
+<p>How costly is this?</p>
+<hr>
+<ul>
+<li>We repeat the process to make branches further down in the tree.</li>
+<li>For every iteration we let each single split depend on <em>only one of the predictors</em>, giving us two new branches.</li>
+<li>This is done <em>successively</em> and in each step we choose the split that gives the best split at that particular step, i.e the split that gives the smallest MSE.</li>
+<li>We don’t consider splits that further down the tree might give a tree with a lower overall MSE.</li>
+</ul>
+<p>We continue splitting the predictor space until we reach some <em>stopping criterion</em>. For example we stop when a region contains less than 5 or 10 observations.</p>
+<p>What about using as stopping criterion that the reduction in the MSE is smaller than a specified limit? There is always a possibility that after a split with little reduction in MSE we might have a split with high reduction in MSE - leading to suggesting to fit a large tree and then <em>prune</em> down the tree afterwards.</p>
+<hr>
+<section id="problem-hands-on-splitting" class="level3">
+<h3 class="anchored" data-anchor-id="problem-hands-on-splitting">Problem: hands-on splitting</h3>
+<p>Based on the data below find the optimal splitting variable and split point for the first binary splitting for these data according to the recursive binary splitting algorithm. <em>Hint</em>: Draw a figure and look at possible divisions.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(i\)</span></th>
+<th style="text-align: center;"><span class="math inline">\((x_{i1},x_{i2})\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(y\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">(1,3)</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">(2,2)</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">(3,2)</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">(3,4)</td>
+<td style="text-align: center;">7</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>n= 4 
+
+node), split, n, deviance, yval
+      * denotes terminal node
+
+ 1) root 4 14.750000 4.250000  
+   2) x2&lt; 3.5 3  4.666667 3.333333  
+     4) x1&lt; 1.5 1  0.000000 2.000000 *
+     5) x1&gt;=1.5 2  2.000000 4.000000  
+      10) x1&gt;=2.5 1  0.000000 3.000000 *
+      11) x1&lt; 2.5 1  0.000000 5.000000 *
+   3) x2&gt;=3.5 1  0.000000 7.000000 *</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> y                            
+ 2 when x2 &lt;  4 &amp; x1 &lt;  2     
+ 3 when x2 &lt;  4 &amp; x1 &gt;=      3
+ 5 when x2 &lt;  4 &amp; x1 is 2 to 3
+ 7 when x2 &gt;= 4               </code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="pruning" class="level2">
+<h2 class="anchored" data-anchor-id="pruning">Pruning</h2>
+<hr>
+<p>Imagine that we have a data set with many predictors, and that we fit a large tree. Then, the number of observations from the training set that falls into some of the regions <span class="math inline">\(R_j\)</span> may be small, and we may be concerned that we have overfitted the training data.</p>
+<p><em>Pruning</em> is a technique for solving this problem.</p>
+<p>By <em>pruning</em> the tree we reduce the size or depth of the decision tree. When we reduce the number of terminal nodes and regions <span class="math inline">\(R_1,...,R_M\)</span>, each region will probably contain more observations.</p>
+<p>If we have a large dataset with many explanatory variables and terminal nodes, we can also prune the tree if we want to create a simpler tree and increase the interpretability of the model, or just avoid “unneccesary” splits (for classification that could mean that both branches give the same classification rule).</p>
+<hr>
+<section id="cost-complexity-pruning" class="level3">
+<h3 class="anchored" data-anchor-id="cost-complexity-pruning">Cost complexity pruning</h3>
+<p>We first build a large tree <span class="math inline">\(T_0\)</span> by recursive binary splitting. Then we try to find a sub-tree <span class="math inline">\(T\subset T_0\)</span> that (for a given value of <span class="math inline">\(\alpha\)</span>) minimizes</p>
+<p><span class="math display">\[
+C_{\alpha}(T)=Q(T)+\alpha |T|,
+\]</span></p>
+<p>where <span class="math inline">\(Q(T)\)</span> is our cost function, <span class="math inline">\(|T|\)</span> is the number of terminal nodes in tree <span class="math inline">\(T\)</span>. The parameter <span class="math inline">\(\alpha\)</span> is then a parameter penalizing the number of terminal nodes, ensuring that the tree does not get too many branches.</p>
+<p>We proceed by repeating the the process for a larger value of <span class="math inline">\(\alpha\)</span>, and this way we get a sequence of smaller of smaller sub-trees where each tree is the best sub-tree of the previous tree.</p>
+<p>For regression trees we choose <span class="math inline">\(Q(T)=\sum_{m=1}^{|T|}\sum_{x_i\in R_m}(y_i - \hat{c}_m)^2\)</span>, and or classification trees (to come next) the entropy, Gini or misclassification rate (the last most popular).</p>
+<hr>
+<p>Given a value of <span class="math inline">\(\alpha\)</span> we get a pruned tree (but the same pruned tree for “ranges” of <span class="math inline">\(\alpha\)</span>). For <span class="math inline">\(\alpha=0\)</span> we get <span class="math inline">\(T_0\)</span> and as <span class="math inline">\(\alpha\)</span> increases we get smaller and smaller trees.</p>
+<p>Technically an algorithm called <em>weakest link pruning</em> is used, where internal nodes in the tree is collapsed to get the smallest increase pr node for <span class="math inline">\(Q(T)\)</span>. This is done successively until the tree is a single node tree.</p>
+<p>Please study this <a href="https://www.math.ntnu.no/emner/TMA4268/2018v/notes/CART1MA87012017BoLindqvist.pdf">note from Bo Lindqvist in MA8701 in 2017</a> for an example of how we perform cost complexity pruning in detail. Alternatively, this method, with proofs, are given in Ripley (1996), Section 7.2.</p>
+<p>The consept of pruning is not central in our course, since we will mostly use trees as building blocks in bagging, random forest and boosting (where pruning is not “needed”).</p>
+<hr>
+</section>
+<section id="pruning-in-practice" class="level3">
+<h3 class="anchored" data-anchor-id="pruning-in-practice">Pruning in practice</h3>
+<p>The penalty parameter <span class="math inline">\(\alpha\)</span> is a <em>model hyperparameter</em> and is chosen by cross-validation.</p>
+<hr>
+</section>
+</section>
+<section id="r-function-tree-in-package-tree" class="level2">
+<h2 class="anchored" data-anchor-id="r-function-tree-in-package-tree">R: function <code>tree</code> in package <code>tree</code></h2>
+<p>by <a href="https://cran.r-project.org/web/packages/tree/index.html">Brian D. Ripley: Fit a Classification or Regression Tree</a></p>
+<p>Description: A tree is grown by binary recursive partitioning using the response in the specified formula and choosing splits from the terms of the right-hand-side.</p>
+<p>tree(formula, data, weights, subset, na.action = na.pass, control = tree.control(nobs, …), method = “recursive.partition”, split = c(“deviance”, “gini”), model = FALSE, x = FALSE, y = TRUE, wts = TRUE, …)</p>
+<hr>
+<ul>
+<li>Details: A tree is grown by binary recursive partitioning using the response in the specified formula and choosing splits from the terms of the right-hand-side. Numeric variables are divided into X &lt; a and X &gt; a; the levels of an unordered factor are divided into two non-empty groups. The split which maximizes the reduction in impurity is chosen, the data set split and the process repeated. Splitting continues until the terminal nodes are too small or too few to be split.</li>
+<li>A numerical response gives regression while a factor response gives classification.</li>
+<li>The default choice for a function to minimize is the deviance, and for normal data (as we may assume for regression), the deviance is proportional to the MSE. For the interested reader, this is the connection between the deviance and the MSE for regression <a href="https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html#deviance" class="uri">https://www.math.ntnu.no/emner/TMA4315/2018h/2MLR.html#deviance</a></li>
+</ul>
+<hr>
+<ul>
+<li>Tree growth is limited to a depth of 31 by the use of integers to label nodes.</li>
+<li>Factor predictor variables can have up to 32 levels. This limit is imposed for ease of labelling, but since their use in a classification tree with three or more levels in a response involves a search over 2^(k-1) - 1 groupings for k levels, the practical limit is much less.</li>
+</ul>
+</section>
+<section id="r-rpart-package" class="level2">
+<h2 class="anchored" data-anchor-id="r-rpart-package">R: <code>rpart</code> package</h2>
+<p>A competing R function is <code>rpart</code>, explained in package <a href="https://cran.r-project.org/web/packages/rpart/vignettes/longintro.pdf">vignette</a>. Short on using <a href="https://www.statmethods.net/advstats/cart.html"><code>rpart</code> R package for CART</a>.</p>
+<hr>
+</section>
+<section id="regression-example" class="level2">
+<h2 class="anchored" data-anchor-id="regression-example">Regression example</h2>
+<p>(ISLR book, Section 8.3.4.)</p>
+<p>Information from <a href="https://www.cs.toronto.edu/~delve/data/boston/bostonDetail.html" class="uri">https://www.cs.toronto.edu/~delve/data/boston/bostonDetail.html</a>.</p>
+<ul>
+<li>Collected by the U.S Census Service concerning housing in the area of Boston Massachusetts, US.</li>
+<li>Two tasks often performed: predict nitrous oxide level (nox), or predict the median value of a house with in a “town” (medv).</li>
+</ul>
+<hr>
+<section id="variables" class="level3">
+<h3 class="anchored" data-anchor-id="variables">Variables</h3>
+<ul>
+<li>CRIM - per capita crime rate by town</li>
+<li>ZN - proportion of residential land zoned for lots over 25,000 sq.ft.</li>
+<li>INDUS - proportion of non-retail business acres per town.</li>
+<li>CHAS - Charles River dummy variable (1 if tract bounds river; 0 otherwise)</li>
+<li>NOX - nitric oxides concentration (parts per 10 million)</li>
+<li>RM - average number of rooms per dwelling</li>
+<li>AGE - proportion of owner-occupied units built prior to 1940</li>
+<li>DIS - weighted distances to five Boston employment centres</li>
+<li>RAD - index of accessibility to radial highways</li>
+<li>TAX - full-value property-tax rate per $10,000</li>
+<li>PTRATIO - pupil-teacher ratio by town</li>
+<li>B - #1000(Bk - 0.63)^2# where Bk is the proportion of African Americans by town (black below)</li>
+<li>LSTAT - % lower status of the population</li>
+<li>MEDV - Median value of owner-occupied homes in $1000’s (seems to be a truncation)</li>
+</ul>
+<hr>
+</section>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">Data</h3>
+<p>Boston data used from the <code>MASS</code> R package. Data are divided into a training and a test set with 70/30 split.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "crim"    "zn"      "indus"   "chas"    "nox"     "rm"      "age"    
+ [8] "dis"     "rad"     "tax"     "ptratio" "black"   "lstat"   "medv"   </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     crim zn indus chas   nox    rm  age    dis rad tax ptratio  black lstat
+1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90  4.98
+2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90  9.14
+3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83  4.03
+4 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63  2.94
+5 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90  5.33
+6 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12  5.21
+  medv
+1 24.0
+2 21.6
+3 34.7
+4 33.4
+5 36.2
+6 28.7</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="regression-tree-1" class="level3">
+<h3 class="anchored" data-anchor-id="regression-tree-1">Regression tree</h3>
+<p>First with <code>tree</code> and default parameters.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tree.boston<span class="ot">=</span><span class="fu">tree</span>(medv<span class="sc">~</span>.,Boston,<span class="at">subset=</span>train)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tree.boston); <span class="fu">plot</span>(tree.boston)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Regression tree:
+tree(formula = medv ~ ., data = Boston, subset = train)
+Variables actually used in tree construction:
+[1] "rm"    "lstat" "crim" 
+Number of terminal nodes:  6 
+Residual mean deviance:  14.86 = 5172 / 348 
+Distribution of residuals:
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+-11.36000  -2.25600  -0.04933   0.00000   2.16700  28.14000 </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(tree.boston,<span class="at">pretty=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tree.boston</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>node), split, n, deviance, yval
+      * denotes terminal node
+
+ 1) root 354 32270.0 22.95  
+   2) rm &lt; 6.945 296 10830.0 19.82  
+     4) lstat &lt; 14.405 177  3681.0 23.17  
+       8) rm &lt; 6.543 138  1690.0 21.86 *
+       9) rm &gt; 6.543 39   908.2 27.82 *
+     5) lstat &gt; 14.405 119  2215.0 14.84  
+      10) crim &lt; 5.76921 63   749.9 17.33 *
+      11) crim &gt; 5.76921 56   636.1 12.04 *
+   3) rm &gt; 6.945 58  3754.0 38.92  
+     6) rm &lt; 7.445 33   749.7 33.13 *
+     7) rm &gt; 7.445 25   438.0 46.56 *</code></pre>
+</div>
+</div>
+<hr>
+<p>Then with the <code>rpart</code> R package, and default parameters. This gives the same tree as <code>tree</code>. (What do you think of the tree from <code>rpart.plot</code>?)</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>boston.rpart <span class="ot">&lt;-</span> <span class="fu">rpart</span>(<span class="at">formula =</span> medv<span class="sc">~</span>. , <span class="at">data =</span> Boston,<span class="at">subset=</span>train)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(boston.rpart)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(boston.rpart,<span class="at">pretty=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(boston.rpart,<span class="at">type =</span> <span class="dv">3</span>, <span class="at">box.palette =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"grey"</span>), <span class="at">fallen.leaves =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="need-to-prune" class="level3">
+<h3 class="anchored" data-anchor-id="need-to-prune">Need to prune?</h3>
+<p>The default criterion to monitor is the deviance. For normal regression the deviance is proportional to the MSE.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cv.boston<span class="ot">=</span><span class="fu">cv.tree</span>(tree.boston)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv.boston<span class="sc">$</span>size,cv.boston<span class="sc">$</span>dev,<span class="at">type=</span><span class="st">'b'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Most complex tree selected.</p>
+<hr>
+</section>
+<section id="pruning-1" class="level3">
+<h3 class="anchored" data-anchor-id="pruning-1">Pruning</h3>
+<p>Just to show pruning (even if most complex tree was selected).</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>prune.boston<span class="ot">=</span><span class="fu">prune.tree</span>(tree.boston,<span class="at">best=</span><span class="dv">5</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prune.boston)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(prune.boston,<span class="at">pretty=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="test-error-for-full-tree" class="level3">
+<h3 class="anchored" data-anchor-id="test-error-for-full-tree">Test error for full tree</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>yhat<span class="ot">=</span><span class="fu">predict</span>(tree.boston,<span class="at">newdata=</span>Boston[<span class="sc">-</span>train,])</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>boston.test<span class="ot">=</span>Boston[<span class="sc">-</span>train,<span class="st">"medv"</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(yhat,boston.test, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"MSE on test set for tree"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "MSE on test set for tree"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((yhat<span class="sc">-</span>boston.test)<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 36.2319</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="effect-of-changing-training-set" class="level3">
+<h3 class="anchored" data-anchor-id="effect-of-changing-training-set">Effect of changing training set</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>train2 <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Boston), <span class="fl">0.7</span><span class="sc">*</span><span class="fu">nrow</span>(Boston))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>tree.boston2<span class="ot">=</span><span class="fu">tree</span>(medv<span class="sc">~</span>.,Boston,<span class="at">subset=</span>train2)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tree.boston2); <span class="fu">plot</span>(tree.boston2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Regression tree:
+tree(formula = medv ~ ., data = Boston, subset = train2)
+Variables actually used in tree construction:
+[1] "lstat"   "rm"      "dis"     "ptratio" "nox"    
+Number of terminal nodes:  10 
+Residual mean deviance:  14.31 = 4921 / 344 
+Distribution of residuals:
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-16.0600  -2.0070  -0.0288   0.0000   1.8850  15.7600 </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(tree.boston2,<span class="at">pretty=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>tree.boston2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>node), split, n, deviance, yval
+      * denotes terminal node
+
+ 1) root 354 30810.0 22.58  
+   2) lstat &lt; 8.91 128  9746.0 31.26  
+     4) rm &lt; 6.941 75  2746.0 26.43  
+       8) dis &lt; 1.77785 5   702.1 40.36 *
+       9) dis &gt; 1.77785 70  1004.0 25.43  
+        18) rm &lt; 6.531 41   244.3 23.18 *
+        19) rm &gt; 6.531 29   258.8 28.61 *
+     5) rm &gt; 6.941 53  2776.0 38.09  
+      10) rm &lt; 7.437 32   657.1 34.24 *
+      11) rm &gt; 7.437 21   925.3 43.95  
+        22) ptratio &lt; 17.6 16   209.8 46.53 *
+        23) ptratio &gt; 17.6 5   266.9 35.68 *
+   3) lstat &gt; 8.91 226  5965.0 17.66  
+     6) lstat &lt; 16.215 125  1549.0 20.53 *
+     7) lstat &gt; 16.215 101  2117.0 14.11  
+      14) nox &lt; 0.603 31   456.5 18.00 *
+      15) nox &gt; 0.603 70   984.4 12.39  
+        30) lstat &lt; 19.645 31   204.7 15.10 *
+        31) lstat &gt; 19.645 39   372.5 10.24 *</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>xnew<span class="ot">=</span>Boston[<span class="dv">1</span>,]</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(tree.boston,<span class="at">newdata=</span>xnew)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+27.82308 </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(tree.boston2,<span class="at">newdata=</span>xnew)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+28.61034 </code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+</section>
+<section id="classification-tree" class="level1">
+<h1>Classification tree</h1>
+<p>There are only minor differences between working with regression and classification trees.</p>
+<section id="fitting-a-classification-tree" class="level2">
+<h2 class="anchored" data-anchor-id="fitting-a-classification-tree">Fitting a classification tree</h2>
+<p>Let <span class="math inline">\(K\)</span> be the number of classes for the response.</p>
+<p>Building a decision tree in this setting is similar to building a regression tree for a quantitative response, but there are two main differences: <em>the prediction and the splitting criterion</em></p>
+<hr>
+<p><strong>1) The prediction:</strong></p>
+<ul>
+<li>In the regression case we use the mean value of the responses in <span class="math inline">\(R_j\)</span> as a prediction for an observation that falls into region <span class="math inline">\(R_m\)</span>.</li>
+<li>For the classification case however, we have two possibilities:
+<ul>
+<li>Majority vote: Predict that the observation belongs to the most commonly occurring class of the training observations in <span class="math inline">\(R_m\)</span>.<br>
+</li>
+<li>Estimate the probability that an observation <span class="math inline">\(x_i\)</span> belongs to a class <span class="math inline">\(k\)</span>, <span class="math inline">\(\hat{p}_{mk}(x_i)\)</span>, and then classify according to a threshold value. This estimated probability is the proportion of class <span class="math inline">\(k\)</span> training observations in region <span class="math inline">\(R_j\)</span>, with <span class="math inline">\(n_{mk}\)</span> observations. Region <span class="math inline">\(m\)</span> has <span class="math inline">\(N_m\)</span> observations. <span class="math display">\[\hat{p}_{mk} = \frac{1}{N_m} \sum_{i:x_i \in R_m} I(y_i = k)=\frac{n_{mk}}{N_m}.\]</span></li>
+</ul></li>
+</ul>
+<hr>
+<p><strong>2) The splitting criterion:</strong> We do not use MSE as a splitting criterion for a qualitative variable. Instead we can use some <em>measure of impurity</em> of the node. For leaf node (region) <span class="math inline">\(m\)</span> and class <span class="math inline">\(k=1,\ldots, K\)</span>:</p>
+<p>Gini index: <span class="math display">\[
+G=\sum_{k=1}^K \hat{p}_{mk}(1-\hat{p}_{mk}),
+\]</span></p>
+<p>Cross entropy: <span class="math display">\[
+D=-\sum_{k=1}^K \hat{p}_{mk}\log\hat{p}_{mk}
+\]</span> Here <span class="math inline">\(\hat{p}_{mk}\)</span> is the proportion of training observation in region <span class="math inline">\(m\)</span> that are from class <span class="math inline">\(k\)</span>.</p>
+<p>Remark: the deviance is a scaled version of the cross entropy. <span class="math inline">\(-2\sum_{k=1}^K n_{mk} \log\hat{p}_{mk}\)</span> where <span class="math inline">\(\hat{p}_{mk}=\frac{n_{mk}}{N_m}\)</span>. Ripley (1996, page 219).</p>
+<p>When making a split in our classification tree, we want to minimize the Gini index or the cross-entropy.</p>
+<p>The Gini index can be interpreted as the expected error rate if the label is chosen randomly from the class distribution of the node. According to Ripley (1996, page 217) Breiman et al (CART) preferred the Gini index.</p>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<p>For the splitting criterion using <span class="math inline">\(G_1\)</span> or <span class="math inline">\(D_1\)</span> for the left region , and subscript <span class="math inline">\(2\)</span> for the right region.</p>
+<p><span class="math display">\[\min_{j,s} [ \sum_{i: x_i \in R_1(j,s)} N_1G_1 + \sum_{i: x_i \in R_2(j,s)} N_2 G_2]\]</span></p>
+<!-- Here $\hat{c}_j=\text{argmax}_k \hat{p}_{jk}$ . -->
+<hr>
+<section id="why-not-misclassification-rate-as-the-split-criterion" class="level3">
+<h3 class="anchored" data-anchor-id="why-not-misclassification-rate-as-the-split-criterion">Why not misclassification rate as the split criterion?</h3>
+<p>(ESL page 309)</p>
+<p>Data set with 400 controls and 400 cases.</p>
+<p>Two possible split points are considered.</p>
+<ol type="1">
+<li><p>Split A give 400 observations to the left and right, where left node has 300 cases 100 controls and right node has 100 cases and 300 controls. Use majority vote. Misclassification rate=200/800=0.25.</p></li>
+<li><p>Split B has 600 observations to the left and 200 to the right. Now the left node has 200 cases and 400 controls, while the right node has 200 cases and 0 controls. Use majority vote to get 200/800=0.25 misclassification rate.</p></li>
+</ol>
+<p>Which of the splits A or B is the preferable split?</p>
+<p>Answer: B- because we then have a <em>pure</em> node (only one class).</p>
+<p>Gini and cross-entropy would have lower cost for B split than the A split.</p>
+<p>(However, misclassification is the preferred choice for the cost-complexity pruning of classification trees.)</p>
+<hr>
+</section>
+</section>
+<section id="classification-example" class="level2">
+<h2 class="anchored" data-anchor-id="classification-example">Classification example</h2>
+<p>We will use the classical data set of <em>diabetes</em> from a population of women of Pima Indian heritage in the US, available in the R <code>MASS</code> package. The following information is available for each woman:</p>
+<ul>
+<li>diabetes: <code>0</code>= not present, <code>1</code>= present</li>
+<li>npreg: number of pregnancies</li>
+<li>glu: plasma glucose concentration in an oral glucose tolerance test</li>
+<li>bp: diastolic blood pressure (mmHg)</li>
+<li>skin: triceps skin fold thickness (mm)</li>
+<li>bmi: body mass index (weight in kg/(height in m)<span class="math inline">\(^2\)</span>)</li>
+<li>ped: diabetes pedigree function.</li>
+<li>age: age in years</li>
+</ul>
+<p>We will use a training set (called <code>ctrain</code>) with 300 observations (200 non-diabetes and 100 diabetes cases) and a test set (called <code>ctest</code>) with 232 observations (155 non-diabetes and 77 diabetes cases). Our aim is to make a classification rule for diabetes (or not) based on the available data.</p>
+<p>(There is a version of the training data with missing values, <code>Pima.tr2</code> in the <code>MASS</code> library. Here a slightly different shuffling for training and test data than in <code>MASS</code> is used, because these data were used in a project in TMA4268.)</p>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    diabetes          npreg             glu              bp        
+ Min.   :0.0000   Min.   : 0.000   Min.   : 57.0   Min.   : 24.00  
+ 1st Qu.:0.0000   1st Qu.: 1.000   1st Qu.:100.0   1st Qu.: 64.00  
+ Median :0.0000   Median : 2.000   Median :117.0   Median : 70.00  
+ Mean   :0.3333   Mean   : 3.437   Mean   :122.7   Mean   : 71.23  
+ 3rd Qu.:1.0000   3rd Qu.: 5.000   3rd Qu.:143.0   3rd Qu.: 78.00  
+ Max.   :1.0000   Max.   :17.000   Max.   :199.0   Max.   :110.00  
+      skin            bmi             ped              age       
+ Min.   : 7.00   Min.   :18.20   Min.   :0.0850   Min.   :21.00  
+ 1st Qu.:21.00   1st Qu.:27.88   1st Qu.:0.2532   1st Qu.:23.00  
+ Median :29.00   Median :32.90   Median :0.4075   Median :28.00  
+ Mean   :29.22   Mean   :33.09   Mean   :0.4789   Mean   :31.48  
+ 3rd Qu.:37.00   3rd Qu.:37.12   3rd Qu.:0.6525   3rd Qu.:37.25  
+ Max.   :60.00   Max.   :67.10   Max.   :2.1370   Max.   :70.00  </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 15 17 
+37 76 43 34 22 16 16 17 10 12  6  5  3  1  1  1 </code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<section id="full-tree-performance" class="level3">
+<h3 class="anchored" data-anchor-id="full-tree-performance">Full tree performance</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Classification tree:
+tree(formula = factor(diabetes) ~ npreg + glu + bp + skin + bmi + 
+    ped + age, data = ctrain)
+Variables actually used in tree construction:
+[1] "glu"  "age"  "bmi"  "ped"  "bp"   "skin"
+Number of terminal nodes:  20 
+Residual mean deviance:  0.4805 = 134.5 / 280 
+Misclassification error rate: 0.12 = 36 / 300 </code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>node), split, n, deviance, yval, (yprob)
+      * denotes terminal node
+
+  1) root 300 381.900 0 ( 0.66667 0.33333 )  
+    2) glu &lt; 127.5 189 168.700 0 ( 0.83598 0.16402 )  
+      4) age &lt; 28.5 121  64.090 0 ( 0.92562 0.07438 )  
+        8) bmi &lt; 31.4 62   0.000 0 ( 1.00000 0.00000 ) *
+        9) bmi &gt; 31.4 59  50.400 0 ( 0.84746 0.15254 )  
+         18) ped &lt; 0.4895 40  15.880 0 ( 0.95000 0.05000 )  
+           36) ped &lt; 0.1975 12  10.810 0 ( 0.83333 0.16667 ) *
+           37) ped &gt; 0.1975 28   0.000 0 ( 1.00000 0.00000 ) *
+         19) ped &gt; 0.4895 19  25.010 0 ( 0.63158 0.36842 )  
+           38) bp &lt; 69 14  19.410 1 ( 0.50000 0.50000 ) *
+           39) bp &gt; 69 5   0.000 0 ( 1.00000 0.00000 ) *
+      5) age &gt; 28.5 68  85.610 0 ( 0.67647 0.32353 )  
+       10) glu &lt; 96.5 20   0.000 0 ( 1.00000 0.00000 ) *
+       11) glu &gt; 96.5 48  66.210 0 ( 0.54167 0.45833 )  
+         22) ped &lt; 0.5205 28  31.490 0 ( 0.75000 0.25000 )  
+           44) skin &lt; 30.5 9  12.370 1 ( 0.44444 0.55556 ) *
+           45) skin &gt; 30.5 19  12.790 0 ( 0.89474 0.10526 )  
+             90) bp &lt; 69 5   6.730 0 ( 0.60000 0.40000 ) *
+             91) bp &gt; 69 14   0.000 0 ( 1.00000 0.00000 ) *
+         23) ped &gt; 0.5205 20  22.490 1 ( 0.25000 0.75000 )  
+           46) ped &lt; 0.7275 10   0.000 1 ( 0.00000 1.00000 ) *
+           47) ped &gt; 0.7275 10  13.860 1 ( 0.50000 0.50000 )  
+             94) glu &lt; 109.5 5   5.004 0 ( 0.80000 0.20000 ) *
+             95) glu &gt; 109.5 5   5.004 1 ( 0.20000 0.80000 ) *
+    3) glu &gt; 127.5 111 147.200 1 ( 0.37838 0.62162 )  
+      6) glu &lt; 159 70  97.040 1 ( 0.50000 0.50000 )  
+       12) age &lt; 23.5 11   0.000 0 ( 1.00000 0.00000 ) *
+       13) age &gt; 23.5 59  79.730 1 ( 0.40678 0.59322 )  
+         26) bmi &lt; 26.2 5   0.000 0 ( 1.00000 0.00000 ) *
+         27) bmi &gt; 26.2 54  70.050 1 ( 0.35185 0.64815 )  
+           54) glu &lt; 130 9   0.000 1 ( 0.00000 1.00000 ) *
+           55) glu &gt; 130 45  61.290 1 ( 0.42222 0.57778 )  
+            110) age &lt; 41.5 26  34.650 0 ( 0.61538 0.38462 )  
+              220) age &lt; 35.5 19  26.290 1 ( 0.47368 0.52632 ) *
+              221) age &gt; 35.5 7   0.000 0 ( 1.00000 0.00000 ) *
+            111) age &gt; 41.5 19  16.570 1 ( 0.15789 0.84211 )  
+              222) bp &lt; 81 9  11.460 1 ( 0.33333 0.66667 ) *
+              223) bp &gt; 81 10   0.000 1 ( 0.00000 1.00000 ) *
+      7) glu &gt; 159 41  37.480 1 ( 0.17073 0.82927 ) *</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Performance on training set"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Confusion Matrix and Statistics
+
+          Reference
+Prediction   0   1
+         0 169   5
+         1  31  95
+                                          
+               Accuracy : 0.88            
+                 95% CI : (0.8378, 0.9145)
+    No Information Rate : 0.6667          
+    P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+                                          
+                  Kappa : 0.7465          
+                                          
+ Mcnemar's Test P-Value : 3.091e-05       
+                                          
+            Sensitivity : 0.8450          
+            Specificity : 0.9500          
+         Pos Pred Value : 0.9713          
+         Neg Pred Value : 0.7540          
+             Prevalence : 0.6667          
+         Detection Rate : 0.5633          
+   Detection Prevalence : 0.5800          
+      Balanced Accuracy : 0.8975          
+                                          
+       'Positive' Class : 0               
+                                          </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Performance on test set"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Confusion Matrix and Statistics
+
+          Reference
+Prediction   0   1
+         0 110  24
+         1  45  53
+                                          
+               Accuracy : 0.7026          
+                 95% CI : (0.6393, 0.7606)
+    No Information Rate : 0.6681          
+    P-Value [Acc &gt; NIR] : 0.14766         
+                                          
+                  Kappa : 0.3724          
+                                          
+ Mcnemar's Test P-Value : 0.01605         
+                                          
+            Sensitivity : 0.7097          
+            Specificity : 0.6883          
+         Pos Pred Value : 0.8209          
+         Neg Pred Value : 0.5408          
+             Prevalence : 0.6681          
+         Detection Rate : 0.4741          
+   Detection Prevalence : 0.5776          
+      Balanced Accuracy : 0.6990          
+                                          
+       'Positive' Class : 0               
+                                          </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Area under the curve: 0.7362</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="pruned-tree-performance" class="level3">
+<h3 class="anchored" data-anchor-id="pruned-tree-performance">Pruned tree performance</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>node), split, n, deviance, yval, (yprob)
+      * denotes terminal node
+
+1) root 300 381.9 0 ( 0.6667 0.3333 )  
+  2) glu &lt; 127.5 189 168.7 0 ( 0.8360 0.1640 ) *
+  3) glu &gt; 127.5 111 147.2 1 ( 0.3784 0.6216 ) *</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Performance on training set"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Confusion Matrix and Statistics
+
+          Reference
+Prediction   0   1
+         0 158  31
+         1  42  69
+                                         
+               Accuracy : 0.7567         
+                 95% CI : (0.704, 0.8041)
+    No Information Rate : 0.6667         
+    P-Value [Acc &gt; NIR] : 0.0004426      
+                                         
+                  Kappa : 0.4672         
+                                         
+ Mcnemar's Test P-Value : 0.2418354      
+                                         
+            Sensitivity : 0.7900         
+            Specificity : 0.6900         
+         Pos Pred Value : 0.8360         
+         Neg Pred Value : 0.6216         
+             Prevalence : 0.6667         
+         Detection Rate : 0.5267         
+   Detection Prevalence : 0.6300         
+      Balanced Accuracy : 0.7400         
+                                         
+       'Positive' Class : 0              
+                                         </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Performance on test set"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Confusion Matrix and Statistics
+
+          Reference
+Prediction   0   1
+         0 126  28
+         1  29  49
+                                          
+               Accuracy : 0.7543          
+                 95% CI : (0.6937, 0.8083)
+    No Information Rate : 0.6681          
+    P-Value [Acc &gt; NIR] : 0.002725        
+                                          
+                  Kappa : 0.4478          
+                                          
+ Mcnemar's Test P-Value : 1.000000        
+                                          
+            Sensitivity : 0.8129          
+            Specificity : 0.6364          
+         Pos Pred Value : 0.8182          
+         Neg Pred Value : 0.6282          
+             Prevalence : 0.6681          
+         Detection Rate : 0.5431          
+   Detection Prevalence : 0.6638          
+      Balanced Accuracy : 0.7246          
+                                          
+       'Positive' Class : 0               
+                                          </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Area under the curve: 0.7246</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-15-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+</section>
+<section id="tree-issues" class="level1">
+<h1>Tree issues</h1>
+<section id="building-a-regression-classification-tree" class="level2">
+<h2 class="anchored" data-anchor-id="building-a-regression-classification-tree">Building a regression (classification) tree</h2>
+<ol type="1">
+<li>Use recursive binary splitting to grow a large tree on the training data, stopping only when each terminal node has fewer than some minimum number of observations.</li>
+<li>Apply cost complexity pruning to the large tree in order to obtain a sequence of best sub-trees, as a function of <span class="math inline">\(\alpha\)</span>.</li>
+<li>Use K-fold cross-validation to choose <span class="math inline">\(\alpha\)</span>. That is, divide the training observations into K folds. For each k = <span class="math inline">\(1,\ldots, K\)</span>:
+<ul>
+<li>Repeat Steps 1 and 2 on all but the kth fold of the training data.</li>
+<li>Evaluate the mean squared prediction (misclassification, gini, cross-entropy) error on the data in the left-out <span class="math inline">\(k\)</span>th fold, as a function of <span class="math inline">\(\alpha\)</span>.</li>
+<li>Average the results for each value of <span class="math inline">\(\alpha\)</span>, and pick <span class="math inline">\(\alpha\)</span> to minimize the average error.</li>
+</ul></li>
+<li>Return the sub-tree from Step 2 that corresponds to the chosen value of <span class="math inline">\(\alpha\)</span>.</li>
+</ol>
+<hr>
+</section>
+<section id="handling-missing-covariates-in-trees" class="level2">
+<h2 class="anchored" data-anchor-id="handling-missing-covariates-in-trees">Handling missing covariates in trees</h2>
+<p>Instead of removing observation with missing values, or performing single or multiple imputation, there are two popular solutions to the problem for trees:</p>
+<p><strong>Make a “missing category”</strong></p>
+<ul>
+<li>If you believe that missing covariates behave in a particular way (differently from the non-missing values), we may construct a new category for that variable.</li>
+</ul>
+<hr>
+<p><strong>Use surrogate splits</strong></p>
+<p>The best split at a node is called the <em>primary split</em>.</p>
+<p>An observation with missing value for variable <span class="math inline">\(x_1\)</span> is dropped down the tree, and arrive at a split made on <span class="math inline">\(x_1\)</span>.</p>
+<p>A “fake” tree is built to predict the split, and the observation follows the predicted direction in the tree. This means that the correlation between covariates are exploited - and the higher the correlation between the primary and predicted primary split - the better.</p>
+<p>This is called a <em>surrogate split</em>.</p>
+<p>If the observation is missing the surrogate variable, there is also a back-up surrogate variable that can be used (found in a similar fashion.)</p>
+<p>If the surrogate variable is not giving more information than following the majority of the observations at the primary split, it will not be regarded as a surrogate variable.</p>
+<hr>
+<p>The R package <code>rpart</code> <a href="https://cran.r-project.org/web/packages/rpart/vignettes/longintro.pdf">vignette page 18</a> gives the following example:</p>
+<ul>
+<li>Assume that the split (age &lt;40, age ≥40) has been chosen.</li>
+<li>Surrogate variables are found by <em>re-applying the partitioning algorithm</em> (without recursion=only one split?) to predict the two categories age &lt;40 vs.&nbsp;age ≥40 using the other covariates.</li>
+<li>Using “number of misclassified”/“number of observations” as the criterion: the optimal split point is found for each covariate.</li>
+<li>A competitor is the majority rule - that is, go in the direction of the split where the majority of the training data goes. This is given misclassification error min(p, 1 − p) where p = (# in A with age &lt; 40) / nA.</li>
+<li>A ranking of the surrogate variables is done based on the misclassification error for each surrogate variable, and variables performing better than the majority rule is kept.</li>
+</ul>
+<hr>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
+<p>Look at the Boston default tree with <code>tree</code> and <code>rpart</code> to see how the two handles missing values.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "tree package"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     crim zn indus chas   nox    rm  age  dis rad tax ptratio black lstat medv
+1 0.00632 18  2.31    0 0.538 6.575 65.2 4.09   1 296    15.3 396.9    NA   24</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      1 
+19.8223 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "rpart package"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+27.82308 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>node), split, n, deviance, yval
+      * denotes terminal node
+
+ 1) root 354 32270.0 22.95  
+   2) rm &lt; 6.945 296 10830.0 19.82  
+     4) lstat &lt; 14.405 177  3681.0 23.17  
+       8) rm &lt; 6.543 138  1690.0 21.86 *
+       9) rm &gt; 6.543 39   908.2 27.82 *
+     5) lstat &gt; 14.405 119  2215.0 14.84  
+      10) crim &lt; 5.76921 63   749.9 17.33 *
+      11) crim &gt; 5.76921 56   636.1 12.04 *
+   3) rm &gt; 6.945 58  3754.0 38.92  
+     6) rm &lt; 7.445 33   749.7 33.13 *
+     7) rm &gt; 7.445 25   438.0 46.56 *</code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="other-issues" class="level2">
+<h2 class="anchored" data-anchor-id="other-issues">Other issues</h2>
+<p>(ESL 9.2.4)</p>
+<ul>
+<li>Categorical predictors: For a predictor with <span class="math inline">\(q\)</span> levels (may be unordered) the number of possible partitions into two groups is large. A trick is used in the processing, where first dummy variable coding is performed then sorted by increasingly popular categories into a ordered categorical variable. Proofs exists that this gives optimal splits for cross-entropy, Gini, squared loss (see ESL page 310 for references).</li>
+<li>Categorical predictors with many levels may have a advantage for the splits, because there are so many possible splits that often one is very good. This may lead to overfitting if <span class="math inline">\(q\)</span> is large.</li>
+<li>For multiclass problems loss matrices may be included easily in the Gini loss.</li>
+</ul>
+<hr>
+<ul>
+<li>Binary splits: multiway splits into more than two groups is possible, but may fragment the data very quickly (too quickly). Multiway splits is achived by a series of binary splits. Thus, we stay with binary splits.</li>
+<li>Due to the binary splits it may be hard to model an additive structure.</li>
+<li>Linear combination splits: is possible by including also finding linear weight parameters for the splits. This may improve predictive power, but hurt interpretability.</li>
+<li>There exists other tree-building procedures than CART. One such is C5.0 by Quinlan, see ESL page 312 for reference.</li>
+<li>For regression trees the regression surface will be non-smooth, which may degrade performance. For classification trees where there response is a classification (and thus not smooth) this is not a large problem.</li>
+</ul>
+<hr>
+</section>
+<section id="questions" class="level2">
+<h2 class="anchored" data-anchor-id="questions">Questions</h2>
+<p>Choose your favourites below and discuss in group. (maybe use the Boston and Pima indian analysis to look for examples)</p>
+<ol type="1">
+<li>Check out the partitioning of the predictor space to recursive binary tree - or opposite (given as a problem earlier in this note).</li>
+<li>Why do we say that trees can automatically handle (and find?) non-linearities? Give example.</li>
+<li>Same, but now interactions in data. Give example.</li>
+<li>What rule do you think is used for the prediction with missing value for the <code>tree</code> and <code>rpart</code> example above?</li>
+<li>Make list of pros and cons for trees for regression and classification.</li>
+<li>For Project 1 - do you have missing data in the data you have chosen? If yes, do you think the missing data are missing at random? How did you handle the missing data?</li>
+<li>Discuss the bias-variance tradeoff of a regression tree when increasing/decreasing the number of terminal nodes, i.e What happens to the bias? What happens to the variance of a prediction if we reduce the tree size?</li>
+</ol>
+<hr>
+<section id="some-answers" class="level3">
+<h3 class="anchored" data-anchor-id="some-answers">Some answers</h3>
+<ol start="5" type="1">
+<li></li>
+</ol>
+<p><strong>Advantages (+)</strong> of using trees</p>
+<ul>
+<li>Trees automatically select variables</li>
+<li>Tree-growing algorithms scale well to large <span class="math inline">\(n\)</span>, growing a tree greedily</li>
+<li>Trees can handle mixed features (continuouos, categorical) seamlessly, and can deal with missing data</li>
+<li>Small trees are easy to interpret and explain to people</li>
+<li>Some believe that decision trees mirror human decision making</li>
+<li>Trees can be displayed graphically</li>
+<li>Trees model non-linear effects</li>
+<li>Trees model interactions between covariates</li>
+<li>Trees handle missing data in a smart way!</li>
+<li>Outliers and irrelevant inputs will not affect the tree.</li>
+</ul>
+<p>There is no need to specify the functional form of the regression curve or classification border - this is found by the tree automatically.</p>
+<hr>
+<p><strong>Disadvantages (-)</strong> of using trees</p>
+<ul>
+<li>Large trees are not easy to interpret</li>
+<li>Trees do not generally have good prediction performance (high variance)</li>
+<li>Trees are not very robust, a small change in the data may cause a large change in the final estimated tree</li>
+<li>Trees do not produce a smooth regression surface.</li>
+</ul>
+<ol start="7" type="1">
+<li></li>
+</ol>
+<p>As the tree size increase the bias will decrease, and the variance will increase. This is the same as any other method when we increase the model complexity.</p>
+<hr>
+</section>
+</section>
+<section id="what-is-next" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-next">What is next?</h2>
+<ul>
+<li><strong>Bagging</strong>: grow many trees (from bootstrapped data) and average - to get rid of the non-robustness and high variance by averaging</li>
+<li><strong>Random forest</strong>: inject more randomness by just allowing a random selection of predictors to be used for the splits at each node.</li>
+<li>The Out-of-Bag available validation set and</li>
+<li>importance plot</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="bagging" class="level1">
+<h1>Bagging</h1>
+<p>Bagging can be used with different regression and classification methods, but we will focus on trees.</p>
+<section id="high-variance-of-trees" class="level2">
+<h2 class="anchored" data-anchor-id="high-variance-of-trees">High variance of trees</h2>
+<p>Decision trees often suffer from high variance.</p>
+<ul>
+<li>By this we mean that the trees are sensitive to small changes in the predictors:</li>
+<li>If we change the observation set, we may get a very different tree.</li>
+<li>This is due to the fact that small changes in the data can result in a large effect on which splits is done.</li>
+<li>A small effect on the top level is propagated down in the tree.</li>
+</ul>
+<p>For the Boston data, we saw that changing the train/test split gave very different trees</p>
+<p>To reduce the variance of decision trees we can apply <em>bootstrap aggregating</em> (<em>bagging</em>), invented by Leo Breiman in 1996 (after he retired in 1993).</p>
+<hr>
+</section>
+<section id="independent-data-sets" class="level2">
+<h2 class="anchored" data-anchor-id="independent-data-sets">Independent data sets</h2>
+<p>Assume we have <span class="math inline">\(B\)</span> i.i.d. observations of a random variable <span class="math inline">\(X\)</span> each with the same mean and with variance <span class="math inline">\(\sigma^2\)</span>. We calculate the mean <span class="math inline">\(\bar{X} = \frac{1}{B} \sum_{b=1}^B X_b\)</span>. The variance of the mean is <span class="math display">\[\text{Var}(\bar{X}) = \text{Var}\Big(\frac{1}{B}\sum_{b=1}^B X_b \Big) = \frac{1}{B^2} \sum_{b=1}^B \text{Var}(X_b) = \frac{\sigma^2}{B}.\]</span> By averaging we get reduced variance. This is the basic idea!</p>
+<hr>
+<p>But, we will not draw random variables - we want to fit decision trees: <span class="math inline">\(\hat{f}_1({\bf x}),\hat{f}_2({\bf x}),\ldots, \hat{f}_B({\bf x})\)</span> and average those. <span class="math display">\[ \hat{f}_{avg}({\bf x})=\frac{1}{B}\sum_{b=1}^B \hat{f}_b({\bf x})\]</span></p>
+<p>However, we do not have many independent data set - so we use <em>bootstrapping</em> to construct <span class="math inline">\(B\)</span> data sets.</p>
+<hr>
+</section>
+<section id="bootstrapping" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrapping">Bootstrapping</h2>
+<p>Problem: we want to draw samples from a population with distribution <span class="math inline">\(F\)</span>.</p>
+<p>But: we do not know <span class="math inline">\(F\)</span> and do not have a population to draw from, we only have our one sample.</p>
+<p>Solution: we may use our sample as an empirical estimate for the distribution <span class="math inline">\(F\)</span> - by assuming that each sample point has probability <span class="math inline">\(1/N\)</span> for being drawn.</p>
+<p>Therefore: we draw with replacement <span class="math inline">\(N\)</span> observations from our sample - and that is our first <em>bootstrap sample</em>.</p>
+<p>We repeat this <span class="math inline">\(B\)</span> times and get <span class="math inline">\(B\)</span> bootstrap samples - that we use as our <span class="math inline">\(B\)</span> data sets.</p>
+<hr>
+</section>
+<section id="bootstrap-samples-and-trees" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrap-samples-and-trees">Bootstrap samples and trees</h2>
+<p>For each bootstrap sample we construct a decision tree, <span class="math inline">\(\hat{f}^{*b}(x)\)</span> with <span class="math inline">\(b=1,...,B\)</span>, and we then use information from all of the trees to draw inference.</p>
+<p>Study Figure 8.9 to see variability of trees - observe that different covariates are present in each tree. All features are equally correlated <span class="math inline">\(0.95\)</span>. Observe</p>
+<ul>
+<li>trees variable (high variance)</li>
+<li>bagging will smooth out this variance to reduce the test error</li>
+</ul>
+<hr>
+</section>
+<section id="bagging-regression-trees" class="level2">
+<h2 class="anchored" data-anchor-id="bagging-regression-trees">Bagging regression trees</h2>
+<p>For regression trees, we take the average of all of the predictions and use this as the final result:</p>
+<p><span class="math display">\[
+\hat{f}_{bag}(x)=\frac{1}{B}\sum_{b=1}^B \hat{f}^{*b}(x).
+\]</span></p>
+<ul>
+<li>Bagging works well under squared loss.</li>
+<li>It can be shown that true population aggregation never increases the MSE (ESL Eq 8.52).</li>
+<li>Thus, we expect a decrease in MSE with bagging.</li>
+<li>However, a “similar result” is not true for classification trees.</li>
+</ul>
+<hr>
+</section>
+<section id="bagging-classification-trees" class="level2">
+<h2 class="anchored" data-anchor-id="bagging-classification-trees">Bagging classification trees</h2>
+<p>For classification trees there are two possible ways to use the tree ensemble of <span class="math inline">\(B\)</span> trees:</p>
+<p><strong>consensus</strong></p>
+<ul>
+<li>we record the predicted class (for a given observation <span class="math inline">\(x\)</span>) for each of the <span class="math inline">\(B\)</span> trees and</li>
+<li>use the most occurring classification (majority vote) as the final prediction.</li>
+<li>(It is not wise to use the voting proportions to get posterior probabilites. For example is P(class 1)=0.75 but all B trees votes for 1.)</li>
+</ul>
+<p>Let <span class="math inline">\(\hat{G}(x)\)</span> be the estimated class, and <span class="math display">\[\hat{G}(x)=\text{argmax}_k q_k(x)\]</span> where <span class="math inline">\(q_k(x)\)</span> is the proportion of the trees voting <span class="math inline">\(k\)</span>, <span class="math inline">\(k=1,\ldots,K\)</span>.</p>
+<hr>
+<p><strong>probability</strong></p>
+<ul>
+<li>alternatively average posterior probabilities for each class <span class="math inline">\(\hat{p_m^b}\)</span>,</li>
+<li>and then choose the class with the largest probability.</li>
+</ul>
+<p><span class="math display">\[\hat{G}(x)=\text{argmax}_k \frac{1}{B} \sum_{b=1}^B p^b_k(x)\]</span> where <span class="math inline">\(p^b_k(x)\)</span> is estimated probability for class <span class="math inline">\(k\)</span> for tree <span class="math inline">\(b\)</span> at <span class="math inline">\(x\)</span>.</p>
+<hr>
+<section id="prediction-by-consensus-vs-probability" class="level3">
+<h3 class="anchored" data-anchor-id="prediction-by-consensus-vs-probability">Prediction by consensus vs probability</h3>
+<p>Consider the case when you have grown <span class="math inline">\(B\)</span> classification tree with a binary response with classes 0 and 1. You might wonder which approach to choose to make a final prediction: consensus or probability? Or would the prediction be the same in each case?</p>
+<p>The difference between these two procedures can be compared to the difference between the mean value and median of a set of numbers. If we average the probabilities and make a classification thereafter, we have the mean value. If we sort all of our classifications, so that the classifications corresponding to one class would be lined up after each other, followed by the classifications corresponding to the other class we obtain the median value.</p>
+<hr>
+<p>We examine this by an example:</p>
+<p>Suppose we have <span class="math inline">\(B=5\)</span> (no, <span class="math inline">\(B\)</span> should be higher - this is only for illustration) classification tree and have obtained the following 5 estimated probabilities: {0.4, 0.4, 0.4, 0.4, 0.9 }. If we average the probabilities, we get 0.5, and if we use a cut-off value of 0.5, our predicted class is 1. However, if we take a majority vote, using the same cut off value, the predicted classes will be {0, 0, 0, 0, 1 }. The predicted class, based on a majority vote, would accordingly be 0.</p>
+<p>The two procedures thus have their pros and cons: * By averaging the predictions no information is lost. We do not only get the final classification, but the probability for belonging to the class 0 or 1. * However, this method is not robust to outliers. By taking a majority vote, outliers have a smaller influence on the result.</p>
+<hr>
+<ul>
+<li><p>According to ESL (page 283) the probability method will give bagged classifiers with lower variance that with the consensus method.</p></li>
+<li><p>Bagging a good classifier can make it better, but bagging a bad classifier can make it worse. (Not as for MSE for regression tree.)</p></li>
+</ul>
+</section>
+</section>
+<section id="choosing-b" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-b">Choosing <span class="math inline">\(B\)</span></h2>
+<ul>
+<li>The number <span class="math inline">\(B\)</span> is chosen to be as large as “necessary”.</li>
+<li>An increase in <span class="math inline">\(B\)</span> will not lead to overfitting, and <span class="math inline">\(B\)</span> is not regarded as a tuning parameter.</li>
+<li>If a goodness of fit measure is plotted as a function of <span class="math inline">\(B\)</span> (soon) we see that (given that <span class="math inline">\(B\)</span> is large enough) increasing <span class="math inline">\(B\)</span> will not change the goodness of fit measure.</li>
+</ul>
+<p>(Study Figure 8.10 to see effect of <span class="math inline">\(B\)</span> and the two strategies.)</p>
+<hr>
+</section>
+<section id="pruning-trees" class="level2">
+<h2 class="anchored" data-anchor-id="pruning-trees">Pruning trees?</h2>
+<p>Originally, Breiman (1996) suggested to prune each tree, but later research has found that it is better to leave the trees at maximal size (a bushy tree), to make the trees as different from each other as possible.</p>
+<hr>
+</section>
+<section id="bagging-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="bagging-algorithm">Bagging algorithm</h2>
+<p>(We write out in class.)</p>
+<hr>
+</section>
+<section id="wisdom-of-the-crowd" class="level2">
+<h2 class="anchored" data-anchor-id="wisdom-of-the-crowd">Wisdom of the crowd</h2>
+<p>(ESL page 286)</p>
+<p><em>the collective knowledge of a diverse and independent body of people typically exceeds the knowledge of any single individual, and can be harnessed by voting</em></p>
+<p>Study Figure 8.11 in ESL - and what about <a href="https://tv.nrk.no/serie/alle-mot-1" class="uri">https://tv.nrk.no/serie/alle-mot-1</a></p>
+<p>Bagging: sadly not independent bodies.</p>
+<hr>
+</section>
+<section id="out-of-bag-error-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="out-of-bag-error-estimation">Out-of-bag error estimation</h2>
+<ul>
+<li>We use a subset of the observations in each bootstrap sample. We know that the probability that an observation is in the bootstrap sample is approximately <span class="math inline">\(1-e^{-1}\)</span>=0.6321206 (0.63212).</li>
+<li>when an observation is left out of the bootstrap sample it is not used to build the tree, and we can use this observation as a part of a “test set” to measure the predictive performance and error of the fitted model, <span class="math inline">\(f^{*b}(x)\)</span>.</li>
+</ul>
+<p>In other words: Since each observation <span class="math inline">\(i\)</span> has a probability of approximately 2/3 to be in a bootstrap sample, and we make <span class="math inline">\(B\)</span> bootstrap samples, then observation <span class="math inline">\(i\)</span> will be outside the bootstrap sample in approximately <span class="math inline">\(B/3\)</span> of the fitted trees.</p>
+<p>The observations left out are referred to as the <em>out-of-bag</em> observations, and the measured error of the <span class="math inline">\(B/3\)</span> predictions is called the <em>out-of-bag error</em>.</p>
+<hr>
+<section id="boston-housing" class="level3">
+<h3 class="anchored" data-anchor-id="boston-housing">Boston housing</h3>
+<p>I R we can do bagging by using the function <em>randomForest()</em> in the <em>randomForest</em> library, but specify that all predictors will be used at all splits, here <code>mtry=13</code>.</p>
+<p>The regression tree does noe automatically output OOB MSE.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+ randomForest(formula = medv ~ ., data = Boston, mtry = 13, subset = train) 
+               Type of random forest: regression
+                     Number of trees: 500
+No. of variables tried at each split: 13
+
+          Mean of squared residuals: 12.00879
+                    % Var explained: 86.83</code></pre>
+</div>
+</div>
+<p>Plotting predicted test values vs true values.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 23.12171</code></pre>
+</div>
+</div>
+<p>Error rate on test set for bagging</p>
+<div class="cell">
+
+</div>
+<p>Remember that the error rate on the test set for a single tree was: 36.2318993.</p>
+<hr>
+</section>
+<section id="pima-indians" class="level3">
+<h3 class="anchored" data-anchor-id="pima-indians">Pima indians</h3>
+<p>Here the misclassification rate for the OOB is reported.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+ randomForest(formula = as.factor(diabetes) ~ npreg + glu + bp +      skin + bmi + ped + age, data = ctrain, mtry = 7) 
+               Type of random forest: classification
+                     Number of trees: 500
+No. of variables tried at each split: 7
+
+        OOB estimate of  error rate: 23.67%
+Confusion matrix:
+    0  1 class.error
+0 167 33       0.165
+1  38 62       0.380</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Evaluation on training data"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Accuracy 
+0.7633333 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Evaluation on test data"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Accuracy 
+0.7844828 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Area under the curve: 0.8257</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Remember that the misclassification error rate on the test set for a single tree (after pruning) was: <span class="math inline">\(1-0.75=0.25\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="when-should-we-use-bagging" class="level2">
+<h2 class="anchored" data-anchor-id="when-should-we-use-bagging">When should we use bagging?</h2>
+<p>Bagging can be used for predictors (regression and classification) that are not trees, and according to Breiman (1996):</p>
+<ul>
+<li>the vital element is the instability of the prediction method</li>
+<li>if perturbing the learning set can cause significant changes in the predictor constructed, then bagging can improve accuracy.</li>
+</ul>
+<p>Breiman (1996) suggests that these methods should be suitable for bagging:</p>
+<ul>
+<li>neural nets, classification and regression trees, subset selection in linear regression</li>
+</ul>
+<p>however not nearest neighbours - since</p>
+<ul>
+<li>the stability of nearest neighbour classification methods with respect to perturbations of the data distinguishes them from competitors such as trees and neural nets.</li>
+</ul>
+<p>Would you think that much is gained by bootstrapping MLR, logistic regression, or a lasso version of the two?</p>
+<p>BUT: making many trees destroys the interpretability of the estimator.</p>
+<hr>
+</section>
+</section>
+<section id="random-forest" class="level1">
+<h1>Random forest</h1>
+<p>If there is a strong predictor in the dataset, the decision trees produced by each of the bootstrap samples in the bagging algorithm becomes very similar: Most of the trees will use the same strong predictor in the top split.</p>
+<p><em>Random forests</em> is a solution to this problem and a method for decorrelating the trees. The hope is to improve the variance reduction.</p>
+<hr>
+<section id="the-effect-of-correlation-on-the-variance-of-the-mean" class="level2">
+<h2 class="anchored" data-anchor-id="the-effect-of-correlation-on-the-variance-of-the-mean">The effect of correlation on the variance of the mean</h2>
+<p>The variance of the average of <span class="math inline">\(B\)</span> observations of i.i.d random variables <span class="math inline">\(X\)</span>, each with variance <span class="math inline">\(\sigma^2\)</span> is <span class="math inline">\(\frac{\sigma^2}{B}\)</span>. Now, suppose we have <span class="math inline">\(B\)</span> observations of a random variable <span class="math inline">\(X\)</span> which are identically distributed, each with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, but not independent.</p>
+<p>That is, suppose the variables have a positive correlation <span class="math inline">\(\rho\)</span> <span class="math display">\[\text{Cov}(X_i, X_j) = \rho \sigma^2, \quad i \neq j.\]</span> This is called compound symmetry.</p>
+<p>Then the variance of the average is <span class="math display">\[\rho \sigma^2+\frac{1-\rho}{B} \sigma^2\]</span> (Exercise to prove this.)</p>
+<hr>
+<p>Check: <span class="math inline">\(\rho=0\)</span> and <span class="math inline">\(\rho=1\)</span>? Observe the linearity in <span class="math inline">\(\rho\)</span>.</p>
+<p>(Most negative values of <span class="math inline">\(\rho\)</span> will not give a positive definite covariance matrix. The covariance matrix is positive definite if <span class="math inline">\(\rho&gt;-1/(B-1)\)</span>.)</p>
+<div class="cell">
+
+</div>
+<hr>
+</section>
+<section id="core-modifications-to-bagging" class="level2">
+<h2 class="anchored" data-anchor-id="core-modifications-to-bagging">Core modifications to bagging</h2>
+<p>The idea behind random forest is to <em>improve the variance reduction of bagging</em> by reducing the correlation between the trees - while hoping the possible increase in variance in each tree doesn´t cancel the improvement.</p>
+<p>The procedure is thus as in bagging, but with the important difference, that</p>
+<ul>
+<li>at each split we are only allowed to consider <span class="math inline">\(m&lt;p\)</span> of the predictors.</li>
+</ul>
+<p>A new sample of <span class="math inline">\(m\)</span> predictors is taken at each split and</p>
+<ul>
+<li>typically <span class="math inline">\(m= \text{floor}(\sqrt p)\)</span> (classificaton) and <span class="math inline">\(m=\text{floor}(p/3)\)</span> (regression)</li>
+</ul>
+<p>The general idea is at for very correlated predictors <span class="math inline">\(m\)</span> is chosen to be small.</p>
+<hr>
+</section>
+<section id="random-forest-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="random-forest-algorithm">Random forest algorithm</h2>
+<p>(We write out in class.)</p>
+<ul>
+<li>Regression: average of trees</li>
+<li>Classification: majority vote based on vote from each tree.</li>
+</ul>
+<hr>
+<p>Study ESL Figure 15.3 to see that the rule of thumb for <span class="math inline">\(m\)</span> may not always be the best choice.</p>
+<p>Study ESL Figure 15.9 to se that the correlation between trees is dependent on <span class="math inline">\(m\)</span>.</p>
+<hr>
+<p>In addition the recommendations from the Random forest authors were also on <em>node size</em> (the minimum number of observations in a leaf node):</p>
+<ul>
+<li>classification: 1</li>
+<li>regression: 5</li>
+</ul>
+<p>(ESL page 592)</p>
+<p>This is an indication that node size is an hyperparameter, but ESL argue that is is maybe not worth the extra effort to optimize on this parameter.</p>
+<p>Study ESL Figure 15.8 for effect of node size.</p>
+<hr>
+<p>The number of trees, <span class="math inline">\(B\)</span>, is not a tuning parameter (according to the ISLR-authors), and the best is to choose it large enough.</p>
+<p>But - in lecture L7 we will hear that we may also look at many of the choices for how to fit a tree as model hyperparameters - in addition to both <span class="math inline">\(B\)</span> and <span class="math inline">\(m\)</span>.</p>
+<hr>
+<p>Study Figure 15.1 in ESL.</p>
+<p>We will look at comparing error rates (using statistical tests) for different methods later in Part 2.</p>
+<hr>
+</section>
+<section id="oob-again" class="level2">
+<h2 class="anchored" data-anchor-id="oob-again">OOB again</h2>
+<p>When the OOB error stabilizes the <span class="math inline">\(B\)</span> is large enough and we may stop training.</p>
+<p>Study Figure 15.4 in ELS.</p>
+<p>If <span class="math inline">\(B\)</span> is sufficiently large (three times the number needed for the random forest to stabilize), the OOB error estimate is equivalent to LOOCV (CASI: Efron and Hastie, 2016, p 330).</p>
+<hr>
+</section>
+<section id="variable-importance-plots" class="level2">
+<h2 class="anchored" data-anchor-id="variable-importance-plots">Variable importance plots</h2>
+<p>Bagging is an example of an <em>ensemble method</em>, so is boosting and random forests. For all of these methods many trees are grown and combined, and the predictive power can be highly improved. However, this comes at a cost of interpretability. Instead of having one tree, the resulting model consists of <span class="math inline">\(B\)</span> trees, where <span class="math inline">\(B\)</span> often is 300 or 500 (or maybe even 5000 when boosting).</p>
+<p>Variable importance plots show <em>the relative importance of the predictors:</em> the predictors are sorted according to their importance, such that the top variables have a higher importance than the bottom variables. There are in general two types of variable importance plots:</p>
+<ul>
+<li>variable importance based on decrease in node impurity and</li>
+<li>variable importance based on randomization.</li>
+</ul>
+<hr>
+<section id="variable-importance-for-a-single-tree" class="level3">
+<h3 class="anchored" data-anchor-id="variable-importance-for-a-single-tree">Variable importance for a single tree</h3>
+<p>(10.13.1)</p>
+<p>A single tree can be studied to interpret the model fitted. For large trees - and in the coming chapters - for many trees, the concept of <em>variable importance</em> is useful.</p>
+<p>Consider a covariate. How important is this covariate for the tree prediction?</p>
+<p>We have a tree <span class="math inline">\(T\)</span> with <span class="math inline">\(J-1\)</span> <em>internal nodes</em> (remark: no leaf nodes - because there is no split at a leaf node).</p>
+<p>Let <span class="math inline">\(I_l^2(T)\)</span> be a measure of squared relevance for predictor <span class="math inline">\(X_l\)</span>:</p>
+<p><span class="math display">\[ I_l^2(T)=\sum_{t=1}^{J-1} \hat{i}^2_t I(v(t)=l)\]</span></p>
+<p>At each internal node <span class="math inline">\(t\)</span> there is a split, where the covariate to split on is denoted <span class="math inline">\(X_{v(t)}\)</span>, and this variable was the one that gave the maximal improvement <span class="math inline">\(\hat{i}^2_t\)</span>.</p>
+<p>The importance measure is the square root, so <span class="math inline">\(I_l(T)= \sqrt{I_l^2(T)}\)</span>.</p>
+<p>The term <em>important</em> relates to <em>total decrease in the node impurity, over splits for a predictor</em>, and is defined differently for regression trees and classification trees.</p>
+<hr>
+</section>
+<section id="from-single-to-many-trees" class="level3">
+<h3 class="anchored" data-anchor-id="from-single-to-many-trees">From single to many trees</h3>
+<p><span class="math display">\[I_l^2=\frac{1}{B} \sum_{b=1}^B I_l^2(T_b)\]</span> The measure is relative:</p>
+<ul>
+<li>the highest value is set to 100</li>
+<li>the others are scaled according to this</li>
+</ul>
+<hr>
+<p><strong>Regression trees:</strong></p>
+<ul>
+<li>The importance of each predictor is calculated using the MSE.</li>
+<li>The algorithm records the total amount that the MSE is decreased due to splits for each predictor (there may be many spits for one predictor for each tree).</li>
+<li>This decrease in MSE is then averaged over the <span class="math inline">\(B\)</span> trees. The higher the decrease, the more important the predictor.</li>
+</ul>
+<hr>
+<p><strong>Classification trees:</strong></p>
+<ul>
+<li>The importance of each predictor is calculated using the Gini index.</li>
+<li>The importance is the mean decrease (over all <span class="math inline">\(B\)</span> trees) in the Gini index by splits of a predictor.</li>
+</ul>
+<hr>
+<p>R: <code>varImpPlot</code> (or <code>importance</code>) in <code>randomForest</code> with <code>type=2</code>.</p>
+<hr>
+</section>
+<section id="variable-importance-based-on-randomization" class="level3">
+<h3 class="anchored" data-anchor-id="variable-importance-based-on-randomization">Variable importance based on randomization</h3>
+<p>Variable importance based on randomization is calculated using the OOB sample.</p>
+<ul>
+<li>Computations are carried out for one bootstrap sample at a time.</li>
+<li>Each time a tree is grown the OOB sample is used to test the predictive power of the tree.</li>
+<li>Then for one predictor at a time, repeat the following:
+<ul>
+<li>permute the OOB observations for the <span class="math inline">\(j\)</span>th variable <span class="math inline">\(x_j\)</span> and calculate the new OOB error.</li>
+<li>If <span class="math inline">\(x_j\)</span> is important, permuting its observations will decrease the predictive performance.</li>
+</ul></li>
+<li>The difference between the two is averaged over all trees</li>
+<li>and again highest set to 100, others rescaled.</li>
+</ul>
+<p>R: <code>varImpPlot</code> (or <code>importance</code>) in <code>randomForest</code> with <code>type=1</code>.</p>
+<hr>
+<p>Study Figure 15.5 in ESL.</p>
+<hr>
+</section>
+<section id="boston" class="level3">
+<h3 class="anchored" data-anchor-id="boston">Boston</h3>
+<p>%IncMSE is a OOB estimate. IncNodePurity is not OOB. Not normalized to 100.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>rf.boston<span class="ot">=</span><span class="fu">randomForest</span>(medv<span class="sc">~</span>.,<span class="at">data=</span>Boston,<span class="at">subset=</span>train,<span class="at">mtry=</span><span class="dv">6</span>,<span class="at">importance=</span><span class="cn">TRUE</span>)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>yhat.rf <span class="ot">=</span> <span class="fu">predict</span>(rf.boston,<span class="at">newdata=</span>Boston[<span class="sc">-</span>train,])</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((yhat.rf<span class="sc">-</span>boston.test)<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15.77329</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">importance</span>(rf.boston)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>          %IncMSE IncNodePurity
+crim    13.571040     1331.4214
+zn       2.018357      103.3764
+indus    7.478237     1301.3529
+chas     3.604777      150.6007
+nox     15.847850     1481.9064
+rm      38.703015    13209.6852
+age     12.837457      856.1236
+dis     15.505816     1450.6934
+rad      4.600793      147.7769
+tax      8.910426      615.1269
+ptratio 12.069248     1566.8163
+black    8.144727      438.1747
+lstat   29.854464     9177.8663</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(rf.boston)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rf.boston<span class="sc">$</span>oob.times) <span class="co">#for 500 trees in total</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  152.0   176.0   183.0   183.2   191.0   214.0 </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(rf.boston,<span class="at">pch=</span><span class="dv">20</span>,<span class="at">type=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-22-2.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">#varImpPlot(rf.boston,pch=20,type=2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+</section>
+<section id="pima-indians-1" class="level3">
+<h3 class="anchored" data-anchor-id="pima-indians-1">Pima indians</h3>
+<p>We decorrelate the trees by using the <em>randomForest()</em> function again, but this time we set <em>mtry=3</em>. This means that the algorithm only considers three of the predictors in each split. We choose <span class="math inline">\(3\)</span> because we have <span class="math inline">\(10\)</span> predictors in total and <span class="math inline">\(\sqrt{10}\approx 3\)</span>.</p>
+<p>Deviance (not Gini) used for node impurity.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>rf<span class="ot">=</span><span class="fu">randomForest</span>(<span class="fu">factor</span>(diabetes)<span class="sc">~</span>npreg<span class="sc">+</span>glu<span class="sc">+</span>bp<span class="sc">+</span>skin<span class="sc">+</span>bmi<span class="sc">+</span>ped<span class="sc">+</span>age,<span class="at">data=</span>ctrain,<span class="at">mtry=</span><span class="dv">3</span>,<span class="at">importance=</span><span class="cn">TRUE</span>) <span class="co">#default is 500 trees</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>rf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+ randomForest(formula = factor(diabetes) ~ npreg + glu + bp +      skin + bmi + ped + age, data = ctrain, mtry = 3, importance = TRUE) 
+               Type of random forest: classification
+                     Number of trees: 500
+No. of variables tried at each split: 3
+
+        OOB estimate of  error rate: 22%
+Confusion matrix:
+    0  1 class.error
+0 172 28        0.14
+1  38 62        0.38</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>test.x<span class="ot">=</span>ctest[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>test.y<span class="ot">=</span>ctest[,<span class="dv">1</span>]</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>train.y<span class="ot">=</span>ctrain[,<span class="dv">1</span>]</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>train.x<span class="ot">=</span>ctrain[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>train.res<span class="ot">=</span><span class="fu">predict</span>(rf,<span class="at">type=</span><span class="st">"prob"</span>)[,<span class="dv">2</span>]</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>test.res<span class="ot">=</span><span class="fu">predict</span>(rf,<span class="at">newdata=</span>test.x,<span class="at">type=</span><span class="st">"prob"</span>)[,<span class="dv">2</span>]</span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>train.class<span class="ot">=</span><span class="fu">ifelse</span>(train.res<span class="sc">&gt;=</span><span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a><span class="co">#train.class2=predict(rf,type="response") #same as train.class</span></span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a>test.class<span class="ot">=</span><span class="fu">ifelse</span>(test.res<span class="sc">&gt;=</span><span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Evaluation on training data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Evaluation on training data"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(<span class="fu">factor</span>(train.class),<span class="fu">factor</span>(train.y))<span class="sc">$</span>overall[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> Accuracy 
+0.7733333 </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Evaluation on test data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Evaluation on test data"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(<span class="fu">factor</span>(test.class),<span class="fu">factor</span>(test.y))<span class="sc">$</span>overall[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> Accuracy 
+0.7801724 </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>roc.rf <span class="ot">=</span> <span class="fu">roc</span>(test.y,test.res,<span class="at">legacy.axes=</span><span class="cn">TRUE</span>)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">auc</span>(roc.rf))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Area under the curve: 0.8379</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggroc</span>(roc.rf)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"ROC curve"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">varImpPlot</span>(rf,<span class="at">pch=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L13_files/figure-html/unnamed-chunk-23-2.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co">#varImpPlot(rf,pch=20,type=1)</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="co">#varImpPlot(rf,pch=20,type=2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="forward---boosting-next" class="level2">
+<h2 class="anchored" data-anchor-id="forward---boosting-next">Forward - boosting next</h2>
+<p>Study ESL Figure 15.7 for comparing random forest with boosting as a function of relevant variables.</p>
+<p>When the number of relevant predictors</p>
+<ul>
+<li>is high, random forest performs well.</li>
+<li>is small, random forest performance deteriorate with many noisy variables</li>
+</ul>
+</section>
+</section>
+<section id="conclusions" class="level1">
+<h1>Conclusions</h1>
+</section>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
+<section id="small-tasks" class="level2">
+<h2 class="anchored" data-anchor-id="small-tasks">Small tasks</h2>
+<p>Look through the many problems sets presented in this document. (Solutions provided for some of the problems.)</p>
+</section>
+<section id="prove-the-formula" class="level2">
+<h2 class="anchored" data-anchor-id="prove-the-formula">Prove the formula</h2>
+<p>for the variance of the mean with compound symmetry correlation <span class="math display">\[\rho \sigma^2+\frac{1-\rho}{B} \sigma^2\]</span> This is also Exercise 15.1 in ESL. <a href="./L5solex.pdf">Link to solutions</a></p>
+</section>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Bagging" class="csl-entry" role="doc-biblioentry">
+Breiman, Leo. 1996. <span>“Bagging Predictors.”</span> <em>Machine Learning</em> 24: 123–40.
+</div>
+<div id="ref-casi" class="csl-entry" role="doc-biblioentry">
+Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference - Algorithms, Evidence, and Data Science</em>. Cambridge University Press. <a href="https://hastie.su.domains/CASI/">https://hastie.su.domains/CASI/</a>.
+</div>
+<div id="ref-ESL" class="csl-entry" role="doc-biblioentry">
+Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. Vol. 2. Springer series in statistics New York. <a href="https://hastie.su.domains/ElemStatLearn">hastie.su.domains/ElemStatLearn</a>.
+</div>
+<div id="ref-ISL" class="csl-entry" role="doc-biblioentry">
+James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 112. Springer.
+</div>
+<div id="ref-Ripley" class="csl-entry" role="doc-biblioentry">
+Ripley, Brian D. 1996. <em>Pattern Recognicion and Neural Networks</em>. Cambridge University Press.
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

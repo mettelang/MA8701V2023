@@ -57,7 +57,7 @@ include_graphics("../overviewv2.png")
 
 ## Literature 
 
-* [ELS] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. [Ebook](https://web.stanford.edu/~hastie/Papers/ESLII.pdf). Chapter 3.2 and 3.4.1-3.4.3.
+* [ELS] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. [Ebook](https://hastie.su.domains/ElemStatLearn/download.html). Chapter 3.2 and 3.4.1-3.4.3.
 
 * [HTW] Hastie, Tibshirani, Wainwrigh: "Statistical Learning with Sparsity: The Lasso and Generalizations". CRC press. [Ebook](https://trevorhastie.github.io/). Chapter 1, 2.1-2.3,2.5.
 
