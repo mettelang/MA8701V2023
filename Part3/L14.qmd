@@ -57,7 +57,34 @@ Course homepage: <https://wiki.math.ntnu.no/ma8701/2023v/start>
 
 ## Literature
 
-* [ESL] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. [Ebook](https://hastie.su.domains/ElemStatLearn/download.html). Chapter 8.7 (bagging), 9.2 (trees), 15 (random forest, not 15.3.3 and 15.4.3).
+* [ESL] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. [Ebook](https://hastie.su.domains/ElemStatLearn/download.html). Chapter 10.1-10.6, 10.9, 10.10, 10.12, (10.13 later), 16.1-16.2
+
+* Video by Berent Lunde (link on Bb), covering Chapter 10 (in particular 10.10) and the Chen and Guestrin paper.
+
+* Chen, T., & Guestrin, C. (2016). XGBoost: A Scalable Tree Boosting System. In Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (pp. 785–794). New York, NY, USA: ACM. https://doi.org/10.1145/2939672.2939785. The mathematical notation is not in focus
+
+# Timeline
+
+1997: Freund and Schapire: AdaBoost.M1
+1995: Breiman understand AdaBoost from different view
+: Gradient boosting
+
+# AdaBoost.M1
+(10.1)
+Algorithm 10.1: AdaBost.M1
+
+Figure 2: stump, 244-node tress, AdaBoost.M1
+
+# Forward Stagewise Additive Modelling with Exponential loss
+(10.2-10.4)
+
+Algorithm 10.2: Forward Stagewise Additive Modelling
+
+# Boosting treees
+(10.9)
+
+# Regularization
+(10.12)
 
 
 # References

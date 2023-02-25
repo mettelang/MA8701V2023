@@ -149,7 +149,7 @@ include_graphics("./ILSR812.png")
 
 ## Fitting a regression tree
 
-Assume that we have a dataset consisting of $N$ pairs $({\mathsymbol x}_i,Y_i)$, $i=1,\ldots,N$, and each predictor is ${\mathsymbol x}_i=(x_{i1},x_{i2},...,x_{ip})$.
+Assume that we have a dataset consisting of $N$ pairs $({\mathbf x}_i,Y_i)$, $i=1,\ldots,N$, and each predictor is ${\mathbf x}_i=(x_{i1},x_{i2},...,x_{ip})$.
 
 We want:
 
@@ -793,8 +793,8 @@ By averaging we get reduced variance. This is the basic idea!
 
 ---
 
-But, we will not draw random variables - we want to fit decision trees: $\hat{f}_1({\mathsymbol x}),\hat{f}_2({\mathsymbol x}),\ldots, \hat{f}_B({\mathsymbol x})$ and average those.
-$$ \hat{f}_{avg}({\mathsymbol x})=\frac{1}{B}\sum_{b=1}^B \hat{f}_b({\mathsymbol x})$$
+But, we will not draw random variables - we want to fit decision trees: $\hat{f}_1({\mathbf x}),\hat{f}_2({\mathbf x}),\ldots, \hat{f}_B({\mathbf x})$ and average those.
+$$ \hat{f}_{avg}({\mathbf x})=\frac{1}{B}\sum_{b=1}^B \hat{f}_b({\mathbf x})$$
 
 However, we do not have many independent data set - so we use _bootstrapping_ to construct $B$ data sets.
 

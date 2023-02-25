@@ -1,0 +1,523 @@
+---
+title: "MA8701 Advanced methods in statistical inference and learning"
+author: "Mette Langaas"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+subtitle: 'Part 3: Ensembles. L13: Bagging - trees - random forests'
+bibliography: ../Part1/references.bib
+nocite: |
+  @casi, @ESL, @ISL,@Bagging,@Randomforest, @Ripley
+format: 
+  html: 
+    toc: true
+    code-fold: true
+    toc-location: left
+    toc-depth: 3
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+    keep-tex: true
+  beamer:
+    incremental: false
+    aspectratio: 43
+    navigation: frame
+---
+
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+suppressPackageStartupMessages(library(knitr))
+knitr::opts_chunk$set(echo = FALSE, message=FALSE,warning = FALSE, error = FALSE)
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(rpart))
+suppressPackageStartupMessages(library(rpart.plot))
+suppressPackageStartupMessages(library(randomForest))
+suppressPackageStartupMessages(library(DAAG))
+suppressPackageStartupMessages(library(tree))
+suppressPackageStartupMessages(library(MASS))
+suppressPackageStartupMessages(library(GGally))
+suppressPackageStartupMessages(library(corrplot))
+suppressPackageStartupMessages(library(caret)) #for confusion matrices
+suppressPackageStartupMessages(library(pROC)) #for ROC curves
+suppressPackageStartupMessages(library(dplyr))
+```
+
+
+# Part 3: Ensembles
+
+---
+
+# Literature this lecture (L13)
+
+* [ESL] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. [Ebook](https://hastie.su.domains/ElemStatLearn/download.html). Chapter 8.7 (bagging), 9.2 (trees), 15 (random forest, not 15.3.3 and 15.4.3).
+
+---
+
+# Topics in this lecture
+
+---
+
+# Wisdom of the crowds: Vox populi 
+
+```{r}
+#| fig.cap: "Nature: Galton (1907)"
+#| out.width: "100%"
+include_graphics("../../Figures/Vox1.jpg")
+```
+
+---
+
+```{r}
+#| fig.cap: "Nature: Galton (1907)"
+#| out.width: "100%"
+include_graphics("../../Figures/Vox2.jpg")
+```
+
+<!-- Even more: [revisiting the data in 2014]( https://projecteuclid.org/journals/statistical-science/volume-29/issue-3/Revisiting-Francis-Galtons-Forecasting-Competition/10.1214/14-STS468.full) -->
+
+---
+
+# What is a wise crowd?
+
+James Surowiecki: The Wisdom of Crowds: Why the Many Are Smarter Than the Few and How Collective Wisdom Shapes Business, Economies, Societies and Nations, 2004 as presented at <https://en.wikipedia.org/wiki/The_Wisdom_of_Crowds>
+
+* Diversity of opinion:	Each person should have private information even if it is just an eccentric interpretation of the known facts. (Chapter 2)
+* Independence:	People's opinions are not determined by the opinions of those around them. (Chapter 3)
+* Decentralization:	People are able to specialize and draw on local knowledge. (Chapter 4)
+* Aggregation: Some mechanism exists for turning private judgements into a collective decision. (Chapter 5)
+* Trust: Each person trusts the collective group to be fair. (Chapter 6)
+
+---
+
+```{r}
+#| fig.cap: "@ESL Figure 8.11"
+#| out.width: 90%"
+include_graphics("../../Figures/ESL811.jpg")
+```
+
+
+<!-- # NRK - alle mot 1 -->
+
+<!-- Game format: a series of strange experiments are performed where for each experiment the aim is to win money by guessing the answer of the experiment and be "closer to the answer" than a sample from the Norwegian population answering through an app. Money is won by either the 1 or by some person randomly drawn from those who answer in the app.  -->
+
+<!-- Underway the player (the 1) can use different aids, one is to know the result from their home county before they lock their answer.  -->
+
+<!-- Repeatedly in the programme the player and everyone else is very surprised that the Norwegian population sample and the county sample are in strong agreement... -->
+
+---
+
+# How can we construct wise crowds for prediction?
+
+--
+
+# Bagging
+(bootstrap aggregation)
+
+1) What is it?
+2) Why is it a good idea?
+5) Connect to Part 1: OOB
+4) When to use it?
+
+---
+
+# What is it?
+
+
+---
+
+# Why is it a good idea?
+
+
+---
+
+
+# Connect to Part 1: Out-of-bag error estimation
+
+* We use a subset of the observations in each bootstrap sample. We know that the probability that an observation is in the bootstrap sample is approximately $1-e^{-1}$=`r 1-exp(-1)` (0.63212).
+* when an observation is left out of the bootstrap sample it is not used to build the tree, and we can use this observation as a part of a "test set" to measure the predictive performance and error of the fitted model, $f^{*b}(x)$. 
+
+In other words: Since each observation $i$ has a probability of approximately 2/3 to be in a bootstrap sample, and we make $B$ bootstrap samples, then observation $i$ will be outside the bootstrap sample in approximately $B/3$ of the fitted trees. 
+
+The observations left out are referred to as the _out-of-bag_ observations, and the measured error of the $B/3$ predictions is called the _out-of-bag error_. 
+
+---
+
+# When should we use bagging?
+
+_Breiman originally contructed bagging for classification and regression trees!_
+Aim: combat the high variance of trees!
+
+Bagging can be used for many types of predictors in addition to trees (regression and classification) according to Breiman (1996):
+
+* the vital element is the instability of the prediction method
+* if perturbing the learning set can cause significant changes in the predictor constructed, then bagging can improve accuracy.
+
+Breiman (1996) suggests that these methods should be suitable for bagging:
+
+* neural nets, classification and regression trees, subset selection in linear regression
+
+however not nearest neighbours - since 
+
+* the stability of nearest neighbour classification methods with respect to perturbations of the data distinguishes them from competitors such as trees and neural nets.
+
+---
+
+# Review of trees - through 4 questions
+
+---
+
+# 1) From non-overlapping regions in predictor space to a roted decision tree
+
+Draw the binary decision tree corresponding to the predictor space regions. Mark root, branch, internal node, leaf node.
+
+```{r}
+#| out.width: "40%"
+include_graphics("../../Figures/PredSpace.jpg")
+```
+
+
+
+---
+
+# 2) Tree prediction: what are the missing estimates?
+
+## Regression
+$$\hat{f}(X_i)=\sum_{m=1}^M \hat{c}_m I(X_i \in R_m)$$
+where $\hat{c}_m$ is the estimate for region $R_m$.
+
+## Classification
+
+* Majority vote: Predict that the observation belongs to the most commonly occurring class of the training observations in $R_m$.  
+* Estimate the probability that an observation $x_i$ belongs to a class $k$, $\hat{p}_{mk}(x_i)$, and then classify according to a threshold value. 
+
+---
+
+Regression: the mean of the responses for the training observations that fall into $R_j$. 
+$$\hat{c}_m=\text{ave}(y_i \mid x_i \in R_m)$$
+
+Classification: proportion of class $k$ training observations in region $R_j$, with $n_{mk}$ observations. Region $m$ has $N_m$ observations. 
+$$\hat{p}_{mk} = \frac{1}{N_m} \sum_{i:x_i \in R_m} I(y_i = k)=\frac{n_{mk}}{N_m}.$$ 
+---
+
+# 3) Recursive binary splitting
+
+* We look for a split point $s$ on variable $j$. What to minimize?
+* Why recursive binary splitting?
+* When to stop growing a tree?
+
+---
+
+# Regression
+
+$$\min_{j,s} [ \min_{c_1}\sum_{i: x_i \in R_1(j,s)}(y_i-c_1)^2+\min_{c_2} \sum_{i: x_i \in R_2(j,s)}(y_i -c_2)^2]$$
+
+---
+
+# Classification
+
+Some _measure of impurity_ of the node. For leaf node (region) $m$ and class $k=1,\ldots, K$:
+
+Gini index:
+$$
+G=\sum_{k=1}^K \hat{p}_{mk}(1-\hat{p}_{mk}),
+$$
+
+Cross entropy:
+$$
+D=-\sum_{k=1}^K \hat{p}_{mk}\log\hat{p}_{mk}
+$$
+Here $\hat{p}_{mk}$ is the proportion of training observation in region $m$ that are from class $k$. 
+
+Remark: the deviance is a scaled version of the cross entropy. $-2\sum_{k=1}^K n_{mk} \log\hat{p}_{mk}$ where $\hat{p}_{mk}=\frac{n_{mk}}{N_m}$. Ripley (1996, page 219).
+
+---
+
+When making a split in our classification tree, we want to minimize the Gini index or the cross-entropy.
+
+The Gini index can be interpreted as the expected error rate if the label is chosen randomly from the class distribution of the node. According to Ripley (1996, page 217) Breiman et al (CART) preferred the Gini index.
+
+---
+
+# 4) Pros and cons of trees
+
+---
+
+**Advantages (+)** of using trees
+
+* Trees automatically select variables
+* Tree-growing algorithms scale well to large $n$, growing a tree greedily
+* Trees can handle mixed features (continuouos, categorical) seamlessly, and can deal with missing data
+* Small trees are easy to interpret and explain to people
+* Some believe that decision trees mirror human decision making
+* Trees can be displayed graphically
+* Trees model non-linear effects 
+* Trees model interactions between covariates
+* Trees handle missing data in a smart way!
+* Outliers and irrelevant inputs will not affect the tree.
+
+There is no need to specify the functional form of the regression curve or classification border - this is found by the tree automatically.
+
+---
+
+**Disadvantages (-)** of using trees
+
+* Large trees are not easy to interpret
+* Trees do not generally have good prediction performance (high variance)
+* Trees are not very robust, a small change in the data may cause a large change in the final estimated tree
+* Trees do not produce a smooth regression surface.
+
+---
+
+## Handling missing covariates in trees
+
+Instead of removing observation with missing values, or performing single or multiple imputation, there are two popular solutions to the problem for trees:
+
+**Make a "missing category"**
+
+If you believe that missing covariates behave in a particular way (differently from the non-missing values), we may construct a new category for that variable. 
+
+---
+
+**Use surrogate splits** 
+
+The best split at a node is called the _primary split_. 
+
+An observation with missing value for variable $x_1$ is dropped down the tree, and arrive at a split made on $x_1$.
+
+A "fake" tree is built to predict the split, and the observation follows the predicted direction in the tree. This means that the correlation between covariates are exploited - and the higher the correlation between the primary and predicted primary split - the better.
+
+This is called a _surrogate split_.
+
+If the observation is missing the surrogate variable, there is also a back-up surrogate variable that can be used (found in a similar fashion.)
+
+If the surrogate variable is not giving more information than following the majority of the observations at the primary split, it will not be regarded as a surrogate variable.
+
+---
+
+The R package `rpart` [vignette page  18](https://cran.r-project.org/web/packages/rpart/vignettes/longintro.pdf) gives the following example:
+
+* Assume that the split (age <40, age ≥40) has been chosen. 
+* Surrogate variables are found by _re-applying the partitioning algorithm_ (without recursion=only one split?) to predict the two categories age <40 vs. age ≥40 using the other covariates.
+* Using "number of misclassified"/"number of observations" as the criterion: the optimal split point is found for each covariate. 
+* A competitor is the majority rule - that is, go in the direction of the split where the majority of the training data goes. This is given misclassification error 
+ min(p, 1 − p) where
+p = (# in A with age < 40) / nA.
+* A ranking of the surrogate variables is done based on the misclassification error for each surrogate variable, and variables performing better than the majority rule is kept.
+
+---
+
+# Regression example: Boston housing
+@ISL Section 8.3.4.
+
+Information from <https://www.cs.toronto.edu/~delve/data/boston/bostonDetail.html>.
+
+* Collected by the U.S Census Service concerning housing in the area of Boston Massachusetts, US.
+* Two tasks often performed: predict nitrous oxide level (nox), or predict the median value of a house with in a "town" (medv).
+
+---
+
+# Variables
+
+* CRIM - per capita crime rate by town
+* ZN - proportion of residential land zoned for lots over 25,000 sq.ft.
+* INDUS - proportion of non-retail business acres per town.
+* CHAS - Charles River dummy variable (1 if tract bounds river; 0 otherwise)
+* NOX - nitric oxides concentration (parts per 10 million)
+* RM - average number of rooms per dwelling
+* AGE - proportion of owner-occupied units built prior to 1940
+* DIS - weighted distances to five Boston employment centres
+* RAD - index of accessibility to radial highways
+* TAX - full-value property-tax rate per $10,000
+* PTRATIO - pupil-teacher ratio by town
+* B - #1000(Bk - 0.63)^2# where Bk is the proportion of African Americans by town (black below)
+* LSTAT - % lower status of the population
+* MEDV - Median value of owner-occupied homes in $1000's (seems to be a truncation)
+
+---
+
+# Data
+
+Boston data used from the `MASS` R package.
+Data are divided into a training and a test set with 70/30 split.
+
+\footnotesize
+
+```{r}
+set.seed(1)
+train = sample(1:nrow(Boston), 0.7*nrow(Boston))
+colnames(Boston)
+head(Boston)
+```
+
+---
+
+\normalsize
+
+```{r,echo=TRUE}
+tree.boston=tree(medv~.,Boston,subset=train)
+summary(tree.boston); plot(tree.boston)
+text(tree.boston,pretty=0)
+```
+
+---
+
+```{r}
+tree.boston
+```
+
+---
+
+\footnotesize
+
+```{r,echo=TRUE}
+boston.rpart <- rpart(formula = medv~. , data = Boston,subset=train)
+plot(boston.rpart)
+text(boston.rpart,pretty=0)
+```
+
+---
+
+```{r}
+rpart.plot(boston.rpart,type = 3, box.palette = c("red", "grey"), fallen.leaves = TRUE)
+```
+
+---
+
+\normalsize
+
+Look at the Boston default tree with `tree` and `rpart` to see how the two handles ONE missing value that we have CONSTRUCTED
+
+```{r}
+print("tree package")
+testobs=Boston[1,]
+testobs[1,13]=NA
+print(testobs)
+predict(tree.boston,newdata=testobs)
+print("rpart package")
+predict(boston.rpart,newdata=testobs)
+```
+
+---
+
+## Questions
+
+1) Why do we say that trees can automatically handle (and find?) non-linearities? Give example.
+2) Same, but now interactions in data. Give example.
+3) Discuss the bias-variance tradeoff of a regression tree when increasing/decreasing the number of terminal nodes, i.e What happens to the bias? What happens to the variance of a prediction if we reduce the tree size? 
+4) Is $B$ a hyperparameter and how should it be chosen?
+
+---
+
+## Choosing $B$
+
+* The number $B$ is chosen to be as large as "necessary". 
+* An increase in $B$ will not lead to overfitting, and $B$ is not regarded as a tuning parameter. 
+* If a goodness of fit measure is plotted as a function of $B$ (soon) we see that (given that $B$ is large enough) increasing $B$ will not change the goodness of fit measure.
+
+---
+
+
+```{r}
+#| fig.cap: "@ESL Figure 8.10"
+#| out.width: 90%"
+include_graphics("../../Figures/ESL810.jpg")
+```
+
+
+# Bagging with trees - summing up
+
+
+
+# Random forest
+
+If there is a strong predictor in the dataset, the decision trees produced by each of the bootstrap samples in the bagging algorithm becomes very similar: Most of the trees will use the same strong predictor in the top split. 
+
+_Random forests_ is a solution to this problem and a method for decorrelating the trees. The hope is to improve the variance reduction. 
+
+---
+
+# The effect of correlation on the variance of the mean
+
+---
+
+## Core modifications to bagging
+
+The idea behind random forest is to _improve the variance reduction of bagging_ by reducing the correlation between the trees - while hoping the possible increase in variance in each tree doesn´t cancel the improvement.
+
+The procedure is thus as in bagging, but with the important difference, that 
+
+* at each split we are only allowed to consider $m<p$ of the predictors. 
+
+A new sample of $m$ predictors is taken at each split and 
+
+* typically $m= \text{floor}(\sqrt p)$ (classificaton) and $m=\text{floor}(p/3)$ (regression)
+
+The general idea is at for very correlated predictors $m$ is chosen to be small.
+
+---
+
+# Random forest algorithm
+
+---
+
+```{r}
+#| fig.cap: "@ESL Figure 15.3"
+#| out.width: 90%"
+include_graphics("../../Figures/ESL153.jpg")
+```
+
+---
+
+```{r}
+#| fig.cap: "@ESL Figure 15.9"
+#| out.width: 90%"
+include_graphics("../../Figures/ESL159.jpg")
+```
+
+---
+
+In addition the recommendations from the Random forest authors were also on _node size_ (the minimum number of observations in a leaf node):
+
+* classification: 1
+* regression: 5
+
+(ESL page 592)
+
+This is an indication that node size is an hyperparameter, but ESL argue that is is maybe not worth the extra effort to optimize on this parameter.
+
+---
+
+```{r}
+#| fig.cap: "@ESL Figure 15.8"
+#| out.width: 90%"
+include_graphics("../../Figures/ESL158.jpg")
+```
+
+---
+
+```{r}
+#| fig.cap: "@ESL Figure 15.1"
+#| out.width: 90%"
+include_graphics("../../Figures/ESL151.jpg")
+```
+
+---
+
+
+# OOB 
+
+When the OOB error stabilizes the $B$ is large enough and we may stop training. 
+```{r}
+#| fig.cap: "@ESL Figure 15.4"
+#| out.width: 90%"
+include_graphics("../../Figures/ESL154.jpg")
+```
+
+
+If $B$ is sufficiently large (three times the number needed for the random forest to stabilize), the OOB error estimate is equivalent to LOOCV (CASI: Efron and Hastie, 2016, p 330).
+
+---
+
+# Summing up!

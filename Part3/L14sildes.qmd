@@ -1,0 +1,311 @@
+---
+title: "MA8701 Advanced methods in statistical inference and learning"
+author: "Mette Langaas"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+subtitle: 'Part 3: Ensembles. L14: Boosting'
+bibliography: ../Part1/references.bib
+nocite: |
+  @casi, @ESL, @ISL
+format: 
+  html: 
+    toc: false
+    code-fold: true
+    toc-location: left
+    toc-depth: 3
+  pdf:
+    toc: false
+    number-sections: true
+    colorlinks: true
+    keep-tex: true
+  beamer:
+    incremental: false
+    aspectratio: 43
+    navigation: frame
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+suppressPackageStartupMessages(library(knitr))
+knitr::opts_chunk$set(echo = FALSE, message=FALSE,warning = FALSE, error = FALSE)
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(rpart))
+suppressPackageStartupMessages(library(rpart.plot))
+suppressPackageStartupMessages(library(randomForest))
+suppressPackageStartupMessages(library(DAAG))
+suppressPackageStartupMessages(library(tree))
+suppressPackageStartupMessages(library(MASS))
+suppressPackageStartupMessages(library(GGally))
+suppressPackageStartupMessages(library(corrplot))
+suppressPackageStartupMessages(library(caret)) #for confusion matrices
+suppressPackageStartupMessages(library(pROC)) #for ROC curves
+suppressPackageStartupMessages(library(dplyr))
+```
+
+# Part 3: plan
+
+```{r}
+#| out.width: 60%"
+include_graphics("../../Figures/Part3flow.jpg")
+```
+
+# Literature
+
+* [ESL] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. [Ebook](https://hastie.su.domains/ElemStatLearn/download.html). Chapter 10.1-10.6, 10.9-10.10, 10.12, 10.13 (in Part 4).
+
+* Video by Berent Lunde (link on Bb), covering Chapter 10 (in particular 10.10) and the Chen and Guestrin paper.
+
+* Chen, T., & Guestrin, C. (2016). XGBoost: A Scalable Tree Boosting System. In Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (pp. 785–794). New York, NY, USA: ACM. https://doi.org/10.1145/2939672.2939785. The mathematical notation is not in focus
+
+
+# Boosting
+
+
+# AdaBoost.M1
+
+```{r}
+#| fig.cap: "@ESL Figure 10.1"
+#| out.width: 80%"
+include_graphics("../../Figures/ESL101.jpg")
+```
+
+# Example 10.2
+$N=1000+1000$, $N_{test}=10000$. $X$s from N(0,1) for $p=10$ and true class is $1$ if $\sum_{j=1}^{10}x_j>9.34$ (median chisq), and $-1$ else.
+
+```{r}
+#| fig.cap: "@ESL Figure10.2"
+#| out.width: 70%"
+include_graphics("../../Figures/ESLFig102.jpg")
+```
+
+
+---
+
+```{r}
+#| fig.cap: "@ESL Algorithm 10.1"
+#| out.width: 90%"
+include_graphics("../../Figures/ESLAlg101.jpg")
+```
+
+---
+
+plotte alpha som func av err?
+
+```{r}
+```
+
+
+# Understanding AdaBoost.M1
+
+
+# $G(x)$ is an additive model
+
+# Forward Stagewise Additive Modelling
+
+---
+
+```{r}
+#| fig.cap: "@ESL Algorithm 10.2"
+#| out.width: 90%"
+include_graphics("../../Figures/ESLAlg102.jpg")
+```
+
+# Forward Stagewise Additive Modelling with Exponential loss
+
+
+
+# Group discussion: 
+
+* look at this [derivation of the equivalence of the AdaBoost.M1 and the forward stagewise modelling with exponential loss](./AdaboostFSExploss.pdf). 
+* For the steps 2a-2d in Algorithm 10.1 what is your new insight into what is done at each step?
+
+# What is great with exponential loss?
+
+
+
+---
+
+```{r}
+#| fig.cap: "@casi Figure 17.10: Importance of learning rate"
+#| out.width: 80%"
+include_graphics("../../Figures/CASI1712.jpg")
+```
+
+---
+
+```{r}
+#| fig.cap: "@ESL Figure 10.3"
+#| out.width: 70%"
+include_graphics("../../Figures/ESLFig103.jpg")
+```
+
+---
+
+```{r}
+#| fig.cap: "@ESL Figure 10.4"
+#| out.width: 80%"
+include_graphics("../../Figures/ESL104.jpg")
+```
+
+
+# Gradient boosting
+
+```{r}
+#| fig.cap: "@ESL Algorithm 10.3"
+#| out.width: 90%"
+include_graphics("../../Figures/ESLAlgo103.jpg")
+```
+
+R: gbm and mboost packages
+
+---
+
+```{r}
+#| fig.cap: "Guest lecture by Berent (at 25 minutes in the video)"
+#| out.width: 100%"
+include_graphics("../../Figures/Berent1.jpg")
+```
+
+Comments from Berent: essential to add an extra learning rate $\delta$ between $0$ and $1$ and $\delta=0.05$ not uncommon. In @ESL 10.12.1 Equation (10.41).
+
+<!-- Adapt complexity to the model - as $f$ is fit to the data, only add complexity in the direction needed, build sparse models (connedtion to the LARS algorithm for building a lasso). -->
+<!-- Approximate functional gradient descent - Maseon et al. Not true, since the functional gradient is approximated in the familty of trees. -->
+<!-- General differentiable and convex loss functions -->
+
+
+---
+
+```{r}
+#| fig.cap: "@casi Figure 17.10: Importance of learning rate"
+#| out.width: 90%"
+include_graphics("../../Figures/CASI1710.jpg")
+```
+
+
+# Tree depth
+
+---
+
+```{r}
+#| fig.cap: "@ESL Figure 10.9"
+#| out.width: 80%"
+include_graphics("../../Figures/ESL109.jpg")
+```
+
+
+# Regularization
+(10.12)
+
+* The number of weak learners, $M$, is chosen by monitoring prediction risk on a validation sample (same as early stopping in Deep nets - stop training when error validation set increases).
+
+* Learning rate - low rate generally recommended, but may lead to $M$ then being large. (2d in Algo 10.3 add $\nu$.)
+
+* Decorrelated functions: subsampling of both obserations (rows) and variables (columns). Same motivation as for random forest. When subsampl observations this is also called stochastic gradient boosting. 
+
+* L1 and L2 regularization term can be added (more in 16.2)
+
+---
+
+```{r}
+#| fig.cap: "@ESL Figure 10.11"
+#| out.width: 90%"
+include_graphics("../../Figures/ESL1011.jpg")
+```
+
+---
+
+```{r}
+#| fig.cap: "@ESL Figure 10.11"
+#| out.width: 90%"
+include_graphics("../../Figures/ESL1012.jpg")
+```
+
+
+# Variable importance for a single tree
+(10.13.1)
+
+A single tree can be studied to interpret the model fitted. For large trees - and for many trees, the concept of _variable importance_ is useful.
+
+Consider a covariate. How important is this covariate for the tree prediction?
+
+We have a tree $T$ with $J-1$ _internal nodes_ (remark: no leaf nodes - because there is no split at a leaf node).
+
+---
+
+Let $I_l^2(T)$ be a measure of squared relevance for predictor $X_l$:
+
+$$ I_l^2(T)=\sum_{t=1}^{J-1} \hat{i}^2_t I(v(t)=l)$$
+
+At each internal node $t$ there is a split, where the covariate to split on is denoted $X_{v(t)}$, and this variable was the one that gave the maximal improvement $\hat{i}^2_t$.
+
+The importance measure is the square root, so  $I_l(T)= \sqrt{I_l^2(T)}$.
+
+The term *important* relates to _total decrease in the node impurity, over splits for a predictor_, and is defined differently for regression trees and classification trees.
+
+# From single to many trees 
+
+$$I_l^2=\frac{1}{B} \sum_{b=1}^B I_l^2(T_b)$$
+The measure is relative:
+
+* the highest value is set to 100
+* the others are scaled according to this
+
+---
+
+## Regression trees
+
+* The importance of each predictor is calculated using the MSE. 
+* The algorithm records the total amount that the MSE is decreased due to splits for each predictor (there may be many spits for one predictor for each tree). 
+* This decrease in MSE is then averaged over the $B$ trees. The higher the decrease, the more important the predictor.
+
+
+## Classification trees
+
+* The importance of each predictor is calculated using the Gini index. 
+* The importance is the mean decrease (over all $B$ trees) in the Gini index by splits of a predictor.
+
+
+# Video by Berent — part 1
+
+01:40 Berent starts - with motivation\
+11:45: Boosting timeline\
+16:27: Boosting principle\
+18:42: AdaBoost\
+22:45: From AdaBoost to gradient boosting\
+31:26: Relationchip to L1 regularization\
+34:39: Techniques for improvement\
+End of first part
+
+
+# Video by Berent — part 2
+
+38:10 Gradient Tree Boosting\
+39:15: Why does trees work\
+43:49: 2nd order GTB\
+52:17: Algorithm for 2nd order GTB\
+55:07: Loss vs complexity trade-off in GTB\
+56:05: XGBoost\
+1:02 XGBoost regularization\
+1:03 Hyperparameter tuning\
+1:10: Other GTB implmentations (LightGBM, CatBoost, NGBoost)\
+End of part two
+
+
+# Video by Berent — part 3
+
+1:20 Answer questions\
+1:22 Automatic GTB (not on the reading list - the phd-topic of Berent)\
+
+1:49 Full lecture recap
+
+---
+
+# References
+
+::: {#refs}
+:::
+

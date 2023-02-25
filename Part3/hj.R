@@ -27,3 +27,6 @@ https://aacrjournals.org/cancerres/article/62/17/4963/509160/Translation-of-Micr
 
 sykkeldata fra eksamen i TMA4268?
   
+  
+  Besparing: 3020 timer i 2022 til 2740 timer i 2023. Vi betaler ca 250 pr time for studass (det er inkludert sosial kostander, de for betalt 180) og for de som tar LAOS dekker vi i tillegg 20 timer oppå dette. 
+Besparingen er ikke veldig stor: (3020-2740)*250=70k

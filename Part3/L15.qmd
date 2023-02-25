@@ -105,10 +105,6 @@ In L7 we also look into an ensemble built of elaborate models with the
 Super Learner and study some possible methods for tuning
 hyperparameters.
 
-# Random forest
-
-(ELS Ch 15) see learning material in L5.
-
 # Super Learner
 
 (References: Le Dell (2015) Section 2.2 and van der Laan et al (2016),
@@ -528,11 +524,9 @@ vs global search)
 
 We will look at two types of surrogate models: Bayesian regression with
 Gaussian processes (in Bayesian optimization) and regression-type models
-in response surface methods (presented by group 2).
+in response surface methods.
 
 ## Design of experiments and response surface methodology
-
-Article presentation by group 2.
 
 G. A. Lujan-Moreno, P. R. Howard, O. G. Rojas and D. C. Montgomery
 (2018): Design of experiments and response surface methodology to tune

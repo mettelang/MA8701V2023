@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mette Langaas">
+<meta name="dcterms.date" content="2023-02-23">
+
+<title>MA8701 Advanced methods in statistical inference and learning</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="L13slides_files/libs/clipboard/clipboard.min.js"></script>
+<script src="L13slides_files/libs/quarto-html/quarto.js"></script>
+<script src="L13slides_files/libs/quarto-html/popper.min.js"></script>
+<script src="L13slides_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="L13slides_files/libs/quarto-html/anchor.min.js"></script>
+<link href="L13slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="L13slides_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="L13slides_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="L13slides_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="L13slides_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#part-3-ensembles" id="toc-part-3-ensembles" class="nav-link active" data-scroll-target="#part-3-ensembles">Part 3: Ensembles</a></li>
+  <li><a href="#literature-this-lecture-l13" id="toc-literature-this-lecture-l13" class="nav-link" data-scroll-target="#literature-this-lecture-l13">Literature this lecture (L13)</a></li>
+  <li><a href="#topics-in-this-lecture" id="toc-topics-in-this-lecture" class="nav-link" data-scroll-target="#topics-in-this-lecture">Topics in this lecture</a></li>
+  <li><a href="#wisdom-of-the-crowds-vox-populi" id="toc-wisdom-of-the-crowds-vox-populi" class="nav-link" data-scroll-target="#wisdom-of-the-crowds-vox-populi">Wisdom of the crowds: Vox populi</a></li>
+  <li><a href="#what-is-a-wise-crowd" id="toc-what-is-a-wise-crowd" class="nav-link" data-scroll-target="#what-is-a-wise-crowd">What is a wise crowd?</a></li>
+  <li><a href="#how-can-we-construct-wise-crowds-for-prediction" id="toc-how-can-we-construct-wise-crowds-for-prediction" class="nav-link" data-scroll-target="#how-can-we-construct-wise-crowds-for-prediction">How can we construct wise crowds for prediction?</a></li>
+  <li><a href="#bagging" id="toc-bagging" class="nav-link" data-scroll-target="#bagging">Bagging</a></li>
+  <li><a href="#what-is-it" id="toc-what-is-it" class="nav-link" data-scroll-target="#what-is-it">What is it?</a></li>
+  <li><a href="#why-is-it-a-good-idea" id="toc-why-is-it-a-good-idea" class="nav-link" data-scroll-target="#why-is-it-a-good-idea">Why is it a good idea?</a></li>
+  <li><a href="#connect-to-part-1-out-of-bag-error-estimation" id="toc-connect-to-part-1-out-of-bag-error-estimation" class="nav-link" data-scroll-target="#connect-to-part-1-out-of-bag-error-estimation">Connect to Part 1: Out-of-bag error estimation</a></li>
+  <li><a href="#when-should-we-use-bagging" id="toc-when-should-we-use-bagging" class="nav-link" data-scroll-target="#when-should-we-use-bagging">When should we use bagging?</a></li>
+  <li><a href="#review-of-trees---through-4-questions" id="toc-review-of-trees---through-4-questions" class="nav-link" data-scroll-target="#review-of-trees---through-4-questions">Review of trees - through 4 questions</a></li>
+  <li><a href="#from-non-overlapping-regions-in-predictor-space-to-a-roted-decision-tree" id="toc-from-non-overlapping-regions-in-predictor-space-to-a-roted-decision-tree" class="nav-link" data-scroll-target="#from-non-overlapping-regions-in-predictor-space-to-a-roted-decision-tree">1) From non-overlapping regions in predictor space to a roted decision tree</a></li>
+  <li><a href="#tree-prediction-what-are-the-missing-estimates" id="toc-tree-prediction-what-are-the-missing-estimates" class="nav-link" data-scroll-target="#tree-prediction-what-are-the-missing-estimates">2) Tree prediction: what are the missing estimates?</a>
+  <ul class="collapse">
+  <li><a href="#regression" id="toc-regression" class="nav-link" data-scroll-target="#regression">Regression</a></li>
+  <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification">Classification</a></li>
+  </ul></li>
+  <li><a href="#recursive-binary-splitting" id="toc-recursive-binary-splitting" class="nav-link" data-scroll-target="#recursive-binary-splitting">3) Recursive binary splitting</a></li>
+  <li><a href="#regression-1" id="toc-regression-1" class="nav-link" data-scroll-target="#regression-1">Regression</a></li>
+  <li><a href="#classification-1" id="toc-classification-1" class="nav-link" data-scroll-target="#classification-1">Classification</a></li>
+  <li><a href="#pros-and-cons-of-trees" id="toc-pros-and-cons-of-trees" class="nav-link" data-scroll-target="#pros-and-cons-of-trees">4) Pros and cons of trees</a>
+  <ul class="collapse">
+  <li><a href="#handling-missing-covariates-in-trees" id="toc-handling-missing-covariates-in-trees" class="nav-link" data-scroll-target="#handling-missing-covariates-in-trees">Handling missing covariates in trees</a></li>
+  </ul></li>
+  <li><a href="#regression-example-boston-housing" id="toc-regression-example-boston-housing" class="nav-link" data-scroll-target="#regression-example-boston-housing">Regression example: Boston housing</a></li>
+  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
+  <ul class="collapse">
+  <li><a href="#other-issues" id="toc-other-issues" class="nav-link" data-scroll-target="#other-issues">Other issues</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">MA8701 Advanced methods in statistical inference and learning</h1>
+<p class="subtitle lead">Part 3: Ensembles. L13: Bagging - trees - random forests</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mette Langaas </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 23, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<section id="part-3-ensembles" class="level1">
+<h1>Part 3: Ensembles</h1>
+<hr>
+</section>
+<section id="literature-this-lecture-l13" class="level1">
+<h1>Literature this lecture (L13)</h1>
+<ul>
+<li>[ESL] The Elements of Statistical Learning: Data Mining, Inference, and Prediction, Second Edition (Springer Series in Statistics, 2009) by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. <a href="https://hastie.su.domains/ElemStatLearn/download.html">Ebook</a>. Chapter 8.7 (bagging), 9.2 (trees), 15 (random forest, not 15.3.3 and 15.4.3).</li>
+</ul>
+<hr>
+</section>
+<section id="topics-in-this-lecture" class="level1">
+<h1>Topics in this lecture</h1>
+<hr>
+</section>
+<section id="wisdom-of-the-crowds-vox-populi" class="level1">
+<h1>Wisdom of the crowds: Vox populi</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../Figures/Vox1.jpg" class="img-fluid figure-img" style="width:100.0%"></p>
+<p></p><figcaption class="figure-caption">Nature: Galton (1907)</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../Figures/Vox2.jpg" class="img-fluid figure-img" style="width:100.0%"></p>
+<p></p><figcaption class="figure-caption">Nature: Galton (1907)</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<!-- Even more: [revisiting the data in 2014]( https://projecteuclid.org/journals/statistical-science/volume-29/issue-3/Revisiting-Francis-Galtons-Forecasting-Competition/10.1214/14-STS468.full) -->
+<hr>
+</section>
+<section id="what-is-a-wise-crowd" class="level1">
+<h1>What is a wise crowd?</h1>
+<p>James Surowiecki: The Wisdom of Crowds: Why the Many Are Smarter Than the Few and How Collective Wisdom Shapes Business, Economies, Societies and Nations, 2004 as presented at <a href="https://en.wikipedia.org/wiki/The_Wisdom_of_Crowds" class="uri">https://en.wikipedia.org/wiki/The_Wisdom_of_Crowds</a></p>
+<ul>
+<li>Diversity of opinion: Each person should have private information even if it is just an eccentric interpretation of the known facts. (Chapter 2)</li>
+<li>Independence: People’s opinions are not determined by the opinions of those around them. (Chapter 3)</li>
+<li>Decentralization: People are able to specialize and draw on local knowledge. (Chapter 4)</li>
+<li>Aggregation: Some mechanism exists for turning private judgements into a collective decision. (Chapter 5)</li>
+<li>Trust: Each person trusts the collective group to be fair. (Chapter 6)</li>
+</ul>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../Figures/ESL811.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><span class="citation" data-cites="ESL">Hastie, Tibshirani, and Friedman (<a href="#ref-ESL" role="doc-biblioref">2009</a>)</span> Figure 8.11</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<!-- # NRK - alle mot 1 -->
+<!-- Game format: a series of strange experiments are performed where for each experiment the aim is to win money by guessing the answer of the experiment and be "closer to the answer" than a sample from the Norwegian population answering through an app. Money is won by either the 1 or by some person randomly drawn from those who answer in the app.  -->
+<!-- Underway the player (the 1) can use different aids, one is to know the result from their home county before they lock their answer.  -->
+<!-- Repeatedly in the programme the player and everyone else is very surprised that the Norwegian population sample and the county sample are in strong agreement... -->
+<hr>
+</section>
+<section id="how-can-we-construct-wise-crowds-for-prediction" class="level1">
+<h1>How can we construct wise crowds for prediction?</h1>
+<p>–</p>
+</section>
+<section id="bagging" class="level1">
+<h1>Bagging</h1>
+<p>(bootstrap aggregation)</p>
+<ol type="1">
+<li>What is it?</li>
+<li>Why is it a good idea?</li>
+<li>Connect to Part 1: OOB</li>
+<li>When to use it?</li>
+</ol>
+<hr>
+</section>
+<section id="what-is-it" class="level1">
+<h1>What is it?</h1>
+<hr>
+</section>
+<section id="why-is-it-a-good-idea" class="level1">
+<h1>Why is it a good idea?</h1>
+<hr>
+</section>
+<section id="connect-to-part-1-out-of-bag-error-estimation" class="level1">
+<h1>Connect to Part 1: Out-of-bag error estimation</h1>
+<ul>
+<li>We use a subset of the observations in each bootstrap sample. We know that the probability that an observation is in the bootstrap sample is approximately <span class="math inline">\(1-e^{-1}\)</span>=0.6321206 (0.63212).</li>
+<li>when an observation is left out of the bootstrap sample it is not used to build the tree, and we can use this observation as a part of a “test set” to measure the predictive performance and error of the fitted model, <span class="math inline">\(f^{*b}(x)\)</span>.</li>
+</ul>
+<p>In other words: Since each observation <span class="math inline">\(i\)</span> has a probability of approximately 2/3 to be in a bootstrap sample, and we make <span class="math inline">\(B\)</span> bootstrap samples, then observation <span class="math inline">\(i\)</span> will be outside the bootstrap sample in approximately <span class="math inline">\(B/3\)</span> of the fitted trees.</p>
+<p>The observations left out are referred to as the <em>out-of-bag</em> observations, and the measured error of the <span class="math inline">\(B/3\)</span> predictions is called the <em>out-of-bag error</em>.</p>
+<hr>
+</section>
+<section id="when-should-we-use-bagging" class="level1">
+<h1>When should we use bagging?</h1>
+<p><em>Breiman originally contructed bagging for classification and regression trees!</em> Aim: combat the high variance of trees!</p>
+<p>Bagging can be used for many types of predictors in addition to trees (regression and classification) according to Breiman (1996):</p>
+<ul>
+<li>the vital element is the instability of the prediction method</li>
+<li>if perturbing the learning set can cause significant changes in the predictor constructed, then bagging can improve accuracy.</li>
+</ul>
+<p>Breiman (1996) suggests that these methods should be suitable for bagging:</p>
+<ul>
+<li>neural nets, classification and regression trees, subset selection in linear regression</li>
+</ul>
+<p>however not nearest neighbours - since</p>
+<ul>
+<li>the stability of nearest neighbour classification methods with respect to perturbations of the data distinguishes them from competitors such as trees and neural nets.</li>
+</ul>
+<hr>
+</section>
+<section id="review-of-trees---through-4-questions" class="level1">
+<h1>Review of trees - through 4 questions</h1>
+<hr>
+</section>
+<section id="from-non-overlapping-regions-in-predictor-space-to-a-roted-decision-tree" class="level1">
+<h1>1) From non-overlapping regions in predictor space to a roted decision tree</h1>
+<p>Draw the binary decision tree corresponding to the predictor space regions. Mark root, branch, internal node, leaf node.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="../../Figures/PredSpace.jpg" class="img-fluid" style="width:40.0%"></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="tree-prediction-what-are-the-missing-estimates" class="level1">
+<h1>2) Tree prediction: what are the missing estimates?</h1>
+<section id="regression" class="level2">
+<h2 class="anchored" data-anchor-id="regression">Regression</h2>
+<p><span class="math display">\[\hat{f}(X_i)=\sum_{m=1}^M \hat{c}_m I(X_i \in R_m)\]</span> where <span class="math inline">\(\hat{c}_m\)</span> is the estimate for region <span class="math inline">\(R_m\)</span>.</p>
+</section>
+<section id="classification" class="level2">
+<h2 class="anchored" data-anchor-id="classification">Classification</h2>
+<ul>
+<li>Majority vote: Predict that the observation belongs to the most commonly occurring class of the training observations in <span class="math inline">\(R_m\)</span>.<br>
+</li>
+<li>Estimate the probability that an observation <span class="math inline">\(x_i\)</span> belongs to a class <span class="math inline">\(k\)</span>, <span class="math inline">\(\hat{p}_{mk}(x_i)\)</span>, and then classify according to a threshold value.</li>
+</ul>
+<hr>
+<p>Regression: the mean of the responses for the training observations that fall into <span class="math inline">\(R_j\)</span>. <span class="math display">\[\hat{c}_m=\text{ave}(y_i \mid x_i \in R_m)\]</span></p>
+<p>Classification: proportion of class <span class="math inline">\(k\)</span> training observations in region <span class="math inline">\(R_j\)</span>, with <span class="math inline">\(n_{mk}\)</span> observations. Region <span class="math inline">\(m\)</span> has <span class="math inline">\(N_m\)</span> observations. <span class="math display">\[\hat{p}_{mk} = \frac{1}{N_m} \sum_{i:x_i \in R_m} I(y_i = k)=\frac{n_{mk}}{N_m}.\]</span></p>
+<hr>
+</section>
+</section>
+<section id="recursive-binary-splitting" class="level1">
+<h1>3) Recursive binary splitting</h1>
+<ul>
+<li>We look for a split point <span class="math inline">\(s\)</span> on variable <span class="math inline">\(j\)</span>. What to minimize?</li>
+<li>Why recursive binary splitting?</li>
+<li>When to stop growing a tree?</li>
+</ul>
+<hr>
+</section>
+<section id="regression-1" class="level1">
+<h1>Regression</h1>
+<p><span class="math display">\[\min_{j,s} [ \min_{c_1}\sum_{i: x_i \in R_1(j,s)}(y_i-c_1)^2+\min_{c_2} \sum_{i: x_i \in R_2(j,s)}(y_i -c_2)^2]\]</span></p>
+<hr>
+</section>
+<section id="classification-1" class="level1">
+<h1>Classification</h1>
+<p>Some <em>measure of impurity</em> of the node. For leaf node (region) <span class="math inline">\(m\)</span> and class <span class="math inline">\(k=1,\ldots, K\)</span>:</p>
+<p>Gini index: <span class="math display">\[
+G=\sum_{k=1}^K \hat{p}_{mk}(1-\hat{p}_{mk}),
+\]</span></p>
+<p>Cross entropy: <span class="math display">\[
+D=-\sum_{k=1}^K \hat{p}_{mk}\log\hat{p}_{mk}
+\]</span> Here <span class="math inline">\(\hat{p}_{mk}\)</span> is the proportion of training observation in region <span class="math inline">\(m\)</span> that are from class <span class="math inline">\(k\)</span>.</p>
+<p>Remark: the deviance is a scaled version of the cross entropy. <span class="math inline">\(-2\sum_{k=1}^K n_{mk} \log\hat{p}_{mk}\)</span> where <span class="math inline">\(\hat{p}_{mk}=\frac{n_{mk}}{N_m}\)</span>. Ripley (1996, page 219).</p>
+<hr>
+<p>When making a split in our classification tree, we want to minimize the Gini index or the cross-entropy.</p>
+<p>The Gini index can be interpreted as the expected error rate if the label is chosen randomly from the class distribution of the node. According to Ripley (1996, page 217) Breiman et al (CART) preferred the Gini index.</p>
+<hr>
+</section>
+<section id="pros-and-cons-of-trees" class="level1">
+<h1>4) Pros and cons of trees</h1>
+<hr>
+<p><strong>Advantages (+)</strong> of using trees</p>
+<ul>
+<li>Trees automatically select variables</li>
+<li>Tree-growing algorithms scale well to large <span class="math inline">\(n\)</span>, growing a tree greedily</li>
+<li>Trees can handle mixed features (continuouos, categorical) seamlessly, and can deal with missing data</li>
+<li>Small trees are easy to interpret and explain to people</li>
+<li>Some believe that decision trees mirror human decision making</li>
+<li>Trees can be displayed graphically</li>
+<li>Trees model non-linear effects</li>
+<li>Trees model interactions between covariates</li>
+<li>Trees handle missing data in a smart way!</li>
+<li>Outliers and irrelevant inputs will not affect the tree.</li>
+</ul>
+<p>There is no need to specify the functional form of the regression curve or classification border - this is found by the tree automatically.</p>
+<hr>
+<p><strong>Disadvantages (-)</strong> of using trees</p>
+<ul>
+<li>Large trees are not easy to interpret</li>
+<li>Trees do not generally have good prediction performance (high variance)</li>
+<li>Trees are not very robust, a small change in the data may cause a large change in the final estimated tree</li>
+<li>Trees do not produce a smooth regression surface.</li>
+</ul>
+<hr>
+<section id="handling-missing-covariates-in-trees" class="level2">
+<h2 class="anchored" data-anchor-id="handling-missing-covariates-in-trees">Handling missing covariates in trees</h2>
+<p>Instead of removing observation with missing values, or performing single or multiple imputation, there are two popular solutions to the problem for trees:</p>
+<p><strong>Make a “missing category”</strong></p>
+<p>If you believe that missing covariates behave in a particular way (differently from the non-missing values), we may construct a new category for that variable.</p>
+<hr>
+<p><strong>Use surrogate splits</strong></p>
+<p>The best split at a node is called the <em>primary split</em>.</p>
+<p>An observation with missing value for variable <span class="math inline">\(x_1\)</span> is dropped down the tree, and arrive at a split made on <span class="math inline">\(x_1\)</span>.</p>
+<p>A “fake” tree is built to predict the split, and the observation follows the predicted direction in the tree. This means that the correlation between covariates are exploited - and the higher the correlation between the primary and predicted primary split - the better.</p>
+<p>This is called a <em>surrogate split</em>.</p>
+<p>If the observation is missing the surrogate variable, there is also a back-up surrogate variable that can be used (found in a similar fashion.)</p>
+<p>If the surrogate variable is not giving more information than following the majority of the observations at the primary split, it will not be regarded as a surrogate variable.</p>
+<hr>
+<p>The R package <code>rpart</code> <a href="https://cran.r-project.org/web/packages/rpart/vignettes/longintro.pdf">vignette page 18</a> gives the following example:</p>
+<ul>
+<li>Assume that the split (age &lt;40, age ≥40) has been chosen.</li>
+<li>Surrogate variables are found by <em>re-applying the partitioning algorithm</em> (without recursion=only one split?) to predict the two categories age &lt;40 vs.&nbsp;age ≥40 using the other covariates.</li>
+<li>Using “number of misclassified”/“number of observations” as the criterion: the optimal split point is found for each covariate.</li>
+<li>A competitor is the majority rule - that is, go in the direction of the split where the majority of the training data goes. This is given misclassification error min(p, 1 − p) where p = (# in A with age &lt; 40) / nA.</li>
+<li>A ranking of the surrogate variables is done based on the misclassification error for each surrogate variable, and variables performing better than the majority rule is kept.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="regression-example-boston-housing" class="level1">
+<h1>Regression example: Boston housing</h1>
+<p><span class="citation" data-cites="ISL">James et al. (<a href="#ref-ISL" role="doc-biblioref">2013</a>)</span> Section 8.3.4.</p>
+<p>Information from <a href="https://www.cs.toronto.edu/~delve/data/boston/bostonDetail.html" class="uri">https://www.cs.toronto.edu/~delve/data/boston/bostonDetail.html</a>.</p>
+<ul>
+<li>Collected by the U.S Census Service concerning housing in the area of Boston Massachusetts, US.</li>
+<li>Two tasks often performed: predict nitrous oxide level (nox), or predict the median value of a house with in a “town” (medv).</li>
+</ul>
+<hr>
+</section>
+<section id="variables" class="level1">
+<h1>Variables</h1>
+<ul>
+<li>CRIM - per capita crime rate by town</li>
+<li>ZN - proportion of residential land zoned for lots over 25,000 sq.ft.</li>
+<li>INDUS - proportion of non-retail business acres per town.</li>
+<li>CHAS - Charles River dummy variable (1 if tract bounds river; 0 otherwise)</li>
+<li>NOX - nitric oxides concentration (parts per 10 million)</li>
+<li>RM - average number of rooms per dwelling</li>
+<li>AGE - proportion of owner-occupied units built prior to 1940</li>
+<li>DIS - weighted distances to five Boston employment centres</li>
+<li>RAD - index of accessibility to radial highways</li>
+<li>TAX - full-value property-tax rate per $10,000</li>
+<li>PTRATIO - pupil-teacher ratio by town</li>
+<li>B - #1000(Bk - 0.63)^2# where Bk is the proportion of African Americans by town (black below)</li>
+<li>LSTAT - % lower status of the population</li>
+<li>MEDV - Median value of owner-occupied homes in $1000’s (seems to be a truncation)</li>
+</ul>
+<hr>
+</section>
+<section id="data" class="level1">
+<h1>Data</h1>
+<p>Boston data used from the <code>MASS</code> R package. Data are divided into a training and a test set with 70/30 split.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "crim"    "zn"      "indus"   "chas"    "nox"     "rm"      "age"    
+ [8] "dis"     "rad"     "tax"     "ptratio" "black"   "lstat"   "medv"   </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     crim zn indus chas   nox    rm  age    dis rad tax ptratio  black lstat
+1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90  4.98
+2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90  9.14
+3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83  4.03
+4 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63  2.94
+5 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90  5.33
+6 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12  5.21
+  medv
+1 24.0
+2 21.6
+3 34.7
+4 33.4
+5 36.2
+6 28.7</code></pre>
+</div>
+</div>
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tree.boston<span class="ot">=</span><span class="fu">tree</span>(medv<span class="sc">~</span>.,Boston,<span class="at">subset=</span>train)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tree.boston); <span class="fu">plot</span>(tree.boston)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Regression tree:
+tree(formula = medv ~ ., data = Boston, subset = train)
+Variables actually used in tree construction:
+[1] "rm"    "lstat" "crim" 
+Number of terminal nodes:  6 
+Residual mean deviance:  14.86 = 5172 / 348 
+Distribution of residuals:
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+-11.36000  -2.25600  -0.04933   0.00000   2.16700  28.14000 </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(tree.boston,<span class="at">pretty=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L13slides_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>node), split, n, deviance, yval
+      * denotes terminal node
+
+ 1) root 354 32270.0 22.95  
+   2) rm &lt; 6.945 296 10830.0 19.82  
+     4) lstat &lt; 14.405 177  3681.0 23.17  
+       8) rm &lt; 6.543 138  1690.0 21.86 *
+       9) rm &gt; 6.543 39   908.2 27.82 *
+     5) lstat &gt; 14.405 119  2215.0 14.84  
+      10) crim &lt; 5.76921 63   749.9 17.33 *
+      11) crim &gt; 5.76921 56   636.1 12.04 *
+   3) rm &gt; 6.945 58  3754.0 38.92  
+     6) rm &lt; 7.445 33   749.7 33.13 *
+     7) rm &gt; 7.445 25   438.0 46.56 *</code></pre>
+</div>
+</div>
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>boston.rpart <span class="ot">&lt;-</span> <span class="fu">rpart</span>(<span class="at">formula =</span> medv<span class="sc">~</span>. , <span class="at">data =</span> Boston,<span class="at">subset=</span>train)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(boston.rpart)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(boston.rpart,<span class="at">pretty=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L13slides_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L13slides_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<p>Look at the Boston default tree with <code>tree</code> and <code>rpart</code> to see how the two handles ONE missing value that we have CONSTRUCTED</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "tree package"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     crim zn indus chas   nox    rm  age  dis rad tax ptratio black lstat medv
+1 0.00632 18  2.31    0 0.538 6.575 65.2 4.09   1 296    15.3 396.9    NA   24</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      1 
+19.8223 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "rpart package"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+27.82308 </code></pre>
+</div>
+</div>
+<hr>
+<section id="other-issues" class="level2">
+<h2 class="anchored" data-anchor-id="other-issues">Other issues</h2>
+<p><span class="citation" data-cites="ESL">Hastie, Tibshirani, and Friedman (<a href="#ref-ESL" role="doc-biblioref">2009</a>)</span> 9.2.4</p>
+<ul>
+<li>Categorical predictors: For a predictor with <span class="math inline">\(q\)</span> levels (may be unordered) the number of possible partitions into two groups is large. A trick is used in the processing, where first dummy variable coding is performed then sorted by increasingly popular categories into a ordered categorical variable. Proofs exists that this gives optimal splits for cross-entropy, Gini, squared loss (see ESL page 310 for references).</li>
+<li>Categorical predictors with many levels may have a advantage for the splits, because there are so many possible splits that often one is very good. This may lead to overfitting if <span class="math inline">\(q\)</span> is large.</li>
+<li>For multiclass problems loss matrices may be included easily in the Gini loss.</li>
+</ul>
+<hr>
+<ul>
+<li>Binary splits: multiway splits into more than two groups is possible, but may fragment the data very quickly (too quickly). Multiway splits is achived by a series of binary splits. Thus, we stay with binary splits.</li>
+<li>Due to the binary splits it may be hard to model an additive structure.</li>
+<li>Linear combination splits: is possible by including also finding linear weight parameters for the splits. This may improve predictive power, but hurt interpretability.</li>
+<li>There exists other tree-building procedures than CART. One such is C5.0 by Quinlan, see ESL page 312 for reference.</li>
+<li>For regression trees the regression surface will be non-smooth, which may degrade performance. For classification trees where there response is a classification (and thus not smooth) this is not a large problem.</li>
+</ul>
+<hr>
+</section>
+<section id="questions" class="level2">
+<h2 class="anchored" data-anchor-id="questions">Questions</h2>
+<ol type="1">
+<li>Why do we say that trees can automatically handle (and find?) non-linearities? Give example.</li>
+<li>Same, but now interactions in data. Give example.</li>
+<li>Discuss the bias-variance tradeoff of a regression tree when increasing/decreasing the number of terminal nodes, i.e What happens to the bias? What happens to the variance of a prediction if we reduce the tree size?</li>
+</ol>
+<hr>
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Bagging" class="csl-entry" role="doc-biblioentry">
+Breiman, Leo. 1996. <span>“Bagging Predictors.”</span> <em>Machine Learning</em> 24: 123–40.
+</div>
+<div id="ref-casi" class="csl-entry" role="doc-biblioentry">
+Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference - Algorithms, Evidence, and Data Science</em>. Cambridge University Press. <a href="https://hastie.su.domains/CASI/">https://hastie.su.domains/CASI/</a>.
+</div>
+<div id="ref-ESL" class="csl-entry" role="doc-biblioentry">
+Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. Vol. 2. Springer series in statistics New York. <a href="https://hastie.su.domains/ElemStatLearn">hastie.su.domains/ElemStatLearn</a>.
+</div>
+<div id="ref-ISL" class="csl-entry" role="doc-biblioentry">
+James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 112. Springer.
+</div>
+<div id="ref-Ripley" class="csl-entry" role="doc-biblioentry">
+Ripley, Brian D. 1996. <em>Pattern Recognicion and Neural Networks</em>. Cambridge University Press.
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

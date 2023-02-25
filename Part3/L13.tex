@@ -215,11 +215,11 @@
 \makeatother
 \subtitle{Part 3: Ensembles. L13: Bagging - trees - random forests}
 \author{Mette Langaas}
-\date{2/21/23}
+\date{2/23/23}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, sharp corners, breakable, enhanced, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, interior hidden, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, frame hidden, enhanced, breakable]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -418,8 +418,8 @@ tree}\label{problem-preditor-space-partition-vs-tree}}
 \subsection{Fitting a regression tree}\label{fitting-a-regression-tree}}
 
 Assume that we have a dataset consisting of \(N\) pairs
-\(({\mathsymbol x}_i,Y_i)\), \(i=1,\ldots,N\), and each predictor is
-\({\mathsymbol x}_i=(x_{i1},x_{i2},...,x_{ip})\).
+\(({\mathbf x}_i,Y_i)\), \(i=1,\ldots,N\), and each predictor is
+\({\mathbf x}_i=(x_{i1},x_{i2},...,x_{ip})\).
 
 We want:
 
@@ -1906,9 +1906,9 @@ By averaging we get reduced variance. This is the basic idea!
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 But, we will not draw random variables - we want to fit decision trees:
-\(\hat{f}_1({\mathsymbol x}),\hat{f}_2({\mathsymbol x}),\ldots, \hat{f}_B({\mathsymbol x})\)
+\(\hat{f}_1({\mathbf x}),\hat{f}_2({\mathbf x}),\ldots, \hat{f}_B({\mathbf x})\)
 and average those.
-\[ \hat{f}_{avg}({\mathsymbol x})=\frac{1}{B}\sum_{b=1}^B \hat{f}_b({\mathsymbol x})\]
+\[ \hat{f}_{avg}({\mathbf x})=\frac{1}{B}\sum_{b=1}^B \hat{f}_b({\mathbf x})\]
 
 However, we do not have many independent data set - so we use
 \emph{bootstrapping} to construct \(B\) data sets.

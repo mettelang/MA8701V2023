@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-02-21">
+<meta name="dcterms.date" content="2023-02-23">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -270,7 +270,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 21, 2023</p>
+      <p class="date">February 23, 2023</p>
     </div>
   </div>
   
@@ -377,7 +377,7 @@ div.csl-indent {
 <h1>Regression tree</h1>
 <section id="fitting-a-regression-tree" class="level2">
 <h2 class="anchored" data-anchor-id="fitting-a-regression-tree">Fitting a regression tree</h2>
-<p>Assume that we have a dataset consisting of <span class="math inline">\(N\)</span> pairs <span class="math inline">\(({\bf x}_i,Y_i)\)</span>, <span class="math inline">\(i=1,\ldots,N\)</span>, and each predictor is <span class="math inline">\({\bf x}_i=(x_{i1},x_{i2},...,x_{ip})\)</span>.</p>
+<p>Assume that we have a dataset consisting of <span class="math inline">\(N\)</span> pairs <span class="math inline">\(({\mathbf x}_i,Y_i)\)</span>, <span class="math inline">\(i=1,\ldots,N\)</span>, and each predictor is <span class="math inline">\({\mathbf x}_i=(x_{i1},x_{i2},...,x_{ip})\)</span>.</p>
 <p>We want:</p>
 <p><span class="math display">\[\hat{f}(X_i)=\sum_{m=1}^M \hat{c}_m I(X_i \in R_m)\]</span> where <span class="math inline">\(\hat{c}_m\)</span> is the estimate for region <span class="math inline">\(R_m\)</span>.</p>
 <hr>
@@ -1310,7 +1310,7 @@ Prediction   0   1
 <h2 class="anchored" data-anchor-id="independent-data-sets">Independent data sets</h2>
 <p>Assume we have <span class="math inline">\(B\)</span> i.i.d. observations of a random variable <span class="math inline">\(X\)</span> each with the same mean and with variance <span class="math inline">\(\sigma^2\)</span>. We calculate the mean <span class="math inline">\(\bar{X} = \frac{1}{B} \sum_{b=1}^B X_b\)</span>. The variance of the mean is <span class="math display">\[\text{Var}(\bar{X}) = \text{Var}\Big(\frac{1}{B}\sum_{b=1}^B X_b \Big) = \frac{1}{B^2} \sum_{b=1}^B \text{Var}(X_b) = \frac{\sigma^2}{B}.\]</span> By averaging we get reduced variance. This is the basic idea!</p>
 <hr>
-<p>But, we will not draw random variables - we want to fit decision trees: <span class="math inline">\(\hat{f}_1({\bf x}),\hat{f}_2({\bf x}),\ldots, \hat{f}_B({\bf x})\)</span> and average those. <span class="math display">\[ \hat{f}_{avg}({\bf x})=\frac{1}{B}\sum_{b=1}^B \hat{f}_b({\bf x})\]</span></p>
+<p>But, we will not draw random variables - we want to fit decision trees: <span class="math inline">\(\hat{f}_1({\mathbf x}),\hat{f}_2({\mathbf x}),\ldots, \hat{f}_B({\mathbf x})\)</span> and average those. <span class="math display">\[ \hat{f}_{avg}({\mathbf x})=\frac{1}{B}\sum_{b=1}^B \hat{f}_b({\mathbf x})\]</span></p>
 <p>However, we do not have many independent data set - so we use <em>bootstrapping</em> to construct <span class="math inline">\(B\)</span> data sets.</p>
 <hr>
 </section>
