@@ -80,6 +80,10 @@ Figure 2: stump, 244-node tress, AdaBoost.M1
 
 Algorithm 10.2: Forward Stagewise Additive Modelling
 
+
+https://search.r-project.org/CRAN/refmans/adabag/html/boosting.html
+
+
 # Boosting treees
 (10.9)
 

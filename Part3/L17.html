@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mette Langaas">
+<meta name="dcterms.date" content="2023-02-28">
+
+<title>MA8701 Advanced methods in statistical inference and learning</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="L17_files/libs/clipboard/clipboard.min.js"></script>
+<script src="L17_files/libs/quarto-html/quarto.js"></script>
+<script src="L17_files/libs/quarto-html/popper.min.js"></script>
+<script src="L17_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="L17_files/libs/quarto-html/anchor.min.js"></script>
+<link href="L17_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="L17_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="L17_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="L17_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="L17_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#before-we-start" id="toc-before-we-start" class="nav-link active" data-scroll-target="#before-we-start">Before we start</a>
+  <ul class="collapse">
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  <li><a href="#supporting-literature" id="toc-supporting-literature" class="nav-link" data-scroll-target="#supporting-literature">Supporting literature</a></li>
+  <li><a href="#what-do-we-want" id="toc-what-do-we-want" class="nav-link" data-scroll-target="#what-do-we-want">What do we want?</a>
+  <ul class="collapse">
+  <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification">Classification</a></li>
+  <li><a href="#regression" id="toc-regression" class="nav-link" data-scroll-target="#regression">Regression</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#data-rich-situation" id="toc-data-rich-situation" class="nav-link" data-scroll-target="#data-rich-situation">Data rich situation</a>
+  <ul class="collapse">
+  <li><a href="#classification-1" id="toc-classification-1" class="nav-link" data-scroll-target="#classification-1">Classification</a>
+  <ul class="collapse">
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#binomial-ci" id="toc-binomial-ci" class="nav-link" data-scroll-target="#binomial-ci">Binomial CI</a></li>
+  <li><a href="#mcnemars-test" id="toc-mcnemars-test" class="nav-link" data-scroll-target="#mcnemars-test">McNemar´s test</a></li>
+  <li><a href="#confidence-intervals-for-paired-proportions" id="toc-confidence-intervals-for-paired-proportions" class="nav-link" data-scroll-target="#confidence-intervals-for-paired-proportions">Confidence intervals for paired proportions</a></li>
+  <li><a href="#roc-auc" id="toc-roc-auc" class="nav-link" data-scroll-target="#roc-auc">ROC-AUC</a></li>
+  </ul></li>
+  <li><a href="#regression-1" id="toc-regression-1" class="nav-link" data-scroll-target="#regression-1">Regression</a></li>
+  </ul></li>
+  <li><a href="#data-poor-small-sample-situation" id="toc-data-poor-small-sample-situation" class="nav-link" data-scroll-target="#data-poor-small-sample-situation">Data poor (small sample) situation</a>
+  <ul class="collapse">
+  <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link" data-scroll-target="#cross-validation">Cross-validation</a>
+  <ul class="collapse">
+  <li><a href="#can-the-validation-fold-results-be-handled-like-the-test-set" id="toc-can-the-validation-fold-results-be-handled-like-the-test-set" class="nav-link" data-scroll-target="#can-the-validation-fold-results-be-handled-like-the-test-set">Can the validation fold results be handled like the test set?</a></li>
+  <li><a href="#what-can-we-present-from-the-cv" id="toc-what-can-we-present-from-the-cv" class="nav-link" data-scroll-target="#what-can-we-present-from-the-cv">What can we present from the CV?</a></li>
+  <li><a href="#roc-auc-on-cv-data" id="toc-roc-auc-on-cv-data" class="nav-link" data-scroll-target="#roc-auc-on-cv-data">ROC-AUC on CV data</a></li>
+  </ul></li>
+  <li><a href="#x2-cross-validation" id="toc-x2-cross-validation" class="nav-link" data-scroll-target="#x2-cross-validation">5x2 cross-validation</a>
+  <ul class="collapse">
+  <li><a href="#x2-paired-t-test" id="toc-x2-paired-t-test" class="nav-link" data-scroll-target="#x2-paired-t-test">5x2 paired t-test</a></li>
+  </ul></li>
+  <li><a href="#other-solutions" id="toc-other-solutions" class="nav-link" data-scroll-target="#other-solutions">Other solutions</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1">References</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">MA8701 Advanced methods in statistical inference and learning</h1>
+<p class="subtitle lead">Part 3: Ensembles. L17: Evaluating and comparing results from prediction models</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mette Langaas </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 28, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<p>Course homepage: <a href="https://wiki.math.ntnu.no/ma8701/2023v/start" class="uri">https://wiki.math.ntnu.no/ma8701/2023v/start</a></p>
+<section id="before-we-start" class="level1">
+<h1>Before we start</h1>
+<section id="literature" class="level2">
+<h2 class="anchored" data-anchor-id="literature">Literature</h2>
+</section>
+<section id="supporting-literature" class="level2">
+<h2 class="anchored" data-anchor-id="supporting-literature">Supporting literature</h2>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"># Evaluating and comparing results from prediction models</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">We will only consider using one data set. For comparing methods across many data sets see Boulesteix et al (2015).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">We are not interesting in general “unconditional” results (for all possible training sets from some distribution) - and not to know if method A <em>in general</em> is better than method B in situations similar to ours.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">We also have the “No free lunch theorem” of Wolpert (1996) stating that there is no such thing as the “best” learning algorithm.</td>
+</tr>
+</tbody>
+</table>
+<p>We consider two different situations.</p>
+<p><strong>Data rich situation:</strong></p>
+<ul>
+<li><p>We have used our <em>training set</em> to tune our model (choosing hyperparameters) - possibly by using cross-validation or some other technique.</p></li>
+<li><p>Then we have fitted the finally chosen model to the full training set, and used this final model to make predictions on the <em>test set</em>.</p></li>
+<li><p>If we want to compare results from two or more prediction models, when the same test set is used for all the models.</p></li>
+</ul>
+<hr>
+<p><strong>Data poor situation:</strong></p>
+<ul>
+<li>We don´t have enough data to set aside observations for a test set.</li>
+<li>We need to use some type of resampling to evaluate and compare prediction models.</li>
+<li>This is more difficult than for the data rich situation, because now <em>independence</em> of observations for testing cannot be assumed (more below).</li>
+</ul>
+<hr>
+</section>
+<section id="what-do-we-want" class="level2">
+<h2 class="anchored" data-anchor-id="what-do-we-want">What do we want?</h2>
+<section id="classification" class="level3">
+<h3 class="anchored" data-anchor-id="classification">Classification</h3>
+<ul>
+<li>Estimate and confidence interval for misclassification rate (or ROC-AUC) on test observations for one prediction model.</li>
+<li>Is the misclassification rate (or ROC-AUC) for prediction method A better than for prediction method B? Can this be extended to more than two methods?</li>
+</ul>
+<p>Far the most popular situation in the literature.</p>
+<hr>
+</section>
+<section id="regression" class="level3">
+<h3 class="anchored" data-anchor-id="regression">Regression</h3>
+<p>Relate to ELS Ch7.1 with <span class="math inline">\(\text{Err}\)</span> and <span class="math inline">\(\text{Err}_{\cal T}\)</span>.</p>
+<ul>
+<li>Estimate and confidence interval for evaluation criterion (mean square error of predictions) on test observations for one prediction model.</li>
+<li>Is prediction model A better than prediction model B? Can this be extended to more than two methods?</li>
+</ul>
+<p>Much more difficult to “find” literature with methods here than for classification - seems to be far less popular.</p>
+<hr>
+<p>Keep in mind that not only error rates govern which prediction models to use, also aspects like training time and interpretability plays an important role.</p>
+<p>There might be controllable and uncontrollable factors that influence the model fit and add variability to our model predictions.</p>
+<p>It is always wise to present results in graphical displays.</p>
+</section>
+</section>
+</section>
+<section id="data-rich-situation" class="level1">
+<h1>Data rich situation</h1>
+<p><strong>Assumptions:</strong></p>
+<ul>
+<li><p>Both the training set (size <span class="math inline">\(N\)</span>) and the test set (size <span class="math inline">\(M\)</span>) are drawn as random samples from the population under study, and are independent of each other.</p></li>
+<li><p>The training set is used to estimate (one or many) prediction model(s),</p></li>
+<li><p>and predictions are provided (for each prediction method) for the <span class="math inline">\(M\)</span> observations in the test set.</p></li>
+<li><p>The <span class="math inline">\(M\)</span> predictions <span class="math inline">\(\hat{y}_i\)</span>, <span class="math inline">\(i=1,\ldots, M\)</span> are independent.</p></li>
+<li><p>If we have predictions from two methods A and B, these are made on the same test observations, and the triplets <span class="math inline">\((y_i,\hat{y}_i^A,\hat{y}_i^B)\)</span> are independent for <span class="math inline">\(i=1,\ldots,M\)</span>.</p></li>
+</ul>
+<hr>
+<section id="classification-1" class="level2">
+<h2 class="anchored" data-anchor-id="classification-1">Classification</h2>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
+<p>We will use the classical data set of <em>diabetes</em> from a population of women of Pima Indian heritage in the US, available in the R <code>MASS</code> package. The following information is available for each woman:</p>
+<ul>
+<li>diabetes: <code>0</code>= not present, <code>1</code>= present</li>
+<li>npreg: number of pregnancies</li>
+<li>glu: plasma glucose concentration in an oral glucose tolerance test</li>
+<li>bp: diastolic blood pressure (mmHg)</li>
+<li>skin: triceps skin fold thickness (mm)</li>
+<li>bmi: body mass index (weight in kg/(height in m)<span class="math inline">\(^2\)</span>)</li>
+<li>ped: diabetes pedigree function.</li>
+<li>age: age in years</li>
+</ul>
+<p>We will use the default division into training and test in the MASS library, with 200 observations for training and 332 for testing.</p>
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Pima.tr<span class="sc">$</span>diabetes<span class="ot">=</span><span class="fu">as.numeric</span>(Pima.tr<span class="sc">$</span>type)<span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Pima.te<span class="sc">$</span>diabetes<span class="ot">=</span><span class="fu">as.numeric</span>(Pima.te<span class="sc">$</span>type)<span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>train<span class="ot">=</span>Pima.tr[,<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>,<span class="dv">9</span>)]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>test<span class="ot">=</span>Pima.te[,<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>,<span class="dv">9</span>)]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(test)<span class="ot">=</span><span class="fu">colnames</span>(Pima.te)[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>,<span class="dv">9</span>)]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># logistic lasso</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>xs<span class="ot">=</span><span class="fu">model.matrix</span>(<span class="sc">~</span>.<span class="sc">-</span>diabetes,<span class="at">data=</span>train)[,<span class="sc">-</span><span class="dv">1</span>] </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>xstest<span class="ot">=</span><span class="fu">model.matrix</span>(<span class="sc">~</span>.<span class="sc">-</span>diabetes,<span class="at">data=</span>test)[,<span class="sc">-</span><span class="dv">1</span>] </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>fitlasso<span class="ot">=</span><span class="fu">glmnet</span>(xs,train<span class="sc">$</span>diabetes,<span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>cvlasso<span class="ot">=</span><span class="fu">cv.glmnet</span>(<span class="at">x=</span>xs,<span class="at">y=</span>train<span class="sc">$</span>diabetes,<span class="at">family=</span><span class="st">"binomial"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cvlasso)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L17_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fitlasso,<span class="at">xvar=</span><span class="st">"lambda"</span>,<span class="at">label=</span><span class="cn">TRUE</span>);</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fu">log</span>(cvlasso<span class="sc">$</span>lambda<span class="fl">.1</span>se));</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L17_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>predlasso<span class="ot">=</span><span class="fu">predict</span>(fitlasso,<span class="at">newx=</span>xstest,<span class="at">s=</span>cvlasso<span class="sc">$</span>lambda<span class="fl">.1</span>se,<span class="at">type=</span><span class="st">"response"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>classlasso<span class="ot">=</span><span class="fu">ifelse</span>(predlasso <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(test<span class="sc">$</span>diabetes, classlasso)<span class="co"># 223 non-diabetes and 109 diabetes cases</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   classlasso
+      0   1
+  0 209  14
+  1  53  56</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># randomforest</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>rf<span class="ot">=</span><span class="fu">randomForest</span>(<span class="fu">factor</span>(diabetes)<span class="sc">~</span>.,<span class="at">data=</span>train,<span class="at">mtry=</span><span class="dv">2</span>,<span class="at">ntree=</span><span class="dv">500</span>,<span class="at">importance=</span><span class="cn">TRUE</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>classrf<span class="ot">=</span><span class="fu">predict</span>(rf,<span class="at">newdata=</span>test)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(test<span class="sc">$</span>diabetes, classrf)<span class="co"># 223 non-diabetes and 109 diabetes cases</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   classrf
+      0   1
+  0 190  33
+  1  46  63</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rfpred <span class="ot">=</span> <span class="fu">predict</span>(rf,test, <span class="at">type =</span> <span class="st">"prob"</span>)[,<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+</section>
+<section id="binomial-ci" class="level3">
+<h3 class="anchored" data-anchor-id="binomial-ci">Binomial CI</h3>
+<p>A common evaluation criterion is the misclassification rate.</p>
+<p>Let <span class="math inline">\(p\)</span> be the probability of success (correct classification) for a prediction method. In our test set we have <span class="math inline">\(M\)</span> independent observations, with associated predictions <span class="math inline">\(\hat{y}_i\)</span>. We use some rule to define if the prediction is a success or a failure.</p>
+<p>The number of successes <span class="math inline">\(X\)</span> then follow a binomial distribution with <span class="math inline">\(M\)</span> trials and success probability <span class="math inline">\(p\)</span>, and</p>
+<p><span class="math display">\[\hat{p}=\frac{X}{M}\]</span> with mean <span class="math inline">\(p\)</span> and variance <span class="math inline">\(\frac{p(1-p)}{M}\)</span>.</p>
+<hr>
+<p>A common way to construct a confidence interval for the success probability is to use the normal approximation <span class="math display">\[ Z=\frac{\hat{p}-p}{\sqrt{\frac{\hat{p}(1-\hat{p})}{M}}} \sim N(0,1)\]</span> which gives the <span class="math inline">\((1-\alpha)100‰\)</span> confidence interval</p>
+<p><span class="math display">\[ \hat{p}\pm z_{\alpha/2}\sqrt{\frac{\hat{p}(1-\hat{p})}{M}}\]</span> Exact versions (not using normality) are the <a href="https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval">Clopper-Pearson or Agresti-Coull intervals</a>.</p>
+<hr>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "lasso"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Normal approx CI"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7550209 0.8413647</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Clopper Pearson CI"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Exact binomial test
+
+data:  X and M
+number of successes = 265, number of trials = 332, p-value &lt; 2.2e-16
+alternative hypothesis: true probability of success is not equal to 0.5
+95 percent confidence interval:
+ 0.7509332 0.8400414
+sample estimates:
+probability of success 
+             0.7981928 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "randomforest"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Normal approx CI"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7162430 0.8078534</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Clopper Pearson CI"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Exact binomial test
+
+data:  X and M
+number of successes = 253, number of trials = 332, p-value &lt; 2.2e-16
+alternative hypothesis: true probability of success is not equal to 0.5
+95 percent confidence interval:
+ 0.7125112 0.8068416
+sample estimates:
+probability of success 
+             0.7620482 </code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="mcnemars-test" class="level3">
+<h3 class="anchored" data-anchor-id="mcnemars-test">McNemar´s test</h3>
+<p><strong>Is method A different from method B</strong>?</p>
+<p>Consider <span class="math inline">\(M\)</span> pairs of observations (predictions from method A and B) in the test set, and classify as</p>
+<ul>
+<li>successes (1) - for correct classifications<br>
+</li>
+<li>failures (0) - for wrong classifications</li>
+</ul>
+<p>(The true response <span class="math inline">\(y\)</span> in the test set is used to define success and failure.)</p>
+<p>The pairs are assumed to be independent, but the two observations within a pair may be dependent. We call this <em>matched pairs</em>.</p>
+<p>The numbers <span class="math inline">\((X_{01},X_{10},X_{00},X_{11})\)</span> of the four possible outcomes of each pair, 01, 10, 00 and 11, respectively, are assumed to follow a multinomial distribution with parameters <span class="math inline">\((N;q_{01},q_{10},q_{00},q_{11})\)</span>.</p>
+<hr>
+<p>To test the null hypothesis that the probability of success in the first observation of a pair is equal to the probability of success in the second observation (the two methods have the same performance)</p>
+<p><span class="math display">\[q_{10}+q_{11}=q_{01}+q_{11}, \text{ or }q_{10}=q_{01}\]</span></p>
+<p>McNemar’s test statistic,</p>
+<p><span class="math display">\[T(X_{01},X_{10})=(X_{01}-X_{10})^2/(X_{01}+X_{10})\]</span></p>
+<p>is often used, with large values indicating rejection (McNemar, 1947, Agresti, 2002 pp.&nbsp;410–412).</p>
+<p>Asymptotically <span class="math inline">\(T\)</span> follows a <span class="math inline">\(\chi^2\)</span> distribution with 1 degree of freedom when the null hypothesis is true.</p>
+<hr>
+<p>The sum <span class="math inline">\(X_{01}-X_{10}\)</span> need to be large (rule of thumb at least 25), unless a two-sided binomial version of the test is recommended (with <span class="math inline">\(n=X_{01}-X_{10}\)</span> and <span class="math inline">\(p=0.5\)</span> and number of successes equal <span class="math inline">\(X_{01}\)</span>).</p>
+<p>An exact conditional <span class="math inline">\(p\)</span>-value can also be calculated by enumeration.</p>
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>tab<span class="ot">=</span><span class="fu">table</span>(classlasso<span class="sc">==</span>test<span class="sc">$</span>diabetes,classrf<span class="sc">==</span>test<span class="sc">$</span>diabetes)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>tab </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       
+        FALSE TRUE
+  FALSE    53   14
+  TRUE     26  239</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcnemar.test</span>(tab,<span class="at">correct=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    McNemar's Chi-squared test
+
+data:  tab
+McNemar's chi-squared = 3.6, df = 1, p-value = 0.05778</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(tab[<span class="dv">1</span>,<span class="dv">2</span>],<span class="at">n=</span>tab[<span class="dv">1</span>,<span class="dv">2</span>]<span class="sc">+</span>tab[<span class="dv">2</span>,<span class="dv">1</span>],<span class="at">p=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Exact binomial test
+
+data:  tab[1, 2] and tab[1, 2] + tab[2, 1]
+number of successes = 14, number of trials = 40, p-value = 0.08069
+alternative hypothesis: true probability of success is not equal to 0.5
+95 percent confidence interval:
+ 0.2062825 0.5168445
+sample estimates:
+probability of success 
+                  0.35 </code></pre>
+</div>
+</div>
+<p>Conclusion: with respect to using 0.5 as cut-off for classification as disease then the paired McNemar two-sided test that lasso and RF produce equally good results is not rejected at level 0.05.</p>
+<p>If we have more than two methods to compare, the Cochrane Q-test can be used. <a href="https://en.wikipedia.org/wiki/Cochran%27s_Q_test">Wikipedia</a></p>
+<hr>
+</section>
+<section id="confidence-intervals-for-paired-proportions" class="level3">
+<h3 class="anchored" data-anchor-id="confidence-intervals-for-paired-proportions">Confidence intervals for paired proportions</h3>
+<p>Confidence interval for the difference between success-proportions can be calculated using for example an asymptotic Wald interval.</p>
+<p>See Fagerland et al (2014) for this and other choices, not R package but see references for R-scripts.</p>
+<p>The package <code>ExactCIdiff</code> is explained in the <a href="https://rjournal.github.io/archive/2013-2/wang-shan.pdf">R Journal</a></p>
+<hr>
+</section>
+<section id="roc-auc" class="level3">
+<h3 class="anchored" data-anchor-id="roc-auc">ROC-AUC</h3>
+<p>See L3 for definitions of sensitivity and specificity.</p>
+<p>The receiver operating characteristics (ROC) curve gives a graphical display of the sensitivity against specificity, as the threshold value (cut-off on probability of success or disease) is chosen over the range of all possible values. An ideal classifier will give a ROC curve which hugs the top left corner, while a straight line represents a classifier with a random guess of the outcome.</p>
+<hr>
+<ul>
+<li>The <strong>ROC-AUC</strong> score is the area under the ROC curve - calculated using the trapezoid rule. It ranges between the values 0 and 1, where a higher value indicates a better classifier.</li>
+<li>The AUC score is useful for comparing the performance of different classifiers, as all possible threshold values are taken into account.</li>
+<li>If the prevalence (case proportion) is very low (0.01ish), the ROC-AUC may be misleading, and the PR-AUC is more commonly used.</li>
+</ul>
+<hr>
+<p>The ROC-AUC (based on the trapezoid rule) can be seen to be equal to the nonparametric Wilcoxon-Mann-Whitney statistic (DeLong et al 1988).</p>
+<p>In the R package <code>pROC</code> several methods to produce confidence intervals for the ROC and ROC-AUC exists, and tests to compare ROC-AUC from two methods (paired or unpaired).</p>
+<p>Below we use:</p>
+<ul>
+<li>DeLong et al confidence intervals for the ROC and the ROC-AUC for each prediction method.</li>
+<li>DeLong et al test for two paired (correlated) ROC curves. This test is based on asymptotic normal theory for the U-statistic.</li>
+</ul>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L17_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Lasso ROC-AUC with CI"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Area under the curve: 0.8616</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>95% CI: 0.8209-0.9022 (DeLong)</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="L17_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "RF ROC-AUC with CI"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>95% CI: 0.7728-0.8679 (DeLong)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Comparing AUC for lasso and RF"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    DeLong's test for two correlated ROC curves
+
+data:  lassoroc and rfroc
+Z = 2.9777, p-value = 0.002904
+alternative hypothesis: true difference in AUC is not equal to 0
+95 percent confidence interval:
+ 0.01408218 0.06832206
+sample estimates:
+AUC of roc1 AUC of roc2 
+  0.8615625   0.8203604 </code></pre>
+</div>
+</div>
+<hr>
+<p>Conclusion: with respect to ROC-AUC then the two-sided test that lasso and RF produce equally good results is rejected at level 0.05.</p>
+<p>Observe that the lasso is significantly better than RF wrt ROC-AUC, but not wrt misclassifiation error.</p>
+<hr>
+</section>
+</section>
+<section id="regression-1" class="level2">
+<h2 class="anchored" data-anchor-id="regression-1">Regression</h2>
+<p>For regression we would like to focus on providing an estimate for the <span class="math inline">\(\text{Err}_{\cal T}\)</span> for a squared error rate.</p>
+<p><span class="math display">\[ \text{Err}_{\cal T}=\text{E}[L(Y,\hat{f}(X))\mid {\cal T}]\]</span> Here the expected value is with respect to <span class="math inline">\((X,Y)\)</span>, but the training set is fixed - so that this is the test set error is for this specific training set <span class="math inline">\({\cal T}\)</span>.</p>
+<p>In ELS Ch7.1 we saw that the <em>mean squared error on the test set</em> was a natural estimator.</p>
+<hr>
+<p>In the unconditional version, we take expected value over ALL that is random - including the training set <span class="math display">\[ \text{Err}=\text{E}(\text{E}[L(Y,\hat{f}(X))\mid {\cal T}])=\text{E}_{\cal T} [\text{Err}_{\cal T}]\]</span></p>
+<p>However, we did not work to provide an estimate of the <em>variability</em> of this estimate - or how to provide a confidence interval for <span class="math inline">\(\text{Err}_{\cal T}\)</span>.</p>
+<hr>
+<p>Let the mean squared error on the test set be denoted <span class="math inline">\(\widehat{\text{MSEP}}\)</span>.</p>
+<p>If we can assume that the “residuals” on the test set <span class="math inline">\(y_i-\hat{y}_i\)</span> follow a normal distribution with some mean <span class="math inline">\(\mu_i\)</span> and some variance <span class="math inline">\(\sigma_i^2\)</span>, then there is a relationship between the<span class="math inline">\(\widehat{\text{MSEP}}\)</span> and a sum of non-central <span class="math inline">\(\chi^2\)</span> distributions, see Faber (1999). However, it is not clear how to turn that into a confidence interval for <span class="math inline">\(\text{Err}_{\cal T}\)</span>.</p>
+<hr>
+<p>Not seen in literature: Another possibility is to use bootstrapping on the “test set residuals”. This can provide a bootstrap confidence interval for the <span class="math inline">\(\text{Err}_{\cal T}\)</span>. With bootstrapping it would also be possible to look at randomly flipping the A and B method to get the distribution of the <span class="math inline">\(\widehat{\text{MSEP}}\)</span> under the null hypothesis that the two methods are equal, and use tha percentage of times the bootstrap samples are larger than the observed <span class="math inline">\(\widehat{\text{MSEP}}\)</span> to be the <span class="math inline">\(p\)</span>-value.</p>
+<p>I have really not found relevant literature - and I am afraid that I may have missed out on good solutions here. Please contact me if you know of good solutions to this problem.</p>
+<hr>
+</section>
+</section>
+<section id="data-poor-small-sample-situation" class="level1">
+<h1>Data poor (small sample) situation</h1>
+<p>We may also refer to this as a small sample situation, and in this case we need to resort to resampling to get an estimate of the mean squared error , misclassification error, or similar - on “new” data.</p>
+<p>We are again interested in estimating the conditional (on the training data) <span class="math inline">\(\text{Err}_{\cal T}\)</span>, but as we saw in ELS Ch 7.10-7.11, using resampling techniques we will instead be providing an estimate for the unconditional <span class="math inline">\(\text{Err}\)</span>.</p>
+<p>That might of cause be ok for us.</p>
+<p>We have in ELS Ch 7 looked at cross-validation and bootstrapping.</p>
+<hr>
+<section id="cross-validation" class="level2">
+<h2 class="anchored" data-anchor-id="cross-validation">Cross-validation</h2>
+<p>Remember from ELS Ch 7.10 that with cross-validation the <span class="math inline">\(\text{Err}\)</span> estimate:</p>
+<ul>
+<li><p>The allocation of observation <span class="math inline">\(\{1,\ldots,N\}\)</span> to folds <span class="math inline">\(\{1,\ldots,K\}\)</span> is done using an indexing function <span class="math inline">\(\kappa: \{1,\ldots,N\} \rightarrow \{1,\ldots,K\}\)</span>, that for each observation allocate the observation to one of <span class="math inline">\(K\)</span> folds.</p></li>
+<li><p>Further, <span class="math inline">\(\hat{f}^{-k}(x)\)</span> is the fitted function, computed on the observations except the <span class="math inline">\(k\)</span>th fold (the observations from the <span class="math inline">\(k\)</span>th fold is removed).</p></li>
+<li><p>The CV estimate of the expected prediction error <span class="math inline">\(\text{Err}=\text{E}_{\cal T} \text{E}_{X^0,Y^0}[L(Y^0,\hat{f}(X^0))\mid {\cal T}]\)</span> is then</p></li>
+</ul>
+<p><span class="math display">\[ \text{CV}(\hat{f})=\frac{1}{N}\sum_{i=1}^N L(y_i,\hat{f}^{-\kappa(i)}(x_i))\]</span></p>
+<hr>
+<section id="can-the-validation-fold-results-be-handled-like-the-test-set" class="level3">
+<h3 class="anchored" data-anchor-id="can-the-validation-fold-results-be-handled-like-the-test-set">Can the validation fold results be handled like the test set?</h3>
+<p><strong>Question:</strong></p>
+<p>Can we handle the predictions in the hold-out folds <span class="math inline">\(\hat{y}_i\)</span> as <em>independent predictions</em> at the observations <span class="math inline">\(x_i\)</span> - as we did in the data rich situation above (when we had a separate test set and used the “same” full training set for fitting the model)?</p>
+<hr>
+<p>To address this a simulation study is conducted. Here</p>
+<ul>
+<li>data are simulated to follow a simple linear regression.</li>
+<li><span class="math inline">\(N=50\)</span>.</li>
+<li>The observations are divided into 5 fold of 10 observations.</li>
+<li>Then a 5-fold CV is performed where a simple linear regression is fitted on the training folds and predictions are performed in the test fold.</li>
+<li>Residuals are then formed for the test fold.</li>
+</ul>
+<p>The simulations are repeated B=1000 times, and correlation between the N residuals for the test folds are calculated.</p>
+<p>The question to be checked is if the residuals for observations in the same fold are correlated in a different way than residuals in different folds. If that is the case, then the residuals can not be seen to be independent, and standard methods to construct CI and perform a test is not valid.</p>
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>K<span class="ot">=</span><span class="dv">5</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>B<span class="ot">=</span><span class="dv">1000</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>N<span class="ot">=</span><span class="dv">50</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>b0<span class="ot">=</span><span class="dv">0</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>b1<span class="ot">=</span><span class="dv">2</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>sigma<span class="ot">=</span><span class="fl">0.2</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>k<span class="ot">=</span><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>K,<span class="at">each=</span>N<span class="sc">/</span>K) </span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>predmat<span class="ot">=</span><span class="fu">matrix</span>(<span class="at">ncol=</span>N,<span class="at">nrow=</span>B)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>resmat<span class="ot">=</span><span class="fu">matrix</span>(<span class="at">ncol=</span>N,<span class="at">nrow=</span>B)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  x<span class="ot">=</span><span class="fu">runif</span>(N,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>  eps<span class="ot">=</span><span class="fu">rnorm</span>(N,<span class="dv">0</span>,sigma)</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>  y<span class="ot">=</span>b0<span class="sc">+</span>b1<span class="sc">*</span>x<span class="sc">+</span>eps</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>K)</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>    fit<span class="ot">=</span><span class="fu">lm</span>(y<span class="sc">~</span>x,<span class="at">subset=</span>(k<span class="sc">!=</span>i))</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    predmat[b,k<span class="sc">==</span>i]<span class="ot">=</span><span class="fu">predict</span>(fit,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">x=</span>x[k<span class="sc">==</span>i]))</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>    resmat[b,k<span class="sc">==</span>i]<span class="ot">=</span>predmat[b,k<span class="sc">==</span>i]<span class="sc">-</span>y[k<span class="sc">==</span>i]</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="co">#corr=cor(predmat)</span></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a><span class="co">#corrincr=6*corr-diag(x=5,N,N)</span></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="co">#corrplot(corrincr)</span></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="co"># correlation between predictions - not seems to be a problem</span></span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>corr2<span class="ot">=</span><span class="fu">cor</span>(resmat)</span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>corr2incr<span class="ot">=</span><span class="dv">6</span><span class="sc">*</span>corr2<span class="sc">-</span><span class="fu">diag</span>(<span class="at">x=</span><span class="dv">5</span>,N,N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L17_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Mean correlation within folds"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02533422</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Mean correlation between folds"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.03049688</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+</div>
+<hr>
+<p>The correlation plot shows 6*correlation (just to get colours stronger) for the residuals (difference between prediction and truth) between observations within and between folds.</p>
+<p>There are 10 observations in each of 5 folds - ordered so that observations labelled 1-10 is fold 1, observation 11-20 is fold 2 etc. Observe that the correlation matrix has a block diagonal structure where the trend is that the observations in the same fold are slightly (numbers divided by 6) positive correlated, while the observations from different folds (away from the diagonal) are slightly negatively correlated (again divide the numbers by 6).</p>
+<p>This means that the residuals from a 5-fold CV can not be seen to be independent across all observations, but will exhibit slight positive and negative correlations.</p>
+<hr>
+<p>There are <span class="math inline">\(50*49/2=1225\)</span> unique pairs of observations (residuals) for the simulated example. There are 5 folds and the average correlation for the 5 times <span class="math inline">\(10*9/2=45\)</span> pairs = 225 pairs within each fold is 0.0253342.</p>
+<p>The average correlation for the 1000 pairs between folds is -0.0304969.</p>
+<p>However - testing if the correlation is different from null for all possible pairs of observation of the residuals (with 50 observation we have <span class="math inline">\(50*49/2\)</span> pairs), only gave a significant result for 12 using FDR cut-off 0.05.</p>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L17_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<p>The boxplot of the correlation between residuals are taken between two folds, labelled on the horizonal axes.</p>
+<p>Most articles state that this is a substantial problem, mainly because for constructing tests the variance of the test statistics is underestimated with positively correlated tests. However, other articles like Wong and Yang (2017) do not consider this a problem.</p>
+<hr>
+</section>
+<section id="what-can-we-present-from-the-cv" class="level3">
+<h3 class="anchored" data-anchor-id="what-can-we-present-from-the-cv">What can we present from the CV?</h3>
+<p>We have now focus on some loss function, like squared loss, binomial deviance, cross-entropy loss.</p>
+<p>When we performed model selection with CV for the lasso we plotted some mean and standard error. How did we then calculate the standard error and the mean? Can we use this standard error to calculate a confidence interval?</p>
+<p>We had <span class="math inline">\(N\)</span> observations in the training set and choose <span class="math inline">\(K\)</span>-fold CV:</p>
+<p><span class="math display">\[ \text{CV}(\hat{f})=\frac{1}{N}\sum_{i=1}^N L(y_i,\hat{f}^{-k(i)}(x_i))\]</span></p>
+<hr>
+<p>Assuming that <span class="math inline">\(N=K \cdot N_K\)</span> so that the number of observations in each fold <span class="math inline">\(N_j\)</span> is the same and equal to <span class="math inline">\(N_K\)</span>.</p>
+<p><span class="math display">\[ \text{CV}(\hat{f})=\frac{1}{K}\sum_{j=1}^K \frac{1}{N_K}\sum_{i \in k(i)} L(y_i,\hat{f}^{-k(i)}(x_i))=\frac{1}{K}\sum_{j=1}^K \widehat{\text{CV}}_j\]</span> What we plotted was the <span class="math inline">\(\frac{1}{K}\sum_{j=1}^K \widehat{\text{CV}}_j\)</span> as the estimator for the evaluation criterion, and then <span class="math inline">\(\pm 1\)</span> standard error of this mean.</p>
+<p>The variance of the mean was estimated as</p>
+<p><span class="math display">\[\text{SE}^2(\hat{f})=\frac{1}{K}(\frac{1}{K-1}\sum_{j=1}^K (\widehat{\text{CV}}_j-\text{CV}(\hat{f}))^2 )\]</span> Since the residuals within a fold are positively correlated and between folds are negatively correlated, we only present plots of <span class="math display">\[\text{CV}(\hat{f}) \pm \text{SE}(\hat{f})\]</span></p>
+<p>and are happy with that.</p>
+<hr>
+</section>
+<section id="roc-auc-on-cv-data" class="level3">
+<h3 class="anchored" data-anchor-id="roc-auc-on-cv-data">ROC-AUC on CV data</h3>
+<p>For the ROC-AUC two different strategies are possible:</p>
+<ul>
+<li>For each CV fold separately calculate the ROC-AUC, and then report average and standard error (as above) over the fold. This is called <em>average approach</em>.</li>
+<li>Use all predictions (across all folds) to calculate ROC_AUC. This is called <em>pooled approach</em>. Then results from the DeLongi method might not be completely correct due to the observations being positively correlated within folds and negatively correlated between folds.</li>
+</ul>
+<p>Airola et al (2010) suggest an hybrid combination of the two methods.</p>
+<hr>
+</section>
+</section>
+<section id="x2-cross-validation" class="level2">
+<h2 class="anchored" data-anchor-id="x2-cross-validation">5x2 cross-validation</h2>
+<p>Dietterich (1998) might have been one of the first to point out the problems with the non-independence between observations from different folds.</p>
+<p><strong>Strategy:</strong></p>
+<ul>
+<li><p>First divide the data set into two equally sized sets. Use one as training set and one as validation set, and then swap the role of the two.</p></li>
+<li><p>There is no overlap between these sets, so the idea is that the two sets of predictons on validations set are independent (but again, different estimated models are used on each part).</p></li>
+<li><p>The reshuffle all data, and do the same again. Now you have results from “4 folds”.</p></li>
+<li><p>Repeat three more times - and now you have “10 folds” (or, 5 times 2-fold CV used together).</p></li>
+</ul>
+<hr>
+<p>The choice of 5 repetitions of 2-fold cross-validation is according to Dietterich (1998) that the overlap between the 5 repetions is not very large, but adding more repetitions will again give “too dependent” data. For fewer than 5 repetitions it will be hard to construct tests from these data (and constructing a test is the aim of Dietterich).</p>
+<hr>
+<section id="x2-paired-t-test" class="level3">
+<h3 class="anchored" data-anchor-id="x2-paired-t-test">5x2 paired t-test</h3>
+<p>Dietterich (1998) only used the 5x2 CV set-up for comparing two classification prediction methods A and B.</p>
+<p>Then the test is based on a paired t-test on the difference in error rates of the two classifiers on each fold. A lot of work has done into trying to get the most correct variance for this test. For formula and details see Dietterich (1998) or Alpaydin (2014) Ch 19.11.3.</p>
+</section>
+</section>
+<section id="other-solutions" class="level2">
+<h2 class="anchored" data-anchor-id="other-solutions">Other solutions</h2>
+<p>Comparing misclassification rates for two prediction models: Dietterich (1998) show in a simulation study that using McNemars test on the <em>training data</em> gives a valid test (in the situations he studied).</p>
+</section>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<ul>
+<li>A. Agresti (2002): Categorical data analysis (2nd edition). John Wiley and Sons.</li>
+<li>Agresti A., Coull B.A.(1998) Approximate is better than ‘exact’ for interval estimation of binomial proportions. Am. Stat. 52:119–126. doi: 10.2307/2685469</li>
+<li>A. Airola, T. Pahikkala, W. Waegeman, B. De Baets and T. Salakoski (2010): An experimental comparison of cross-validated techniques for estimating the area under the ROC curve. Computational Statistics and Data Analysis. 55, 1828-1844.</li>
+<li>E. Alpaydin (2014): Introduction to Machine Learning. 3rd edition, MIT Press 2014. Chapter 19: Design and Analysis of Machine Learning Experiments</li>
+<li>J. Brownlee (2016): <a href="https://machinelearningmastery.com/compare-machine-learning-algorithms-python-scikit-learn/">How To Compare Machine Learning Algorithms in Python with scikit-learn</a></li>
+<li>J. Brownlee (2018): <a href="https://machinelearningmastery.com/statistical-significance-tests-for-comparing-machine-learning-algorithms/">Statistical Significance Tests for Comparing Machine Learning Algorithms</a></li>
+<li>R. R. Bouckaert and E. Frank (2004): Evaluating the Replicability of Scinificance Tests of Comparing Learning Algorithms. In H. Dai, R. Shrikat and C. Zhang. Advances in Knowledge Discovary and Data Mining. Springer.</li>
+<li>Anne-Laure Boulesteix, Robert Hable, Sabine Lauer &amp; Manuel J. A. Eugster (2015) A Statistical Framework for Hypothesis Testing in Real Data Comparison Studies, The American Statistician, 69:3, 201-212, DOI: 10.1080/00031305.2015.1005128</li>
+<li>Clopper,C.J.,and Pearson,E.S.(1934),“The Use of Confidence or Fiducial Limits Illustrated in the Case of the Binomial”, Biometrika 26, 404–413.</li>
+<li>DeLong ER, DeLong DM, Clarke-Pearson DL: Comparing the Areas under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach. Biometrics 1988, 44: 837–845. 10.2307/2531595</li>
+<li>T. G. Dietterich (1998): <a href="">Approximate Statistical Tests for Comparing Supervised Classification Learning Algorithms</a></li>
+<li>N.M. Faber (1999): Estimating the uncertainty in estimates of root mean square error of prediction: application to determining the size of an adequate test set in multivariate calibration, Chemometrics and Intelligent Laboratory Systems, Volume 49, Issue 1, Pages 79-89, <a href="https://doi.org/10.1016/S0169-7439(99)00027-1" class="uri">https://doi.org/10.1016/S0169-7439(99)00027-1</a> (https://www.sciencedirect.com/science/article/pii/S0169743999000271)</li>
+<li>M. Fagerland and S. Lydersen and P. Laake (2014): Tutorial in Biostatistics <a href="https://doi.org/10.1002/sim.6148">Recommended tests and confidence intervals for paired binomial proportions, Statistics in Medicine</a> and R-code (not package) <a href="https://contingencytables.com/software-resources" class="uri">https://contingencytables.com/software-resources</a></li>
+<li>Q. McNemar (1947): Note on the sampling error of the difference between correlated proportions or percentages. Psychometrika 12(2), 153-157.</li>
+<li>Xavier Robin, Natacha Turck, Alexandre Hainard, et al.&nbsp;(2011) “pROC: an open-source package for R and S+ to analyze and compare ROC curves”. BMC Bioinformatics, 7, 77. DOI: doi: 10.1186/1471-2105-12-77.</li>
+<li>G. Vanwinckelen and H. Blockeel (2012): On Estimating Model Accuracy with Repeated Cross-Validation. Proceedings of BeneLarn and PMLS.</li>
+<li>Wolpert, David (1996), “The Lack of A Priori Distinctions between Learning Algorithms”, Neural Computation, pp.&nbsp;1341–1390.</li>
+<li>Tzu-Tsung Wong; Nai-Yu Yang (2017): Dependency Analysis of Accuracy Estimates in k-Fold Cross Validation IEEE Transactions on Knowledge and Data Engineering ( Volume: 29, Issue: 11, https://ieeexplore.ieee.org/document/8012491</li>
+</ul>
+</section>
+<section id="references-1" class="level1">
+<h1>References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-casi" class="csl-entry" role="doc-biblioentry">
+Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference - Algorithms, Evidence, and Data Science</em>. Cambridge University Press. <a href="https://hastie.su.domains/CASI/">https://hastie.su.domains/CASI/</a>.
+</div>
+<div id="ref-ESL" class="csl-entry" role="doc-biblioentry">
+Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. Vol. 2. Springer series in statistics New York. <a href="https://hastie.su.domains/ElemStatLearn">hastie.su.domains/ElemStatLearn</a>.
+</div>
+<div id="ref-ISL" class="csl-entry" role="doc-biblioentry">
+James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 112. Springer.
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

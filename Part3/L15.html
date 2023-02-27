@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mette Langaas">
+<meta name="dcterms.date" content="2023-02-27">
+
+<title>MA8701 Advanced methods in statistical inference and learning</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="L15_files/libs/clipboard/clipboard.min.js"></script>
+<script src="L15_files/libs/quarto-html/quarto.js"></script>
+<script src="L15_files/libs/quarto-html/popper.min.js"></script>
+<script src="L15_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="L15_files/libs/quarto-html/anchor.min.js"></script>
+<link href="L15_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="L15_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="L15_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="L15_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="L15_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#before-we-start" id="toc-before-we-start" class="nav-link active" data-scroll-target="#before-we-start">Before we start</a>
+  <ul class="collapse">
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  <li><a href="#supporting-literature" id="toc-supporting-literature" class="nav-link" data-scroll-target="#supporting-literature">Supporting literature</a></li>
+  </ul></li>
+  <li><a href="#ensembles---overview" id="toc-ensembles---overview" class="nav-link" data-scroll-target="#ensembles---overview">Ensembles - overview</a></li>
+  <li><a href="#super-learner" id="toc-super-learner" class="nav-link" data-scroll-target="#super-learner">Super Learner</a>
+  <ul class="collapse">
+  <li><a href="#development" id="toc-development" class="nav-link" data-scroll-target="#development">Development:</a></li>
+  <li><a href="#ingredients" id="toc-ingredients" class="nav-link" data-scroll-target="#ingredients">Ingredients:</a></li>
+  <li><a href="#algorithm" id="toc-algorithm" class="nav-link" data-scroll-target="#algorithm">Algorithm</a></li>
+  <li><a href="#the-metalearning" id="toc-the-metalearning" class="nav-link" data-scroll-target="#the-metalearning">The metalearning</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
+  <ul class="collapse">
+  <li><a href="#simulations-examples" id="toc-simulations-examples" class="nav-link" data-scroll-target="#simulations-examples">Simulations examples</a></li>
+  <li><a href="#real-data" id="toc-real-data" class="nav-link" data-scroll-target="#real-data">Real data</a></li>
+  </ul></li>
+  <li><a href="#theoretical-result" id="toc-theoretical-result" class="nav-link" data-scroll-target="#theoretical-result">Theoretical result</a></li>
+  <li><a href="#uncertainty-in-the-ensemble" id="toc-uncertainty-in-the-ensemble" class="nav-link" data-scroll-target="#uncertainty-in-the-ensemble">Uncertainty in the ensemble</a></li>
+  <li><a href="#other-issues" id="toc-other-issues" class="nav-link" data-scroll-target="#other-issues">Other issues</a></li>
+  </ul></li>
+  <li><a href="#r-example-from-superlearner-package" id="toc-r-example-from-superlearner-package" class="nav-link" data-scroll-target="#r-example-from-superlearner-package">R example from Superlearner package</a></li>
+  <li><a href="#r-example-from-h2o-package" id="toc-r-example-from-h2o-package" class="nav-link" data-scroll-target="#r-example-from-h2o-package">R example from H2O-package</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">MA8701 Advanced methods in statistical inference and learning</h1>
+<p class="subtitle lead">Part 3: Ensembles. L15: Stacked ensembles</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mette Langaas </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 27, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<p>Course homepage: <a href="https://wiki.math.ntnu.no/ma8701/2023v/start" class="uri">https://wiki.math.ntnu.no/ma8701/2023v/start</a></p>
+<section id="before-we-start" class="level1">
+<h1>Before we start</h1>
+<section id="literature" class="level2">
+<h2 class="anchored" data-anchor-id="literature">Literature</h2>
+<ul>
+<li>Erin Le Dell (2015): <a href="https://escholarship.org/uc/item/3kb142r2">Scalable Ensemble Learning and Computationally Efficient Variance Estimation. PhD Thesis, University of California, Berkeley.</a> or <a href="https://github.com/ledell/phd-thesis" class="uri">https://github.com/ledell/phd-thesis</a></li>
+</ul>
+</section>
+<section id="supporting-literature" class="level2">
+<h2 class="anchored" data-anchor-id="supporting-literature">Supporting literature</h2>
+<ul>
+<li><p>Mark J. van der Laan, Eric C. Polley, Alan E. Hubbard (2007): Super Learner, Statistical Applications in Genetics and Molecular Biology, 6, 1, 25</p></li>
+<li><p>Eric C. Polley, Sherri Rose, Mark J. van der Laan (2011): Super Learning. Chapter 3 of M. J. van der Laan and S. Rose. Targeted Learning, Springer.</p></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="ensembles---overview" class="level1">
+<h1>Ensembles - overview</h1>
+<p>(ELS Ch 16.1)</p>
+<p>With ensembles we want to build <em>one prediction model</em> which combines the strength of <em>a collection of models</em>.</p>
+<p>These models may be simple base models - or more elaborate models.</p>
+<p>We have studied bagging - where we take a simple average of the prediction from many models (or majority vote), and the base models can be trees - or other type of models.</p>
+<p>Random forest is a version of bagging, with trees made to be different (decorrelated).</p>
+<hr>
+<p>We have studied boosting, where the models are trained on sequentially different data - from residuals or gradients of loss functions - and the ensemble members cast weighted votes. We have in particular looked into the xgboost variant of boosting, and also evaluated possible parameters to tune to optimize performance.</p>
+<p>In L7 we also look into an ensemble built of elaborate models with the Super Learner and study some possible methods for tuning hyperparameters.</p>
+</section>
+<section id="super-learner" class="level1">
+<h1>Super Learner</h1>
+<p>Why do we want to study the Super Learner?</p>
+<p>The Super Learner or <em>generalized stacking</em> or “stacked ensemble” is an algorithm that combines</p>
+<ul>
+<li>multiple, (typically) diverse prediction methods (learning algorithms) called <em>base learners</em> into a</li>
+<li>a <em>metalearner</em> - which can be seen as a <em>single</em> method.</li>
+</ul>
+<hr>
+<section id="development" class="level2">
+<h2 class="anchored" data-anchor-id="development">Development:</h2>
+<ul>
+<li>1992: stacking introduce for neural nets by Wolpert</li>
+<li>1996: adapted to regression problems by Breiman - but only for one type of methods at once (cart with different number of terminal nodes, glms with subset selection, ridge regression with different ridge penalty parameters)</li>
+<li>2006: proven to have asymptotic theoretical oracle property by van der Laan, Polley and Hubbard.</li>
+</ul>
+<hr>
+</section>
+<section id="ingredients" class="level2">
+<h2 class="anchored" data-anchor-id="ingredients">Ingredients:</h2>
+<ul>
+<li><p><em>Training data</em> (level-zero data) <span class="math inline">\(O_i=(X_i,Y_i)\)</span> of <span class="math inline">\(N\)</span> i.i.d observations.</p></li>
+<li><p>A total of <span class="math inline">\(L\)</span> <em>base learning algorithms</em> <span class="math inline">\(\Psi^l\)</span> for <span class="math inline">\(l=1,\ldots,L\)</span>, each from some algorithmic class and each with a specific set of model parameters.</p></li>
+<li><p>A <em>metalearner</em> <span class="math inline">\({\bf \Phi}\)</span> is used to find an <em>optimal combination</em> of the <span class="math inline">\(L\)</span> base learners.</p></li>
+</ul>
+<hr>
+</section>
+<section id="algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="algorithm">Algorithm</h2>
+<p><strong>Step 1: Produce level-one data</strong> <span class="math inline">\({\bf Z}\)</span></p>
+<ol type="a">
+<li><p>Divide the training data <span class="math inline">\({\bf X}\)</span> randomly into <span class="math inline">\(V\)</span> roughly-equally sized validation folds <span class="math inline">\({\bf X}_{(1)},\ldots,{\bf X}_{(V)}\)</span>. <span class="math inline">\(V\)</span> is often 5 or 10. (The responses <span class="math inline">\({\bf Y}\)</span> are also needed.)</p></li>
+<li><p>For each base learner <span class="math inline">\(\Psi^l\)</span> perform <span class="math inline">\(V\)</span>-fold cross-validation to produce prediction.</p></li>
+</ol>
+<p>This gives the level-one data set <span class="math inline">\({\bf Z}\)</span> consisting prediction of all the level-zero data - that is a matrix with <span class="math inline">\(N\)</span> rows and <span class="math inline">\(L\)</span> columns.</p>
+<p><strong>What could the base learners be?</strong></p>
+<hr>
+<p>“Any” method that produces a prediction - “all” types of problems.</p>
+<ul>
+<li>linear regression</li>
+<li>lasso</li>
+<li>cart</li>
+<li>random forest with mtry=value 1</li>
+<li>random forest with mtry=value 2</li>
+<li>xgboost with hyperparameter set 1</li>
+<li>xgboost with hyperparameter set 2</li>
+<li>neural net with hyperparameter set 1</li>
+</ul>
+<hr>
+<p><strong>Step 2: Fit the metalearner</strong></p>
+<ol type="a">
+<li>The starting point is the level-one prediction data <span class="math inline">\({\bf Z}\)</span> together with the responses <span class="math inline">\((Y_1,\ldots ,Y_N)\)</span>.</li>
+<li>The metalearner is used to estimate the weights given to each base learner: <span class="math inline">\(\hat{\eta_i}=\alpha_1 z_{1i}+ \cdots + \alpha_L z_{Li}\)</span>.</li>
+</ol>
+<p><strong>What could the metalearner be?</strong></p>
+<hr>
+<ul>
+<li>the mean (bagging)</li>
+<li>constructed by minimizing the
+<ul>
+<li>squared loss (ordinary least squares) or</li>
+<li>non-negative least squares</li>
+</ul></li>
+<li>ridge or lasso regression</li>
+<li>constructed by minimizing 1-ROC-AUC</li>
+</ul>
+<hr>
+<p>(Class notes: Study Figure 3.2 from Polley et al)</p>
+<hr>
+<p><strong>Step 3: Re-estimate base learners and combine into superlearner on full training data</strong></p>
+<ol type="a">
+<li>Fit each of the <span class="math inline">\(L\)</span> base learners to the full training set.</li>
+<li>The <em>ensemble fit</em> consists the <span class="math inline">\(L\)</span> base learner fits together with the metalearner fit.</li>
+</ol>
+<p><strong>Step 4: Using the ensemble for prediction</strong></p>
+<p>For a new observaton <span class="math inline">\({\bf x}^*\)</span></p>
+<ol type="a">
+<li>Use each of the <span class="math inline">\(L\)</span> base learners to produce a prediction <span class="math inline">\({\bf z}^*\)</span>, and</li>
+<li>feed this to the metalearner-fit to produce the final prediction <span class="math inline">\(y^*\)</span>.</li>
+</ol>
+<hr>
+</section>
+<section id="the-metalearning" class="level2">
+<h2 class="anchored" data-anchor-id="the-metalearning">The metalearning</h2>
+<p>Some observations</p>
+<ul>
+<li>The term <em>discrete super learner</em> is used if the base learner with the lowest risk (i.e.&nbsp;CV-error) is selected.</li>
+<li>Since the predictions from multiple base learners may be highly correlated - the chosen method should perform well in that case (i.e.&nbsp;ridge and lasso).</li>
+<li>When minimizing the squared loss it has been found that adding a non-negativity constraint <span class="math inline">\(\alpha_l\le 0\)</span> works well,</li>
+<li>and also the additivity constraint <span class="math inline">\(\sum_{l=1}^L \alpha_l=1\)</span> - the ensemble is a <em>convex combination</em> of the base learners.</li>
+<li>Non-linear optimization methods may be employed for the metalearner if no existing algorithm is available</li>
+<li>Historically a regularized linear model has “mostly” been used</li>
+<li>For classification the logistic response function can be used on the linear combination of base learners (Figure 3.2 Polley).</li>
+</ul>
+<hr>
+</section>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<section id="simulations-examples" class="level3">
+<h3 class="anchored" data-anchor-id="simulations-examples">Simulations examples</h3>
+<p>(Class notes: Study Figure 3.3 and Table 3.2 from Polley et al)</p>
+</section>
+<section id="real-data" class="level3">
+<h3 class="anchored" data-anchor-id="real-data">Real data</h3>
+<p>(Class notes: Study Figure 3.4 and Table 3.3 from Polley et al.&nbsp;RE=MSE relative to the linear model OLS.)</p>
+<hr>
+</section>
+</section>
+<section id="theoretical-result" class="level2">
+<h2 class="anchored" data-anchor-id="theoretical-result">Theoretical result</h2>
+<p>(Le Dell 2015, page 6)</p>
+<ul>
+<li><p>Oracle selector: the estimator among all possible weighted combinations of the base prediction function that minimizes the risk under the <em>true data generating distribution</em>.</p></li>
+<li><p>The <em>oracle result</em> was established for the Super Learner by van der Laan et al (2006).</p></li>
+<li><p>If the <em>true prediction function</em> cannot be represented by a combination of the base learners (available), then “optimal” will be the closest linear combination that would be optimal if the true data-generating function was known.</p></li>
+<li><p>The oracle result require an <em>uniformly bounded loss function</em>. Using the convex restriction (sum alphas =1) implies that if each based learner is bounded so is the convex combination. In practice: truncation of the predicted values to the range of the outcome in the training set is sufficient to allow for unbounded loss functions</p></li>
+</ul>
+<hr>
+</section>
+<section id="uncertainty-in-the-ensemble" class="level2">
+<h2 class="anchored" data-anchor-id="uncertainty-in-the-ensemble">Uncertainty in the ensemble</h2>
+<p>(Class notes: Study “Road map” 2 from Polley et al)</p>
+<ul>
+<li><p>Add an outer (external) cross validation loop (where the super learner loop is inside). Suggestion: use 20-fold, especially when small sample size.</p></li>
+<li><p>Overfitting? Check if the super learner does as well or better than any of the base learners in the ensemble.</p></li>
+<li><p>Results using <em>influence functions</em> for estimation of the variance for the Super Learner are based on asymptotic variances in the use of <span class="math inline">\(V\)</span>-fold cross-validation (see Ch 5.3 of Le Dell, 2015)</p></li>
+</ul>
+<hr>
+</section>
+<section id="other-issues" class="level2">
+<h2 class="anchored" data-anchor-id="other-issues">Other issues</h2>
+<ul>
+<li><p>Many different implementations available, and much work on parallell processing and speed and memory efficient execution.</p></li>
+<li><p>Super Learner implicitly can handle hyperparameter tuning by including the same base learner with different model parameter sets in the ensemble.</p></li>
+<li><p>Speed and memory improvements for large data sets involves subsampling, and the R <code>subsemble</code> package is one solution, the H2O Ensemble project another.</p></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="r-example-from-superlearner-package" class="level1">
+<h1>R example from Superlearner package</h1>
+<p>Code is copied from <a href="https://cran.r-project.org/web/packages/SuperLearner/vignettes/Guide-to-SuperLearner.html">Guide to SuperLearner</a> and the presentation follows this guide. The data used is the Boston housing dataset from <code>MASS</code>, but with the median value of a house dichotomized into a classification problem.</p>
+<p>Observe that only 150 of the 560 observations is used (to speed up things, but of cause that gives less accurate results).</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Boston, <span class="at">package =</span> <span class="st">"MASS"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#colSums(is.na(Boston)) # no missing values</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>outcome <span class="ot">=</span> Boston<span class="sc">$</span>medv</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe to contain our explanatory variables.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">subset</span>(Boston, <span class="at">select =</span> <span class="sc">-</span>medv)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Set a seed for reproducibility in this random sampling.</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Reduce to a dataset of 150 observations to speed up model fitting.</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>train_obs <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(data), <span class="dv">150</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># X is our training sample.</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>x_train <span class="ot">=</span> data[train_obs, ]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a holdout set for evaluating model performance.</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: cross-validation is even better than a single holdout sample.</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>x_holdout <span class="ot">=</span> data[<span class="sc">-</span>train_obs, ]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a binary outcome variable: towns in which median home value is &gt; 22,000.</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>outcome_bin <span class="ot">=</span> <span class="fu">as.numeric</span>(outcome <span class="sc">&gt;</span> <span class="dv">22</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>y_train <span class="ot">=</span> outcome_bin[train_obs]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>y_holdout <span class="ot">=</span> outcome_bin[<span class="sc">-</span>train_obs]</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(y_train, <span class="at">useNA =</span> <span class="st">"ifany"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>y_train
+ 0  1 
+92 58 </code></pre>
+</div>
+</div>
+<p>Then checking out the possible functions and how they differ from their “original versions”.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">listWrappers</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "SL.bartMachine"      "SL.bayesglm"         "SL.biglasso"        
+ [4] "SL.caret"            "SL.caret.rpart"      "SL.cforest"         
+ [7] "SL.earth"            "SL.extraTrees"       "SL.gam"             
+[10] "SL.gbm"              "SL.glm"              "SL.glm.interaction" 
+[13] "SL.glmnet"           "SL.ipredbagg"        "SL.kernelKnn"       
+[16] "SL.knn"              "SL.ksvm"             "SL.lda"             
+[19] "SL.leekasso"         "SL.lm"               "SL.loess"           
+[22] "SL.logreg"           "SL.mean"             "SL.nnet"            
+[25] "SL.nnls"             "SL.polymars"         "SL.qda"             
+[28] "SL.randomForest"     "SL.ranger"           "SL.ridge"           
+[31] "SL.rpart"            "SL.rpartPrune"       "SL.speedglm"        
+[34] "SL.speedlm"          "SL.step"             "SL.step.forward"    
+[37] "SL.step.interaction" "SL.stepAIC"          "SL.svm"             
+[40] "SL.template"         "SL.xgboost"         
+[1] "All"
+[1] "screen.corP"           "screen.corRank"        "screen.glmnet"        
+[4] "screen.randomForest"   "screen.SIS"            "screen.template"      
+[7] "screen.ttest"          "write.screen.template"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># how does SL.glm differ from glm? obsWeight added to easy use the traning fold in the CV and returns a prediction for new observarions</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>SL.glm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (Y, X, newX, family, obsWeights, model = TRUE, ...) 
+{
+    if (is.matrix(X)) {
+        X = as.data.frame(X)
+    }
+    fit.glm &lt;- glm(Y ~ ., data = X, family = family, weights = obsWeights, 
+        model = model)
+    if (is.matrix(newX)) {
+        newX = as.data.frame(newX)
+    }
+    pred &lt;- predict(fit.glm, newdata = newX, type = "response")
+    fit &lt;- list(object = fit.glm)
+    class(fit) &lt;- "SL.glm"
+    out &lt;- list(pred = pred, fit = fit)
+    return(out)
+}
+&lt;bytecode: 0x1299b6400&gt;
+&lt;environment: namespace:SuperLearner&gt;</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># min and not 1sd used, again obsWeights, make sure model matrix correctly specified</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>SL.glmnet</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (Y, X, newX, family, obsWeights, id, alpha = 1, nfolds = 10, 
+    nlambda = 100, useMin = TRUE, loss = "deviance", ...) 
+{
+    .SL.require("glmnet")
+    if (!is.matrix(X)) {
+        X &lt;- model.matrix(~-1 + ., X)
+        newX &lt;- model.matrix(~-1 + ., newX)
+    }
+    fitCV &lt;- glmnet::cv.glmnet(x = X, y = Y, weights = obsWeights, 
+        lambda = NULL, type.measure = loss, nfolds = nfolds, 
+        family = family$family, alpha = alpha, nlambda = nlambda, 
+        ...)
+    pred &lt;- predict(fitCV, newx = newX, type = "response", s = ifelse(useMin, 
+        "lambda.min", "lambda.1se"))
+    fit &lt;- list(object = fitCV, useMin = useMin)
+    class(fit) &lt;- "SL.glmnet"
+    out &lt;- list(pred = pred, fit = fit)
+    return(out)
+}
+&lt;bytecode: 0x12995c038&gt;
+&lt;environment: namespace:SuperLearner&gt;</code></pre>
+</div>
+</div>
+<p>The fitting lasso to check what is being done. The default metalearner is “method.NNLS” (both for regression and two-class classification - probably then for linear predictor NNLS?).</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sl_lasso<span class="ot">=</span><span class="fu">SuperLearner</span>(<span class="at">Y=</span>y_train, <span class="at">X=</span>x_train,<span class="at">family=</span><span class="fu">binomial</span>(),<span class="at">SL.library=</span><span class="st">"SL.glmnet"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>sl_lasso</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:  
+SuperLearner(Y = y_train, X = x_train, family = binomial(), SL.library = "SL.glmnet") 
+
+                    Risk Coef
+SL.glmnet_All 0.08484849    1</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#str(sl_lasso)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>sl_lasso<span class="sc">$</span>cvRisk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>SL.glmnet_All 
+   0.08484849 </code></pre>
+</div>
+</div>
+<p>Now use lasso and randomforest, and also add the average of ys just as the benchmark.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sl<span class="ot">=</span><span class="fu">SuperLearner</span>(<span class="at">Y=</span>y_train, <span class="at">X=</span>x_train,<span class="at">family=</span><span class="fu">binomial</span>(),<span class="at">SL.library=</span><span class="fu">c</span>(<span class="st">"SL.mean"</span>,<span class="st">"SL.glmnet"</span>,<span class="st">"SL.randomForest"</span>))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>sl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:  
+SuperLearner(Y = y_train, X = x_train, family = binomial(), SL.library = c("SL.mean",  
+    "SL.glmnet", "SL.randomForest")) 
+
+                          Risk     Coef
+SL.mean_All         0.23773937 0.000000
+SL.glmnet_All       0.08725786 0.134252
+SL.randomForest_All 0.07213058 0.865748</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sl<span class="sc">$</span>times<span class="sc">$</span>everything</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   user  system elapsed 
+  1.460   0.027   1.487 </code></pre>
+</div>
+</div>
+<p>Our ensemble give weight 0.13 to lasso and 0.86 to the random forest. (The guide used a different implementation of the random forest called ranger, and got 0.02 and 0.98.)</p>
+<p>Predict on the part of the dataset not used for the training.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pred<span class="ot">=</span><span class="fu">predict</span>(sl,<span class="at">x_holdout=</span>x_holdout,<span class="at">onlySL=</span><span class="cn">TRUE</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 2
+ $ pred           : num [1:150, 1] 0.3029 0.07 0.97847 0.00726 0.00523 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:150] "505" "324" "167" "129" ...
+  .. ..$ : NULL
+ $ library.predict: num [1:150, 1:3] 0.387 0.387 0.387 0.387 0.387 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:150] "505" "324" "167" "129" ...
+  .. ..$ : chr [1:3] "SL.mean_All" "SL.glmnet_All" "SL.randomForest_All"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pred<span class="sc">$</span>pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       V1           
+ Min.   :0.0003034  
+ 1st Qu.:0.0183955  
+ Median :0.1135270  
+ Mean   :0.3855066  
+ 3rd Qu.:0.9036164  
+ Max.   :0.9955802  </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pred<span class="sc">$</span>library.predict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  SL.mean_All     SL.glmnet_All       SL.randomForest_All
+ Min.   :0.3867   Min.   :0.0000014   Min.   :0.0000     
+ 1st Qu.:0.3867   1st Qu.:0.0244935   1st Qu.:0.0160     
+ Median :0.3867   Median :0.2063204   Median :0.1020     
+ Mean   :0.3867   Mean   :0.3866667   Mean   :0.3853     
+ 3rd Qu.:0.3867   3rd Qu.:0.8169726   3rd Qu.:0.9123     
+ Max.   :0.3867   Max.   :0.9997871   Max.   :0.9980     </code></pre>
+</div>
+</div>
+<p>Add now an external cross-validation loop - only using the training data. Here the default <span class="math inline">\(V=10\)</span> is used for the inner loop, and we set the value for the outer loop (here <span class="math inline">\(V=3\)</span> for speed).</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>({cv_sl<span class="ot">=</span><span class="fu">CV.SuperLearner</span>(<span class="at">Y=</span>y_train, <span class="at">X=</span>x_train,<span class="at">V=</span><span class="dv">10</span>,<span class="at">family=</span><span class="fu">binomial</span>(),<span class="at">SL.library=</span><span class="fu">c</span>(<span class="st">"SL.mean"</span>,<span class="st">"SL.glmnet"</span>,<span class="st">"SL.randomForest"</span>))})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   user  system elapsed 
+ 14.595   0.180  14.777 </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cv_sl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:  
+CV.SuperLearner(Y = y_train, X = x_train, V = 10, family = binomial(), SL.library = c("SL.mean",  
+    "SL.glmnet", "SL.randomForest")) 
+
+Risk is based on: Mean Squared Error
+
+All risk estimates are based on V =  10 
+
+           Algorithm      Ave        se       Min     Max
+       Super Learner 0.077041 0.0123412 0.0223396 0.12156
+         Discrete SL 0.079783 0.0132389 0.0245396 0.12151
+         SL.mean_All 0.242535 0.0093204 0.1947874 0.29619
+       SL.glmnet_All 0.088109 0.0152056 0.0098891 0.14402
+ SL.randomForest_All 0.073960 0.0115466 0.0245396 0.12151</code></pre>
+</div>
+</div>
+<p>See the guide for more information on running multiple versions of one base learner, and parallellisation.</p>
+</section>
+<section id="r-example-from-h2o-package" class="level1">
+<h1>R example from H2O-package</h1>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-casi" class="csl-entry" role="doc-biblioentry">
+Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference - Algorithms, Evidence, and Data Science</em>. Cambridge University Press. <a href="https://hastie.su.domains/CASI/">https://hastie.su.domains/CASI/</a>.
+</div>
+<div id="ref-ESL" class="csl-entry" role="doc-biblioentry">
+Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. Vol. 2. Springer series in statistics New York. <a href="https://hastie.su.domains/ElemStatLearn">hastie.su.domains/ElemStatLearn</a>.
+</div>
+<div id="ref-ISL" class="csl-entry" role="doc-biblioentry">
+James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 112. Springer.
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
