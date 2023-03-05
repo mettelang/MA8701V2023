@@ -1,0 +1,1318 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={MA8701 Advanced methods in statistical inference and learning},
+  pdfauthor={Mette Langaas},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{MA8701 Advanced methods in statistical inference and learning}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Part 3: Ensembles. L15: Stacked ensembles}
+\author{Mette Langaas}
+\date{3/5/23}
+
+\begin{document}
+\maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, interior hidden, breakable, borderline west={3pt}{0pt}{shadecolor}, enhanced, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+Course homepage: \url{https://wiki.math.ntnu.no/ma8701/2023v/start}
+
+\hypertarget{before-we-start}{%
+\section{Before we start}\label{before-we-start}}
+
+\includegraphics{../../Figures/Part3flow.jpg}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{literature}{%
+\subsection{Literature}\label{literature}}
+
+\begin{itemize}
+\tightlist
+\item
+  Erin Le Dell (2015):
+  \href{https://escholarship.org/uc/item/3kb142r2}{Scalable Ensemble
+  Learning and Computationally Efficient Variance Estimation. PhD
+  Thesis, University of California, Berkeley.} or
+  \url{https://github.com/ledell/phd-thesis}. Section 2.
+\end{itemize}
+
+\hypertarget{supporting-literature}{%
+\subsection{Supporting literature}\label{supporting-literature}}
+
+\begin{itemize}
+\tightlist
+\item
+  Breiman (1996)
+\item
+  Laan, Polley, and Hubbard (2007)
+\item
+  Polley, Rose, and Laan (2011)
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{ensembles---overview}{%
+\section{Ensembles - overview}\label{ensembles---overview}}
+
+(ELS Ch 16.1)
+
+With ensembles we want to build \emph{one prediction model} which
+combines the strength of \emph{a collection of models}.
+
+These models may be simple base models - or more elaborate models.
+
+We have studied bagging - where we use the bootstrap to repeatedly fit a
+statistical model, and then take a simple average of the predictions (or
+majority vote). Here the base models can be trees - or other type of
+models.
+
+Random forest is a version of bagging with trees, with trees made to be
+different (decorrelated).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+We have studied boosting, where the models are trained on sequentially
+different data - from residuals or gradients of loss functions - and the
+ensemble members cast weighted votes (downweighted by a learning rate).
+We have observed that there are many hyperparameters that need to be to
+tuned to optimize performance.
+
+\hypertarget{stacked-ensembles}{%
+\section{Stacked ensembles}\label{stacked-ensembles}}
+
+aka super learner or generalized stacking
+
+\hypertarget{what-is-it}{%
+\subsection{What is it?}\label{what-is-it}}
+
+The Stacked Esembles is an algorithm that combines
+
+\begin{itemize}
+\tightlist
+\item
+  multiple, (typically) diverse prediction methods (learning algorithms)
+  called \emph{base learners} (first-level) into a
+\item
+  a second-level \emph{metalearner} - which can be seen as a
+  \emph{single} method.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{development}{%
+\subsection{Development:}\label{development}}
+
+\begin{itemize}
+\tightlist
+\item
+  1992: stacking introduce for neural nets by Wolpert
+\item
+  1996: adapted to regression problems by Breiman - but only for one
+  type of methods at once (CART with different number of terminal nodes,
+  GLMs with subset selection, ridge regression with different ridge
+  penalty parameters) Breiman (1996)
+\item
+  2006: proven to have asymptotic theoretical oracle property by Laan,
+  Polley, and Hubbard (2007)
+\item
+  2015: extensions in phd thesis by Erin LeDell LeDell (2015)
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{ingredients}{%
+\subsection{Ingredients:}\label{ingredients}}
+
+\begin{itemize}
+\item
+  \emph{Training data} (level-zero data) \(O_i=(X_i,Y_i)\) of \(N\)
+  i.i.d observations.
+\item
+  A total of \(L\) \emph{base learning algorithms} \(\Psi^l\) for
+  \(l=1,\ldots,L\), each from some algorithmic class and each with a
+  specific set of model parameters.
+\item
+  A \emph{metalearner} \({\boldsymbol \Phi}\) is used to find an
+  \emph{optimal combination} of the \(L\) base learners.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{algorithm}{%
+\subsection{Algorithm}\label{algorithm}}
+
+\textbf{Step 1: Produce level-one data} \({\boldsymbol Z}\)
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\item
+  Divide the training data \({\boldsymbol X}\) randomly into \(V\)
+  roughly-equally sized validation folds
+  \({\boldsymbol X}_{(1)},\ldots,{\boldsymbol X}_{(V)}\). \(V\) is often
+  5 or 10. (The responses \({\boldsymbol Y}\) are also needed.)
+\item
+  For each base learner \(\Psi^l\) perform \(V\)-fold cross-validation
+  to produce prediction.
+\end{enumerate}
+
+This gives the level-one data set \({\boldsymbol Z}\) consisting
+prediction of all the level-zero data - that is a matrix with \(N\) rows
+and \(L\) columns.
+
+\textbf{What could the base learners be?}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+``Any'' method that produces a prediction - ``all'' types of problems.
+
+\begin{itemize}
+\tightlist
+\item
+  linear regression
+\item
+  lasso
+\item
+  cart
+\item
+  random forest with mtry=value 1
+\item
+  random forest with mtry=value 2
+\item
+  xgboost with hyperparameter set 1
+\item
+  xgboost with hyperparameter set 2
+\item
+  neural net with hyperparameter set 1
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Step 2: Fit the metalearner}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  The starting point is the level-one prediction data
+  \({\boldsymbol Z}\) together with the responses \((Y_1,\ldots ,Y_N)\).
+\item
+  The metalearner is used to estimate the weights given to each base
+  learner: \(\hat{\eta_i}=\alpha_1 z_{1i}+ \cdots + \alpha_L z_{Li}\).
+\end{enumerate}
+
+\textbf{What could the metalearner be?}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  the mean (bagging)
+\item
+  constructed by minimizing the
+
+  \begin{itemize}
+  \tightlist
+  \item
+    squared loss (ordinary least squares) or
+  \item
+    non-negative least squares (most popular)
+  \end{itemize}
+\item
+  ridge or lasso regression
+\item
+  logistic regression (for binary classification)
+\item
+  constructed by minimizing 1-ROC-AUC
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+(Class notes: Study Figure 3.2 from Polley, Rose, and Laan (2011) and/or
+Figure 1 from Laan, Polley, and Hubbard (2007))
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{the-metalearning}{%
+\subsection{The metalearning}\label{the-metalearning}}
+
+Some observations
+
+\begin{itemize}
+\tightlist
+\item
+  The term \emph{discrete super learner} is used if the base learner
+  with the lowest risk (i.e.~CV-error) is selected.
+\item
+  Since the predictions from multiple base learners may be highly
+  correlated - the chosen method should perform well in that case
+  (i.e.~ridge and lasso).
+\item
+  When minimizing the squared loss it has been found that adding a
+  non-negativity constraint \(\alpha_l\le 0\) works well,
+\item
+  and also the additivity constraint \(\sum_{l=1}^L \alpha_l=1\) - the
+  ensemble is a \emph{convex combination} of the base learners.
+\item
+  Non-linear optimization methods may be employed for the metalearner if
+  no existing algorithm is available
+\item
+  Historically a regularized linear model has ``mostly'' been used
+\item
+  For classification the logistic response function can be used on the
+  linear combination of base learners (Figure 3.2 Polley, Rose, and Laan
+  (2011)).
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{examples}{%
+\section{Examples}\label{examples}}
+
+\hypertarget{simulation-examples}{%
+\subsection{Simulation examples}\label{simulation-examples}}
+
+(Class notes: Study Figure 3.3 and Table 3.2 from Polley, Rose, and Laan
+(2011))
+
+\hypertarget{real-data}{%
+\subsection{Real data}\label{real-data}}
+
+(Class notes: Study Figure 3.4 and Table 3.3 from P@Polley2011. RE=MSE
+relative to the linear model OLS.)
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{theoretical-result}{%
+\section{Theoretical result}\label{theoretical-result}}
+
+LeDell (2015) (page 6)
+
+\begin{itemize}
+\item
+  Oracle selector: the estimator among all possible weighted
+  combinations of the base prediction function that minimizes the risk
+  under the \emph{true data generating distribution}.
+\item
+  The \emph{oracle result} was established for the Super Learner by
+  Laan, Polley, and Hubbard (2007)
+\item
+  If the \emph{true prediction function} cannot be represented by a
+  combination of the base learners (available), then ``optimal'' will be
+  the closest linear combination that would be optimal if the true
+  data-generating function was known.
+\item
+  The oracle result require an \emph{uniformly bounded loss function}.
+  Using the convex restriction (sum alphas =1) implies that if each
+  based learner is bounded so is the convex combination. In practice:
+  truncation of the predicted values to the range of the outcome in the
+  training set is sufficient to allow for unbounded loss functions
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{uncertainty-in-the-ensemble}{%
+\subsection{Uncertainty in the
+ensemble}\label{uncertainty-in-the-ensemble}}
+
+(Class notes: Study ``Road map'' 2 from Polley, Rose, and Laan (2011))
+
+\begin{itemize}
+\item
+  Add an outer (external) cross validation loop (where the super learner
+  loop is inside). Suggestion: use 20-fold, especially when small sample
+  size.
+\item
+  Overfitting? Check if the super learner does as well or better than
+  any of the base learners in the ensemble.
+\item
+  Results using \emph{influence functions} for estimation of the
+  variance for the Super Learner are based on asymptotic variances in
+  the use of \(V\)-fold cross-validation (see Ch 5.3 of LeDell (2015))
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{other-issues}{%
+\subsection{Other issues}\label{other-issues}}
+
+\begin{itemize}
+\item
+  Many different implementations available, and much work on parallell
+  processing and speed and memory efficient execution.
+\item
+  Super Learner implicitly can handle hyperparameter tuning by including
+  the same base learner with different model parameter sets in the
+  ensemble.
+\item
+  Speed and memory improvements for large data sets involves
+  subsampling, and the R \texttt{subsemble} package is one solution, the
+  H2o package another.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{r-example-from-superlearner-package}{%
+\section{R example from Superlearner
+package}\label{r-example-from-superlearner-package}}
+
+Comment - this package is still in use, but the h2o-superlearner might
+be more ``easy'' to use.
+
+Code is copied from
+\href{https://cran.r-project.org/web/packages/SuperLearner/vignettes/Guide-to-SuperLearner.html}{Guide
+to SuperLearner} and the presentation follows this guide. The data used
+is the Boston housing dataset from \texttt{MASS}, but with the median
+value of a house dichotomized into a classification problem.
+
+Observe that only 150 of the 560 observations is used (to speed up
+things, but of cause that gives less accurate results).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data}\NormalTok{(Boston, }\AttributeTok{package =} \StringTok{"MASS"}\NormalTok{)}
+\CommentTok{\#colSums(is.na(Boston)) \# no missing values}
+\NormalTok{outcome }\OtherTok{=}\NormalTok{ Boston}\SpecialCharTok{$}\NormalTok{medv}
+\CommentTok{\# Create a dataframe to contain our explanatory variables.}
+\NormalTok{data }\OtherTok{=} \FunctionTok{subset}\NormalTok{(Boston, }\AttributeTok{select =} \SpecialCharTok{{-}}\NormalTok{medv)}
+\CommentTok{\#Set a seed for reproducibility in this random sampling.}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\CommentTok{\# Reduce to a dataset of 150 observations to speed up model fitting.}
+\NormalTok{train\_obs }\OtherTok{=} \FunctionTok{sample}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(data), }\DecValTok{150}\NormalTok{)}
+\CommentTok{\# X is our training sample.}
+\NormalTok{x\_train }\OtherTok{=}\NormalTok{ data[train\_obs, ]}
+\CommentTok{\# Create a holdout set for evaluating model performance.}
+\CommentTok{\# Note: cross{-}validation is even better than a single holdout sample.}
+\NormalTok{x\_holdout }\OtherTok{=}\NormalTok{ data[}\SpecialCharTok{{-}}\NormalTok{train\_obs, ]}
+\CommentTok{\# Create a binary outcome variable: towns in which median home value is \textgreater{} 22,000.}
+\NormalTok{outcome\_bin }\OtherTok{=} \FunctionTok{as.numeric}\NormalTok{(outcome }\SpecialCharTok{\textgreater{}} \DecValTok{22}\NormalTok{)}
+\NormalTok{y\_train }\OtherTok{=}\NormalTok{ outcome\_bin[train\_obs]}
+\NormalTok{y\_holdout }\OtherTok{=}\NormalTok{ outcome\_bin[}\SpecialCharTok{{-}}\NormalTok{train\_obs]}
+\FunctionTok{table}\NormalTok{(y\_train, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+y_train
+ 0  1 
+92 58 
+\end{verbatim}
+
+Then checking out the possible functions and how they differ from their
+``original versions''.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{listWrappers}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "SL.bartMachine"      "SL.bayesglm"         "SL.biglasso"        
+ [4] "SL.caret"            "SL.caret.rpart"      "SL.cforest"         
+ [7] "SL.earth"            "SL.extraTrees"       "SL.gam"             
+[10] "SL.gbm"              "SL.glm"              "SL.glm.interaction" 
+[13] "SL.glmnet"           "SL.ipredbagg"        "SL.kernelKnn"       
+[16] "SL.knn"              "SL.ksvm"             "SL.lda"             
+[19] "SL.leekasso"         "SL.lm"               "SL.loess"           
+[22] "SL.logreg"           "SL.mean"             "SL.nnet"            
+[25] "SL.nnls"             "SL.polymars"         "SL.qda"             
+[28] "SL.randomForest"     "SL.ranger"           "SL.ridge"           
+[31] "SL.rpart"            "SL.rpartPrune"       "SL.speedglm"        
+[34] "SL.speedlm"          "SL.step"             "SL.step.forward"    
+[37] "SL.step.interaction" "SL.stepAIC"          "SL.svm"             
+[40] "SL.template"         "SL.xgboost"         
+[1] "All"
+[1] "screen.corP"           "screen.corRank"        "screen.glmnet"        
+[4] "screen.randomForest"   "screen.SIS"            "screen.template"      
+[7] "screen.ttest"          "write.screen.template"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# how does SL.glm differ from glm? obsWeight added to easy use the traning fold in the CV and returns a prediction for new observarions}
+\NormalTok{SL.glm}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+function (Y, X, newX, family, obsWeights, model = TRUE, ...) 
+{
+    if (is.matrix(X)) {
+        X = as.data.frame(X)
+    }
+    fit.glm <- glm(Y ~ ., data = X, family = family, weights = obsWeights, 
+        model = model)
+    if (is.matrix(newX)) {
+        newX = as.data.frame(newX)
+    }
+    pred <- predict(fit.glm, newdata = newX, type = "response")
+    fit <- list(object = fit.glm)
+    class(fit) <- "SL.glm"
+    out <- list(pred = pred, fit = fit)
+    return(out)
+}
+<bytecode: 0x14c2979e0>
+<environment: namespace:SuperLearner>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# min and not 1sd used, again obsWeights, make sure model matrix correctly specified}
+\NormalTok{SL.glmnet}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+function (Y, X, newX, family, obsWeights, id, alpha = 1, nfolds = 10, 
+    nlambda = 100, useMin = TRUE, loss = "deviance", ...) 
+{
+    .SL.require("glmnet")
+    if (!is.matrix(X)) {
+        X <- model.matrix(~-1 + ., X)
+        newX <- model.matrix(~-1 + ., newX)
+    }
+    fitCV <- glmnet::cv.glmnet(x = X, y = Y, weights = obsWeights, 
+        lambda = NULL, type.measure = loss, nfolds = nfolds, 
+        family = family$family, alpha = alpha, nlambda = nlambda, 
+        ...)
+    pred <- predict(fitCV, newx = newX, type = "response", s = ifelse(useMin, 
+        "lambda.min", "lambda.1se"))
+    fit <- list(object = fitCV, useMin = useMin)
+    class(fit) <- "SL.glmnet"
+    out <- list(pred = pred, fit = fit)
+    return(out)
+}
+<bytecode: 0x14c2f1350>
+<environment: namespace:SuperLearner>
+\end{verbatim}
+
+The fitting lasso to check what is being done. The default metalearner
+is ``method.NNLS'' (both for regression and two-class classification -
+probably then for linear predictor NNLS?).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{sl\_lasso}\OtherTok{=}\FunctionTok{SuperLearner}\NormalTok{(}\AttributeTok{Y=}\NormalTok{y\_train, }\AttributeTok{X=}\NormalTok{x\_train,}\AttributeTok{family=}\FunctionTok{binomial}\NormalTok{(),}\AttributeTok{SL.library=}\StringTok{"SL.glmnet"}\NormalTok{)}
+\NormalTok{sl\_lasso}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:  
+SuperLearner(Y = y_train, X = x_train, family = binomial(), SL.library = "SL.glmnet") 
+
+                    Risk Coef
+SL.glmnet_All 0.08484849    1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#str(sl\_lasso)}
+\NormalTok{sl\_lasso}\SpecialCharTok{$}\NormalTok{cvRisk}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+SL.glmnet_All 
+   0.08484849 
+\end{verbatim}
+
+Now use lasso and randomforest, and also add the average of ys just as
+the benchmark.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{sl}\OtherTok{=}\FunctionTok{SuperLearner}\NormalTok{(}\AttributeTok{Y=}\NormalTok{y\_train, }\AttributeTok{X=}\NormalTok{x\_train,}\AttributeTok{family=}\FunctionTok{binomial}\NormalTok{(),}\AttributeTok{SL.library=}\FunctionTok{c}\NormalTok{(}\StringTok{"SL.mean"}\NormalTok{,}\StringTok{"SL.glmnet"}\NormalTok{,}\StringTok{"SL.randomForest"}\NormalTok{))}
+\NormalTok{sl}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:  
+SuperLearner(Y = y_train, X = x_train, family = binomial(), SL.library = c("SL.mean",  
+    "SL.glmnet", "SL.randomForest")) 
+
+                          Risk     Coef
+SL.mean_All         0.23773937 0.000000
+SL.glmnet_All       0.08725786 0.134252
+SL.randomForest_All 0.07213058 0.865748
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sl}\SpecialCharTok{$}\NormalTok{times}\SpecialCharTok{$}\NormalTok{everything}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   user  system elapsed 
+  1.489   0.029   1.521 
+\end{verbatim}
+
+Our ensemble give weight 0.13 to lasso and 0.86 to the random forest.
+(The guide used a different implementation of the random forest called
+ranger, and got 0.02 and 0.98.)
+
+Predict on the part of the dataset not used for the training.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred}\OtherTok{=}\FunctionTok{predict}\NormalTok{(sl,}\AttributeTok{x\_holdout=}\NormalTok{x\_holdout,}\AttributeTok{onlySL=}\ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{str}\NormalTok{(pred)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+List of 2
+ $ pred           : num [1:150, 1] 0.3029 0.07 0.97847 0.00726 0.00523 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:150] "505" "324" "167" "129" ...
+  .. ..$ : NULL
+ $ library.predict: num [1:150, 1:3] 0.387 0.387 0.387 0.387 0.387 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:150] "505" "324" "167" "129" ...
+  .. ..$ : chr [1:3] "SL.mean_All" "SL.glmnet_All" "SL.randomForest_All"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(pred}\SpecialCharTok{$}\NormalTok{pred)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       V1           
+ Min.   :0.0003034  
+ 1st Qu.:0.0183955  
+ Median :0.1135270  
+ Mean   :0.3855066  
+ 3rd Qu.:0.9036164  
+ Max.   :0.9955802  
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(pred}\SpecialCharTok{$}\NormalTok{library.predict)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  SL.mean_All     SL.glmnet_All       SL.randomForest_All
+ Min.   :0.3867   Min.   :0.0000014   Min.   :0.0000     
+ 1st Qu.:0.3867   1st Qu.:0.0244935   1st Qu.:0.0160     
+ Median :0.3867   Median :0.2063204   Median :0.1020     
+ Mean   :0.3867   Mean   :0.3866667   Mean   :0.3853     
+ 3rd Qu.:0.3867   3rd Qu.:0.8169726   3rd Qu.:0.9123     
+ Max.   :0.3867   Max.   :0.9997871   Max.   :0.9980     
+\end{verbatim}
+
+Add now an external cross-validation loop - only using the training
+data. Here the default \(V=10\) is used for the inner loop, and we set
+the value for the outer loop (here \(V=3\) for speed).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{system.time}\NormalTok{(\{cv\_sl}\OtherTok{=}\FunctionTok{CV.SuperLearner}\NormalTok{(}\AttributeTok{Y=}\NormalTok{y\_train, }\AttributeTok{X=}\NormalTok{x\_train,}\AttributeTok{V=}\DecValTok{10}\NormalTok{,}\AttributeTok{family=}\FunctionTok{binomial}\NormalTok{(),}\AttributeTok{SL.library=}\FunctionTok{c}\NormalTok{(}\StringTok{"SL.mean"}\NormalTok{,}\StringTok{"SL.glmnet"}\NormalTok{,}\StringTok{"SL.randomForest"}\NormalTok{))\})}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   user  system elapsed 
+ 15.003   0.202  15.207 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(cv\_sl)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:  
+CV.SuperLearner(Y = y_train, X = x_train, V = 10, family = binomial(), SL.library = c("SL.mean",  
+    "SL.glmnet", "SL.randomForest")) 
+
+Risk is based on: Mean Squared Error
+
+All risk estimates are based on V =  10 
+
+           Algorithm      Ave        se       Min     Max
+       Super Learner 0.077041 0.0123412 0.0223396 0.12156
+         Discrete SL 0.079783 0.0132389 0.0245396 0.12151
+         SL.mean_All 0.242535 0.0093204 0.1947874 0.29619
+       SL.glmnet_All 0.088109 0.0152056 0.0098891 0.14402
+ SL.randomForest_All 0.073960 0.0115466 0.0245396 0.12151
+\end{verbatim}
+
+See the guide for more information on running multiple versions of one
+base learner, and parallellisation.
+
+\hypertarget{r-example-from-h2o-package}{%
+\section{R example from H2o-package}\label{r-example-from-h2o-package}}
+
+\url{https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/stacked-ensembles.html}
+
+Python examples available from the same page
+
+The Higgs boson data is used - but which version is not specified, maybe
+this \url{https://archive.ics.uci.edu/ml/datasets/HIGGS} or a
+specifically made data set. The problem is binary, so maybe to detect
+signal vs noise.
+
+Default metalearner: Options include `AUTO' (GLM with non negative
+weights; if validation\_frame is present, a lambda search is performed)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{h2o.init}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ Connection successful!
+
+R is connected to the H2O cluster: 
+    H2O cluster uptime:         1 days 3 hours 
+    H2O cluster timezone:       Europe/Oslo 
+    H2O data parsing timezone:  UTC 
+    H2O cluster version:        3.40.0.1 
+    H2O cluster version age:    25 days 
+    H2O cluster name:           H2O_started_from_R_mettela_bze126 
+    H2O cluster total nodes:    1 
+    H2O cluster total memory:   2.96 GB 
+    H2O cluster total cores:    10 
+    H2O cluster allowed cores:  10 
+    H2O cluster healthy:        TRUE 
+    H2O Connection ip:          localhost 
+    H2O Connection port:        54321 
+    H2O Connection proxy:       NA 
+    H2O Internal Security:      FALSE 
+    R Version:                  R version 4.2.2 (2022-10-31) 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Import a sample binary outcome train/test set into H2O}
+\NormalTok{train }\OtherTok{\textless{}{-}} \FunctionTok{h2o.importFile}\NormalTok{(}\StringTok{"https://s3.amazonaws.com/erin{-}data/higgs/higgs\_train\_10k.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |====                                                                  |   5%
+  |                                                                            
+  |==============                                                        |  20%
+  |                                                                            
+  |=======================                                               |  32%
+  |                                                                            
+  |===================================                                   |  50%
+  |                                                                            
+  |===============================================                       |  67%
+  |                                                                            
+  |=============================================================         |  87%
+  |                                                                            
+  |======================================================================| 100%
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test }\OtherTok{\textless{}{-}} \FunctionTok{h2o.importFile}\NormalTok{(}\StringTok{"https://s3.amazonaws.com/erin{-}data/higgs/higgs\_test\_5k.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |=================                                                     |  25%
+  |                                                                            
+  |===================================================                   |  72%
+  |                                                                            
+  |======================================================================| 100%
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Identify predictors and response}
+\NormalTok{y }\OtherTok{\textless{}{-}} \StringTok{"response"}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{setdiff}\NormalTok{(}\FunctionTok{names}\NormalTok{(train), y)}
+
+\CommentTok{\# For binary classification, response should be a factor}
+\NormalTok{train[, y] }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(train[, y])}
+\NormalTok{test[, y] }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(test[, y])}
+
+\FunctionTok{print}\NormalTok{(}\FunctionTok{dim}\NormalTok{(train))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 10000    29
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(train))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "response" "x1"       "x2"       "x3"       "x4"       "x5"      
+ [7] "x6"       "x7"       "x8"       "x9"       "x10"      "x11"     
+[13] "x12"      "x13"      "x14"      "x15"      "x16"      "x17"     
+[19] "x18"      "x19"      "x20"      "x21"      "x22"      "x23"     
+[25] "x24"      "x25"      "x26"      "x27"      "x28"     
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{dim}\NormalTok{(test))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 5000   29
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Number of CV folds (to generate level{-}one data for stacking)}
+\NormalTok{nfolds }\OtherTok{\textless{}{-}} \DecValTok{5}
+
+\CommentTok{\# There are a few ways to assemble a list of models to stack toegether:}
+\CommentTok{\# 1. Train individual models and put them in a list}
+
+
+\CommentTok{\# 1. Generate a 2{-}model ensemble (GBM + RF)}
+
+\CommentTok{\# Train \& Cross{-}validate a GBM}
+\NormalTok{my\_gbm }\OtherTok{\textless{}{-}} \FunctionTok{h2o.gbm}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x,}
+                  \AttributeTok{y =}\NormalTok{ y,}
+                  \AttributeTok{training\_frame =}\NormalTok{ train,}
+                  \AttributeTok{distribution =} \StringTok{"bernoulli"}\NormalTok{,}
+                  \AttributeTok{ntrees =} \DecValTok{10}\NormalTok{,}
+                  \AttributeTok{max\_depth =} \DecValTok{3}\NormalTok{,}
+                  \AttributeTok{min\_rows =} \DecValTok{2}\NormalTok{,}
+                  \AttributeTok{learn\_rate =} \FloatTok{0.2}\NormalTok{,}
+                  \AttributeTok{nfolds =}\NormalTok{ nfolds,}
+                  \AttributeTok{keep\_cross\_validation\_predictions =} \ConstantTok{TRUE}\NormalTok{,}
+                  \AttributeTok{seed =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |===============================================                       |  67%
+  |                                                                            
+  |======================================================================| 100%
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Train \& Cross{-}validate a RF}
+\NormalTok{my\_rf }\OtherTok{\textless{}{-}} \FunctionTok{h2o.randomForest}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x,}
+                          \AttributeTok{y =}\NormalTok{ y,}
+                          \AttributeTok{training\_frame =}\NormalTok{ train,}
+                          \AttributeTok{ntrees =} \DecValTok{50}\NormalTok{,}
+                          \AttributeTok{nfolds =}\NormalTok{ nfolds,}
+                          \AttributeTok{keep\_cross\_validation\_predictions =} \ConstantTok{TRUE}\NormalTok{,}
+                          \AttributeTok{seed =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |=======                                                               |   9%
+  |                                                                            
+  |==================                                                    |  26%
+  |                                                                            
+  |=============================                                         |  42%
+  |                                                                            
+  |=========================================                             |  58%
+  |                                                                            
+  |====================================================                  |  74%
+  |                                                                            
+  |===============================================================       |  90%
+  |                                                                            
+  |======================================================================| 100%
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{now-the-default-metalearner}{%
+\subsection{Now the default
+metalearner}\label{now-the-default-metalearner}}
+
+AUTO: glm with non-negative weights
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Train a stacked ensemble using the GBM and RF above}
+\NormalTok{ensemble }\OtherTok{\textless{}{-}} \FunctionTok{h2o.stackedEnsemble}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x,}
+                                \AttributeTok{y =}\NormalTok{ y,}
+                                \AttributeTok{training\_frame =}\NormalTok{ train,}
+                                \AttributeTok{base\_models =} \FunctionTok{list}\NormalTok{(my\_gbm, my\_rf))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# default metalearner\_transform should be NONE}
+\CommentTok{\#print(summary(ensemble))}
+\CommentTok{\#ensemble@model}
+\CommentTok{\# Eval ensemble performance on a test set}
+\NormalTok{perf }\OtherTok{\textless{}{-}} \FunctionTok{h2o.performance}\NormalTok{(ensemble, }\AttributeTok{newdata =}\NormalTok{ test)}
+
+\CommentTok{\# Compare to base learner performance on the test set}
+\NormalTok{perf\_gbm\_test }\OtherTok{\textless{}{-}} \FunctionTok{h2o.performance}\NormalTok{(my\_gbm, }\AttributeTok{newdata =}\NormalTok{ test)}
+\NormalTok{perf\_rf\_test }\OtherTok{\textless{}{-}} \FunctionTok{h2o.performance}\NormalTok{(my\_rf, }\AttributeTok{newdata =}\NormalTok{ test)}
+\NormalTok{baselearner\_best\_auc\_test }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(}\FunctionTok{h2o.auc}\NormalTok{(perf\_gbm\_test), }\FunctionTok{h2o.auc}\NormalTok{(perf\_rf\_test))}
+\NormalTok{ensemble\_auc\_test }\OtherTok{\textless{}{-}} \FunctionTok{h2o.auc}\NormalTok{(perf)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"Best Base{-}learner Test AUC:  \%s"}\NormalTok{, baselearner\_best\_auc\_test))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Best Base-learner Test AUC:  0.769204725074508"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"Ensemble Test AUC:  \%s"}\NormalTok{, ensemble\_auc\_test))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Ensemble Test AUC:  0.773144298176816"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# [1] "Best Base{-}learner Test AUC:  0.76979821502548"}
+\CommentTok{\# [1] "Ensemble Test AUC:  0.773501212640419"}
+
+\CommentTok{\# Generate predictions on a test set (if neccessary)}
+\NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{h2o.predict}\NormalTok{(ensemble, }\AttributeTok{newdata =}\NormalTok{ test)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{head}\NormalTok{(pred))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  predict        p0        p1
+1       0 0.6839178 0.3160822
+2       1 0.5825428 0.4174572
+3       1 0.5869431 0.4130569
+4       1 0.1927212 0.8072788
+5       1 0.4509384 0.5490616
+6       1 0.3275080 0.6724920
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{metalearner\_model}
+\NormalTok{Model Details}\SpecialCharTok{:}
+\ErrorTok{==============}
+
+\NormalTok{H2OBinomialModel}\SpecialCharTok{:}\NormalTok{ glm}
+\NormalTok{Model ID}\SpecialCharTok{:}\NormalTok{  metalearner\_AUTO\_StackedEnsemble\_model\_R\_1677945156774\_1824 }
+\NormalTok{GLM Model}\SpecialCharTok{:}\NormalTok{ summary}
+\NormalTok{    family  link                                regularization number\_of\_predictors\_total number\_of\_active\_predictors number\_of\_iterations}
+\DecValTok{1}\NormalTok{ binomial logit Elastic }\FunctionTok{Net}\NormalTok{ (}\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{lambda =} \FloatTok{8.399E{-}5}\NormalTok{ )                          }\DecValTok{2}                           \DecValTok{2}                    \DecValTok{3}
+\NormalTok{                                                training\_frame}
+\DecValTok{1}\NormalTok{ levelone\_training\_StackedEnsemble\_model\_R\_1677945156774\_1824}
+
+\NormalTok{Coefficients}\SpecialCharTok{:}\NormalTok{ glm coefficients}
+\NormalTok{                           names coefficients standardized\_coefficients}
+\DecValTok{1}\NormalTok{                      Intercept    }\SpecialCharTok{{-}}\FloatTok{3.603549}                  \FloatTok{0.149102}
+\DecValTok{2}\NormalTok{ GBM\_model\_R\_1677945156774\_1086     }\FloatTok{3.298011}                  \FloatTok{0.493334}
+\DecValTok{3}\NormalTok{ DRF\_model\_R\_1677945156774\_1214     }\FloatTok{3.809905}                  \FloatTok{0.701246}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Train a stacked ensemble using the GBM and RF above}
+\NormalTok{ensemble }\OtherTok{\textless{}{-}} \FunctionTok{h2o.stackedEnsemble}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x,}
+                                \AttributeTok{y =}\NormalTok{ y,}
+                                \AttributeTok{training\_frame =}\NormalTok{ train,}
+                                \AttributeTok{base\_models =} \FunctionTok{list}\NormalTok{(my\_gbm, my\_rf),}
+                                \AttributeTok{metalearner\_transform =} \StringTok{"Logit"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#print(summary(ensemble))}
+\CommentTok{\#print(ensemble@model)}
+
+\CommentTok{\# Eval ensemble performance on a test set}
+\NormalTok{perf }\OtherTok{\textless{}{-}} \FunctionTok{h2o.performance}\NormalTok{(ensemble, }\AttributeTok{newdata =}\NormalTok{ test)}
+
+\CommentTok{\# Compare to base learner performance on the test set}
+\NormalTok{perf\_gbm\_test }\OtherTok{\textless{}{-}} \FunctionTok{h2o.performance}\NormalTok{(my\_gbm, }\AttributeTok{newdata =}\NormalTok{ test)}
+\NormalTok{perf\_rf\_test }\OtherTok{\textless{}{-}} \FunctionTok{h2o.performance}\NormalTok{(my\_rf, }\AttributeTok{newdata =}\NormalTok{ test)}
+\NormalTok{baselearner\_best\_auc\_test }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(}\FunctionTok{h2o.auc}\NormalTok{(perf\_gbm\_test), }\FunctionTok{h2o.auc}\NormalTok{(perf\_rf\_test))}
+\NormalTok{ensemble\_auc\_test }\OtherTok{\textless{}{-}} \FunctionTok{h2o.auc}\NormalTok{(perf)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"Best Base{-}learner Test AUC:  \%s"}\NormalTok{, baselearner\_best\_auc\_test))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Best Base-learner Test AUC:  0.769204725074508"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"Ensemble Test AUC:  \%s"}\NormalTok{, ensemble\_auc\_test))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Ensemble Test AUC:  0.773096033881535"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Generate predictions on a test set (if neccessary)}
+\NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{h2o.predict}\NormalTok{(ensemble, }\AttributeTok{newdata =}\NormalTok{ test)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{head}\NormalTok{(pred))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  predict        p0        p1
+1       0 0.6739209 0.3260791
+2       1 0.5814741 0.4185259
+3       1 0.5826643 0.4173357
+4       1 0.1971804 0.8028196
+5       1 0.4561659 0.5438341
+6       1 0.3365841 0.6634159
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\SpecialCharTok{$}\NormalTok{metalearner\_model}
+\NormalTok{Model Details}\SpecialCharTok{:}
+\ErrorTok{==============}
+
+\NormalTok{H2OBinomialModel}\SpecialCharTok{:}\NormalTok{ glm}
+\NormalTok{Model ID}\SpecialCharTok{:}\NormalTok{  metalearner\_AUTO\_StackedEnsemble\_model\_R\_1677945156774\_1830 }
+\NormalTok{GLM Model}\SpecialCharTok{:}\NormalTok{ summary}
+\NormalTok{    family  link                                regularization number\_of\_predictors\_total number\_of\_active\_predictors number\_of\_iterations}
+\DecValTok{1}\NormalTok{ binomial logit Elastic }\FunctionTok{Net}\NormalTok{ (}\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{lambda =} \FloatTok{3.885E{-}4}\NormalTok{ )                          }\DecValTok{2}                           \DecValTok{2}                    \DecValTok{3}
+\NormalTok{                                                training\_frame}
+\DecValTok{1}\NormalTok{ levelone\_training\_StackedEnsemble\_model\_R\_1677945156774\_1830}
+
+\NormalTok{Coefficients}\SpecialCharTok{:}\NormalTok{ glm coefficients}
+\NormalTok{                           names coefficients standardized\_coefficients}
+\DecValTok{1}\NormalTok{                      Intercept    }\SpecialCharTok{{-}}\FloatTok{0.053725}                  \FloatTok{0.154528}
+\DecValTok{2}\NormalTok{ GBM\_model\_R\_1677945156774\_1086     }\FloatTok{0.791767}                  \FloatTok{0.515081}
+\DecValTok{3}\NormalTok{ DRF\_model\_R\_1677945156774\_1214     }\FloatTok{0.845217}                  \FloatTok{0.731991}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-Breiman1996Stacking}{}}%
+Breiman, Leo. 1996. {``Stacked Regressions.''} \emph{Machine Learning}
+24 (1): 49--64. \url{https://doi.org/10.1007/BF00117832}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-ESL}{}}%
+Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. \emph{The
+Elements of Statistical Learning: Data Mining, Inference, and
+Prediction}. Vol. 2. Springer series in statistics New York.
+\href{https://hastie.su.domains/ElemStatLearn}{hastie.su.domains/ElemStatLearn}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-vanderLaanPolleyHubbard2007}{}}%
+Laan, Mark J. van der, Eric C Polley, and Alan E. Hubbard. 2007.
+\emph{Statistical Applications in Genetics and Molecular Biology} 6 (1).
+\url{https://doi.org/doi:10.2202/1544-6115.1309}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-LeDell2015}{}}%
+LeDell, Erin. 2015. {``Scalable Ensemble Learning and Computationally
+Efficient Variance Estimation.''}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Polley2011}{}}%
+Polley, Eric C., Sherri Rose, and Mark J. van der Laan. 2011. {``Super
+Learning.''} In \emph{Targeted Learning: Causal Inference for
+Observational and Experimental Data}, 43--66. New York, NY: Springer New
+York. \url{https://doi.org/10.1007/978-1-4419-9782-1_3}.
+
+\end{CSLReferences}
+
+
+
+\end{document}

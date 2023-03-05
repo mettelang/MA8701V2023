@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-02-27">
+<meta name="dcterms.date" content="2023-03-05">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -136,23 +136,29 @@ div.csl-indent {
   <li><a href="#supporting-literature" id="toc-supporting-literature" class="nav-link" data-scroll-target="#supporting-literature">Supporting literature</a></li>
   </ul></li>
   <li><a href="#ensembles---overview" id="toc-ensembles---overview" class="nav-link" data-scroll-target="#ensembles---overview">Ensembles - overview</a></li>
-  <li><a href="#super-learner" id="toc-super-learner" class="nav-link" data-scroll-target="#super-learner">Super Learner</a>
+  <li><a href="#stacked-ensembles" id="toc-stacked-ensembles" class="nav-link" data-scroll-target="#stacked-ensembles">Stacked ensembles</a>
   <ul class="collapse">
+  <li><a href="#what-is-it" id="toc-what-is-it" class="nav-link" data-scroll-target="#what-is-it">What is it?</a></li>
   <li><a href="#development" id="toc-development" class="nav-link" data-scroll-target="#development">Development:</a></li>
   <li><a href="#ingredients" id="toc-ingredients" class="nav-link" data-scroll-target="#ingredients">Ingredients:</a></li>
   <li><a href="#algorithm" id="toc-algorithm" class="nav-link" data-scroll-target="#algorithm">Algorithm</a></li>
   <li><a href="#the-metalearning" id="toc-the-metalearning" class="nav-link" data-scroll-target="#the-metalearning">The metalearning</a></li>
+  </ul></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
   <ul class="collapse">
-  <li><a href="#simulations-examples" id="toc-simulations-examples" class="nav-link" data-scroll-target="#simulations-examples">Simulations examples</a></li>
+  <li><a href="#simulation-examples" id="toc-simulation-examples" class="nav-link" data-scroll-target="#simulation-examples">Simulation examples</a></li>
   <li><a href="#real-data" id="toc-real-data" class="nav-link" data-scroll-target="#real-data">Real data</a></li>
   </ul></li>
-  <li><a href="#theoretical-result" id="toc-theoretical-result" class="nav-link" data-scroll-target="#theoretical-result">Theoretical result</a></li>
+  <li><a href="#theoretical-result" id="toc-theoretical-result" class="nav-link" data-scroll-target="#theoretical-result">Theoretical result</a>
+  <ul class="collapse">
   <li><a href="#uncertainty-in-the-ensemble" id="toc-uncertainty-in-the-ensemble" class="nav-link" data-scroll-target="#uncertainty-in-the-ensemble">Uncertainty in the ensemble</a></li>
   <li><a href="#other-issues" id="toc-other-issues" class="nav-link" data-scroll-target="#other-issues">Other issues</a></li>
   </ul></li>
   <li><a href="#r-example-from-superlearner-package" id="toc-r-example-from-superlearner-package" class="nav-link" data-scroll-target="#r-example-from-superlearner-package">R example from Superlearner package</a></li>
-  <li><a href="#r-example-from-h2o-package" id="toc-r-example-from-h2o-package" class="nav-link" data-scroll-target="#r-example-from-h2o-package">R example from H2O-package</a></li>
+  <li><a href="#r-example-from-h2o-package" id="toc-r-example-from-h2o-package" class="nav-link" data-scroll-target="#r-example-from-h2o-package">R example from H2o-package</a>
+  <ul class="collapse">
+  <li><a href="#now-the-default-metalearner" id="toc-now-the-default-metalearner" class="nav-link" data-scroll-target="#now-the-default-metalearner">Now the default metalearner</a></li>
+  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -181,7 +187,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 27, 2023</p>
+      <p class="date">March 5, 2023</p>
     </div>
   </div>
   
@@ -197,17 +203,24 @@ div.csl-indent {
 <p>Course homepage: <a href="https://wiki.math.ntnu.no/ma8701/2023v/start" class="uri">https://wiki.math.ntnu.no/ma8701/2023v/start</a></p>
 <section id="before-we-start" class="level1">
 <h1>Before we start</h1>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="../../Figures/Part3flow.jpg" class="img-fluid"></p>
+</div>
+</div>
+<hr>
 <section id="literature" class="level2">
 <h2 class="anchored" data-anchor-id="literature">Literature</h2>
 <ul>
-<li>Erin Le Dell (2015): <a href="https://escholarship.org/uc/item/3kb142r2">Scalable Ensemble Learning and Computationally Efficient Variance Estimation. PhD Thesis, University of California, Berkeley.</a> or <a href="https://github.com/ledell/phd-thesis" class="uri">https://github.com/ledell/phd-thesis</a></li>
+<li>Erin Le Dell (2015): <a href="https://escholarship.org/uc/item/3kb142r2">Scalable Ensemble Learning and Computationally Efficient Variance Estimation. PhD Thesis, University of California, Berkeley.</a> or <a href="https://github.com/ledell/phd-thesis" class="uri">https://github.com/ledell/phd-thesis</a>. Section 2.</li>
 </ul>
 </section>
 <section id="supporting-literature" class="level2">
 <h2 class="anchored" data-anchor-id="supporting-literature">Supporting literature</h2>
 <ul>
-<li><p>Mark J. van der Laan, Eric C. Polley, Alan E. Hubbard (2007): Super Learner, Statistical Applications in Genetics and Molecular Biology, 6, 1, 25</p></li>
-<li><p>Eric C. Polley, Sherri Rose, Mark J. van der Laan (2011): Super Learning. Chapter 3 of M. J. van der Laan and S. Rose. Targeted Learning, Springer.</p></li>
+<li><span class="citation" data-cites="Breiman1996Stacking">Breiman (<a href="#ref-Breiman1996Stacking" role="doc-biblioref">1996</a>)</span></li>
+<li><span class="citation" data-cites="vanderLaanPolleyHubbard2007">Laan, Polley, and Hubbard (<a href="#ref-vanderLaanPolleyHubbard2007" role="doc-biblioref">2007</a>)</span></li>
+<li><span class="citation" data-cites="Polley2011">Polley, Rose, and Laan (<a href="#ref-Polley2011" role="doc-biblioref">2011</a>)</span></li>
 </ul>
 <hr>
 </section>
@@ -217,27 +230,30 @@ div.csl-indent {
 <p>(ELS Ch 16.1)</p>
 <p>With ensembles we want to build <em>one prediction model</em> which combines the strength of <em>a collection of models</em>.</p>
 <p>These models may be simple base models - or more elaborate models.</p>
-<p>We have studied bagging - where we take a simple average of the prediction from many models (or majority vote), and the base models can be trees - or other type of models.</p>
-<p>Random forest is a version of bagging, with trees made to be different (decorrelated).</p>
+<p>We have studied bagging - where we use the bootstrap to repeatedly fit a statistical model, and then take a simple average of the predictions (or majority vote). Here the base models can be trees - or other type of models.</p>
+<p>Random forest is a version of bagging with trees, with trees made to be different (decorrelated).</p>
 <hr>
-<p>We have studied boosting, where the models are trained on sequentially different data - from residuals or gradients of loss functions - and the ensemble members cast weighted votes. We have in particular looked into the xgboost variant of boosting, and also evaluated possible parameters to tune to optimize performance.</p>
-<p>In L7 we also look into an ensemble built of elaborate models with the Super Learner and study some possible methods for tuning hyperparameters.</p>
+<p>We have studied boosting, where the models are trained on sequentially different data - from residuals or gradients of loss functions - and the ensemble members cast weighted votes (downweighted by a learning rate). We have observed that there are many hyperparameters that need to be to tuned to optimize performance.</p>
 </section>
-<section id="super-learner" class="level1">
-<h1>Super Learner</h1>
-<p>Why do we want to study the Super Learner?</p>
-<p>The Super Learner or <em>generalized stacking</em> or “stacked ensemble” is an algorithm that combines</p>
+<section id="stacked-ensembles" class="level1">
+<h1>Stacked ensembles</h1>
+<p>aka super learner or generalized stacking</p>
+<section id="what-is-it" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-it">What is it?</h2>
+<p>The Stacked Esembles is an algorithm that combines</p>
 <ul>
-<li>multiple, (typically) diverse prediction methods (learning algorithms) called <em>base learners</em> into a</li>
-<li>a <em>metalearner</em> - which can be seen as a <em>single</em> method.</li>
+<li>multiple, (typically) diverse prediction methods (learning algorithms) called <em>base learners</em> (first-level) into a</li>
+<li>a second-level <em>metalearner</em> - which can be seen as a <em>single</em> method.</li>
 </ul>
 <hr>
+</section>
 <section id="development" class="level2">
 <h2 class="anchored" data-anchor-id="development">Development:</h2>
 <ul>
 <li>1992: stacking introduce for neural nets by Wolpert</li>
-<li>1996: adapted to regression problems by Breiman - but only for one type of methods at once (cart with different number of terminal nodes, glms with subset selection, ridge regression with different ridge penalty parameters)</li>
-<li>2006: proven to have asymptotic theoretical oracle property by van der Laan, Polley and Hubbard.</li>
+<li>1996: adapted to regression problems by Breiman - but only for one type of methods at once (CART with different number of terminal nodes, GLMs with subset selection, ridge regression with different ridge penalty parameters) <span class="citation" data-cites="Breiman1996Stacking">Breiman (<a href="#ref-Breiman1996Stacking" role="doc-biblioref">1996</a>)</span></li>
+<li>2006: proven to have asymptotic theoretical oracle property by <span class="citation" data-cites="vanderLaanPolleyHubbard2007">Laan, Polley, and Hubbard (<a href="#ref-vanderLaanPolleyHubbard2007" role="doc-biblioref">2007</a>)</span></li>
+<li>2015: extensions in phd thesis by Erin LeDell <span class="citation" data-cites="LeDell2015">LeDell (<a href="#ref-LeDell2015" role="doc-biblioref">2015</a>)</span></li>
 </ul>
 <hr>
 </section>
@@ -246,18 +262,18 @@ div.csl-indent {
 <ul>
 <li><p><em>Training data</em> (level-zero data) <span class="math inline">\(O_i=(X_i,Y_i)\)</span> of <span class="math inline">\(N\)</span> i.i.d observations.</p></li>
 <li><p>A total of <span class="math inline">\(L\)</span> <em>base learning algorithms</em> <span class="math inline">\(\Psi^l\)</span> for <span class="math inline">\(l=1,\ldots,L\)</span>, each from some algorithmic class and each with a specific set of model parameters.</p></li>
-<li><p>A <em>metalearner</em> <span class="math inline">\({\bf \Phi}\)</span> is used to find an <em>optimal combination</em> of the <span class="math inline">\(L\)</span> base learners.</p></li>
+<li><p>A <em>metalearner</em> <span class="math inline">\({\boldsymbol \Phi}\)</span> is used to find an <em>optimal combination</em> of the <span class="math inline">\(L\)</span> base learners.</p></li>
 </ul>
 <hr>
 </section>
 <section id="algorithm" class="level2">
 <h2 class="anchored" data-anchor-id="algorithm">Algorithm</h2>
-<p><strong>Step 1: Produce level-one data</strong> <span class="math inline">\({\bf Z}\)</span></p>
+<p><strong>Step 1: Produce level-one data</strong> <span class="math inline">\({\boldsymbol Z}\)</span></p>
 <ol type="a">
-<li><p>Divide the training data <span class="math inline">\({\bf X}\)</span> randomly into <span class="math inline">\(V\)</span> roughly-equally sized validation folds <span class="math inline">\({\bf X}_{(1)},\ldots,{\bf X}_{(V)}\)</span>. <span class="math inline">\(V\)</span> is often 5 or 10. (The responses <span class="math inline">\({\bf Y}\)</span> are also needed.)</p></li>
+<li><p>Divide the training data <span class="math inline">\({\boldsymbol X}\)</span> randomly into <span class="math inline">\(V\)</span> roughly-equally sized validation folds <span class="math inline">\({\boldsymbol X}_{(1)},\ldots,{\boldsymbol X}_{(V)}\)</span>. <span class="math inline">\(V\)</span> is often 5 or 10. (The responses <span class="math inline">\({\boldsymbol Y}\)</span> are also needed.)</p></li>
 <li><p>For each base learner <span class="math inline">\(\Psi^l\)</span> perform <span class="math inline">\(V\)</span>-fold cross-validation to produce prediction.</p></li>
 </ol>
-<p>This gives the level-one data set <span class="math inline">\({\bf Z}\)</span> consisting prediction of all the level-zero data - that is a matrix with <span class="math inline">\(N\)</span> rows and <span class="math inline">\(L\)</span> columns.</p>
+<p>This gives the level-one data set <span class="math inline">\({\boldsymbol Z}\)</span> consisting prediction of all the level-zero data - that is a matrix with <span class="math inline">\(N\)</span> rows and <span class="math inline">\(L\)</span> columns.</p>
 <p><strong>What could the base learners be?</strong></p>
 <hr>
 <p>“Any” method that produces a prediction - “all” types of problems.</p>
@@ -274,7 +290,7 @@ div.csl-indent {
 <hr>
 <p><strong>Step 2: Fit the metalearner</strong></p>
 <ol type="a">
-<li>The starting point is the level-one prediction data <span class="math inline">\({\bf Z}\)</span> together with the responses <span class="math inline">\((Y_1,\ldots ,Y_N)\)</span>.</li>
+<li>The starting point is the level-one prediction data <span class="math inline">\({\boldsymbol Z}\)</span> together with the responses <span class="math inline">\((Y_1,\ldots ,Y_N)\)</span>.</li>
 <li>The metalearner is used to estimate the weights given to each base learner: <span class="math inline">\(\hat{\eta_i}=\alpha_1 z_{1i}+ \cdots + \alpha_L z_{Li}\)</span>.</li>
 </ol>
 <p><strong>What could the metalearner be?</strong></p>
@@ -284,25 +300,14 @@ div.csl-indent {
 <li>constructed by minimizing the
 <ul>
 <li>squared loss (ordinary least squares) or</li>
-<li>non-negative least squares</li>
+<li>non-negative least squares (most popular)</li>
 </ul></li>
 <li>ridge or lasso regression</li>
+<li>logistic regression (for binary classification)</li>
 <li>constructed by minimizing 1-ROC-AUC</li>
 </ul>
 <hr>
-<p>(Class notes: Study Figure 3.2 from Polley et al)</p>
-<hr>
-<p><strong>Step 3: Re-estimate base learners and combine into superlearner on full training data</strong></p>
-<ol type="a">
-<li>Fit each of the <span class="math inline">\(L\)</span> base learners to the full training set.</li>
-<li>The <em>ensemble fit</em> consists the <span class="math inline">\(L\)</span> base learner fits together with the metalearner fit.</li>
-</ol>
-<p><strong>Step 4: Using the ensemble for prediction</strong></p>
-<p>For a new observaton <span class="math inline">\({\bf x}^*\)</span></p>
-<ol type="a">
-<li>Use each of the <span class="math inline">\(L\)</span> base learners to produce a prediction <span class="math inline">\({\bf z}^*\)</span>, and</li>
-<li>feed this to the metalearner-fit to produce the final prediction <span class="math inline">\(y^*\)</span>.</li>
-</ol>
+<p>(Class notes: Study Figure 3.2 from <span class="citation" data-cites="Polley2011">Polley, Rose, and Laan (<a href="#ref-Polley2011" role="doc-biblioref">2011</a>)</span> and/or Figure 1 from <span class="citation" data-cites="vanderLaanPolleyHubbard2007">Laan, Polley, and Hubbard (<a href="#ref-vanderLaanPolleyHubbard2007" role="doc-biblioref">2007</a>)</span>)</p>
 <hr>
 </section>
 <section id="the-metalearning" class="level2">
@@ -315,40 +320,40 @@ div.csl-indent {
 <li>and also the additivity constraint <span class="math inline">\(\sum_{l=1}^L \alpha_l=1\)</span> - the ensemble is a <em>convex combination</em> of the base learners.</li>
 <li>Non-linear optimization methods may be employed for the metalearner if no existing algorithm is available</li>
 <li>Historically a regularized linear model has “mostly” been used</li>
-<li>For classification the logistic response function can be used on the linear combination of base learners (Figure 3.2 Polley).</li>
+<li>For classification the logistic response function can be used on the linear combination of base learners (Figure 3.2 <span class="citation" data-cites="Polley2011">Polley, Rose, and Laan (<a href="#ref-Polley2011" role="doc-biblioref">2011</a>)</span>).</li>
 </ul>
 <hr>
 </section>
-<section id="examples" class="level2">
-<h2 class="anchored" data-anchor-id="examples">Examples</h2>
-<section id="simulations-examples" class="level3">
-<h3 class="anchored" data-anchor-id="simulations-examples">Simulations examples</h3>
-<p>(Class notes: Study Figure 3.3 and Table 3.2 from Polley et al)</p>
 </section>
-<section id="real-data" class="level3">
-<h3 class="anchored" data-anchor-id="real-data">Real data</h3>
-<p>(Class notes: Study Figure 3.4 and Table 3.3 from Polley et al.&nbsp;RE=MSE relative to the linear model OLS.)</p>
+<section id="examples" class="level1">
+<h1>Examples</h1>
+<section id="simulation-examples" class="level2">
+<h2 class="anchored" data-anchor-id="simulation-examples">Simulation examples</h2>
+<p>(Class notes: Study Figure 3.3 and Table 3.2 from <span class="citation" data-cites="Polley2011">Polley, Rose, and Laan (<a href="#ref-Polley2011" role="doc-biblioref">2011</a>)</span>)</p>
+</section>
+<section id="real-data" class="level2">
+<h2 class="anchored" data-anchor-id="real-data">Real data</h2>
+<p>(Class notes: Study Figure 3.4 and Table 3.3 from P@Polley2011. RE=MSE relative to the linear model OLS.)</p>
 <hr>
 </section>
 </section>
-<section id="theoretical-result" class="level2">
-<h2 class="anchored" data-anchor-id="theoretical-result">Theoretical result</h2>
-<p>(Le Dell 2015, page 6)</p>
+<section id="theoretical-result" class="level1">
+<h1>Theoretical result</h1>
+<p><span class="citation" data-cites="LeDell2015">LeDell (<a href="#ref-LeDell2015" role="doc-biblioref">2015</a>)</span> (page 6)</p>
 <ul>
 <li><p>Oracle selector: the estimator among all possible weighted combinations of the base prediction function that minimizes the risk under the <em>true data generating distribution</em>.</p></li>
-<li><p>The <em>oracle result</em> was established for the Super Learner by van der Laan et al (2006).</p></li>
+<li><p>The <em>oracle result</em> was established for the Super Learner by <span class="citation" data-cites="vanderLaanPolleyHubbard2007">Laan, Polley, and Hubbard (<a href="#ref-vanderLaanPolleyHubbard2007" role="doc-biblioref">2007</a>)</span></p></li>
 <li><p>If the <em>true prediction function</em> cannot be represented by a combination of the base learners (available), then “optimal” will be the closest linear combination that would be optimal if the true data-generating function was known.</p></li>
 <li><p>The oracle result require an <em>uniformly bounded loss function</em>. Using the convex restriction (sum alphas =1) implies that if each based learner is bounded so is the convex combination. In practice: truncation of the predicted values to the range of the outcome in the training set is sufficient to allow for unbounded loss functions</p></li>
 </ul>
 <hr>
-</section>
 <section id="uncertainty-in-the-ensemble" class="level2">
 <h2 class="anchored" data-anchor-id="uncertainty-in-the-ensemble">Uncertainty in the ensemble</h2>
-<p>(Class notes: Study “Road map” 2 from Polley et al)</p>
+<p>(Class notes: Study “Road map” 2 from <span class="citation" data-cites="Polley2011">Polley, Rose, and Laan (<a href="#ref-Polley2011" role="doc-biblioref">2011</a>)</span>)</p>
 <ul>
 <li><p>Add an outer (external) cross validation loop (where the super learner loop is inside). Suggestion: use 20-fold, especially when small sample size.</p></li>
 <li><p>Overfitting? Check if the super learner does as well or better than any of the base learners in the ensemble.</p></li>
-<li><p>Results using <em>influence functions</em> for estimation of the variance for the Super Learner are based on asymptotic variances in the use of <span class="math inline">\(V\)</span>-fold cross-validation (see Ch 5.3 of Le Dell, 2015)</p></li>
+<li><p>Results using <em>influence functions</em> for estimation of the variance for the Super Learner are based on asymptotic variances in the use of <span class="math inline">\(V\)</span>-fold cross-validation (see Ch 5.3 of <span class="citation" data-cites="LeDell2015">LeDell (<a href="#ref-LeDell2015" role="doc-biblioref">2015</a>)</span>)</p></li>
 </ul>
 <hr>
 </section>
@@ -357,13 +362,14 @@ div.csl-indent {
 <ul>
 <li><p>Many different implementations available, and much work on parallell processing and speed and memory efficient execution.</p></li>
 <li><p>Super Learner implicitly can handle hyperparameter tuning by including the same base learner with different model parameter sets in the ensemble.</p></li>
-<li><p>Speed and memory improvements for large data sets involves subsampling, and the R <code>subsemble</code> package is one solution, the H2O Ensemble project another.</p></li>
+<li><p>Speed and memory improvements for large data sets involves subsampling, and the R <code>subsemble</code> package is one solution, the H2o package another.</p></li>
 </ul>
 <hr>
 </section>
 </section>
 <section id="r-example-from-superlearner-package" class="level1">
 <h1>R example from Superlearner package</h1>
+<p>Comment - this package is still in use, but the h2o-superlearner might be more “easy” to use.</p>
 <p>Code is copied from <a href="https://cran.r-project.org/web/packages/SuperLearner/vignettes/Guide-to-SuperLearner.html">Guide to SuperLearner</a> and the presentation follows this guide. The data used is the Boston housing dataset from <code>MASS</code>, but with the median value of a house dichotomized into a classification problem.</p>
 <p>Observe that only 150 of the 560 observations is used (to speed up things, but of cause that gives less accurate results).</p>
 <div class="cell">
@@ -443,7 +449,7 @@ div.csl-indent {
     out &lt;- list(pred = pred, fit = fit)
     return(out)
 }
-&lt;bytecode: 0x1299b6400&gt;
+&lt;bytecode: 0x1218fb200&gt;
 &lt;environment: namespace:SuperLearner&gt;</code></pre>
 </div>
 <details>
@@ -471,7 +477,7 @@ div.csl-indent {
     out &lt;- list(pred = pred, fit = fit)
     return(out)
 }
-&lt;bytecode: 0x12995c038&gt;
+&lt;bytecode: 0x121958710&gt;
 &lt;environment: namespace:SuperLearner&gt;</code></pre>
 </div>
 </div>
@@ -526,7 +532,7 @@ SL.randomForest_All 0.07213058 0.865748</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  1.460   0.027   1.487 </code></pre>
+  1.655   0.032   1.690 </code></pre>
 </div>
 </div>
 <p>Our ensemble give weight 0.13 to lasso and 0.86 to the random forest. (The guide used a different implementation of the random forest called ranger, and got 0.02 and 0.98.)</p>
@@ -583,7 +589,7 @@ SL.randomForest_All 0.07213058 0.865748</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
- 14.595   0.180  14.777 </code></pre>
+ 15.003   0.179  15.181 </code></pre>
 </div>
 <details>
 <summary>Code</summary>
@@ -610,19 +616,371 @@ All risk estimates are based on V =  10
 <p>See the guide for more information on running multiple versions of one base learner, and parallellisation.</p>
 </section>
 <section id="r-example-from-h2o-package" class="level1">
-<h1>R example from H2O-package</h1>
+<h1>R example from H2o-package</h1>
+<p><a href="https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/stacked-ensembles.html" class="uri">https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/stacked-ensembles.html</a></p>
+<p>Python examples available from the same page</p>
+<p>The Higgs boson data is used - but which version is not specified, maybe this <a href="https://archive.ics.uci.edu/ml/datasets/HIGGS" class="uri">https://archive.ics.uci.edu/ml/datasets/HIGGS</a> or a specifically made data set. The problem is binary, so maybe to detect signal vs noise.</p>
+<p>Default metalearner: Options include ‘AUTO’ (GLM with non negative weights; if validation_frame is present, a lambda search is performed)</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">h2o.init</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> Connection successful!
+
+R is connected to the H2O cluster: 
+    H2O cluster uptime:         1 days 3 hours 
+    H2O cluster timezone:       Europe/Oslo 
+    H2O data parsing timezone:  UTC 
+    H2O cluster version:        3.40.0.1 
+    H2O cluster version age:    25 days 
+    H2O cluster name:           H2O_started_from_R_mettela_bze126 
+    H2O cluster total nodes:    1 
+    H2O cluster total memory:   3.01 GB 
+    H2O cluster total cores:    10 
+    H2O cluster allowed cores:  10 
+    H2O cluster healthy:        TRUE 
+    H2O Connection ip:          localhost 
+    H2O Connection port:        54321 
+    H2O Connection proxy:       NA 
+    H2O Internal Security:      FALSE 
+    R Version:                  R version 4.2.2 (2022-10-31) </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import a sample binary outcome train/test set into H2O</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">h2o.importFile</span>(<span class="st">"https://s3.amazonaws.com/erin-data/higgs/higgs_train_10k.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |========================                                              |  35%
+  |                                                                            
+  |=================================================================     |  92%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">h2o.importFile</span>(<span class="st">"https://s3.amazonaws.com/erin-data/higgs/higgs_test_5k.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |===================================================                   |  72%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify predictors and response</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="st">"response"</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="fu">names</span>(train), y)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># For binary classification, response should be a factor</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>train[, y] <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(train[, y])</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>test[, y] <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(test[, y])</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">dim</span>(train))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10000    29</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">colnames</span>(train))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "response" "x1"       "x2"       "x3"       "x4"       "x5"      
+ [7] "x6"       "x7"       "x8"       "x9"       "x10"      "x11"     
+[13] "x12"      "x13"      "x14"      "x15"      "x16"      "x17"     
+[19] "x18"      "x19"      "x20"      "x21"      "x22"      "x23"     
+[25] "x24"      "x25"      "x26"      "x27"      "x28"     </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">dim</span>(test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5000   29</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of CV folds (to generate level-one data for stacking)</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>nfolds <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># There are a few ways to assemble a list of models to stack toegether:</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Train individual models and put them in a list</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Generate a 2-model ensemble (GBM + RF)</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Train &amp; Cross-validate a GBM</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>my_gbm <span class="ot">&lt;-</span> <span class="fu">h2o.gbm</span>(<span class="at">x =</span> x,</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> y,</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">training_frame =</span> train,</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">distribution =</span> <span class="st">"bernoulli"</span>,</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ntrees =</span> <span class="dv">10</span>,</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">max_depth =</span> <span class="dv">3</span>,</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>                  <span class="at">min_rows =</span> <span class="dv">2</span>,</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>                  <span class="at">learn_rate =</span> <span class="fl">0.2</span>,</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nfolds =</span> nfolds,</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>                  <span class="at">keep_cross_validation_predictions =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>                  <span class="at">seed =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |============================================                          |  63%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train &amp; Cross-validate a RF</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>my_rf <span class="ot">&lt;-</span> <span class="fu">h2o.randomForest</span>(<span class="at">x =</span> x,</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">y =</span> y,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">training_frame =</span> train,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">ntrees =</span> <span class="dv">50</span>,</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">nfolds =</span> nfolds,</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">keep_cross_validation_predictions =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======                                                                |   9%
+  |                                                                            
+  |==================                                                    |  25%
+  |                                                                            
+  |=============================                                         |  41%
+  |                                                                            
+  |=========================================                             |  58%
+  |                                                                            
+  |====================================================                  |  74%
+  |                                                                            
+  |===============================================================       |  90%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+</div>
+<hr>
+<section id="now-the-default-metalearner" class="level2">
+<h2 class="anchored" data-anchor-id="now-the-default-metalearner">Now the default metalearner</h2>
+<p>AUTO: glm with non-negative weights</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train a stacked ensemble using the GBM and RF above</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>ensemble <span class="ot">&lt;-</span> <span class="fu">h2o.stackedEnsemble</span>(<span class="at">x =</span> x,</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">y =</span> y,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">training_frame =</span> train,</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>                                <span class="at">base_models =</span> <span class="fu">list</span>(my_gbm, my_rf))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># default metalearner_transform should be NONE</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co">#print(summary(ensemble))</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">#ensemble@model</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Eval ensemble performance on a test set</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>perf <span class="ot">&lt;-</span> <span class="fu">h2o.performance</span>(ensemble, <span class="at">newdata =</span> test)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare to base learner performance on the test set</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>perf_gbm_test <span class="ot">&lt;-</span> <span class="fu">h2o.performance</span>(my_gbm, <span class="at">newdata =</span> test)</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>perf_rf_test <span class="ot">&lt;-</span> <span class="fu">h2o.performance</span>(my_rf, <span class="at">newdata =</span> test)</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>baselearner_best_auc_test <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="fu">h2o.auc</span>(perf_gbm_test), <span class="fu">h2o.auc</span>(perf_rf_test))</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>ensemble_auc_test <span class="ot">&lt;-</span> <span class="fu">h2o.auc</span>(perf)</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sprintf</span>(<span class="st">"Best Base-learner Test AUC:  %s"</span>, baselearner_best_auc_test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Best Base-learner Test AUC:  0.769204725074508"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sprintf</span>(<span class="st">"Ensemble Test AUC:  %s"</span>, ensemble_auc_test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Ensemble Test AUC:  0.773144298176816"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "Best Base-learner Test AUC:  0.76979821502548"</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "Ensemble Test AUC:  0.773501212640419"</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate predictions on a test set (if neccessary)</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">h2o.predict</span>(ensemble, <span class="at">newdata =</span> test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  predict        p0        p1
+1       0 0.6839178 0.3160822
+2       1 0.5825428 0.4174572
+3       1 0.5869431 0.4130569
+4       1 0.1927212 0.8072788
+5       1 0.4509384 0.5490616
+6       1 0.3275080 0.6724920</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>metalearner_model</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>Model Details<span class="sc">:</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="er">==============</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>H2OBinomialModel<span class="sc">:</span> glm</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>Model ID<span class="sc">:</span>  metalearner_AUTO_StackedEnsemble_model_R_1677945156774_1824 </span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>GLM Model<span class="sc">:</span> summary</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>    family  link                                regularization number_of_predictors_total number_of_active_predictors number_of_iterations</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> binomial logit Elastic <span class="fu">Net</span> (<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">lambda =</span> <span class="fl">8.399E-5</span> )                          <span class="dv">2</span>                           <span class="dv">2</span>                    <span class="dv">3</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>                                                training_frame</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> levelone_training_StackedEnsemble_model_R_1677945156774_1824</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>Coefficients<span class="sc">:</span> glm coefficients</span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>                           names coefficients standardized_coefficients</span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>                      Intercept    <span class="sc">-</span><span class="fl">3.603549</span>                  <span class="fl">0.149102</span></span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> GBM_model_R_1677945156774_1086     <span class="fl">3.298011</span>                  <span class="fl">0.493334</span></span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> DRF_model_R_1677945156774_1214     <span class="fl">3.809905</span>                  <span class="fl">0.701246</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train a stacked ensemble using the GBM and RF above</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>ensemble <span class="ot">&lt;-</span> <span class="fu">h2o.stackedEnsemble</span>(<span class="at">x =</span> x,</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">y =</span> y,</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">training_frame =</span> train,</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>                                <span class="at">base_models =</span> <span class="fu">list</span>(my_gbm, my_rf),</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>                                <span class="at">metalearner_transform =</span> <span class="st">"Logit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">#print(summary(ensemble))</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co">#print(ensemble@model)</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Eval ensemble performance on a test set</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>perf <span class="ot">&lt;-</span> <span class="fu">h2o.performance</span>(ensemble, <span class="at">newdata =</span> test)</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare to base learner performance on the test set</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>perf_gbm_test <span class="ot">&lt;-</span> <span class="fu">h2o.performance</span>(my_gbm, <span class="at">newdata =</span> test)</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>perf_rf_test <span class="ot">&lt;-</span> <span class="fu">h2o.performance</span>(my_rf, <span class="at">newdata =</span> test)</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>baselearner_best_auc_test <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="fu">h2o.auc</span>(perf_gbm_test), <span class="fu">h2o.auc</span>(perf_rf_test))</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>ensemble_auc_test <span class="ot">&lt;-</span> <span class="fu">h2o.auc</span>(perf)</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sprintf</span>(<span class="st">"Best Base-learner Test AUC:  %s"</span>, baselearner_best_auc_test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Best Base-learner Test AUC:  0.769204725074508"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sprintf</span>(<span class="st">"Ensemble Test AUC:  %s"</span>, ensemble_auc_test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Ensemble Test AUC:  0.773096033881535"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate predictions on a test set (if neccessary)</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">h2o.predict</span>(ensemble, <span class="at">newdata =</span> test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  predict        p0        p1
+1       0 0.6739209 0.3260791
+2       1 0.5814741 0.4185259
+3       1 0.5826643 0.4173357
+4       1 0.1971804 0.8028196
+5       1 0.4561659 0.5438341
+6       1 0.3365841 0.6634159</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>metalearner_model</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>Model Details<span class="sc">:</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="er">==============</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>H2OBinomialModel<span class="sc">:</span> glm</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>Model ID<span class="sc">:</span>  metalearner_AUTO_StackedEnsemble_model_R_1677945156774_1830 </span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>GLM Model<span class="sc">:</span> summary</span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>    family  link                                regularization number_of_predictors_total number_of_active_predictors number_of_iterations</span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> binomial logit Elastic <span class="fu">Net</span> (<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">lambda =</span> <span class="fl">3.885E-4</span> )                          <span class="dv">2</span>                           <span class="dv">2</span>                    <span class="dv">3</span></span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>                                                training_frame</span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> levelone_training_StackedEnsemble_model_R_1677945156774_1830</span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>Coefficients<span class="sc">:</span> glm coefficients</span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>                           names coefficients standardized_coefficients</span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>                      Intercept    <span class="sc">-</span><span class="fl">0.053725</span>                  <span class="fl">0.154528</span></span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> GBM_model_R_1677945156774_1086     <span class="fl">0.791767</span>                  <span class="fl">0.515081</span></span>
+<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> DRF_model_R_1677945156774_1214     <span class="fl">0.845217</span>                  <span class="fl">0.731991</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+
+</div>
+</section>
 </section>
 <section id="references" class="level1">
 <h1>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-casi" class="csl-entry" role="doc-biblioentry">
-Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference - Algorithms, Evidence, and Data Science</em>. Cambridge University Press. <a href="https://hastie.su.domains/CASI/">https://hastie.su.domains/CASI/</a>.
+<div id="ref-Breiman1996Stacking" class="csl-entry" role="doc-biblioentry">
+Breiman, Leo. 1996. <span>“Stacked Regressions.”</span> <em>Machine Learning</em> 24 (1): 49–64. <a href="https://doi.org/10.1007/BF00117832">https://doi.org/10.1007/BF00117832</a>.
 </div>
 <div id="ref-ESL" class="csl-entry" role="doc-biblioentry">
 Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. Vol. 2. Springer series in statistics New York. <a href="https://hastie.su.domains/ElemStatLearn">hastie.su.domains/ElemStatLearn</a>.
 </div>
-<div id="ref-ISL" class="csl-entry" role="doc-biblioentry">
-James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 112. Springer.
+<div id="ref-vanderLaanPolleyHubbard2007" class="csl-entry" role="doc-biblioentry">
+Laan, Mark J. van der, Eric C Polley, and Alan E. Hubbard. 2007. <em>Statistical Applications in Genetics and Molecular Biology</em> 6 (1). <a href="https://doi.org/doi:10.2202/1544-6115.1309">https://doi.org/doi:10.2202/1544-6115.1309</a>.
+</div>
+<div id="ref-LeDell2015" class="csl-entry" role="doc-biblioentry">
+LeDell, Erin. 2015. <span>“Scalable Ensemble Learning and Computationally Efficient Variance Estimation.”</span>
+</div>
+<div id="ref-Polley2011" class="csl-entry" role="doc-biblioentry">
+Polley, Eric C., Sherri Rose, and Mark J. van der Laan. 2011. <span>“Super Learning.”</span> In <em>Targeted Learning: Causal Inference for Observational and Experimental Data</em>, 43–66. New York, NY: Springer New York. <a href="https://doi.org/10.1007/978-1-4419-9782-1_3">https://doi.org/10.1007/978-1-4419-9782-1_3</a>.
 </div>
 </div>
 </section>
