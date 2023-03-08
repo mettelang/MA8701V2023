@@ -3,9 +3,6 @@ title: "MA8701 Advanced methods in statistical inference and learning"
 author: "Mette Langaas"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 subtitle: 'Part 3: Ensembles. L16: Hyperparameter tuning'
-bibliography: ../Part1/references.bib
-nocite: |
-  @casi, @ESL, @ISL,@Bagging,@Randomforest, @Ripley
 format: 
   html: 
     toc: true
@@ -49,6 +46,17 @@ suppressPackageStartupMessages(library(tidymodels))
 
 Course homepage: <https://wiki.math.ntnu.no/ma8701/2023v/start>
 
+# Before we start
+
+## Literature
+
+* Hyperparameter tuning with Bayesian Optimization. Frazier (2018): "A tutorial on Bayesian optimization", https://arxiv.org/abs/1807.02811: Sections 1,2,3,4.1, 5: only the section "Noisy evaluations", 6,7.
+
+* G. A. Lujan-Moreno, P. R. Howard, O. G. Rojas and D. C. Montgomery
+(2018): Design of experiments and response surface methodology to tune
+machine learning hyperparameters, with a random forest case- study.
+Expert Systems with Applications. 109, 195-205.
+
 
 # Choosing hyperparameters
 
@@ -64,16 +72,16 @@ optimization algorithm).
 
 We have already studied hyperparameter tuning for the lasso, ridge,
 elastic net, random forest, and boosting - with the use of
-cross-validation of some loss function for a predefined set of
+cross-validation of some loss function for a predefined set (grid) of
 hyperparameter values.
 
-The use of ensembles like the Super Learner may be seen as an
+The use of ensembles like the stacked ensemble (Super Learner) may be seen as an
 alternative to hyperparameter tuning.
 
 ------------------------------------------------------------------------
 
 Overview of advices from Berent Å.S. Lunde on tuning parameters in
-xbgoost (written out after the lecture and approved by Berent):
+xbgoost (from 2021):
 
 **Ways to speed-up computation:**
 
@@ -120,7 +128,7 @@ affect the model complexity, and unwise choices may lead to overfitting.
 
 Hyperparametertuning is performed using a separate validation set or by
 cross-validation. Different loss functions or selection criteria may be
-used (MSE, AUC, misclassification rate, ...).
+used (MSE, ROC-AUC, misclassification rate, ...).
 
 The hyperparameter tuning is often referred to as a black-box
 optimization because we (usually) only calculate loss function values
@@ -173,13 +181,6 @@ We will look at two types of surrogate models: Bayesian regression with
 Gaussian processes (in Bayesian optimization) and regression-type models
 in response surface methods.
 
-## Design of experiments and response surface methodology
-
-G. A. Lujan-Moreno, P. R. Howard, O. G. Rojas and D. C. Montgomery
-(2018): Design of experiments and response surface methodology to tune
-machine learning hyperparameters, with a random forest case- study.
-Expert Systems with Applications. 109, 195-205.
-
 ---
 
 ## Bayesian optimization
@@ -223,7 +224,7 @@ A Gaussian process is defined for
 
 -   times or locations $x_i$, $i=1,\ldots,n$ in $\Re^d$, where
 -   $Y_i=Y(x_i)$ is a random variable at $x_i$
--   such that ${\bf Y}=(Y_1,\ldots,Y_n)$ is multivariate Gaussian.
+-   such that ${\boldsymbol Y}=(Y_1,\ldots,Y_n)$ is multivariate Gaussian.
 
 The process is *first order (mean) stationary* if $\text{E}(Y(x))=\mu$
 for all $x$, and this can be extended to depend on covariates.
@@ -271,23 +272,23 @@ The parameters of the kernels need to be estimated, see Ch 3.2 of
 Frazier 2018 (who use a slightly different parameterization). We will
 just assume that these parameters are known.
 
-(Class notes: study Figure 4 of Eidsvik, 2018.)
+(Class notes: study Figure 4 and 5 of Eidsvik, 2018.)
 
 ------------------------------------------------------------------------
 
 #### From correlations into covariance matrix
 
-For simplicty assume that $d=1$. The number of positions to consider is
+For simplicity assume that $d=1$. The number of positions to consider is
 $n$.
 
 To get from correlation function to a $n \times n$ covariance matrix
 first construct a $n \times n$ matrix of distances for each pair of
-positions, denote this ${\bf H}$.
+positions, denote this ${\boldsymbol H}$.
 
 For the Matern-type correlation function the covariance matrix can then
 be written
 
-$$ \Sigma=\sigma^2 (1+\phi_M {\bf H}) \otimes \exp(-\phi_M {\bf H}))$$
+$$ \Sigma=\sigma^2 (1+\phi_M {\boldsymbol H}) \otimes \exp(-\phi_M {\boldsymbol H}))$$
 where $\otimes$ is elementwise multiplication.
 
 See Eidsvik (2018, Ch 3.2 and 3.3) for how to build covariance matrices
@@ -299,33 +300,33 @@ in an efficient way.
 
 aka multivariate Gaussian distribution. Known from TMA4265 and TMA4267.
 
-The random vector $\mathbf{Y}_{p\times 1}$ is multivariate normal $N_p$
-with mean $\mathbf{\mu}$ and (positive definite) covariate matrix
+The random vector $\boldsymbol{Y}_{p\times 1}$ is multivariate normal $N_p$
+with mean $\boldsymbol{\mu}$ and (positive definite) covariate matrix
 $\Sigma$. The pdf is:
 
-$$f(\mathbf{Y})=\frac{1}{(2\pi)^\frac{p}{2}|\Sigma|^\frac{1}{2}} \exp\{-\frac{1}{2}(\mathbf{Y}-\mathbf{\mu})^T\Sigma^{-1}(\mathbf{Y}-\mathbf{\mu})\}$$
+$$f(\boldsymbol{Y})=\frac{1}{(2\pi)^\frac{p}{2}|\Sigma|^\frac{1}{2}} \exp\{-\frac{1}{2}(\boldsymbol{Y}-\boldsymbol{\mu})^T\Sigma^{-1}(\boldsymbol{Y}-\boldsymbol{\mu})\}$$
 
 Six useful properties of the mvN - we need number 6.
 
-Let $\mathbf{Y}_{(p\times 1)}$ be a random vector from
-$N_p(\mathbf{\mu},\Sigma)$.
+Let $\boldsymbol{Y}_{(p\times 1)}$ be a random vector from
+$N_p(\boldsymbol{\mu},\Sigma)$.
 
 1.  The grapical contours of the mvN are ellipsoids (can be shown using
     spectral decomposition).
-2.  Linear combinations of components of $\mathbf{Y}$ are (multivariate)
+2.  Linear combinations of components of $\boldsymbol{Y}$ are (multivariate)
     normal (can be easily proven using moment generating functions MGF).
-3.  All subsets of the components of $\mathbf{Y}$ are (multivariate)
+3.  All subsets of the components of $\boldsymbol{Y}$ are (multivariate)
     normal (special case of the above).
 
 ------------------------------------------------------------------------
 
 4.  Zero covariance implies that the corresponding components are
     independently distributed (can be proven using MGF).
-5.  $\mathbf{A}\Sigma\mathbf{B}^T=\mathbf{0} \Leftrightarrow \mathbf{A}\mathbf{Y}$
-    and $\mathbf{B}\mathbf{Y}$ are independent.
+5.  $\boldsymbol{A}\Sigma\boldsymbol{B}^T=\boldsymbol{0} \Leftrightarrow \boldsymbol{A}\boldsymbol{Y}$
+    and $\boldsymbol{B}\boldsymbol{Y}$ are independent.
 6.  The conditional distributions of the components are (multivariate)
     normal.
-    $$\mathbf{Y}_2 \mid (\mathbf{Y}_1=\mathbf{Y}_1) \sim N_{p2}(\mathbf{\mu}_2+\Sigma_{21}\Sigma_{11}^{-1} (\mathbf{Y}_1-\mathbf{\mu}_1),\Sigma_{22}-\Sigma_{21}\Sigma_{11}^{-1}\Sigma_{12}).$$
+    $$\boldsymbol{Y}_2 \mid (\boldsymbol{Y}_1=\boldsymbol{Y}_1) \sim N_{p2}(\boldsymbol{\mu}_2+\Sigma_{21}\Sigma_{11}^{-1} (\boldsymbol{Y}_1-\boldsymbol{\mu}_1),\Sigma_{22}-\Sigma_{21}\Sigma_{11}^{-1}\Sigma_{12}).$$
 
 ------------------------------------------------------------------------
 
@@ -344,7 +345,9 @@ Thought experiment:
     observe $f(x)$, and the best point before that was $f^{*}_n$. The
     improvement at the new observation is then $$ \max(f(x)-f^{*}_n,0)$$
 
-------------------------------------------------------------------------
+(In class study Figure 1 of Frazier 2018)
+
+---
 
 3)  We define the *expected improvement* as
 
@@ -356,7 +359,7 @@ posterior distribution is that $f$ conditional on
 $x_1,\ldots,x_n,y_1,\ldots,y_n$ is normal with mean $\mu_n(x)$ and
 variance $\sigma^2_n(x)$.
 
-------------------------------------------------------------------------
+---
 
 4)  How to evaluate the expected improvement? Integration by parts gives
 
@@ -471,7 +474,7 @@ tuneplot(rf_tune)
 rf_tune$bestTune
 ```
 
-------------------------------------------------------------------------
+---
 
 The R the function `tune_bayes` is available in the package `tune`, and
 requires that the analyses is done with a workflow. Default in the GP is
@@ -568,12 +571,18 @@ autoplot(bayesres2,type="parameters")
 
 ------------------------------------------------------------------------
 
+## Design of experiments and response surface methodology
+
+G. A. Lujan-Moreno, P. R. Howard, O. G. Rojas and D. C. Montgomery
+(2018): Design of experiments and response surface methodology to tune
+machine learning hyperparameters, with a random forest case- study.
+Expert Systems with Applications. 109, 195-205.
+
+See separate slide-deck made by Håkon Gryvill, Yngvild Hamre and Javier Aguilar for the article presentation in MA8701 in the spring of 2021.
+
+---
 
 # References
-
-
-
-## Hyperparameter tuning
 
 -   M. Feurer and F. Hutter (2019). In F. Hutter et al (eds.) Automated
     Machine Learning. The Springer Series on Challenges in Machine
@@ -595,9 +604,4 @@ autoplot(bayesres2,type="parameters")
 -   Max Kuhn (2020). caret: Classification and Regression Training. R
     package version 6.0-86. <https://CRAN.R-project.org/package=caret>
     
-
-# References
-
-::: {#refs}
-:::
 

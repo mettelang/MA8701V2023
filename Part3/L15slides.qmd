@@ -1,0 +1,563 @@
+---
+title: "MA8701 Advanced methods in statistical inference and learning"
+author: "Mette Langaas"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+subtitle: 'Part 3: Ensembles. L15: Stacked ensembles'
+bibliography: ../Part1/references.bib
+nocite: |
+  @ESL, @LeDell2015
+format: 
+  html: 
+    toc: true
+    code-fold: true
+    toc-location: left
+    toc-depth: 3
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+    keep-tex: true
+  beamer:
+    incremental: false
+    aspectratio: 43
+    navigation: frame
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+suppressPackageStartupMessages(library(knitr))
+knitr::opts_chunk$set(echo = FALSE, message=FALSE,warning = FALSE, error = FALSE)
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(rpart))
+suppressPackageStartupMessages(library(rpart.plot))
+suppressPackageStartupMessages(library(randomForest))
+suppressPackageStartupMessages(library(DAAG))
+suppressPackageStartupMessages(library(tree))
+suppressPackageStartupMessages(library(MASS))
+suppressPackageStartupMessages(library(GGally))
+suppressPackageStartupMessages(library(corrplot))
+suppressPackageStartupMessages(library(caret)) #for confusion matrices
+suppressPackageStartupMessages(library(pROC)) #for ROC curves
+suppressPackageStartupMessages(library(SuperLearner))
+#suppressPackageStartupMessages(library(tidymodels))
+suppressPackageStartupMessages(library(h2o))
+```
+
+Course homepage: <https://wiki.math.ntnu.no/ma8701/2023v/start>
+
+# Before we start
+
+```{r}
+#| out.width: 60%"
+include_graphics("../../Figures/Part3flow.jpg")
+```
+
+---
+
+## Literature
+
+-   Erin Le Dell (2015): [Scalable Ensemble Learning and Computationally
+    Efficient Variance Estimation. PhD Thesis, University of California,
+    Berkeley.](https://escholarship.org/uc/item/3kb142r2) or <https://github.com/ledell/phd-thesis>. Section 2.
+
+## Supporting literature
+
+* @Breiman1996Stacking
+* @vanderLaanPolleyHubbard2007
+* @Polley2011
+
+------------------------------------------------------------------------
+
+# Ensembles - overview
+(ELS Ch 16.1)
+
+With ensembles we want to build *one prediction model* which combines
+the strength of *a collection of models*.
+
+These models may be simple base models - or more elaborate models.
+
+We have studied bagging - where we use the bootstrap to repeatedly fit a statistical model, and then take a simple average of the
+predictions (or majority vote). Here the base models can
+be trees - or other type of models.
+
+Random forest is a version of bagging with trees, with trees made to be different
+(decorrelated).
+
+------------------------------------------------------------------------
+
+We have studied boosting, where the models are trained on sequentially
+different data - from residuals or gradients of loss functions - and the
+ensemble members cast weighted votes (downweighted by a learning rate). 
+We have observed that there are many hyperparameters that need to be to tuned to optimize performance.
+
+# Stacked ensembles 
+aka super learner or generalized stacking
+
+## What is it?
+
+The Stacked Esembles is an algorithm that
+combines
+
+-   multiple, (typically) diverse prediction methods (learning
+    algorithms) called *base learners* (first-level) into a
+-   a second-level *metalearner* - which can be seen as a *single* method.
+
+------------------------------------------------------------------------
+
+## Development:
+
+-   1992: stacking introduce for neural nets by Wolpert
+-   1996: adapted to regression problems by Breiman - but only for one
+    type of methods at once (CART with different number of terminal
+    nodes, GLMs with subset selection, ridge regression with different
+    ridge penalty parameters) @Breiman1996Stacking
+-   2006: proven to have asymptotic theoretical oracle property by @vanderLaanPolleyHubbard2007
+-   2015: extensions in phd thesis by Erin LeDell @LeDell2015
+
+
+---
+
+
+## Ingredients:
+
+-   *Training data* (level-zero data) $O_i=(X_i,Y_i)$ of $N$ i.i.d
+    observations.
+    
+-   A total of $L$ *base learning algorithms* $\Psi^l$ for
+    $l=1,\ldots,L$, each from some algorithmic class and each with a
+    specific set of model parameters.
+    
+-   A *metalearner* ${\boldsymbol \Phi}$ is used to find an *optimal
+    combination* of the $L$ base learners.
+
+------------------------------------------------------------------------
+
+## Algorithm
+
+**Step 1: Produce level-one data** ${\boldsymbol Z}$
+
+a)  Divide the training data ${\boldsymbol X}$ randomly into $V$ roughly-equally
+    sized validation folds ${\boldsymbol X}_{(1)},\ldots,{\boldsymbol X}_{(V)}$. $V$ is
+    often 5 or 10. (The responses ${\boldsymbol Y}$ are also needed.)
+
+b)  For each base learner $\Psi^l$ perform $V$-fold cross-validation to
+    produce prediction.
+
+This gives the level-one data set ${\boldsymbol Z}$ consisting prediction of all
+the level-zero data - that is a matrix with $N$ rows and $L$ columns.
+
+**What could the base learners be?**
+
+------------------------------------------------------------------------
+
+"Any" method that produces a prediction - "all" types of problems.
+
+-   linear regression
+-   lasso
+-   cart
+-   random forest with mtry=value 1
+-   random forest with mtry=value 2
+-   xgboost with hyperparameter set 1
+-   xgboost with hyperparameter set 2
+-   neural net with hyperparameter set 1
+
+------------------------------------------------------------------------
+
+**Step 2: Fit the metalearner**
+
+a)  The starting point is the level-one prediction data ${\boldsymbol Z}$
+    together with the responses $(Y_1,\ldots ,Y_N)$.
+b)  The metalearner is used to estimate the weights given to each base
+    learner: $\hat{\eta_i}=\alpha_1 z_{1i}+ \cdots + \alpha_L z_{Li}$.
+
+**What could the metalearner be?**
+
+------------------------------------------------------------------------
+
+* the mean (bagging)
+* constructed by minimizing the 
+  + squared loss (ordinary least squares) or
+  + non-negative least squares (most popular)
+* ridge or lasso regression
+* logistic regression (for binary classification)
+* constructed by minimizing 1-ROC-AUC
+
+------------------------------------------------------------------------
+
+```{r}
+#| out.width: 100%"
+include_graphics("../../Figures/Fig1Laan.jpg")
+```
+
+
+(Class notes: Study Figure 3.2 from @Polley2011 and/or Figure 1 from @vanderLaanPolleyHubbard2007)
+
+---
+
+## The metalearning
+
+Some observations
+
+-   The term *discrete super learner* is used if the base learner with
+    the lowest risk (i.e. CV-error) is selected.
+-   Since the predictions from multiple base learners may be highly
+    correlated - the chosen method should perform well in that case
+    (i.e. ridge and lasso).
+-   When minimizing the squared loss it has been found that adding a
+    non-negativity constraint $\alpha_l\le 0$ works well,
+-   and also the additivity constraint $\sum_{l=1}^L \alpha_l=1$ - the
+    ensemble is a *convex combination* of the base learners.
+-   Non-linear optimization methods may be employed for the metalearner
+    if no existing algorithm is available
+-   Historically a regularized linear model has "mostly" been used
+-   For classification the logistic response function can be used on the
+    linear combination of base learners (Figure 3.2 @Polley2011).
+
+------------------------------------------------------------------------
+
+```{r}
+#| out.width: 60%"
+include_graphics("../../Figures/Fig31Polley.jpg")
+```
+
+---
+
+# Examples
+
+## Simulation examples
+
+(Class notes: Study Figure 3.3 and Table 3.2 from @Polley2011)
+
+## Real data
+
+(Class notes: Study Figure 3.4 and Table 3.3 from P@Polley2011. RE=MSE
+relative to the linear model OLS.)
+
+------------------------------------------------------------------------
+
+# Theoretical result
+@LeDell2015 (page 6)
+
+-   Oracle selector: the estimator among all possible weighted
+    combinations of the base prediction function that minimizes the risk
+    under the *true data generating distribution*.
+    
+    
+-   The *oracle result* was established for the Super Learner by @vanderLaanPolleyHubbard2007
+    
+    
+-   If the *true prediction function* cannot be represented by a
+    combination of the base learners (available), then "optimal" will be
+    the closest linear combination that would be optimal if the true
+    data-generating function was known.
+    
+    
+-   The oracle result require an *uniformly bounded loss function*.
+    Using the convex restriction (sum alphas =1) implies that if each
+    based learner is bounded so is the convex combination. In practice:
+    truncation of the predicted values to the range of the outcome in
+    the training set is sufficient to allow for unbounded loss functions
+
+
+------------------------------------------------------------------------
+
+## Uncertainty in the ensemble
+
+(Class notes: Study "Road map" 2 from @Polley2011)
+
+-   Add an outer (external) cross validation loop (where the super
+    learner loop is inside). Suggestion: use 20-fold, especially when
+    small sample size.
+    
+-   Overfitting? Check if the super learner does as well or better than
+    any of the base learners in the ensemble.
+    
+-   Results using *influence functions* for estimation of the variance
+    for the Super Learner are based on asymptotic variances in the use
+    of $V$-fold cross-validation (see Ch 5.3 of @LeDell2015)
+
+------------------------------------------------------------------------
+
+## Other issues
+
+-   Many different implementations available, and much work on parallell
+    processing and speed and memory efficient execution.
+    
+-   Super Learner implicitly can handle hyperparameter tuning by
+    including the same base learner with different model parameter sets
+    in the ensemble.
+    
+-   Speed and memory improvements for large data sets involves
+    subsampling, and the R `subsemble` package is one solution, the H2o
+    package another.
+
+------------------------------------------------------------------------
+
+```{r}
+#| out.width: 100%"
+include_graphics("../../Figures/SuperLearnerAlgo.png")
+```
+
+---
+
+```{r}
+#| out.width: 100%"
+include_graphics("../../Figures/SuperLearnerMeta.png")
+```
+
+
+# R example from H2o-package
+<https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/stacked-ensembles.html>
+
+Python examples available from the same page
+
+The Higgs boson data is used - but which version is not specified, maybe this
+<https://archive.ics.uci.edu/ml/datasets/HIGGS>
+or a specifically made data set. The problem is binary, so maybe to detect signal vs noise.
+
+\footnotesize
+
+```{r}
+#| eval: true
+#| echo: true
+h2o.init()
+
+# Import a sample binary outcome train/test set into H2O
+train <- h2o.importFile("https://s3.amazonaws.com/erin-data/higgs/higgs_train_10k.csv")
+test <- h2o.importFile("https://s3.amazonaws.com/erin-data/higgs/higgs_test_5k.csv")
+
+# Identify predictors and response
+y <- "response"
+x <- setdiff(names(train), y)
+
+# For binary classification, response should be a factor
+train[, y] <- as.factor(train[, y])
+test[, y] <- as.factor(test[, y])
+
+print(dim(train))
+print(colnames(train))
+print(dim(test))
+
+# Number of CV folds (to generate level-one data for stacking)
+nfolds <- 5
+
+# There are a few ways to assemble a list of models to stack toegether:
+# 1. Train individual models and put them in a list
+
+
+# 1. Generate a 2-model ensemble (GBM + RF)
+
+# Train & Cross-validate a GBM
+my_gbm <- h2o.gbm(x = x,
+                  y = y,
+                  training_frame = train,
+                  distribution = "bernoulli",
+                  ntrees = 10,
+                  max_depth = 3,
+                  min_rows = 2,
+                  learn_rate = 0.2,
+                  nfolds = nfolds,
+                  keep_cross_validation_predictions = TRUE,
+                  seed = 1)
+
+# Train & Cross-validate a RF
+my_rf <- h2o.randomForest(x = x,
+                          y = y,
+                          training_frame = train,
+                          ntrees = 50,
+                          nfolds = nfolds,
+                          keep_cross_validation_predictions = TRUE,
+                          seed = 1)
+```
+
+---
+
+## Now the default metalearner
+
+Default metalearner: Options include 'AUTO' (GLM with non negative weights; if validation_frame is present, a lambda search is performed)
+
+\footnotesize
+
+```{r}
+#| echo: true
+# Train a stacked ensemble using the GBM and RF above
+ensemble <- h2o.stackedEnsemble(x = x,
+                                y = y,
+                                training_frame = train,
+                                base_models = list(my_gbm, my_rf))
+# default metalearner_transform should be NONE
+#print(summary(ensemble))
+#ensemble@model
+# Eval ensemble performance on a test set
+perf <- h2o.performance(ensemble, newdata = test)
+
+# Compare to base learner performance on the test set
+perf_gbm_test <- h2o.performance(my_gbm, newdata = test)
+perf_rf_test <- h2o.performance(my_rf, newdata = test)
+baselearner_best_auc_test <- max(h2o.auc(perf_gbm_test), h2o.auc(perf_rf_test))
+ensemble_auc_test <- h2o.auc(perf)
+print(sprintf("Best Base-learner Test AUC:  %s", baselearner_best_auc_test))
+print(sprintf("Ensemble Test AUC:  %s", ensemble_auc_test))
+# [1] "Best Base-learner Test AUC:  0.76979821502548"
+# [1] "Ensemble Test AUC:  0.773501212640419"
+
+# Generate predictions on a test set (if neccessary)
+pred <- h2o.predict(ensemble, newdata = test)
+print(head(pred))
+```
+
+---
+
+\footnotesize
+```{r}
+#| echo: true
+#| eval: false
+metalearner_model
+Model Details:
+==============
+
+H2OBinomialModel: glm
+Model ID:  metalearner_AUTO_StackedEnsemble_model_R_1677945156774_1824 
+GLM Model: summary
+    family  link                                regularization number_of_predictors_total number_of_active_predictors number_of_iterations
+1 binomial logit Elastic Net (alpha = 0.5, lambda = 8.399E-5 )                          2                           2                    3
+                                                training_frame
+1 levelone_training_StackedEnsemble_model_R_1677945156774_1824
+
+Coefficients: glm coefficients
+                           names coefficients standardized_coefficients
+1                      Intercept    -3.603549                  0.149102
+2 GBM_model_R_1677945156774_1086     3.298011                  0.493334
+3 DRF_model_R_1677945156774_1214     3.809905                  0.701246
+```
+
+---
+
+Adding transform "logit"
+
+\footnotesize
+```{r}
+#| echo: true
+# Train a stacked ensemble using the GBM and RF above
+ensemble <- h2o.stackedEnsemble(x = x,
+                                y = y,
+                                training_frame = train,
+                                base_models = list(my_gbm, my_rf),
+                                metalearner_transform = "Logit")
+#print(summary(ensemble))
+#print(ensemble@model)
+
+# Eval ensemble performance on a test set
+perf <- h2o.performance(ensemble, newdata = test)
+
+# Compare to base learner performance on the test set
+perf_gbm_test <- h2o.performance(my_gbm, newdata = test)
+perf_rf_test <- h2o.performance(my_rf, newdata = test)
+baselearner_best_auc_test <- max(h2o.auc(perf_gbm_test), h2o.auc(perf_rf_test))
+ensemble_auc_test <- h2o.auc(perf)
+print(sprintf("Best Base-learner Test AUC:  %s", baselearner_best_auc_test))
+print(sprintf("Ensemble Test AUC:  %s", ensemble_auc_test))
+
+# Generate predictions on a test set (if neccessary)
+pred <- h2o.predict(ensemble, newdata = test)
+print(head(pred))
+```
+
+---
+
+\footnotesize
+```{r}
+#| echo: true
+#| eval: false
+$metalearner_model
+Model Details:
+==============
+
+H2OBinomialModel: glm
+Model ID:  metalearner_AUTO_StackedEnsemble_model_R_1677945156774_1830 
+GLM Model: summary
+    family  link                                regularization number_of_predictors_total number_of_active_predictors number_of_iterations
+1 binomial logit Elastic Net (alpha = 0.5, lambda = 3.885E-4 )                          2                           2                    3
+                                                training_frame
+1 levelone_training_StackedEnsemble_model_R_1677945156774_1830
+
+Coefficients: glm coefficients
+                           names coefficients standardized_coefficients
+1                      Intercept    -0.053725                  0.154528
+2 GBM_model_R_1677945156774_1086     0.791767                  0.515081
+3 DRF_model_R_1677945156774_1214     0.845217                  0.731991
+```
+
+---
+
+```{r}
+#| eval: false
+# https://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/stacked-ensembles.html
+# 2. Generate a random grid of models and stack them together
+
+# GBM Hyperparamters
+learn_rate_opt <- c(0.01, 0.03)
+max_depth_opt <- c(3, 4, 5, 6, 9)
+sample_rate_opt <- c(0.7, 0.8, 0.9, 1.0)
+col_sample_rate_opt <- c(0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8)
+hyper_params <- list(learn_rate = learn_rate_opt,
+                     max_depth = max_depth_opt,
+                     sample_rate = sample_rate_opt,
+                     col_sample_rate = col_sample_rate_opt)
+
+search_criteria <- list(strategy = "RandomDiscrete",
+                        max_models = 3,
+                        seed = 1)
+
+gbm_grid <- h2o.grid(algorithm = "gbm",
+                     grid_id = "gbm_grid_binomial",
+                     x = x,
+                     y = y,
+                     training_frame = train,
+                     ntrees = 10,
+                     seed = 1,
+                     nfolds = nfolds,
+                     keep_cross_validation_predictions = TRUE,
+                     hyper_params = hyper_params,
+                     search_criteria = search_criteria)
+
+# Train a stacked ensemble using the GBM grid
+ensemble <- h2o.stackedEnsemble(x = x,
+                                y = y,
+                                training_frame = train,
+                                base_models = gbm_grid@model_ids)
+
+# Eval ensemble performance on a test set
+perf <- h2o.performance(ensemble, newdata = test)
+
+# Compare to base learner performance on the test set
+.getauc <- function(mm) h2o.auc(h2o.performance(h2o.getModel(mm), newdata = test))
+baselearner_aucs <- sapply(gbm_grid@model_ids, .getauc)
+baselearner_best_auc_test <- max(baselearner_aucs)
+ensemble_auc_test <- h2o.auc(perf)
+print(sprintf("Best Base-learner Test AUC:  %s", baselearner_best_auc_test))
+print(sprintf("Ensemble Test AUC:  %s", ensemble_auc_test))
+# [1] "Best Base-learner Test AUC:  0.748146530400473"
+# [1] "Ensemble Test AUC:  0.773501212640419"
+
+# Generate predictions on a test set (if neccessary)
+pred <- h2o.predict(ensemble, newdata = test)
+
+# 2. Train a grid of models
+# 3. Train several grids of models
+# Note: All base models must have the same cross-validation folds and
+# the cross-validated predicted values must be kept.
+
+```
+
+
+# References
+
+::: {#refs}
+:::
+

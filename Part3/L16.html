@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mette Langaas">
-<meta name="dcterms.date" content="2023-02-27">
+<meta name="dcterms.date" content="2023-03-08">
 
 <title>MA8701 Advanced methods in statistical inference and learning</title>
 <style>
@@ -85,25 +85,6 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
 </style>
 
 
@@ -130,10 +111,13 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#choosing-hyperparameters" id="toc-choosing-hyperparameters" class="nav-link active" data-scroll-target="#choosing-hyperparameters">Choosing hyperparameters</a>
+  <li><a href="#before-we-start" id="toc-before-we-start" class="nav-link active" data-scroll-target="#before-we-start">Before we start</a>
+  <ul class="collapse">
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  </ul></li>
+  <li><a href="#choosing-hyperparameters" id="toc-choosing-hyperparameters" class="nav-link" data-scroll-target="#choosing-hyperparameters">Choosing hyperparameters</a>
   <ul class="collapse">
   <li><a href="#surrogate-methods" id="toc-surrogate-methods" class="nav-link" data-scroll-target="#surrogate-methods">Surrogate methods</a></li>
-  <li><a href="#design-of-experiments-and-response-surface-methodology" id="toc-design-of-experiments-and-response-surface-methodology" class="nav-link" data-scroll-target="#design-of-experiments-and-response-surface-methodology">Design of experiments and response surface methodology</a></li>
   <li><a href="#bayesian-optimization" id="toc-bayesian-optimization" class="nav-link" data-scroll-target="#bayesian-optimization">Bayesian optimization</a>
   <ul class="collapse">
   <li><a href="#gaussian-processes" id="toc-gaussian-processes" class="nav-link" data-scroll-target="#gaussian-processes">Gaussian processes</a></li>
@@ -146,13 +130,9 @@ div.csl-indent {
   <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
   <li><a href="#suggested-software" id="toc-suggested-software" class="nav-link" data-scroll-target="#suggested-software">Suggested software</a></li>
   </ul></li>
+  <li><a href="#design-of-experiments-and-response-surface-methodology" id="toc-design-of-experiments-and-response-surface-methodology" class="nav-link" data-scroll-target="#design-of-experiments-and-response-surface-methodology">Design of experiments and response surface methodology</a></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a>
-  <ul class="collapse">
-  <li><a href="#super-learner" id="toc-super-learner" class="nav-link" data-scroll-target="#super-learner">Super Learner</a></li>
-  <li><a href="#hyperparameter-tuning" id="toc-hyperparameter-tuning" class="nav-link" data-scroll-target="#hyperparameter-tuning">Hyperparameter tuning</a></li>
-  </ul></li>
-  <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1">References</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
 </div>
@@ -180,7 +160,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 27, 2023</p>
+      <p class="date">March 8, 2023</p>
     </div>
   </div>
   
@@ -194,6 +174,16 @@ div.csl-indent {
 
 </div>
 <p>Course homepage: <a href="https://wiki.math.ntnu.no/ma8701/2023v/start" class="uri">https://wiki.math.ntnu.no/ma8701/2023v/start</a></p>
+<section id="before-we-start" class="level1">
+<h1>Before we start</h1>
+<section id="literature" class="level2">
+<h2 class="anchored" data-anchor-id="literature">Literature</h2>
+<ul>
+<li><p>Hyperparameter tuning with Bayesian Optimization. Frazier (2018): “A tutorial on Bayesian optimization”, https://arxiv.org/abs/1807.02811: Sections 1,2,3,4.1, 5: only the section “Noisy evaluations”, 6,7.</p></li>
+<li><p>G. A. Lujan-Moreno, P. R. Howard, O. G. Rojas and D. C. Montgomery (2018): Design of experiments and response surface methodology to tune machine learning hyperparameters, with a random forest case- study. Expert Systems with Applications. 109, 195-205.</p></li>
+</ul>
+</section>
+</section>
 <section id="choosing-hyperparameters" class="level1">
 <h1>Choosing hyperparameters</h1>
 <ul>
@@ -202,10 +192,10 @@ div.csl-indent {
 </ul>
 <hr>
 <p><em>Hyperparameters</em> are parameters than cannot be directly estimated from data. This may be model parameters (the <span class="math inline">\(\lambda\)</span> in lasso) or parameters that influence the fitting of the model (e.g.&nbsp;related to some optimization algorithm).</p>
-<p>We have already studied hyperparameter tuning for the lasso, ridge, elastic net, random forest, and boosting - with the use of cross-validation of some loss function for a predefined set of hyperparameter values.</p>
-<p>The use of ensembles like the Super Learner may be seen as an alternative to hyperparameter tuning.</p>
+<p>We have already studied hyperparameter tuning for the lasso, ridge, elastic net, random forest, and boosting - with the use of cross-validation of some loss function for a predefined set (grid) of hyperparameter values.</p>
+<p>The use of ensembles like the stacked ensemble (Super Learner) may be seen as an alternative to hyperparameter tuning.</p>
 <hr>
-<p>Overview of advices from Berent Å.S. Lunde on tuning parameters in xbgoost (written out after the lecture and approved by Berent):</p>
+<p>Overview of advices from Berent Å.S. Lunde on tuning parameters in xbgoost (from 2021):</p>
 <p><strong>Ways to speed-up computation:</strong></p>
 <ul>
 <li>Higher learning-rate, then tune the number of boosting iterations.</li>
@@ -228,7 +218,7 @@ div.csl-indent {
 <p>The hyperparameters may be continuous (penalty parameter), discrete (number of layers in a neural network, applying early stopping or not) or categorical (choose between different optimizers).</p>
 <p>The choice of hyperparameters is important, and will often directly affect the model complexity, and unwise choices may lead to overfitting.</p>
 <hr>
-<p>Hyperparametertuning is performed using a separate validation set or by cross-validation. Different loss functions or selection criteria may be used (MSE, AUC, misclassification rate, …).</p>
+<p>Hyperparametertuning is performed using a separate validation set or by cross-validation. Different loss functions or selection criteria may be used (MSE, ROC-AUC, misclassification rate, …).</p>
 <p>The hyperparameter tuning is often referred to as a black-box optimization because we (usually) only calculate loss function values (with CV) and do not get to compute gradients.</p>
 <p>What may be challenges with hyperparameter optimization?</p>
 <hr>
@@ -252,10 +242,6 @@ div.csl-indent {
 <section id="surrogate-methods" class="level2">
 <h2 class="anchored" data-anchor-id="surrogate-methods">Surrogate methods</h2>
 <p>We will look at two types of surrogate models: Bayesian regression with Gaussian processes (in Bayesian optimization) and regression-type models in response surface methods.</p>
-</section>
-<section id="design-of-experiments-and-response-surface-methodology" class="level2">
-<h2 class="anchored" data-anchor-id="design-of-experiments-and-response-surface-methodology">Design of experiments and response surface methodology</h2>
-<p>G. A. Lujan-Moreno, P. R. Howard, O. G. Rojas and D. C. Montgomery (2018): Design of experiments and response surface methodology to tune machine learning hyperparameters, with a random forest case- study. Expert Systems with Applications. 109, 195-205.</p>
 <hr>
 </section>
 <section id="bayesian-optimization" class="level2">
@@ -282,7 +268,7 @@ div.csl-indent {
 <ul>
 <li>times or locations <span class="math inline">\(x_i\)</span>, <span class="math inline">\(i=1,\ldots,n\)</span> in <span class="math inline">\(\Re^d\)</span>, where</li>
 <li><span class="math inline">\(Y_i=Y(x_i)\)</span> is a random variable at <span class="math inline">\(x_i\)</span></li>
-<li>such that <span class="math inline">\({\bf Y}=(Y_1,\ldots,Y_n)\)</span> is multivariate Gaussian.</li>
+<li>such that <span class="math inline">\({\boldsymbol Y}=(Y_1,\ldots,Y_n)\)</span> is multivariate Gaussian.</li>
 </ul>
 <p>The process is <em>first order (mean) stationary</em> if <span class="math inline">\(\text{E}(Y(x))=\mu\)</span> for all <span class="math inline">\(x\)</span>, and this can be extended to depend on covariates.</p>
 <p>The process is <em>second order stationary</em> if <span class="math inline">\(\text{Var}(Y(x))=\sigma^2\)</span> for all <span class="math inline">\(x\)</span> and the correlation <span class="math inline">\(\text{Corr}(Y(x),Y(x'))\)</span> only depends on differences between <span class="math inline">\(x\)</span> and <span class="math inline">\(x'\)</span>.</p>
@@ -302,15 +288,15 @@ div.csl-indent {
 <p><span class="math display">\[\text{Corr}(Y(x),Y(x´))=(1+\phi_M \Vert x - x' \Vert)\exp(-\phi_M \Vert x - x' \Vert)\]</span></p>
 <p>now with decay-describing parameter <span class="math inline">\(\phi_M\)</span>.</p>
 <p>The parameters of the kernels need to be estimated, see Ch 3.2 of Frazier 2018 (who use a slightly different parameterization). We will just assume that these parameters are known.</p>
-<p>(Class notes: study Figure 4 of Eidsvik, 2018.)</p>
+<p>(Class notes: study Figure 4 and 5 of Eidsvik, 2018.)</p>
 <hr>
 </section>
 <section id="from-correlations-into-covariance-matrix" class="level4">
 <h4 class="anchored" data-anchor-id="from-correlations-into-covariance-matrix">From correlations into covariance matrix</h4>
-<p>For simplicty assume that <span class="math inline">\(d=1\)</span>. The number of positions to consider is <span class="math inline">\(n\)</span>.</p>
-<p>To get from correlation function to a <span class="math inline">\(n \times n\)</span> covariance matrix first construct a <span class="math inline">\(n \times n\)</span> matrix of distances for each pair of positions, denote this <span class="math inline">\({\bf H}\)</span>.</p>
+<p>For simplicity assume that <span class="math inline">\(d=1\)</span>. The number of positions to consider is <span class="math inline">\(n\)</span>.</p>
+<p>To get from correlation function to a <span class="math inline">\(n \times n\)</span> covariance matrix first construct a <span class="math inline">\(n \times n\)</span> matrix of distances for each pair of positions, denote this <span class="math inline">\({\boldsymbol H}\)</span>.</p>
 <p>For the Matern-type correlation function the covariance matrix can then be written</p>
-<p><span class="math display">\[ \Sigma=\sigma^2 (1+\phi_M {\bf H}) \otimes \exp(-\phi_M {\bf H}))\]</span> where <span class="math inline">\(\otimes\)</span> is elementwise multiplication.</p>
+<p><span class="math display">\[ \Sigma=\sigma^2 (1+\phi_M {\boldsymbol H}) \otimes \exp(-\phi_M {\boldsymbol H}))\]</span> where <span class="math inline">\(\otimes\)</span> is elementwise multiplication.</p>
 <p>See Eidsvik (2018, Ch 3.2 and 3.3) for how to build covariance matrices in an efficient way.</p>
 <hr>
 </section>
@@ -318,20 +304,20 @@ div.csl-indent {
 <section id="multivariate-normal-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="multivariate-normal-distribution">Multivariate normal distribution</h3>
 <p>aka multivariate Gaussian distribution. Known from TMA4265 and TMA4267.</p>
-<p>The random vector <span class="math inline">\(\mathbf{Y}_{p\times 1}\)</span> is multivariate normal <span class="math inline">\(N_p\)</span> with mean <span class="math inline">\(\mathbf{\mu}\)</span> and (positive definite) covariate matrix <span class="math inline">\(\Sigma\)</span>. The pdf is:</p>
-<p><span class="math display">\[f(\mathbf{Y})=\frac{1}{(2\pi)^\frac{p}{2}|\Sigma|^\frac{1}{2}} \exp\{-\frac{1}{2}(\mathbf{Y}-\mathbf{\mu})^T\Sigma^{-1}(\mathbf{Y}-\mathbf{\mu})\}\]</span></p>
+<p>The random vector <span class="math inline">\(\boldsymbol{Y}_{p\times 1}\)</span> is multivariate normal <span class="math inline">\(N_p\)</span> with mean <span class="math inline">\(\boldsymbol{\mu}\)</span> and (positive definite) covariate matrix <span class="math inline">\(\Sigma\)</span>. The pdf is:</p>
+<p><span class="math display">\[f(\boldsymbol{Y})=\frac{1}{(2\pi)^\frac{p}{2}|\Sigma|^\frac{1}{2}} \exp\{-\frac{1}{2}(\boldsymbol{Y}-\boldsymbol{\mu})^T\Sigma^{-1}(\boldsymbol{Y}-\boldsymbol{\mu})\}\]</span></p>
 <p>Six useful properties of the mvN - we need number 6.</p>
-<p>Let <span class="math inline">\(\mathbf{Y}_{(p\times 1)}\)</span> be a random vector from <span class="math inline">\(N_p(\mathbf{\mu},\Sigma)\)</span>.</p>
+<p>Let <span class="math inline">\(\boldsymbol{Y}_{(p\times 1)}\)</span> be a random vector from <span class="math inline">\(N_p(\boldsymbol{\mu},\Sigma)\)</span>.</p>
 <ol type="1">
 <li>The grapical contours of the mvN are ellipsoids (can be shown using spectral decomposition).</li>
-<li>Linear combinations of components of <span class="math inline">\(\mathbf{Y}\)</span> are (multivariate) normal (can be easily proven using moment generating functions MGF).</li>
-<li>All subsets of the components of <span class="math inline">\(\mathbf{Y}\)</span> are (multivariate) normal (special case of the above).</li>
+<li>Linear combinations of components of <span class="math inline">\(\boldsymbol{Y}\)</span> are (multivariate) normal (can be easily proven using moment generating functions MGF).</li>
+<li>All subsets of the components of <span class="math inline">\(\boldsymbol{Y}\)</span> are (multivariate) normal (special case of the above).</li>
 </ol>
 <hr>
 <ol start="4" type="1">
 <li>Zero covariance implies that the corresponding components are independently distributed (can be proven using MGF).</li>
-<li><span class="math inline">\(\mathbf{A}\Sigma\mathbf{B}^T=\mathbf{0} \Leftrightarrow \mathbf{A}\mathbf{Y}\)</span> and <span class="math inline">\(\mathbf{B}\mathbf{Y}\)</span> are independent.</li>
-<li>The conditional distributions of the components are (multivariate) normal. <span class="math display">\[\mathbf{Y}_2 \mid (\mathbf{Y}_1=\mathbf{Y}_1) \sim N_{p2}(\mathbf{\mu}_2+\Sigma_{21}\Sigma_{11}^{-1} (\mathbf{Y}_1-\mathbf{\mu}_1),\Sigma_{22}-\Sigma_{21}\Sigma_{11}^{-1}\Sigma_{12}).\]</span></li>
+<li><span class="math inline">\(\boldsymbol{A}\Sigma\boldsymbol{B}^T=\boldsymbol{0} \Leftrightarrow \boldsymbol{A}\boldsymbol{Y}\)</span> and <span class="math inline">\(\boldsymbol{B}\boldsymbol{Y}\)</span> are independent.</li>
+<li>The conditional distributions of the components are (multivariate) normal. <span class="math display">\[\boldsymbol{Y}_2 \mid (\boldsymbol{Y}_1=\boldsymbol{Y}_1) \sim N_{p2}(\boldsymbol{\mu}_2+\Sigma_{21}\Sigma_{11}^{-1} (\boldsymbol{Y}_1-\boldsymbol{\mu}_1),\Sigma_{22}-\Sigma_{21}\Sigma_{11}^{-1}\Sigma_{12}).\]</span></li>
 </ol>
 <hr>
 </section>
@@ -343,6 +329,7 @@ div.csl-indent {
 <li><p>we have evaluated our function at all possible points <span class="math inline">\(x\)</span>, and must return a solution based on what we already have evaluated. If the evaluation is noise-less we need to return the point with the largest observed value <span class="math inline">\(f\)</span>.</p></li>
 <li><p>Correction: We may perform one more evaluation. If we choose <span class="math inline">\(x\)</span> we observe <span class="math inline">\(f(x)\)</span>, and the best point before that was <span class="math inline">\(f^{*}_n\)</span>. The improvement at the new observation is then <span class="math display">\[ \max(f(x)-f^{*}_n,0)\]</span></p></li>
 </ol>
+<p>(In class study Figure 1 of Frazier 2018)</p>
 <hr>
 <ol start="3" type="1">
 <li>We define the <em>expected improvement</em> as</li>
@@ -492,16 +479,16 @@ div.csl-indent {
 <pre><code># A tibble: 10 × 9
     mtry trees .metric .estimator  mean     n std_err .config              .iter
    &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                &lt;int&gt;
- 1     6   204 rmse    standard    3.16     5   0.231 Iter6                    6
- 2     7   315 rmse    standard    3.17     5   0.257 Iter10                  10
- 3     6   319 rmse    standard    3.19     5   0.254 Iter7                    7
- 4     6   210 rmse    standard    3.19     5   0.262 Iter2                    2
- 5     6   196 rmse    standard    3.20     5   0.252 Preprocessor1_Model…     0
- 6     6   296 rmse    standard    3.22     5   0.256 Preprocessor1_Model…     0
- 7     7   204 rmse    standard    3.22     5   0.287 Iter5                    5
- 8     8   305 rmse    standard    3.23     5   0.280 Preprocessor1_Model…     0
- 9     7   333 rmse    standard    3.23     5   0.271 Iter8                    8
-10     9   452 rmse    standard    3.24     5   0.283 Preprocessor1_Model…     0</code></pre>
+ 1     4   333 rmse    standard    3.26     5   0.439 Preprocessor1_Model…     0
+ 2     6   423 rmse    standard    3.26     5   0.416 Preprocessor1_Model…     0
+ 3     4   500 rmse    standard    3.28     5   0.442 Iter4                    4
+ 4     5   336 rmse    standard    3.29     5   0.446 Iter1                    1
+ 5     6   347 rmse    standard    3.29     5   0.411 Preprocessor1_Model…     0
+ 6     6   500 rmse    standard    3.29     5   0.413 Iter6                    6
+ 7     7   500 rmse    standard    3.30     5   0.411 Iter3                    3
+ 8     8   399 rmse    standard    3.32     5   0.393 Preprocessor1_Model…     0
+ 9     9   186 rmse    standard    3.33     5   0.367 Preprocessor1_Model…     0
+10     9   477 rmse    standard    3.34     5   0.384 Preprocessor1_Model…     0</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="L16_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
@@ -539,16 +526,16 @@ div.csl-indent {
 <pre><code># A tibble: 10 × 9
     mtry trees .metric .estimator  mean     n std_err .config              .iter
    &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                &lt;int&gt;
- 1     7   311 rmse    standard    3.16     5   0.238 Iter9                    9
- 2     7   122 rmse    standard    3.18     5   0.268 Iter10                  10
- 3     6   101 rmse    standard    3.18     5   0.248 Iter7                    7
- 4     7   102 rmse    standard    3.18     5   0.255 Iter4                    4
- 5     7   249 rmse    standard    3.18     5   0.270 Preprocessor1_Model…     0
- 6     7   500 rmse    standard    3.19     5   0.259 Iter3                    3
- 7     6   278 rmse    standard    3.19     5   0.255 Preprocessor1_Model…     0
- 8     8   113 rmse    standard    3.19     5   0.257 Preprocessor1_Model…     0
- 9     6   164 rmse    standard    3.21     5   0.258 Iter8                    8
-10     7   101 rmse    standard    3.21     5   0.290 Iter5                    5</code></pre>
+ 1     5   499 rmse    standard    3.25     5   0.447 Iter6                    6
+ 2     4   313 rmse    standard    3.29     5   0.452 Iter5                    5
+ 3     7   445 rmse    standard    3.29     5   0.399 Preprocessor1_Model…     0
+ 4     5   453 rmse    standard    3.30     5   0.436 Iter8                    8
+ 5     6   498 rmse    standard    3.31     5   0.429 Iter2                    2
+ 6     4   500 rmse    standard    3.31     5   0.451 Iter1                    1
+ 7     7   500 rmse    standard    3.31     5   0.402 Iter9                    9
+ 8     5   258 rmse    standard    3.32     5   0.416 Preprocessor1_Model…     0
+ 9     8   496 rmse    standard    3.33     5   0.398 Iter4                    4
+10     4   231 rmse    standard    3.33     5   0.433 Iter10                  10</code></pre>
 </div>
 <details>
 <summary>Code</summary>
@@ -580,19 +567,15 @@ div.csl-indent {
 <hr>
 </section>
 </section>
+<section id="design-of-experiments-and-response-surface-methodology" class="level2">
+<h2 class="anchored" data-anchor-id="design-of-experiments-and-response-surface-methodology">Design of experiments and response surface methodology</h2>
+<p>G. A. Lujan-Moreno, P. R. Howard, O. G. Rojas and D. C. Montgomery (2018): Design of experiments and response surface methodology to tune machine learning hyperparameters, with a random forest case- study. Expert Systems with Applications. 109, 195-205.</p>
+<p>See separate slide-deck made by Håkon Gryvill, Yngvild Hamre and Javier Aguilar for the article presentation in MA8701 in the spring of 2021.</p>
+<hr>
+</section>
 </section>
 <section id="references" class="level1">
 <h1>References</h1>
-<section id="super-learner" class="level2">
-<h2 class="anchored" data-anchor-id="super-learner">Super Learner</h2>
-<ul>
-<li><p>Erin Le Dell (2015): <a href="https://escholarship.org/uc/item/3kb142r2">Scalable Ensemble Learning and Computationally Efficient Variance Estimation. PhD Thesis, University of California, Berkeley.</a></p></li>
-<li><p>Mark J. van der Laan, Eric C. Polley, Alan E. Hubbard (2007): Super Learner, Statistical Applications in Genetics and Molecular Biology, 6, 1, 25</p></li>
-<li><p>Eric C. Polley, Sherri Rose, Mark J. van der Laan (2011): Super Learning. Chapter 3 of M. J. van der Laan and S. Rose. Targeted Learning, Springer.</p></li>
-</ul>
-</section>
-<section id="hyperparameter-tuning" class="level2">
-<h2 class="anchored" data-anchor-id="hyperparameter-tuning">Hyperparameter tuning</h2>
 <ul>
 <li><p>M. Feurer and F. Hutter (2019). In F. Hutter et al (eds.) Automated Machine Learning. The Springer Series on Challenges in Machine Learning.</p></li>
 <li><p>Jo Eidsvik (2017): Introduction to Gaussian processes, note to TMA4265.</p></li>
@@ -601,27 +584,6 @@ div.csl-indent {
 <li><p>Roger Gosse, University of Toronto: CSC321 Lecture 21: Bayesian Hyperparameter Optimization. <a href="http://www.cs.toronto.edu/~rgrosse/courses/csc321_2017/slides/lec21.pdf" class="uri">http://www.cs.toronto.edu/~rgrosse/courses/csc321_2017/slides/lec21.pdf</a></p></li>
 <li><p>Max Kuhn (2020). caret: Classification and Regression Training. R package version 6.0-86. <a href="https://CRAN.R-project.org/package=caret" class="uri">https://CRAN.R-project.org/package=caret</a></p></li>
 </ul>
-</section>
-</section>
-<section id="references-1" class="level1">
-<h1>References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-Bagging" class="csl-entry" role="doc-biblioentry">
-Breiman, Leo. 1996. <span>“Bagging Predictors.”</span> <em>Machine Learning</em> 24: 123–40.
-</div>
-<div id="ref-casi" class="csl-entry" role="doc-biblioentry">
-Efron, Bradley, and Trevor Hastie. 2016. <em>Computer Age Statistical Inference - Algorithms, Evidence, and Data Science</em>. Cambridge University Press. <a href="https://hastie.su.domains/CASI/">https://hastie.su.domains/CASI/</a>.
-</div>
-<div id="ref-ESL" class="csl-entry" role="doc-biblioentry">
-Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. Vol. 2. Springer series in statistics New York. <a href="https://hastie.su.domains/ElemStatLearn">hastie.su.domains/ElemStatLearn</a>.
-</div>
-<div id="ref-ISL" class="csl-entry" role="doc-biblioentry">
-James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 112. Springer.
-</div>
-<div id="ref-Ripley" class="csl-entry" role="doc-biblioentry">
-Ripley, Brian D. 1996. <em>Pattern Recognicion and Neural Networks</em>. Cambridge University Press.
-</div>
-</div>
 </section>
 
 </main>
