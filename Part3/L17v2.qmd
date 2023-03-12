@@ -1,6 +1,8 @@
 ---
 title: "MA8701 Advanced methods in statistical inference and learning"
 author: "Mette Langaas"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+subtitle: 'Part 3: Ensembles. L17: Evaluating and comparing results from prediction models'
 format: 
   html: 
     toc: true
@@ -16,9 +18,10 @@ format:
     incremental: false
     aspectratio: 43
     navigation: frame
+editor: 
+  markdown: 
+    wrap: 72
 ---
-
-<!--- subtitle: "Part 3: Ensembles. L17: Evaluating and comparing results from prediction models" --->
 
 ```{r}
 #| eval: true
@@ -49,10 +52,11 @@ suppressPackageStartupMessages(library(cvAUC))
 
 Course homepage: <https://wiki.math.ntnu.no/ma8701/2023v/start>
 
+
 # Before we start
 
 ```{r}
-#| out.width: 50%"
+#| out.width: 40%"
 include_graphics("../../Figures/Part3flow.jpg")
 ```
 
@@ -203,7 +207,7 @@ classrf=predict(rf,newdata=test)
 rfpred = predict(rf,test, type = "prob")[,2]
 ```
 
---
+---
 
 ### Test set classification
 
@@ -217,6 +221,7 @@ table(test$diabetes, classrf)
 ```
 
 ---
+
 
 ## Binomial CI
 
@@ -248,6 +253,20 @@ Exact versions (not using asymptotic normality) are the
 ---
 
 ```{r}
+#| out.width: 100%"
+include_graphics("../../Figures/CPcoverage.jpg")
+```
+
+---
+
+```{r}
+#| out.width: 100%"
+include_graphics("../../Figures/blaker.jpg")
+```
+
+---
+
+```{r}
 #| echo: false
 normint=function(X,n,conf.level=0.95) 
 {
@@ -256,6 +275,8 @@ normint=function(X,n,conf.level=0.95)
   return(c(phat-add,phat+add))
 }
 ```
+
+\footnotesize
 
 ```{r}
 print("lasso")
@@ -271,6 +292,7 @@ binom.blaker.limits(X,M)
 
 ---
 
+\footnotesize
 ```{r}
 print("randomforest")
 X=sum(classrf==test$diabetes)
@@ -323,6 +345,8 @@ An exact conditional $p$-value can also be calculated by enumeration.
 
 ---
 
+\footnotesize
+
 ```{r,echo=TRUE}
 tab=table(classlasso==test$diabetes,classrf==test$diabetes)
 tab 
@@ -371,6 +395,13 @@ We would like that a classification rule have both a high sensitivity and a high
 
 ---
 
+```{r}
+#| out.width: 80%"
+include_graphics("../../Figures/actpred.jpg")
+```
+
+---
+
 Other useful quantities:
 
 | Name | Definition | Synonoms |
@@ -411,6 +442,7 @@ Below we use:
 
 ---
 
+\footnotesize
 ```{r}
 lassoroc=roc(test$diabetes, predlasso)
 ggroc(lassoroc)+ggtitle("Lasso")
@@ -418,6 +450,7 @@ ggroc(lassoroc)+ggtitle("Lasso")
 
 ---
 
+\footnotesize
 ```{r}
 print("Lasso ROC-AUC with CI")
 auc(lassoroc)
@@ -426,6 +459,7 @@ ci(lassoroc)
 
 ---
 
+\footnotesize
 ```{r}
 rfroc=roc(test$diabetes, rfpred)
 ggroc(rfroc)+ggtitle("RF")
@@ -433,6 +467,7 @@ ggroc(rfroc)+ggtitle("RF")
 
 ---
 
+\footnotesize
 ```{r}
 print("RF ROC-AUC with CI")
 ci(rfroc)
@@ -677,7 +712,6 @@ and are happy with that.
 
 ---
 
-
 ### ROC-AUC on CV data
 
 For the ROC-AUC two different strategies are possible:
@@ -700,7 +734,7 @@ where $(X_1,Y_1)$ and $(X_2,Y_2)$ are samples from $P_0$.
 
 The empirical AUC can be written
 
-$$AUC(P_n,f)=\frac{n_0n_1}\sum_{i=1}^{n_0}\sum_{j=1}^{n_1}I(f(X_j)>f(X_i))$$
+$$AUC(P_n,f)=\frac{1}{n_0n_1}\sum_{i=1}^{n_0}\sum_{j=1}^{n_1}I(f(X_j)>f(X_i))$$
 where $n_0$ is the number of observations with $Y=0$ and $n_1$ with $Y=1$.
 
 ---
@@ -708,7 +742,6 @@ where $n_0$ is the number of observations with $Y=0$ and $n_1$ with $Y=1$.
 To arrive at an estimator based on $V$-fold CV the empirical formula above is used for each fold and then the $V$-fold CV ROC-AUC is the average of this over the folds. 
 
 The influence function (a core idea of the phd of LeDell) is used to find the variance of the cross-validated ROC-AUC (taking into account the correlation between folds) and to establish a CI. This is implemented in the R-package `cvAUC`.
-
 
 ---
 
@@ -784,6 +817,7 @@ Then the test is based on a paired t-test on the difference in error rates of th
 
 Comparing misclassification rates for two prediction models: Dietterich (1998) show in a simulation study that using McNemars test on the _training data_ gives a valid test (in the situations he studied).
 
+
 # References
 
 * A. Agresti (2002): Categorical data analysis (2nd edition). John Wiley and Sons.
@@ -814,5 +848,6 @@ estimation. Phd Thesis (2015). <https://github.com/ledell/phd-thesis>
 * G. Vanwinckelen and H. Blockeel (2012): On Estimating Model Accuracy with Repeated Cross-Validation. Proceedings of BeneLarn and PMLS. 
 *  Wolpert, David (1996), "The Lack of A Priori Distinctions between Learning Algorithms", Neural Computation, pp. 1341–1390. 
 * Tzu-Tsung Wong; Nai-Yu Yang (2017): Dependency Analysis of Accuracy Estimates in k-Fold Cross Validation IEEE Transactions on Knowledge and Data Engineering ( Volume: 29, Issue: 11, https://ieeexplore.ieee.org/document/8012491
+
 
 

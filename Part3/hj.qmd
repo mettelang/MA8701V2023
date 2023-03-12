@@ -677,7 +677,6 @@ and are happy with that.
 
 ---
 
-
 ### ROC-AUC on CV data
 
 For the ROC-AUC two different strategies are possible:
@@ -711,7 +710,6 @@ The influence function (a core idea of the phd of LeDell) is used to find the va
 
 
 ---
-
 \footnotesize
 
 ```{r}
@@ -814,5 +812,4 @@ estimation. Phd Thesis (2015). <https://github.com/ledell/phd-thesis>
 * G. Vanwinckelen and H. Blockeel (2012): On Estimating Model Accuracy with Repeated Cross-Validation. Proceedings of BeneLarn and PMLS. 
 *  Wolpert, David (1996), "The Lack of A Priori Distinctions between Learning Algorithms", Neural Computation, pp. 1341–1390. 
 * Tzu-Tsung Wong; Nai-Yu Yang (2017): Dependency Analysis of Accuracy Estimates in k-Fold Cross Validation IEEE Transactions on Knowledge and Data Engineering ( Volume: 29, Issue: 11, https://ieeexplore.ieee.org/document/8012491
-
 
