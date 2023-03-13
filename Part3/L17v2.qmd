@@ -45,9 +45,9 @@ suppressPackageStartupMessages(library(tidymodels))
 suppressPackageStartupMessages(library(glmnet))
 suppressPackageStartupMessages(library(corrplot)) #for ROC curves
 suppressPackageStartupMessages(library(correlation)) #for ROC curves
-suppressPackageStartupMessages(library(BlakerCI)) 
+suppressPackageStartupMessages(library(BlakerCI))
+suppressPackageStartupMessages(library(precrec)) 
 suppressPackageStartupMessages(library(cvAUC)) 
-#suppressPackageStartupMessages(library(SuperLearner))
 ```
 
 Course homepage: <https://wiki.math.ntnu.no/ma8701/2023v/start>
@@ -187,6 +187,7 @@ colnames(test)=colnames(Pima.te)[c(1:7,9)]
 
 ```{r}
 # logistic lasso
+set.seed(87)
 xs=model.matrix(~.-diabetes,data=train)[,-1] 
 xstest=model.matrix(~.-diabetes,data=test)[,-1] 
 fitlasso=glmnet(xs,train$diabetes,family=binomial(link="logit"))
@@ -202,6 +203,7 @@ classlasso=ifelse(predlasso > 0.5, 1, 0)
 
 ```{r}
 # randomforest
+set.seed(87)
 rf=randomForest(factor(diabetes)~.,data=train,mtry=2,ntree=500,importance=TRUE)
 classrf=predict(rf,newdata=test)
 rfpred = predict(rf,test, type = "prob")[,2]
@@ -444,8 +446,16 @@ Below we use:
 
 \footnotesize
 ```{r}
-lassoroc=roc(test$diabetes, predlasso)
+lassoroc=pROC::roc(response=as.vector(test$diabetes), predictor=predlasso)
 ggroc(lassoroc)+ggtitle("Lasso")
+```
+
+---
+
+```{r}
+lassomm=mmdata(scores=predlasso,labels=test$diabetes)
+curves=evalmod(lassomm)
+plot(curves)
 ```
 
 ---
@@ -453,16 +463,24 @@ ggroc(lassoroc)+ggtitle("Lasso")
 \footnotesize
 ```{r}
 print("Lasso ROC-AUC with CI")
-auc(lassoroc)
-ci(lassoroc)
+pROC::auc(lassoroc)
+pROC::ci(lassoroc)
 ```
 
 ---
 
 \footnotesize
 ```{r}
-rfroc=roc(test$diabetes, rfpred)
+rfroc=pROC::roc(as.vector(test$diabetes), rfpred)
 ggroc(rfroc)+ggtitle("RF")
+```
+
+---
+
+```{r}
+RFmm=mmdata(scores=rfpred,labels=test$diabetes)
+curves=evalmod(RFmm)
+plot(curves)
 ```
 
 ---
@@ -470,9 +488,9 @@ ggroc(rfroc)+ggtitle("RF")
 \footnotesize
 ```{r}
 print("RF ROC-AUC with CI")
-ci(rfroc)
+pROC::ci(rfroc)
 print("Comparing AUC for lasso and RF")
-roc.test(lassoroc,rfroc,paired=TRUE)
+pROC::roc.test(lassoroc,rfroc,paired=TRUE)
 ```
 
 ---

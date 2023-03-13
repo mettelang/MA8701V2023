@@ -324,7 +324,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 
 </div>
-<p>–</p>
+<hr>
 <section id="test-set-classification" class="level3">
 <h3 class="anchored" data-anchor-id="test-set-classification">Test set classification</h3>
 <p>223 non-diabetes and 109 diabetes cases</p>
@@ -344,8 +344,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output cell-output-stdout">
 <pre><code>   classrf
       0   1
-  0 193  30
-  1  44  65</code></pre>
+  0 192  31
+  1  47  62</code></pre>
 </div>
 </div>
 <hr>
@@ -424,7 +424,7 @@ probability of success
 <pre><code>[1] "Normal approx CI"</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7323405 0.8218763</code></pre>
+<pre><code>[1] 0.7194560 0.8106645</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Clopper Pearson CI"</code></pre>
@@ -434,19 +434,19 @@ probability of success
     Exact binomial test
 
 data:  X and M
-number of successes = 258, number of trials = 332, p-value &lt; 2.2e-16
+number of successes = 254, number of trials = 332, p-value &lt; 2.2e-16
 alternative hypothesis: true probability of success is not equal to 0.5
 95 percent confidence interval:
- 0.7284615 0.8207345
+ 0.7156949 0.8096267
 sample estimates:
 probability of success 
-             0.7771084 </code></pre>
+             0.7650602 </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Blaker CI"</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7295334 0.8201579</code></pre>
+<pre><code>[1] 0.7159697 0.8096206</code></pre>
 </div>
 </div>
 <hr>
@@ -482,8 +482,8 @@ probability of success
 <div class="cell-output cell-output-stdout">
 <pre><code>       
         FALSE TRUE
-  FALSE    50   18
-  TRUE     24  240</code></pre>
+  FALSE    52   16
+  TRUE     26  238</code></pre>
 </div>
 <details>
 <summary>Code</summary>
@@ -494,7 +494,7 @@ probability of success
     McNemar's Chi-squared test
 
 data:  tab
-McNemar's chi-squared = 0.85714, df = 1, p-value = 0.3545</code></pre>
+McNemar's chi-squared = 2.381, df = 1, p-value = 0.1228</code></pre>
 </div>
 <details>
 <summary>Code</summary>
@@ -505,13 +505,13 @@ McNemar's chi-squared = 0.85714, df = 1, p-value = 0.3545</code></pre>
     Exact binomial test
 
 data:  tab[1, 2] and tab[1, 2] + tab[2, 1]
-number of successes = 18, number of trials = 42, p-value = 0.4408
+number of successes = 16, number of trials = 42, p-value = 0.1641
 alternative hypothesis: true probability of success is not equal to 0.5
 95 percent confidence interval:
- 0.2772067 0.5903887
+ 0.2357205 0.5436325
 sample estimates:
 probability of success 
-             0.4285714 </code></pre>
+             0.3809524 </code></pre>
 </div>
 </div>
 <hr>
@@ -635,6 +635,12 @@ probability of success
 </div>
 <hr>
 <div class="cell">
+<div class="cell-output-display">
+<p><img src="L17v2_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Lasso ROC-AUC with CI"</code></pre>
 </div>
@@ -648,7 +654,13 @@ probability of success
 <hr>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L17v2_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<p><img src="L17v2_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L17v2_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <hr>
@@ -657,7 +669,7 @@ probability of success
 <pre><code>[1] "RF ROC-AUC with CI"</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>95% CI: 0.7736-0.8691 (DeLong)</code></pre>
+<pre><code>95% CI: 0.7752-0.8705 (DeLong)</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Comparing AUC for lasso and RF"</code></pre>
@@ -667,13 +679,13 @@ probability of success
     DeLong's test for two correlated ROC curves
 
 data:  lassoroc and rfroc
-Z = 2.4179, p-value = 0.01561
+Z = 2.4435, p-value = 0.01455
 alternative hypothesis: true difference in AUC is not equal to 0
 95 percent confidence interval:
- 0.00683753 0.06536389
+ 0.006846719 0.062351455
 sample estimates:
 AUC of roc1 AUC of roc2 
-  0.8574485   0.8213478 </code></pre>
+  0.8574485   0.8228494 </code></pre>
 </div>
 </div>
 <hr>
@@ -768,7 +780,7 @@ AUC of roc1 AUC of roc2
 <hr>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L17v2_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+<p><img src="L17v2_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <hr>
@@ -800,7 +812,7 @@ AUC of roc1 AUC of roc2
 <hr>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L17v2_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+<p><img src="L17v2_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <hr>
@@ -836,7 +848,7 @@ AUC of roc1 AUC of roc2
 <p>The starting point is that the ROC-AUC theoretically can be interpreted as: “the probability that a randomly selected positive sample will rank higher than a randomly selected negative sample”.</p>
 <p><span class="math display">\[AUC(P_0,f)=P_0(f(X_1)&gt;f(X_2) | Y_1=1,Y_2=0)\]</span> where <span class="math inline">\((X_1,Y_1)\)</span> and <span class="math inline">\((X_2,Y_2)\)</span> are samples from <span class="math inline">\(P_0\)</span>.</p>
 <p>The empirical AUC can be written</p>
-<p><span class="math display">\[AUC(P_n,f)=\frac{n_0n_1}\sum_{i=1}^{n_0}\sum_{j=1}^{n_1}I(f(X_j)&gt;f(X_i))\]</span> where <span class="math inline">\(n_0\)</span> is the number of observations with <span class="math inline">\(Y=0\)</span> and <span class="math inline">\(n_1\)</span> with <span class="math inline">\(Y=1\)</span>.</p>
+<p><span class="math display">\[AUC(P_n,f)=\frac{1}{n_0n_1}\sum_{i=1}^{n_0}\sum_{j=1}^{n_1}I(f(X_j)&gt;f(X_i))\]</span> where <span class="math inline">\(n_0\)</span> is the number of observations with <span class="math inline">\(Y=0\)</span> and <span class="math inline">\(n_1\)</span> with <span class="math inline">\(Y=1\)</span>.</p>
 <hr>
 <p>To arrive at an estimator based on <span class="math inline">\(V\)</span>-fold CV the empirical formula above is used for each fold and then the <span class="math inline">\(V\)</span>-fold CV ROC-AUC is the average of this over the folds.</p>
 <p>The influence function (a core idea of the phd of LeDell) is used to find the variance of the cross-validated ROC-AUC (taking into account the correlation between folds) and to establish a CI. This is implemented in the R-package <code>cvAUC</code>.</p>
