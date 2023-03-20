@@ -1,0 +1,124 @@
+---
+title: "MA8701 Advanced methods in statistical inference and learning"
+author: "Mette Langaas IMF/NTNU"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: 3
+    latex_engine: xelatex
+  beamer_presentation:
+    slide_level: 1
+    keep_tex: yes
+    latex_engine: xelatex
+  html_document:
+    toc: yes
+    toc_float: yes
+    code_download: yes
+    toc_depth: 3
+subtitle: 'L19 with Kjersti Aas'
+bibliography: ./ref.bib
+---
+  
+```{r setup, include=FALSE,echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE,warning = FALSE, error = FALSE)
+suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(iml))
+suppressPackageStartupMessages(library(ICEbox))
+suppressPackageStartupMessages(library(ALEPlot))
+suppressPackageStartupMessages(library(pdp))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(glmnet))
+suppressPackageStartupMessages(library(randomForest))
+suppressPackageStartupMessages(library(MASS))
+suppressPackageStartupMessages(library(ggpubr))
+suppressPackageStartupMessages(library(caret)) #for confusion matrices
+suppressPackageStartupMessages(library(pROC)) #for ROC curves
+suppressPackageStartupMessages(library(corrplot)) #for ROC curves
+suppressPackageStartupMessages(library(correlation)) #for ROC curves
+```
+
+
+# LIME
+
+## R-code
+
+Fitting random forest with the ranger package to the bike data.
+
+```{r}
+# download manually
+#"https://github.com/christophM/interpretable‐ml‐book/blob/master/data/bike.Rdata"
+load("bike.Rdata")
+colnames(bike)
+
+n=dim(bike)[1]
+bikeTrain=bike[1:600,]
+bikeTest<-bike[601:n,]
+
+library(lime)
+library(ranger)
+predict_model.ranger <- function(x,newdata,type)
+{
+pred.rf <- predict(x, data = newdata)
+switch(
+type,
+raw = data.frame(Response = res$class, stringsAsFactors = FALSE),
+prob = as.data.frame(pred.rf$predictions[,2])
+)
+}
+
+model_type.ranger <- function(x, ...)
+{
+'regression'
+}
+
+model<- ranger(cnt ~ ., data = bikeTrain, num.trees = 50, num.threads = 6,
+verbose = TRUE,
+probability = FALSE,
+importance = "impurity",
+mtry = sqrt(27))
+
+print(model)
+```
+
+Using `lime` to explain the random forest for test observationos 10:14 using `n_features=5` and `kernel_width=3`.
+
+
+```{r}
+explainer <- lime::lime(
+bikeTrain,
+model = model,
+#bin_continuous = FALSE
+bin_continuous = TRUE,
+n_bins = 10,
+quantile_bins=TRUE
+)
+explanationLime <- explain(
+bikeTest[10:14,-11],
+explainer = explainer,
+#n_labels = 1,
+n_features = 5,
+n_permutations = 5000,
+feature_select = "auto",
+kernel_width = 3)
+lime::plot_features(explanationLime,
+ncol = 2)
+```
+
+## References for further reading
+
+* The original LIME article @lime2016
+* this blog post by the authors <https://www.oreilly.com/content/introduction-to-local-interpretable-model-agnostic-explanations-lime/>
+
+
+# Counterfactuals
+
+Supplemental reading is Dandletal2020 and @Wachter2018.
+
+Software in R at <https://github.com/susanne-207/moc>.
+
+
+# <a id="further">References</a>
+
+
