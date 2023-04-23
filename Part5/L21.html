@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mette Langaas">
+<meta name="dcterms.date" content="2023-04-13">
+
+<title>MA8701 Advanced methods in statistical inference and learning</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="L21_files/libs/clipboard/clipboard.min.js"></script>
+<script src="L21_files/libs/quarto-html/quarto.js"></script>
+<script src="L21_files/libs/quarto-html/popper.min.js"></script>
+<script src="L21_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="L21_files/libs/quarto-html/anchor.min.js"></script>
+<link href="L21_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="L21_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="L21_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="L21_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="L21_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#outline" id="toc-outline" class="nav-link active" data-scroll-target="#outline">Outline</a></li>
+  <li><a href="#learning-outcome" id="toc-learning-outcome" class="nav-link" data-scroll-target="#learning-outcome">Learning outcome</a>
+  <ul class="collapse">
+  <li><a href="#knowledge" id="toc-knowledge" class="nav-link" data-scroll-target="#knowledge">1. Knowledge</a></li>
+  <li><a href="#skills" id="toc-skills" class="nav-link" data-scroll-target="#skills">2. Skills</a></li>
+  <li><a href="#competence" id="toc-competence" class="nav-link" data-scroll-target="#competence">3. Competence</a></li>
+  <li><a href="#compulsory-activity-2023" id="toc-compulsory-activity-2023" class="nav-link" data-scroll-target="#compulsory-activity-2023">Compulsory activity 2023</a></li>
+  </ul></li>
+  <li><a href="#take-home-messages-from-the-data-analysis-project" id="toc-take-home-messages-from-the-data-analysis-project" class="nav-link" data-scroll-target="#take-home-messages-from-the-data-analysis-project">Take home messages from the Data analysis project</a>
+  <ul class="collapse">
+  <li><a href="#short-overview-of-the-five-data-analysis-projects" id="toc-short-overview-of-the-five-data-analysis-projects" class="nav-link" data-scroll-target="#short-overview-of-the-five-data-analysis-projects">Short overview of the five data analysis projects</a>
+  <ul class="collapse">
+  <li><a href="#team-supergreat" id="toc-team-supergreat" class="nav-link" data-scroll-target="#team-supergreat">Team SuperGreat</a></li>
+  <li><a href="#team-cdf" id="toc-team-cdf" class="nav-link" data-scroll-target="#team-cdf">Team CDF</a></li>
+  <li><a href="#team-balance" id="toc-team-balance" class="nav-link" data-scroll-target="#team-balance">Team Balance</a></li>
+  <li><a href="#team-jaa" id="toc-team-jaa" class="nav-link" data-scroll-target="#team-jaa">Team JAA</a></li>
+  <li><a href="#team-jkp" id="toc-team-jkp" class="nav-link" data-scroll-target="#team-jkp">Team JKP</a></li>
+  </ul></li>
+  <li><a href="#group-work" id="toc-group-work" class="nav-link" data-scroll-target="#group-work">Group work</a></li>
+  <li><a href="#common-themes" id="toc-common-themes" class="nav-link" data-scroll-target="#common-themes">Common themes</a>
+  <ul class="collapse">
+  <li><a href="#negative-or-no-results" id="toc-negative-or-no-results" class="nav-link" data-scroll-target="#negative-or-no-results">Negative (or no) results!</a></li>
+  <li><a href="#badly-behaved-data" id="toc-badly-behaved-data" class="nav-link" data-scroll-target="#badly-behaved-data">Badly behaved data</a></li>
+  <li><a href="#regression-model" id="toc-regression-model" class="nav-link" data-scroll-target="#regression-model">Regression model</a></li>
+  <li><a href="#methods-for-model-selection" id="toc-methods-for-model-selection" class="nav-link" data-scroll-target="#methods-for-model-selection">Methods for model selection</a></li>
+  <li><a href="#comparing-results-across-data-sets-and-modelsmethods" id="toc-comparing-results-across-data-sets-and-modelsmethods" class="nav-link" data-scroll-target="#comparing-results-across-data-sets-and-modelsmethods">Comparing results across data sets and models/methods</a></li>
+  <li><a href="#data-leakage" id="toc-data-leakage" class="nav-link" data-scroll-target="#data-leakage">Data leakage</a></li>
+  </ul></li>
+  <li><a href="#missing-imputation" id="toc-missing-imputation" class="nav-link" data-scroll-target="#missing-imputation">Missing imputation</a>
+  <ul class="collapse">
+  <li><a href="#combining-several-challenges" id="toc-combining-several-challenges" class="nav-link" data-scroll-target="#combining-several-challenges">Combining several challenges</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#evaluation-oral-exam" id="toc-evaluation-oral-exam" class="nav-link" data-scroll-target="#evaluation-oral-exam">Evaluation: Oral exam</a></li>
+  <li><a href="#plan-ahead" id="toc-plan-ahead" class="nav-link" data-scroll-target="#plan-ahead">Plan ahead</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">MA8701 Advanced methods in statistical inference and learning</h1>
+<p class="subtitle lead">Part 5: Closing</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mette Langaas </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 13, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="outline" class="level1">
+<h1>Outline</h1>
+<ul>
+<li>Learning outcomes and compulsory activity</li>
+<li>Take home messages from the Data analysis project <!-- * Final reading list --></li>
+<li>Final evaluation</li>
+<li>Plan for the last three sessions!</li>
+</ul>
+</section>
+<section id="learning-outcome" class="level1">
+<h1>Learning outcome</h1>
+<p>(The student should be able to)</p>
+<section id="knowledge" class="level2">
+<h2 class="anchored" data-anchor-id="knowledge">1. Knowledge</h2>
+<ul>
+<li>Understand and explain the central theoretical aspects in statistical inference and learning.</li>
+<li>Understand and explain how to use methods from statistical inference and learning to perform a sound data analysis.</li>
+<li>Be able to evaluate strengths and weaknesses for the methods and choose between different methods in a given data analysis situation.</li>
+</ul>
+<hr>
+</section>
+<section id="skills" class="level2">
+<h2 class="anchored" data-anchor-id="skills">2. Skills</h2>
+<p>Be able to analyse a dataset using methods from statistical inference and learning in practice (using R or Python), and give a good presentation and discussion of the choices done and the results found.</p>
+</section>
+<section id="competence" class="level2">
+<h2 class="anchored" data-anchor-id="competence">3. Competence</h2>
+<ul>
+<li>The students will be able to participate in scientific discussions, read research presented in statistical journals.</li>
+<li>They will be able to participate in applied projects, and analyse data using methods from statistical inference and learning.</li>
+</ul>
+</section>
+<section id="compulsory-activity-2023" class="level2">
+<h2 class="anchored" data-anchor-id="compulsory-activity-2023">Compulsory activity 2023</h2>
+<ul>
+<li>Data analysis project (analyse, write report, review)</li>
+<li>Article presentation (present and discuss)</li>
+</ul>
+<!-- ## Some observations about the course -->
+<!-- **Agree?** -->
+<!-- * Mainly a frequentist course, but some of the concepts and methods have a Bayesian version that might give insight into why and how the methods work, then Bayesian methods will be used. -->
+<!-- * Focus is on regression and classification, and unsupervised learning is not planned to be part of the course. -->
+<!-- * The required previous knowledge is listed because this is a PhD-course designed for statistics students. The background make the students go past an overview level of understanding of the course parts (move from algorithmic to deep understanding). -->
+<!-- --- -->
+<!-- ## "Required" previous knowledge -->
+<!-- **Many of you did not have this required knowledge - how important was that?** -->
+<!-- * TMA4267 Linear statistical methods -->
+<!-- * TMA4268 Statistical learning -->
+<!-- * TMA4295 Statistical inference -->
+<!-- * TMA4300 Computer intensive statistical methods -->
+<!-- * TMA4315 Generalized linear models -->
+<!-- * Good understanding and experience with R, or with Python, for statistical data analysis. -->
+<!-- * Knowledge of markdown for writing reports and presentations (Rmarkdown/Quarto, Jupyther). -->
+<!-- * Skills in group work - possibly using git or other collaborative tools. -->
+</section>
+</section>
+<section id="take-home-messages-from-the-data-analysis-project" class="level1">
+<h1>Take home messages from the Data analysis project</h1>
+<section id="short-overview-of-the-five-data-analysis-projects" class="level2">
+<h2 class="anchored" data-anchor-id="short-overview-of-the-five-data-analysis-projects">Short overview of the five data analysis projects</h2>
+<section id="team-supergreat" class="level3">
+<h3 class="anchored" data-anchor-id="team-supergreat">Team SuperGreat</h3>
+<ul>
+<li>Data set: Framingham coronary heart disease (CHD), N=4238, p=15 (categorical, binary, continuous), binary response (15.2% cases).</li>
+<li>Aim: Understanding effects of covariates for prediction of CHD (10 years follow-up) and compare complete case and single imputation results.</li>
+<li>Missing: 13.7% in total (highest for glucose with 9%)</li>
+<li>Methods used: Single imputation vs complete case, boostrapping, lasso logistic and logistic regression, AIC.</li>
+<li>Result: important risk factors are age, male, systolic blood pressure, glucose (and for the imputed data also cigarettes pr day smoked).</li>
+</ul>
+<hr>
+</section>
+<section id="team-cdf" class="level3">
+<h3 class="anchored" data-anchor-id="team-cdf">Team CDF</h3>
+<ul>
+<li>Data set: wine quality, N=6497, p=12 (binary, continuous), binary response (from dividing approximately in two).</li>
+<li>Aim: investigate how different physiochemical variables affect wine quality.</li>
+<li>Missing: 22.5 % in total (but not all imputed)</li>
+<li>Methods used: Single imputation vs complete case, lasso logistic and logistic regression, polyheder inference, train-test split for ROC-AUC.</li>
+<li>Result: important variables for wine quality was volatile acidity, residual suger, free sulfur dioxide, total sulfr dioxide, sulphates and alcohol.</li>
+</ul>
+<hr>
+</section>
+<section id="team-balance" class="level3">
+<h3 class="anchored" data-anchor-id="team-balance">Team Balance</h3>
+<ul>
+<li>Data set: robotic arm kinematic data, N=17560 but reduce to N=176 to avoid time series correlations, p=28.</li>
+<li>Aim: A theoretical model for the movement of the robot arm exists, involving trigonometrical functions - giving background to considering a sum of second order polynomials of the covariates. The aim is then to arrive at an interpretable simplified model.</li>
+<li>Missing: no missing data.</li>
+<li>Methods used: ACF/PACF, train-test split, OLS, elastic net, multi-sample splitting (median) on training data.</li>
+<li>Result: Only one covariate “left” after multi-splitting, and this covariate did not give a sensible physical interpretation.</li>
+</ul>
+<hr>
+</section>
+<section id="team-jaa" class="level3">
+<h3 class="anchored" data-anchor-id="team-jaa">Team JAA</h3>
+<ul>
+<li>Data set: superconductor critical temperature, N=21263, p=82 (wery multicollinear), response: continuous critial temperature.</li>
+<li>Aim: To construct a prediction metod for the critical temperature of the superconductor so that the important factors influencing the critical temperature is understood. “Critical temperature (of a substance) can be defined as the highest possible temperature value at which the substance can exist as a liquid.”</li>
+<li>Missing: no missing data (?)</li>
+<li>Methods: Forward selection with least squares, lasso, group lasso. Bootstrapping on single split data.</li>
+<li>Results: None of the models gave a small and interpretable model.</li>
+</ul>
+<hr>
+</section>
+<section id="team-jkp" class="level3">
+<h3 class="anchored" data-anchor-id="team-jkp">Team JKP</h3>
+<ul>
+<li>Data set: Genome-wide association study, N=1796 p=183155 SNPs (for model selection) + 4 (23) clinical covariates, response=length of house sparrow wing at age 1 year.</li>
+<li>Aim: Which SNPs are associated with the reponse?</li>
+<li>Missing: present. Quality control defaults to removing SNPs and individuals with high missing rate. For the remaining missing data are imputed by single (mean) imputation (and often totally imputed SNPs are analysed).</li>
+<li>Method: Lasso regression (with snpnet and manual 10-fold CV for <span class="math inline">\(\lambda\)</span>) and multi-sample splitting.</li>
+<li>Results: all SNPs had adjusted <span class="math inline">\(p\)</span>-values of 1. No findings.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="group-work" class="level2">
+<h2 class="anchored" data-anchor-id="group-work">Group work</h2>
+<ol type="1">
+<li>For all groups</li>
+</ol>
+<ul>
+<li>What are you most proud of in your work?</li>
+<li>What could have been done differently?</li>
+<li>Choose one learning experience to share!</li>
+</ul>
+<ol start="2" type="1">
+<li><p>Specific questions for each group on paper hand-out</p></li>
+<li><p>If you finish before we summarize: Discuss your study plan for the oral exam</p></li>
+</ol>
+</section>
+<section id="common-themes" class="level2">
+<h2 class="anchored" data-anchor-id="common-themes">Common themes</h2>
+<section id="negative-or-no-results" class="level3">
+<h3 class="anchored" data-anchor-id="negative-or-no-results">Negative (or no) results!</h3>
+<hr>
+</section>
+<section id="badly-behaved-data" class="level3">
+<h3 class="anchored" data-anchor-id="badly-behaved-data">Badly behaved data</h3>
+<hr>
+</section>
+<section id="regression-model" class="level3">
+<h3 class="anchored" data-anchor-id="regression-model">Regression model</h3>
+<p>A linear regression model (or the linear predictor in the GLM) is linear in the regression parameters,</p>
+<p>not necessarily in the covariates. In addition interaction term may be needed for a good model.</p>
+<p>For tree-based methods any non-linearity in the covariates and interactions between covariates are <em>easily</em> picked up, but for methods like the lasso, we need to specify the linear predictor ourselves.</p>
+<p>How to make sure the “right” linear predictor is used?</p>
+<hr>
+</section>
+<section id="methods-for-model-selection" class="level3">
+<h3 class="anchored" data-anchor-id="methods-for-model-selection">Methods for model selection</h3>
+<hr>
+</section>
+<section id="comparing-results-across-data-sets-and-modelsmethods" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-results-across-data-sets-and-modelsmethods">Comparing results across data sets and models/methods</h3>
+<hr>
+</section>
+<section id="data-leakage" class="level3">
+<h3 class="anchored" data-anchor-id="data-leakage">Data leakage</h3>
+<hr>
+</section>
+</section>
+<section id="missing-imputation" class="level2">
+<h2 class="anchored" data-anchor-id="missing-imputation">Missing imputation</h2>
+<ul>
+<li>Specification of the imputation model in missing imputation</li>
+<li>Should the analysis model response be a covariate in the imputation model?</li>
+</ul>
+<hr>
+<section id="combining-several-challenges" class="level3">
+<h3 class="anchored" data-anchor-id="combining-several-challenges">Combining several challenges</h3>
+<p>There does (to my knowledge) not exists any off-shelf workflow to combine * multiple imputation * model selection * and model evaluation.</p>
+<p>How can that be done?</p>
+<!-- # Final reading list -->
+<!-- <https://wiki.math.ntnu.no/ma8701/2023v/curriculum> -->
+</section>
+</section>
+</section>
+<section id="evaluation-oral-exam" class="level1">
+<h1>Evaluation: Oral exam</h1>
+<p>May 10, 15 and 22.</p>
+<p>Pass/fail, with B as pass limit.</p>
+<ul>
+<li>On the last lecture (April 24) a list of five possible topics (questions) will be available at <a href="https://wiki.math.ntnu.no/ma8701/2021v/exam" class="uri">https://wiki.math.ntnu.no/ma8701/2021v/exam</a>.</li>
+<li>If you want you may prepare a 5-10 minutes presentation of one of the topics (bring notes, but no slides, talk and write by hand) to be held in the start of the oral exam.</li>
+<li>The rest of the exam is general questions from the reading list (no notes)</li>
+</ul>
+<p>Total duration &lt; 30 minutes.</p>
+</section>
+<section id="plan-ahead" class="level1">
+<h1>Plan ahead</h1>
+<ul>
+<li><p>Next week: <a href="https://wiki.math.ntnu.no/ma8701/2023v/assignmentsap#presentation_schedule" class="uri">https://wiki.math.ntnu.no/ma8701/2023v/assignmentsap#presentation_schedule</a></p></li>
+<li><p>Monday April 24: Discussion on central topics for each part of the course, and present the five possible topice to prepare for the first part of the oral exam.</p></li>
+</ul>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
